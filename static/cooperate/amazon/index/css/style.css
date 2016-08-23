@@ -1,0 +1,319 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
+body { background:#fff; color:#555; font-size:14px;  font-family: Arial, Hiragino Sans GB, Microsoft YaHei, SimSun; }
+td,th,caption { font-size:14px; }
+h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal;}
+a { color:#555; text-decoration:none; }
+a:hover { text-decoration:none; }
+img { border:none; }
+ol,ul,li { list-style:none; }
+input, textarea, select, button { font:14px Verdana,Helvetica,Arial,sans-serif; }
+table { border-collapse:collapse; }
+html {overflow-y: scroll;}
+.clearfix:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
+.clearfix { *zoom:1; }
+
+.all{
+    margin: 0 auto;
+    max-width: 1600px;
+    min-width: 1200px;
+    height:auto;
+    overflow: hidden;
+    background-color: #f5f5f4;
+}
+/*header*/
+.header {
+    height: auto;
+    border-top: 3px solid #191925;
+    background-color: #191925;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.header-main{
+    margin: 0 auto;
+    width: 1170px;
+    color: #ffffff;
+}
+
+.header-logo {
+    float: left;
+    height: 53px;
+    width: 200px;
+    background: url("../img/logo.png") no-repeat 58px 1px transparent;
+}
+
+.header-logo-text {
+    float: left;
+    margin-top: 25px;
+    height: 23px;
+    border-left: 2px solid #eb983a;
+    padding-left: 10px;
+    line-height: 33px;
+    margin-bottom: 0;
+}
+.header-logo-text a{
+    color: #ffffff;
+}
+.header-status{
+    box-sizing: border-box;
+    padding-top: 16px;
+    margin-right: 50px;
+}
+.header-status a{
+    color: #EF8200;
+}
+.header-status-phone,
+.header-status-login,
+.header-status-reg,
+.header-status-hello{
+    float: right;
+    height: 39px;
+    line-height: 39px;
+}
+.header-status-phone{
+    width: 213px;
+    margin: 0;
+    background: url("../img/phone.png") no-repeat 30px 8px transparent;
+    text-align: center;
+}
+.header-status-reg{
+    padding: 0 5px;
+}
+.header-status-login{
+    padding: 0 3px;
+}
+.header-status-hello{
+    padding: 0 10px;
+}
+/*reg header end*/
+/*header End*/
+
+/*banner*/
+.banner{
+    position: relative;
+    max-width: 1600px;
+    min-width: 1200px;
+    height: 800px;
+    padding-top: 1px;
+    background: url("../../index/img/banner.png") no-repeat;
+    background-size: cover;
+}
+.banner-title-font{
+    position: absolute;
+    top: 200px;
+    text-align: center;
+    width: 100%;
+    height: 200px;
+    color: #ffffff;
+
+}
+.banner-title-font h2{
+    font-size: 44px;
+    line-height: 80px;
+    font-weight: bold;
+}
+.banner-title-font h3{
+    font-size: 24px;
+}
+.oder-btn{
+    margin: 400px auto 0 auto;
+    width: 200px;
+    height: 45px;
+    text-align: center;
+}
+.oder-btn a{
+    display: block;
+    line-height: 45px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #ffffff;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    background-color: rgba(249, 129, 9, 0.7);
+}
+.oder-btn a:hover{
+    box-sizing: border-box;
+    border: 1px solid #f4a72f;
+    background-color: #ffffff;
+    color: #f4a72f;
+}
+/*banner End*/
+
+/*middle*/
+.middle{
+    margin: 0 auto;
+    max-width: 1600px;
+    min-width: 1200px;
+    height: auto;
+    overflow: hidden;
+}
+.middle-top{
+    max-width: 1600px;
+    min-width: 1200px;
+    padding: 20px 0;
+    background-color: #ffffff;
+}
+.title{
+    width: 1200px;
+    height: 90px;
+    margin: 30px  auto 0 auto;
+    text-align: center;
+}
+.fast-matching{
+    margin: 0 auto;
+    width: 790px;
+    height: 270px;
+}
+.fast-matching ul li{
+    float: left;
+    margin: 0 69px;
+    width: 124px;
+    height: 200px;
+}
+.fast-matching ul li a{
+    display: block;
+}
+.fast-matching ul li a span{
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+}
+.fast-matching p{
+    line-height: 25px;
+}
+.file-type{
+    padding: 20px 200px;
+    margin: 20px auto;
+    width: 790px;
+    height: 80px;
+    background-color: #f5f5f4;
+}
+.file-type-left{
+    float: left;
+    width: 480px;
+    height: 80px;
+}
+.file-type-left p{
+    line-height: 25px;
+}
+.file-type-right{
+    float: left;
+    width: 235px;
+    height: 67px;
+}
+.languages,.spdeed,.quality{
+    margin: 0 auto;
+    padding: 60px 0;
+    width: 790px;
+    height: auto;
+    overflow: hidden;
+}
+.languages-left{
+    float: left;
+    width: 454px;
+    height: 234px;
+}
+.languages-right{
+    float: left;
+    padding-left: 30px;
+    width: 305px;
+    height: 234px;
+}
+.languages-right h4,.speed-left h4,.quality-right h4{
+    line-height: 50px !important;
+    font-size: 16px !important;
+}
+.languages-right p,.speed-left p,.quality-right p{
+    line-height: 25px !important;
+}
+
+.speed-right{
+    float: left;
+    width: 509px;
+    height: 341px;
+}
+.speed-left{
+    float: left;
+    width: 251px;
+    height: 234px;
+    padding-right: 30px;
+}
+.quality-left{
+    float: left;
+    width: 334px;
+    height: 260px;
+}
+.quality-right{
+    float: left;
+    padding-left: 30px;
+    width: 334px;
+    height: 260px;
+}
+/*middle End*/
+/*our-service*/
+.our-service{
+    margin: 0 auto;
+    padding-top: 40px;
+    max-width: 1600px;
+    min-width: 1200px;
+    height: 632px;
+    background: url("../../index/img/our-service-img.png") no-repeat;
+    background-size: cover;
+}
+.our-service .title{
+    width: 1200px;
+    height: 90px;
+    margin: 20px auto;
+}
+.our-service .title h4{
+    color: #ffffff;
+    line-height: 30px;
+}
+.our-service ul{
+    display: block;
+    margin: 40px auto 10px auto;
+    width: 882px;
+    height: 270px;
+}
+.our-service ul li{
+    float: left;
+    width: 121px;
+    height: 121px;
+    margin: 5px 5px 0 0;
+}
+.our-service ul li a{
+    display: block;
+}
+.our-service p{
+    width: 800px;
+    margin: 0 auto;
+    line-height: 25px;
+    color: #ffffff;
+}
+/*our-service End*/
+/*partner*/
+.partner{
+    width: 1200px;
+    height: auto;
+    padding-top: 10px;
+    margin:0 auto 20px auto;
+    overflow: hidden;
+}
+.partner .title{
+    height: 50px;
+}
+.partner ul{
+    margin: 0 auto;
+    width: 800px;
+    padding: 10px 0;
+    height: 110px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+}
+.partner ul li{
+    float: left;
+    margin: 0 10px;
+}
+/*partner End*/

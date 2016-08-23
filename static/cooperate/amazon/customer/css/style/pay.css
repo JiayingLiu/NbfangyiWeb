@@ -1,0 +1,533 @@
+/*流程条*/
+.order-step {
+    position: relative;
+    box-sizing: border-box;
+    padding: 1px;
+    height: 90px;
+}
+
+.order-step-con {
+    position: relative;
+    margin: 35px auto 0;
+    height: 35px;
+    width: 1000px;
+    background-color: #dddddd;
+}
+
+.order-step-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 35px;
+    background-color: #14ac85;
+    z-index: 1;
+}
+
+.order-step-ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 35px;
+    width: 1000px;
+    list-style-type: none;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.order-step-ul li {
+    float: left;
+    height: 35px;
+    width: 16.66%;
+    line-height: 35px;
+    text-align: center;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.step {
+    background: url("../img/step.png") no-repeat 0 0 transparent;
+}
+
+/*订单支付*/
+.pay {
+    margin: 18px auto 40px;
+    width: 800px;
+    overflow: hidden;
+}
+
+/*订单的信息*/
+.order-details {
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.details-title {
+    margin: 0;
+    height: 34px;
+    line-height: 34px;
+    background-color: #c0e2d4;
+    text-align: center;
+    font-size: 14px;
+}
+
+.detail-content {
+    padding: 5px 20px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/*订单的信息结束*/
+.pay-filter {
+    height: 40px;
+}
+
+.pay-filter a {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    width: 150px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.pay-filter-selected {
+    background-color: #eb983a !important;
+    color: #ffffff;
+}
+
+.pay-type {
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+    background-color: #ffffff;
+}
+
+.pay-type-item {
+    float: left;
+    margin: 30px 20px;
+    height: 67px;
+    width: 189px;
+    background: no-repeat 0 0;
+    border: 3px solid #dddddd;
+    cursor: pointer;
+}
+
+#pay_alipay {
+    background-image: url("../img/alipay.png");
+}
+
+#pay_weixin {
+    background-image: url("../img/weixin.jpg");
+}
+
+#pay_nb {
+    display: none;
+    height: 135px;
+    padding: 10px 20px;
+}
+
+#pay_nb p {
+    margin: 20px;
+}
+
+#pay_nb p input {
+    height: 25px;
+    border: 1px solid #dddddd;
+}
+
+.link {
+    margin: 0 10px;
+}
+
+.pay-type-selected {
+    border-color: #eb983a;
+}
+
+.pay-btns {
+    margin-top: 50px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+
+.pay-ok,
+.pay-cancel {
+    padding: 10px 45px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+.pay-ok {
+    background-color: #eb983a;
+    color: #ffffff;
+}
+
+.pay-cancel {
+    background-color: #C0E2D4;
+    color: #fff;
+}
+
+.detail-content-tip {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*各种银行卡*/
+#pay_bankcard {
+    padding: 10px 0 0 0;
+    display: none;
+    overflow: hidden;
+}
+
+.bank-wrap {
+    padding: 0 0 12px 0;
+    width: 800px;
+    overflow: hidden;
+    zoom: 1;
+}
+
+.bank-item {
+    position: relative;
+    _zoom: 1;
+    float: left;
+    padding: 5px 0;
+    height: 28px;
+    width: 188px;
+    margin: 5px;
+    border: 1px solid #b0c2e1;
+    border-radius: 2px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.pay-bankcard-title {
+    margin: 5px;
+}
+
+.bank-logo {
+    display: block;
+    margin: 0 auto;
+    width: 125px;
+    height: 28px;
+    overflow: hidden;
+    background-image: url("../img/bank-logo.png");
+    background-repeat: no-repeat;
+    text-indent: -9999px;
+}
+.bank-type-selected{
+    border-color: #eb983a;
+    background-color: #ededed;
+}
+/*以下是各大银行*/
+.bank-bjrcb {
+    background-position: 0 0
+}
+
+.bank-bob {
+    background-position: 0 -28px
+}
+
+.bank-cbhb {
+    background-position: 0 -56px
+}
+
+.bank-bocd {
+    background-position: 0 -84px
+}
+
+.bank-fudian {
+    background-position: 0 -112px
+}
+
+.bank-icbc {
+    background-position: 0 -140px
+}
+
+.bank-ceb {
+    background-position: 0 -168px
+}
+
+.bank-cgb, .bank-gdb {
+    background-position: 0 -196px
+}
+
+.bank-hkb {
+    background-position: 0 -224px
+}
+
+.bank-hzb {
+    background-position: 0 -252px
+}
+
+.bank-hengfeng {
+    background-position: 0 -280px
+}
+
+.bank-hxb {
+    background-position: 0 -308px
+}
+
+.bank-ccb {
+    background-position: 0 -336px
+}
+
+.bank-jsb {
+    background-position: 0 -364px
+}
+
+.bank-bcm, .bank-bcom {
+    background-position: 0 -392px
+}
+
+.bank-jinghua {
+    background-position: 0 -420px
+}
+
+.bank-cmbc {
+    background-position: 0 -448px
+}
+
+.bank-njcb {
+    background-position: 0 -476px
+}
+
+.bank-nbcb {
+    background-position: 0 -504px
+}
+
+.bank-abc {
+    background-position: 0 -532px
+}
+
+.bank-pab {
+    background-position: 0 -560px
+}
+
+.bank-spdb {
+    background-position: 0 -588px
+}
+
+.bank-qdccb {
+    background-position: 0 -616px
+}
+
+.bank-srcb {
+    background-position: 0 -644px
+}
+
+.bank-bos, .bank-shb {
+    background-position: 0 -672px
+}
+
+.bank-sdb {
+    background-position: 0 -700px
+}
+
+.bank-wzcb {
+    background-position: 0 -728px
+}
+
+.bank-cib {
+    background-position: 0 -756px
+}
+
+.bank-cmb {
+    background-position: 0 -784px
+}
+
+.bank-zjtl {
+    background-position: 0 -812px
+}
+
+.bank-boc {
+    background-position: 0 -840px
+}
+
+.bank-post, .bank-psbc {
+    background-position: 0 -868px
+}
+
+.bank-citic {
+    background-position: 0 -896px
+}
+
+.bank-cqrcb {
+    background-position: 0 -924px
+}
+
+.bank-cqcb {
+    background-position: 0 -952px
+}
+
+.bank-gzrcc {
+    background-position: 0 -980px
+}
+
+.bank-gzcb {
+    background-position: 0 -1008px
+}
+
+.bank-hsb {
+    background-position: 0 -1036px
+}
+
+.bank-czb {
+    background-position: 0 -1064px
+}
+
+.bank-bonc {
+    background-position: 0 -1092px
+}
+
+.bank-gdnyb {
+    background-position: 0 -1120px
+}
+
+.bank-chab {
+    background-position: 0 -1148px
+}
+
+.bank-dylscz {
+    background-position: 0 -1177px
+}
+
+.bank-dzb {
+    background-position: 0 -1205px
+}
+
+.bank-lwb {
+    background-position: 0 -1904px
+}
+
+.bank-qsb {
+    background-position: 0 -1260px
+}
+
+.bank-rzb {
+    background-position: 0 -1289px
+}
+
+.bank-tab {
+    background-position: 0 -1317px
+}
+
+.bank-lsb {
+    background-position: 0 -1345px
+}
+
+.bank-wfccb {
+    background-position: 0 -1373px
+}
+
+.bank-ordos {
+    background-position: 0 -1401px
+}
+
+.bank-boxm {
+    background-position: 0 -1430px
+}
+
+.bank-bolj {
+    background-position: 0 -1456px
+}
+
+.bank-jzcb {
+    background-position: 0 -1484px
+}
+
+.bank-jjccb {
+    background-position: 0 -1512px
+}
+
+.bank-cjccb {
+    background-position: 0 -1568px
+}
+
+.bank-boly {
+    background-position: 0 -1596px
+}
+
+.bank-hubnx {
+    background-position: 0 -1623px
+}
+
+.bank-bhrcb {
+    background-position: 0 -1708px
+}
+
+.bank-hbnx {
+    background-position: 0 -1794px
+}
+
+.bank-gsnx {
+    background-position: 0 -1652px
+}
+
+.bank-bsb {
+    background-position: 0 -1820px
+}
+
+.bank-shxnx {
+    background-position: 0 -1764px
+}
+
+.bank-jsnx {
+    background-position: 0 -1681px
+}
+
+.bank-whrcb {
+    background-position: 0 -1736px
+}
+
+.bank-jzb {
+    background-position: 0 -1876px
+}
+
+.bank-drcb {
+    background-position: 0 -1848px
+}
+
+.bank-nmgnx {
+    background-position: 0 -1959px
+}
+
+.bank-pzhccb {
+    background-position: 0 -1989px
+}
+
+.bank-egb {
+    background-position: 0 -1932px
+}
+
+.bank-dyccb {
+    background-position: 0 -2045px
+}
+
+.bank-whccb {
+    background-position: 0 -2155px
+}
+
+.bank-jlnx {
+    background-position: 0 -2073px
+}
+
+.bank-sxnx {
+    background-position: 0 -2128px
+}
+
+.bank-bojn {
+    background-position: 0 -2100px
+}
+
+.bank-bozz {
+    background-position: 0 -2214px
+}
+
+.bank-ytcb {
+    background-position: 0 -2184px
+}
+
+.bank-bobd {
+    background-position: 0 -2016px
+}
+/*各种银行卡结束*/

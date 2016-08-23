@@ -1,0 +1,149 @@
+/*进度条*/
+.order-step {
+    position: relative;
+    box-sizing: border-box;
+    padding: 1px;
+    height: 90px;
+}
+
+.order-step-con {
+    position: relative;
+    margin: 35px auto 0;
+    height: 35px;
+    width: 800px;
+    background-color: #dddddd;
+}
+
+.order-step-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 35px;
+    background-color: #14ac85;
+    z-index: 1;
+}
+
+.order-step-ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 35px;
+    width: 800px;
+    list-style-type: none;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.order-step-ul li {
+    float: left;
+    height: 35px;
+    width: 16.66%;
+    line-height: 35px;
+    text-align: center;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.step {
+    background: url("../img/step.png") no-repeat 0 0 transparent;
+}
+
+/*订单支付*/
+.order-pay {
+    width: 650px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.order-details {
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.details-title {
+    margin: 0;
+    height: 34px;
+    line-height: 34px;
+    background-color: #c0e2d4;
+    text-align: center;
+    font-size: 14px;
+}
+
+.detail-content {
+    padding: 5px 20px;
+}
+
+.file-row {
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid #c0c1c1;
+    border-radius: 5px;
+}
+
+.review-content {
+    margin: 0;
+    box-sizing: border-box;
+    padding: 10px 8px;
+    height: 300px;
+    width: 640px;
+    border: 0;
+    resize: none;
+    font-size: 14px;
+    color: #5d5d5d;
+}
+
+.file-download {
+    margin: 0;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    text-align: right;
+    padding-right: 30px;
+}
+
+.btn-sm{
+    background-color: #eb983a;
+    color: #fff;
+}
+/*translator-download*/
+.myorders-table {
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid #b2b3b2;
+    border-left: 1px solid #b2b3b2;
+}
+
+.myorders-table > thead > tr > th,
+.myorders-table > tbody > tr > td {
+    border-right: 1px solid #b2b3b2;
+    border-bottom: 1px solid #b2b3b2;
+    text-align: center;
+}
+
+.myorders-table > thead > tr {
+    height: 30px;
+    background-color: #c0e2d4;
+}
+
+.myorders-table > tbody > tr {
+    height: 50px;
+}
+.myorders-table-btn{
+    display: inline-block;
+    margin: 2px;
+    width: 70px;
+    height: 20px;
+    line-height:20px;
+    background-color: #eb983a;
+    color: #ffffff;
+    border-radius:5px;
+}
+.orderlist-nodata{
+    padding: 1px;
+    height: 260px;
+    background: url(../../customer/css/img/rhinoceros.png) no-repeat 50% 30% transparent;
+}
+.orderlist-nodata p{
+    margin-top: 160px;
+}

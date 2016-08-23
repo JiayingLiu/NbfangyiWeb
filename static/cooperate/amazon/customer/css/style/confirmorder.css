@@ -1,0 +1,217 @@
+/*动态流程条*/
+.order-step {
+    position: relative;
+    box-sizing: border-box;
+    padding: 1px;
+    height: 90px;
+}
+.order-step-con {
+    position: relative;
+    margin: 35px auto 0;
+    height: 35px;
+    width: 1000px;
+    background-color: #dddddd;
+}
+
+.order-step-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 35px;
+    background-color: #14ac85;
+    z-index: 1;
+}
+
+.order-step-ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 35px;
+    width: 1000px;
+    list-style-type: none;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.order-step-ul li {
+    float: left;
+    height: 35px;
+    width: 16.66%;
+    line-height: 35px;
+    text-align: center;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.step {
+    background: url("../img/step.png") no-repeat 0 0 transparent;
+}
+
+.order-pay {
+    margin: 18px auto 40px;
+    width: 650px;
+    overflow: hidden;
+}
+
+.order-details {
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.details-title {
+    margin: 0;
+    height: 34px;
+    line-height: 34px;
+    background-color: #c0e2d4;
+    text-align: center;
+    font-size: 14px;
+}
+
+.detail-content {
+    padding: 5px 20px;
+}
+.file-review{
+    height: 175px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.review-title{
+    margin: 0;
+    height: 34px;
+    line-height: 34px;
+    background-color: #dddddd;
+    text-align: center;
+    font-size: 14px;
+}
+.review-content{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 10px 8px;
+    height: 140px;
+    width: 648px;
+    border: 0;
+    resize: none;
+    font-size: 14px;
+    color: #5d5d5d;
+}
+.file-download{
+    margin: 0;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    text-align: right;
+    padding-right: 30px;
+}
+.pay{
+    overflow: hidden;
+}
+.pay-btns{
+    height: 85px;
+    line-height: 85px;
+    text-align: center;
+}
+.pay-ok,
+.pay-cancel
+{
+    padding: 10px 45px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+.pay-ok{
+    background-color: #eb983a;
+    color: #ffffff;
+}
+.pay-cancel{
+    background-color: #C0E2D4;
+    color: #fff;
+}
+.pay-price{
+    padding: 5px 10px;
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: #eb983a;
+}
+/*translator-download*/
+.file-row {
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid #c0c1c1;
+    border-radius: 5px;
+}
+.myorders-table {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.myorders-table > thead > tr > th,
+.myorders-table > tbody > tr > td {
+
+    font-weight: normal;
+    text-align: center;
+}
+
+.myorders-table > thead > tr {
+    height: 30px;
+    background-color: #c0e2d4;
+}
+
+.myorders-table > tbody > tr {
+    height: 50px;
+}
+.myorders-table-btn{
+    display: inline-block;
+    margin: 2px;
+    width: 70px;
+    height: 20px;
+    line-height:20px;
+    background-color: #eb983a;
+    color: #ffffff;
+    border-radius:5px;
+}
+.orderlist-nodata{
+    padding: 1px;
+    height: 260px;
+    background: url(../../customer/css/img/rhinoceros.png) no-repeat 50% 30% transparent;
+}
+.orderlist-nodata p{
+    margin-top: 160px;
+}
+.order-coupon{
+    overflow: hidden;
+}
+.order-coupon dt{
+    color:#eb983a ;
+    cursor: pointer;
+}
+.order-coupon dd{
+    display: none;
+    margin-left: 0;
+    padding-left: 20px;
+    height: 32px;
+    line-height: 32px;
+    cursor: pointer;
+}
+.order-coupon dd:hover{
+    background-color: #fff;
+}
+.order-coupon dd span{
+    margin: 0 5px;
+}
+.js-coupon-seleted{
+    border:1px solid #eb983a;
+    background-color: #ffffff;
+}
+#coupon_price{
+    display: none;
+    padding: 5px 10px;
+    text-align: right;
+    font-size: 24px;
+    font-weight: bold;
+    color: #eb4208;
+}
+.text-through{
+    color: #4b4b4b;
+    text-decoration: line-through;
+}

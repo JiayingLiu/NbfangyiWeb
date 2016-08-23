@@ -1,0 +1,193 @@
+/*reset*/
+/* 清除内外边距 */
+body, h1, h2, h3, h4, h5, h6, hr, p, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+fieldset, button, input, textarea, /* form elements 表单元素 */
+th, td {
+    /* table elements 表格元素 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 设置默认字体 */
+body,
+button, input, select, textarea {
+    font-family: PingHei, "Hiragino Sans GB", "Microsoft YaHei", arial, sans-serif;
+}
+
+h1 {
+    font-size: 1.5rem; /* 18px / 12px = 1.5 */
+}
+
+h2 {
+    font-size: 1.333rem;
+}
+
+h3 {
+    font-size: 1.116rem;
+}
+
+h4, h5, h6 {
+    font-size: 100%;
+}
+
+address, cite, dfn, em, var {
+    font-style: normal;
+}
+
+/* 将斜体扶正 */
+code, kbd, pre, samp, tt {
+    font-family: "Courier New", Courier, monospace;
+}
+
+/* 统一等宽字体 */
+small {
+    font-size: 1rem;
+}
+
+/* 重置列表元素 */
+ul, ol {
+    list-style: none;
+}
+
+/* 重置文本格式元素 */
+a {
+    text-decoration: none;
+}
+
+abbr[title], acronym[title] {
+    /* 注：1.ie6 不支持 abbr; 2.这里用了属性选择符，ie6 下无效果 */
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+q:before, q:after {
+    content: '';
+}
+
+/* 重置表单元素 */
+legend {
+    color: #000;
+}
+
+/* for ie6 */
+fieldset, img {
+    border: none;
+}
+
+/* img 搭车：让链接里的 img 无边框 */
+/* 注：optgroup 无法扶正 */
+button, input, select, textarea {
+    font-size: 100%; /* 使得表单元素在 ie 下能继承字体大小 */
+}
+
+/*修正在webkit里面的附加样式*/
+button:focus, input:focus, select:focus, textarea:focus {
+    outline: none;
+}
+
+/* 重置表格元素 */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* 重置 hr */
+hr {
+    border: none;
+    height: 1px;
+}
+
+/* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
+html {
+    overflow-y: scroll;
+}
+
+body {
+    position: relative;
+}
+
+/*页面的媒体查询*/
+@media screen and (min-width:640px) and (max-width:1024px){
+    html{ font-size:22px;}
+}
+@media only screen and (max-width: 540px) {
+    /*原来168.5%*/
+    html {
+        font-size: 167%;
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    /*Plus*/
+    html {
+        font-size: 129%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    /*三星note*/
+    html {
+        font-size: 125%;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    /*ip6*/
+    html {
+        font-size: 117%;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    html {
+        font-size: 112%;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    /*ip5 ip4 */
+    html {
+        font-size: 16px;
+    }
+}
+
+@media (device-height: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+    /*兼容苹果4 */
+    body {
+        background-size: 100%;
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-stress {
+    color: #ff7302 !important;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.link:hover {
+    text-decoration: underline !important;
+}
+
+.clear {
+    clear: both;
+}

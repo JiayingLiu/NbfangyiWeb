@@ -1,0 +1,437 @@
+@import url("../public/public.css");
+
+/*order-main*/
+.order-main {
+    width: 1170px;
+    min-height: 500px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border: 1px solid #e5e5e5;
+    font-size: 14px;
+    background-color: #fff;
+    color: #666666;
+}
+
+/*order progress*/
+.order-top {
+    position: relative;
+    width: 800px;
+    height: auto;
+    margin: 40px auto 20px;
+    background-color: #e5e5e5;
+    overflow: hidden;
+}
+
+.order-top ul {
+    width: 100%;
+    height: 30px;
+    overflow: hidden;
+}
+
+.order-top ul li {
+    display: block;
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #e5e5e5;
+}
+
+.order-top ul .progress-cur {
+    background-color: #ef8200;
+}
+
+.step {
+    position: absolute;
+    top: 0;
+    right: -12px;
+    width: 25px;
+    height: 35px;
+    background: url("../../image/public/arrow.png") no-repeat 0 0 transparent;
+    z-index: 1;
+}
+
+/*order progress*/
+.order-main-contect {
+    width: 800px;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.trans-type-select-area {
+    overflow: hidden;
+}
+
+.trans-type-select-area li {
+    float: left;
+    width: 50%;
+}
+
+.trans-type-select {
+    display: inline-block;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 16px;
+    background-color: #e5e5e5;
+    color: #ffffff !important;
+}
+
+.trans-type-select:hover {
+    box-sizing: border-box;
+    border-left: 1px solid #ffffff;
+    background-color: #ef8200;
+}
+
+.trans-type-selected {
+    box-sizing: border-box;
+    border-left: 1px solid #ffffff;
+    background-color: #ef8200;
+}
+
+.order_form {
+    margin-top: 10px;
+    border-top: 1px dashed #e5e5e5;
+    padding-top: 10px;
+}
+
+.data-review {
+    margin:10px 0;
+    padding: 8px;
+    background-color: #e5e5e5;
+}
+
+.data-review input {
+    line-height: 28px;
+    border: 0;
+    padding-left: 5px;
+}
+
+.input-tip {
+    line-height: 25px;
+    font-size: 12px;
+    color: #c9c9c9;
+}
+
+.order-btn {
+    display: inline-block;
+    margin: 20px;
+    padding: 8px 25px;
+    border-radius: 5px;
+}
+
+.btn-success {
+    background-color: #ef8200;
+    color: #fff !important;
+}
+
+.btn-success:hover {
+    background-color: #ff8010;
+}
+
+.btn-primary {
+    background-color: #e5e5e5;
+    color: #666 !important;
+}
+
+.btn-primary:hover {
+    background-color: #d1d1d1;
+}
+
+.text-stronge {
+    font-size: 1.5em;
+    color: #E2393C !important;
+}
+
+/*upload override*/
+.upload-file-wrap {
+    margin: 10px auto;
+}
+
+/*upload override end*/
+/*order-main End*/
+
+/*confirm order*/
+.order-details {
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.order-details .order-details-title {
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+.order-details .order-details-content {
+    box-sizing: border-box;
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+    background-color: #F7F7F7;
+    overflow: hidden;
+}
+
+.order-details .order-details-content .order-details-content-text {
+    box-sizing: border-box;
+    padding: 5px 8px;
+    float: left;
+    width: 45%;
+}
+
+.order-details .order-details-content p {
+    line-height: 45px;
+    overflow: hidden;
+}
+
+.order-details .order-details-content span {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.order-details .order-details-content .order-details-content-image {
+    box-sizing: border-box;
+    padding: 5px 8px 5px 10px;
+    border-left: 1px dashed #cccccc;
+    float: left;
+    width: 55%;
+}
+
+.order-details .order-details-content .order-details-content-image .order-details-img {
+    float: left;
+    margin-top: 3px;
+    vertical-align: top;
+}
+
+.order-details .order-details-content .order-details-content-image a {
+    float: left;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 3px;
+}
+
+.order-details .order-details-content .order-details-content-image .order-details-num {
+    float: left;
+    margin-left: 3px;
+    color: #005ea7;
+}
+
+/*coupon*/
+.order-coupons-wrap {
+    width: 100%;
+    overflow: hidden;
+    clear: both;
+}
+
+.order-coupons-wrap a {
+    color: #005ea7;
+    height: 25px;
+    line-height: 25px;
+    margin-top: 7px;
+}
+
+.order-coupons {
+    position: relative;
+    width: 100%;
+    clear: both;
+}
+
+.order-coupons dt {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    padding: 5px 8px;
+    border-top: 1px solid #A3D1EC;
+    border-left: 1px solid #A3D1EC;
+    border-right: 1px solid #A3D1EC;
+    background-color: #eefaff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.order-coupons dt span {
+    color: #ef8200;
+}
+
+.order-coupons dd {
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 25px;
+    padding: 10px;
+    background-color: #eefaff;
+    border-top: 1px solid #A3D1EC;
+    border-bottom: 1px solid #A3D1EC;
+    border-left: 1px solid #A3D1EC;
+    border-right: 1px solid #A3D1EC;
+    overflow: hidden;
+}
+
+.order-coupons .order-coupons-tip {
+    line-height: 25px;
+    border-bottom: 1px dashed #A3D1EC;
+}
+
+.order-coupons .order-coupons-item {
+    box-sizing: border-box;
+    padding-left: 20px;
+    line-height: 25px;
+    border: 1px solid transparent;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.order-coupons .order-coupons-item:hover {
+    background-color: #fff;
+}
+
+.order-coupons .order-coupons-item .order-coupons-item-title {
+    float: left;
+    width: 350px;
+}
+
+.order-coupons .order-coupons-item .order-coupons-item-plat {
+    float: left;
+    width: 100px;
+}
+
+.order-coupons .order-coupons-item .order-coupons-item-money {
+    float: left;
+    width: 100px;
+}
+
+.order-coupons .order-coupons-item .order-coupons-item-time {
+    float: left;
+    width: 200px;
+}
+
+.order-coupons-selected {
+    border-color: #ef8200 !important;
+    background-color: #ffffff;
+}
+
+/*coupon end*/
+/*total-price*/
+.order-price {
+    box-sizing: border-box;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.order-price p {
+    padding: 2px;
+    text-align: right;
+}
+
+.order-total-price {
+    padding: 20px 10px 40px 0;
+    text-align: right;
+    font-size: 16px;
+}
+
+.order-total-price span {
+    font-size: 20px;
+    color: #e4393c;
+}
+
+.submit-order-btn {
+    margin-left: 15px;
+    padding: 8px 25px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 3px;
+    color: #ffffff !important;
+    background-color: #E2393C;
+}
+
+.submit-order-btn:hover {
+    background-color: #f43a3d;
+}
+
+/*total-price end*/
+/*confirm order end*/
+/*pay*/
+.pay-type {
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.pay-type .pay-type-select {
+    width: 100%;
+    overflow: hidden;
+}
+
+.pay-type .pay-type-select li {
+    float: left;
+}
+
+.pay-type .pay-type-select li a {
+    display: inline-block;
+    background-color: #fafafa;
+    padding: 8px 40px;
+}
+
+.pay-type-selected {
+    background-color: #ef8200 !important;
+    color: #fff !important;
+}
+
+.fast-pay {
+    overflow: hidden;
+    border: 1px solid #ef8200;
+}
+
+.fast-pay li {
+    float: left;
+    padding: 25px 40px;
+}
+
+.fast-pay li a {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 80px;
+    line-height: 80px;
+    width: 80px;
+    text-align: center;
+    border: 3px solid transparent;
+    font-size: 50px;
+}
+
+.fast-pay li span {
+    display: block;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.fast-pay li a .icon-alipay {
+    color: #00AAEF;
+}
+
+.fast-pay li a .icon-weixinpay {
+    color: #3CB034;
+}
+
+
+.fast-pay li a .icon-unionpay {
+    display: inline-block;
+    height: 42px;
+    width: 68px;
+    background: url("../../image/bank/union_pay.png") no-repeat 0 0 transparent;
+}
+
+.fast-pay-selected {
+    border-color: #ef8200 !important;
+}
+.wallet-pay{
+    overflow: hidden;
+    border: 1px solid #ef8200;
+    padding: 10px 20px;
+}
+
+/*pay end*/

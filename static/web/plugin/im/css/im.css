@@ -1,0 +1,394 @@
+/*
+*im css
+* cuihongquan since 2016年04月09日11:48:27
+*/
+.im-box {
+    display: none;
+    box-sizing: border-box;
+    width: 535px;
+    height: 456px;
+    position: fixed;
+    bottom: 0;
+    right: 55px;
+    border-radius: 2px;
+    background-color: #fff;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.im-box .ib-header {
+    height: 34px;
+    line-height: 34px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    background-color: #ff7302;
+    color: #fff;
+    overflow: hidden;
+}
+
+.ib-header .ibh-title {
+    float: left;
+}
+
+.ib-header .ibh-arrow {
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.im-box .ib-user {
+    float: right;
+    height: 421px;
+    width: 190px;
+    background-color: #FAFAFA;
+}
+
+.ib-user .user-info,
+.ib-user .contact-list,
+.ib-user .setting {
+    box-sizing: border-box;
+}
+
+.ib-user .user-info {
+    padding: 6px 10px;
+    height: 53px;
+    border: 1px solid #e5e5e5;
+    border-top: 0;
+}
+
+.ib-user .contact-list {
+    height: 332px;
+    border: 1px solid #e5e5e5;
+    border-top: 0;
+    border-bottom: 0;
+    overflow-y: auto;
+}
+
+.ib-user .setting {
+    height: 36px;
+    border: 1px solid #e5e5e5;
+    border-bottom: 0;
+}
+
+.im-box .ib-contact {
+    float: left;
+    height: 421px;
+    width: 345px;
+}
+
+.ib-user .user-info > a {
+    float: left;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.ib-user .user-info > i {
+    float: left;
+    margin-top: 8px;
+    color: #00b000;
+    font-size: 18px;
+}
+
+.ib-user .user-info > span {
+    float: left;
+    margin-top: 10px;
+}
+
+.contact-list .contact-item {
+    box-sizing: border-box;
+    height: 44px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.contact-list .contact-item:hover {
+    background-color: #f2f2f2;
+}
+
+.contact-list .contact-item .contact-look {
+    float: left;
+    margin-left: 4px;
+    height: 32px;
+    width: 32px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.contact-list .contact-item > span {
+    float: left;
+    margin-top: 6px;
+    margin-left: 8px;
+    width: 80px;
+}
+
+.contact-list .contact-item .contact-del {
+    float: left;
+    padding: 6px;
+    margin-left: 10px;
+}
+
+.contact-list .friend {
+    overflow: hidden;
+}
+
+.contact-list .friend .contact-header {
+    color: #9D9D9D;
+    padding: 7px 10px 7px 17px;
+    cursor: pointer;
+}
+
+.setting .setting-start {
+    float: left;
+    font-size: 14px;
+    width: 140px;
+    height: 36px;
+    line-height: 36px;
+    padding-left: 16px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.setting .setting-set {
+    float: right;
+    margin-right: 10px;
+    padding: 7px;
+    font-size: 16px;
+}
+
+.ib-contact .contact-info,
+.ib-contact .chat-history,
+.ib-contact .chat-input,
+.ib-contact .chat-input .form-edit {
+    box-sizing: border-box;
+}
+
+.ib-contact .contact-info {
+    padding: 6px 10px;
+    height: 53px;
+    border: 1px solid #e5e5e5;
+    border-top: 0;
+    border-right: 0;
+    background-color: #FAFAFA;
+}
+
+.ib-contact .chat-history {
+    padding: 10px 20px;
+    height: 235px;
+    border-left: 1px solid #e5e5e5;
+    overflow-y: auto;
+}
+
+.ib-contact .chat-input {
+    height: 134px;
+    border: 1px solid #e5e5e5;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.ib-contact .chat-input .form-edit {
+    height: 97px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.ib-contact .chat-input .action {
+    height: 36px;
+    background-color: #FAFAFA;
+}
+
+.ib-contact .contact-info > a {
+    float: left;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.ib-contact .contact-info > span {
+    float: left;
+    margin-top: 8px;
+    margin-left: 5px;
+    font-size: 16px;
+}
+
+.ib-contact .chat-history .time {
+    color: #9D9D9D;
+    text-align: center;
+}
+
+.ib-contact .chat-history .from-msg, .ib-contact .chat-history .to-msg {
+    margin: 10px 0;
+}
+
+.chat-history .from-msg {
+    position: relative;
+    text-align: right;
+}
+
+.chat-history .to-msg {
+    position: relative;
+    text-align: left;
+}
+
+.chat-history .from-msg .text, .chat-history .to-msg .text {
+    color: #3D3D3D;
+    display: inline-block;
+    padding: 5px 10px;
+    position: relative;
+    max-width: 260px;
+    text-align: left;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.chat-history .from-msg .text {
+    border: 1px solid #d3e2f0;
+    background-color: #e0effc;
+}
+
+.chat-history .to-msg .text {
+    border: 1px solid #e5e5e5;
+    background-color: #f5f5f5;
+}
+
+.chat-history .from-msg .arrow, .chat-history .to-msg .arrow {
+    position: absolute;
+    top: 8px;
+    border: 5px solid #FFFFFF;
+}
+
+.chat-history .from-msg .arrow {
+    border-left: 5px solid #d3e2f0;
+    right: -10px;
+}
+
+.chat-history .to-msg .arrow {
+    border-right: 5px solid #e5e5e5;
+    left: -10px;
+}
+
+.chat-input .form-edit .tool {
+    box-sizing: border-box;
+    padding: 2px 10px;
+    height: 24px;
+}
+
+.chat-input .form-edit .tool > a {
+    margin: 0 5px;
+    font-size: 12px;
+    color: #9D9D9D;
+}
+
+.chat-input .form-edit .tool > a:hover {
+    color: #ef8200;
+}
+
+.chat-input .form-edit .tool > a i {
+    font-size: 14px;
+}
+
+.chat-input .form-edit .inset {
+    height: 72px;
+    width: 100%;
+}
+
+.chat-input .form-edit .inset > textarea {
+    box-sizing: border-box;
+    padding: 2px 5px;
+    height: 100%;
+    width: 100%;
+    border: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    resize: none;
+}
+
+.chat-input .action .action-tip {
+    float: left;
+    margin-top: 9px;
+    margin-left: 20px;
+    color: #00abff;
+}
+
+.chat-input .action .action-tip:hover {
+    color: #ef8200;
+}
+
+.chat-input .action .action-send {
+    float: right;
+    padding: 2px 25px;
+    margin-right: 10px;
+    margin-top: 8px;
+    background-color: #ef8200;
+    color: #FFFFFF;
+    border-radius: 3px;
+}
+
+.chat-input .action .action-send:hover {
+    background-color: #e37400;
+}
+
+.im-box-max {
+    display: block !important;
+}
+
+.im-box-mid {
+    display: block !important;
+    height: 456px !important;
+    width: 190px !important;
+}
+
+.im-box-mid .ib-header .ibh-title {
+    display: none !important;
+}
+
+.im-box-min {
+    display: block !important;
+    height: 37px !important;
+    width: 190px !important;
+}
+
+.im-box-min .ib-header {
+    display: none !important;
+}
+
+.im-box-min .ib-user .user-info {
+    display: none !important;
+}
+
+.im-box-min .ib-user .contact-list {
+    display: none !important;
+}
+
+.im-box-min .ib-user .setting:hover {
+    background-color: #ef8200;
+}
+.im-box-min .ib-user .setting:hover a{
+    color: #FFFFFF;
+}
+
+.im-box-trigger {
+    position: fixed;
+    right: 55px;
+    bottom: 0;
+    box-sizing: border-box;
+    height: 37px;
+    line-height: 37px;
+    padding-left: 30px;
+    width: 190px;
+    border: 1px solid #DDDDDD;
+    border-bottom: 0;
+    background-color: #FAFAFA;
+    z-index: 9999999;
+    cursor: pointer;
+}
+
+.im-box-trigger:hover {
+    background-color: #ef8200;
+    color: #FFFFFF;
+}

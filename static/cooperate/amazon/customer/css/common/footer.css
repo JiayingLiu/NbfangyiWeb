@@ -1,0 +1,113 @@
+.footer{
+    height: 80px;
+    border: 1px solid transparent;
+    background-color: #f7f7f7;
+    clear: both;
+}
+.footer-help{
+    margin: 5px 0 5px 0;
+    text-align: center;
+    font-size: 14px;
+}
+.footer-help a{
+    padding: 0 15px;
+}
+.footer-copyright{
+    margin:0;
+    height: 30px;
+    line-height: 30px;
+    border-top: 1px solid #dfdfdf;
+    text-align: center;
+}
+.quick-login{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -200px;
+    width: 500px;
+    border: 1px solid #ff7302;
+    background-color: #ffffff;
+    border-radius: 10px;
+    font-size: 14px;
+    z-index:15;
+}
+.quick-login-tile{
+    display: block;
+    text-align: center;
+    line-height: 65px;
+    font-size: 26px;
+    color: #ff7302;
+    font-weight: bold;
+}
+.quick-login-close{
+    float: right;
+    margin-top: -45px;
+    padding-right: 20px;
+}
+
+.quick-login-row input{
+    padding: 3px;
+    border: 1px solid #aeaeae;
+    border-radius: 5px;
+    text-indent: 10px;
+    margin-left: 15px;
+    width: 280px;
+    height: 30px;
+}
+.quick-login-row{
+    padding: 15px 5px;
+    clear: both;
+    overflow: hidden;
+    text-align: center;
+}
+.quick-login .quick-login-row .login-hover-button{
+    display: block;
+    padding: 10px 20px;
+    float: left;
+    width: 100px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #F08200;
+}
+.quick-login-row-title{
+    float: left;
+    width: 25%;
+    line-height: 35px;
+    text-align: right;
+}
+.quick-login-row-text{
+    float: left;
+    width: 75%;
+    text-align: left;
+}
+.quick-login-row-text .code,
+.quick-login-row-text img{
+    float: left;
+    width: 30%;
+}
+.quick-login-row-text img{
+    margin-left: 30px;
+}
+.quick-login-row-text .code input{
+    width: 100%;
+}
+.quick-login-row .btn{
+    padding: 5px 10px;
+}
+.login_mask{
+    display:none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #191925;
+    opacity: 0.6;
+    z-index: 11;
+}

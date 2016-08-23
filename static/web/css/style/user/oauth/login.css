@@ -1,0 +1,34 @@
+@import url("../../public/public.css");
+
+/*middle*/
+.middle {
+    width: 100%;
+    padding: 20px 0;
+    overflow: hidden;
+    background-color: #26B4C3;
+}
+
+.middle-contect {
+    width: 1170px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.middle-left {
+    float: left;
+    width: 630px;
+    height: 380px;
+}
+
+/*login form*/
+.middle-right {
+    float: right;
+    margin-right: 100px;
+    padding: 0 5px;
+    background-color: #fff;
+    -webkit-box-shadow: 3px 3px 15px #666;
+    -moz-box-shadow: 3px 3px 15px #666;
+    box-shadow: 3px 3px 15px #666;
+}
+
+/*login form end*/

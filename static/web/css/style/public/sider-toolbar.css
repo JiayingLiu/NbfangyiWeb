@@ -1,0 +1,240 @@
+/*pub-toolbar*/
+.pub-toolbar {
+    position: fixed;
+    bottom: 28%;
+    right: 0;
+    z-index: 30;
+}
+
+.pub-toolbar ul {
+    overflow: hidden;
+}
+
+.pub-toolbar ul li {
+    height: 46px;
+    width: 46px;
+    line-height: 46px;
+    background-color: rgba(0, 0, 0, .7);
+    border-radius: 5px 0 0 5px;
+    margin-bottom: 1px;
+    color: #fff;
+    overflow: hidden;
+}
+
+.pub-toolbar ul li .tool-item {
+    display: block;
+    height: 100%;
+    text-align: center;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.pub-toolbar ul li .tool-item:hover {
+    color: #ef8200;
+    transition: toolbar_hover .5s;
+    -webkit-animation: toolbar_hover .5s;
+    -moz-animation: toolbar_hover .5s;
+    -ms-animation: toolbar_hover .5s;
+}
+
+.pub-toolbar-code {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    right: -138px;
+    height: 138px;
+    width: 138px;
+    padding-top: 10px;
+    background-color: rgba(0, 0, 0, .7);
+    line-height: 0;
+    border-radius: 3px;
+    transition: right .5s ease-in-out;
+    -webit-transition: right .5s ease-in-out;
+    -moz-transition: right .5s ease-in-out;
+    -ms-transition: right .5s ease-in-out;
+    z-index: -1;
+}
+
+.pub-toolbar-code p {
+    margin-top: 5px;
+    line-height: 12px;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+}
+
+.js-code:hover .pub-toolbar-code {
+    right: 47px;
+}
+
+.js-share .pub-toolbar-share {
+    position: absolute;
+    box-sizing: border-box;
+    bottom: 48px;
+    right: -120px;
+    height: 46px;
+    width: 120px;
+    padding: 10px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, .7);
+    line-height: 0;
+    border-radius: 3px;
+    transition: right .5s ease-in-out;
+    -webit-transition: right .5s ease-in-out;
+    -moz-transition: right .5s ease-in-out;
+    -ms-transition: right .5s ease-in-out;
+    z-index: -1;
+}
+
+.js-share:hover .pub-toolbar-share {
+    right: 47px;
+}
+
+.js-im .pub-toolbar-call {
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    right: -200px;
+    height: 46px;
+    width: 200px;
+    padding: 10px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, .7);
+    line-height: 30px;
+    border-radius: 3px;
+    transition: right .5s ease-in-out;
+    -webit-transition: right .5s ease-in-out;
+    -moz-transition: right .5s ease-in-out;
+    -ms-transition: right .5s ease-in-out;
+    font-size: 18px;
+    text-align: center;
+    z-index: -1;
+}
+
+.js-im:hover .pub-toolbar-call {
+    right: 47px;
+}
+
+.js-point .pub-toolbar-point {
+    position: absolute;
+    box-sizing: border-box;
+    padding-top: 6px;
+    bottom: 0;
+    right: 0;
+    height: 46px;
+    width: 46px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    overflow: hidden;
+    line-height: 14px;
+    font-size: 12px;
+    text-align: center;
+    color: #ef8200;
+    z-index: -1;
+    transition: right .5s ease-in-out;
+    -webit-transition: right .5s ease-in-out;
+    -moz-transition: right .5s ease-in-out;
+    -ms-transition: right .5s ease-in-out;
+}
+
+.js-point:hover .pub-toolbar-point{
+    opacity: 1;
+    filter: alpha(opacity=100);
+    z-index: 1;
+}
+
+.js-point:hover .iconfont {
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+@keyframes toolbar_hover {
+    0% {
+        line-height: 40px;
+    }
+    20% {
+        line-height: 46px;
+    }
+    40% {
+        line-height: 42px;
+    }
+    60% {
+        line-height: 46px;
+    }
+    80% {
+        line-height: 44px;
+    }
+    100% {
+        line-height: 46px;
+    }
+}
+
+@-moz-keyframes toolbar_hover /* Firefox */
+{
+    0% {
+        line-height: 40px;
+    }
+    20% {
+        line-height: 46px;
+    }
+    40% {
+        line-height: 42px;
+    }
+    60% {
+        line-height: 46px;
+    }
+    80% {
+        line-height: 44px;
+    }
+    100% {
+        line-height: 46px;
+    }
+}
+
+@-webkit-keyframes toolbar_hover /* Safari 和 Chrome */
+{
+    0% {
+        line-height: 40px;
+    }
+    20% {
+        line-height: 46px;
+    }
+    40% {
+        line-height: 42px;
+    }
+    60% {
+        line-height: 46px;
+    }
+    80% {
+        line-height: 44px;
+    }
+    100% {
+        line-height: 46px;
+    }
+}
+
+@-ms-keyframes toolbar_hover /* Opera */
+{
+    0% {
+        line-height: 40px;
+    }
+    20% {
+        line-height: 46px;
+    }
+    40% {
+        line-height: 42px;
+    }
+    60% {
+        line-height: 46px;
+    }
+    80% {
+        line-height: 44px;
+    }
+    100% {
+        line-height: 46px;
+    }
+}
+
+/*pub-toolbar end*/

@@ -1,0 +1,37 @@
+.backcard {
+    box-sizing: border-box;
+    height: 330px;
+    width: 800px;
+    border: 1px solid #d2d3d3;
+    background-color: #ffffff;
+}
+
+.backcard-top {
+    padding: 0 20px;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #d2d3d3;
+    text-align: right;
+}
+
+.backcard-top a {
+    padding: 7px 18px;
+    background-color: #eb983a;
+    border-radius: 5px;
+    color: #ffffff;
+}
+.backcards-con{
+    overflow: hidden;
+}
+.backcards-con li{
+    float: left;
+    box-sizing: border-box;
+    padding: 5px 3px;
+    margin: 25px 38px;
+    height: 186px;
+    width: 186px;
+    border: 1px solid #d2d3d3;
+    border-radius: 8px;
+}
+.backcards-con li p{
+}

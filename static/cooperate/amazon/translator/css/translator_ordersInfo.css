@@ -1,0 +1,158 @@
+/*订单支付*/
+.order-pay {
+    width: 650px;
+    overflow: hidden;
+}
+
+.order-details {
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.details-title {
+    margin: 0;
+    height: 34px;
+    line-height: 34px;
+    background-color: #EB983A;
+    text-align: center;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.detail-content {
+    padding: 5px 20px;
+}
+
+.file-row {
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid #c0c1c1;
+    border-radius: 5px;
+}
+
+.review-content {
+    margin: 0;
+    box-sizing: border-box;
+    padding: 10px 8px;
+    height: 300px;
+    width: 640px;
+    border: 0;
+    resize: none;
+    font-size: 14px;
+    color: #5d5d5d;
+}
+
+.file-download {
+    margin: 0;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    text-align: right;
+    padding-right: 30px;
+}
+
+.btn-sm{
+    background-color: #eb983a;
+    color: #fff;
+}
+/*translator-download*/
+.myorders-table {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.myorders-table > thead > tr > th,
+.myorders-table > tbody > tr > td {
+    text-align: center;
+}
+
+.myorders-table > thead > tr {
+    height: 30px;
+    background-color: #EB983A;
+    color: #ffffff;
+}
+
+.myorders-table > tbody > tr {
+    height: 50px;
+}
+.myorders-table-btn{
+    display: inline-block;
+    margin: 2px;
+    width: 70px;
+    height: 20px;
+    line-height:20px;
+    background-color: #eb983a;
+    color: #ffffff;
+    border-radius:5px;
+}
+.orderlist-nodata{
+    padding: 1px;
+    height: 260px;
+    background: url(../../customer/css/img/rhinoceros.png) no-repeat 50% 30% transparent;
+}
+.orderlist-nodata p{
+    margin-top: 160px;
+}
+/*translator-download*/
+#translator_order{
+    padding: 0 0 30px;
+    text-align: center;
+}
+.btn_orders_submit,
+.btn_orders_save,
+.btn_orders{
+    background-color: #eb983a;
+    color: #fff;
+}
+.btn_cancelorders{
+    border: 1px solid #dfdfdf;
+    color:#aeaeae;
+}
+/*上传*/
+.upload-btns{
+    position: relative;
+}
+#upload_con {
+    position: relative;
+    height: 38px;
+    width: 100%;
+    line-height: 38px;
+    box-sizing: border-box;
+    font-size: 16px;
+    border: 1px solid #FFA134;
+    border-radius: 5px;
+    text-align: center;
+    color: #FFA134;
+    cursor: pointer;
+}
+#upload{
+    position: absolute;
+    top: 0;
+    left: -4px;
+    height: 38px;
+    width: 101%;
+    opacity: 0;
+    -ms-filter: alpha(opacity=0);
+    filter: alpha(opacity=0);
+    z-index: 2;
+    font-size: 0;
+}
+#upload_progress{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 38px;
+    background-color: #FFA134;
+    border-radius: 5px;
+    opacity: .3;
+    -ms-filter: alpha(opacity=30);
+    filter: alpha(opacity=30);
+    z-index: 1;
+}
+.upload-btns span{
+    position: absolute;
+    top: 12px;
+    left: 370px;
+    z-index: 1;
+}

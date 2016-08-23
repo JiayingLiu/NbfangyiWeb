@@ -1,0 +1,505 @@
+/*reset*/
+/* 清除内外边距 */
+body, h1, h2, h3, h4, h5, h6, hr, p, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+fieldset, button, input, textarea, /* form elements 表单元素 */
+th, td {
+    /* table elements 表格元素 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 设置默认字体 */
+body,
+button, input, select, textarea {
+    font-family: PingHei, "Hiragino Sans GB", "Microsoft YaHei", arial, sans-serif;
+}
+
+h1 {
+    font-size: 1.5rem; /* 18px / 12px = 1.5 */
+}
+
+h2 {
+    font-size: 1.333rem;
+}
+
+h3 {
+    font-size: 1.116rem;
+}
+
+h4, h5, h6 {
+    font-size: 100%;
+}
+
+address, cite, dfn, em, var {
+    font-style: normal;
+}
+
+/* 将斜体扶正 */
+code, kbd, pre, samp, tt {
+    font-family: "Courier New", Courier, monospace;
+}
+
+/* 统一等宽字体 */
+small {
+    font-size: 1rem;
+}
+
+/* 重置列表元素 */
+ul, ol {
+    list-style: none;
+}
+
+/* 重置文本格式元素 */
+a {
+    text-decoration: none;
+}
+
+abbr[title], acronym[title] {
+    /* 注：1.ie6 不支持 abbr; 2.这里用了属性选择符，ie6 下无效果 */
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+q:before, q:after {
+    content: '';
+}
+
+/* 重置表单元素 */
+legend {
+    color: #000;
+}
+
+/* for ie6 */
+fieldset, img {
+    border: none;
+}
+
+/* img 搭车：让链接里的 img 无边框 */
+/* 注：optgroup 无法扶正 */
+button, input, select, textarea {
+    font-size: 100%; /* 使得表单元素在 ie 下能继承字体大小 */
+}
+
+/*修正在webkit里面的附加样式*/
+button:focus, input:focus, select:focus, textarea:focus {
+    outline: none;
+}
+
+/* 重置表格元素 */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* 重置 hr */
+hr {
+    border: none;
+    height: 1px;
+}
+
+/* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
+html {
+    overflow-y: scroll;
+}
+
+body {
+    position: relative;
+}
+
+/*页面的媒体查询*/
+@media only screen and (max-width: 540px) {
+    /*原来168.5%*/
+    html {
+        font-size: 167%;
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    /*Plus*/
+    html {
+        font-size: 129%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    /*三星note*/
+    html {
+        font-size: 125%;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    /*ip6*/
+    html {
+        font-size: 117%;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    html {
+        font-size: 112%;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    /*ip5 ip4 */
+    html {
+        font-size: 16px;
+    }
+}
+
+@media (device-height: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+    /*兼容苹果4 */
+    body {
+        background-size: 100%;
+    }
+}
+
+html, body {
+    height: 100%;
+    width: 20rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/*reset end*/
+.ad-wrap {
+    position: relative;
+    height: 35.5rem;
+    overflow: hidden;
+    -moz-transition: all 1s ease-in 0.8s;
+    -ms-transition: all 1s ease-in 0.8s;
+    -webkit-transition: all 1s ease-in 0.8s;
+    transition: all 1s ease-in 0.8s;
+    background-color: #ffe745;
+}
+
+.ad-wrap .ad-img {
+    width: 20rem;
+    -moz-transition: all 1s ease-in .5s;
+    -ms-transition: all 1s ease-in .5s;
+    -webkit-transition: all 1s ease-in .5s;
+    transition: all 1s ease-in .5s;
+}
+
+.ad-wrap .ad-mask {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 11.25rem;
+    width: 20rem;
+    background: url("img/ad-info.png") no-repeat center center transparent;
+    background-size: contain;
+}
+
+.wrap {
+    display: none;
+    overflow: hidden;
+    width: 20rem;
+    background-color: #d80333;
+}
+
+.banner {
+    width: 20rem;
+    overflow: hidden;
+    zoom: 1;
+}
+
+.wheel {
+    position: relative;
+    box-sizing: border-box;
+    margin-top: 1.5rem;
+    width: 20rem;
+    height: 20rem;
+    overflow: hidden;
+}
+
+.wheel img {
+    position: relative;
+    top: 0;
+    left: 0;
+    border: 0;
+    zoom: 1;
+}
+
+.wheel .wheel-arrow {
+    position: absolute;
+    height: 34%;
+    width: 34%;
+    top: 50%;
+    left: 50%;
+    margin-top: -17%;
+    margin-left: -17%;
+    background: url("img/arrow.png") no-repeat 0 0 transparent;
+    background-size: contain;
+    z-index: 20;
+    -moz-transition: all 3s ease-in-out;
+    -ms-transition: all 3s ease-in-out;
+    -webkit-transition: all 3s ease-in-out;
+    transition: all 3s ease-in-out;
+}
+
+.wheel .wheel-btn {
+    position: absolute;
+    height: 25%;
+    width: 25%;
+    top: 50%;
+    left: 50%;
+    margin-top: -12.5%;
+    margin-left: -12.5%;
+    z-index: 30;
+}
+
+.wheel .btn-enabled {
+    background: url("img/btn.png") no-repeat 0 0 transparent;
+    background-size: contain;
+}
+
+.wheel .btn-disabled {
+    background: url("img/btn-disabled.png") no-repeat 0 0 transparent;
+    background-size: contain;
+}
+
+.tip {
+    padding: 0 1rem;
+    line-height: 1rem;
+    font-size: 0.6875rem;
+    font-style: italic;
+    color: #fdf14d;
+}
+
+.tip span {
+    font-weight: bold;
+}
+
+.share {
+    padding: 0 1rem;
+    margin: 0.5rem 0;
+}
+
+.share > input {
+    box-sizing: border-box;
+    float: left;
+    width: 10.5rem;
+    padding: .2rem;
+    font-size: 0.375rem;
+    border-radius: .3rem;
+    color: #666;
+    background-color: #ffffff;
+    border: 1px dashed #666666;
+}
+
+.share > a {
+    float: left;
+    display: inline-block;
+    width: 3.5rem;
+    padding: .2rem 0;
+    font-size: 0.375rem;
+    font-style: italic;
+    border-radius: .3rem;
+    background-color: #fdaf11;
+    text-align: center;
+    color: #ffffff;
+}
+
+.rules {
+    margin-top: 2rem;
+    box-sizing: border-box;
+    padding: 0 1rem;
+}
+
+.rules h3 {
+    display: inline-block;
+    padding: 0 .5rem;
+    font-size: 1rem;
+    color: #d80333;
+    background-color: #fdf14d;
+}
+
+.rules p {
+    font-size: 0.75rem;
+    color: #ffffff;
+}
+
+.rules .phone {
+    font-weight: bold;
+}
+
+.news {
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+    box-sizing: border-box;
+    padding: 0 1rem;
+}
+
+.news h3 {
+    display: inline-block;
+    padding: 0 .5rem;
+    font-size: 1rem;
+    color: #d80333;
+    background-color: #fdf14d;
+}
+
+.news p {
+    padding: 0.1rem 0;
+    font-size: 0.75rem;
+}
+
+.news p > a {
+    color: #ffffff;
+}
+
+.news .phone {
+    font-weight: bold;
+}
+
+.copyright {
+    text-align: center;
+    color: #fdf14d;
+}
+
+/*
+* 微信抓取图片
+*/
+.weixin-grab {
+    display: none;
+}
+
+/* 窗口 */
+.frame {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #d80333;
+    border-radius: 2px;
+    z-index: 50;
+}
+
+.frame .title {
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    background-color: #fdf14d;
+    color: #d80333;
+    zoom: 1;
+}
+
+.row {
+    margin: 1rem 0;
+    line-height: 1rem;
+    overflow: hidden;
+}
+
+.row .col-6,
+.row .col-5,
+.row .col-3,
+.row .col-2 {
+    float: left;
+}
+
+.row .col-6 {
+    width: 60%;
+}
+
+.row .col-5 {
+    width: 50%;
+}
+
+.row .col-3 {
+    width: 30%;
+}
+
+.row .col-2 {
+    width: 20%;
+}
+
+.row input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    border: 0;
+    border-radius: 0.3rem;
+    background-color: #FFFFFF;
+    color: #666666;
+}
+
+.code {
+    border-radius: 0.3rem;
+}
+
+.btn-group {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.btn-group a {
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    background-color: #fdf14d;
+    color: #d80333;
+}
+
+.msg-btn {
+    display: inline-block;
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+    padding: 0.5rem 0;
+    border-radius: 0.3rem;
+    background-color: #fdf14d;
+    font-size: 0.75rem;
+    color: #d80333;
+    text-align: center;
+}
+
+.frame .code-wrap {
+    display: none;
+    box-sizing: border-box;
+    background-color: #DDDDDD;
+    padding: 0.5rem 0;
+}
+
+.verify-wrap {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 8rem;
+    width: 14rem;
+    margin-left: -7rem !important;
+    margin-top: -4rem !important;
+    background-color: #fff;
+    padding: 0rem;
+    box-sizing: border-box;
+    border: 5px solid rgba(0, 0, 0, 0.3);
+    z-index: 55;
+}
+
+.verify-wrap input {
+    border:1px solid #ddd;
+}
+.verify-wrap img {
+    border:1px solid #ddd;
+}
+
+.mask {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    z-index: 54;
+}
+

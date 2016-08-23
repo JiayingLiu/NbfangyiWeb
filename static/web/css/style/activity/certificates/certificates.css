@@ -1,0 +1,391 @@
+@import url("../../public/public.css");
+
+/*cer-head*/
+.cer-head {
+    width: 1170px;
+    margin: 0 auto;
+    padding: 10px 0;
+    height: 80px;
+}
+
+.cer-head ul li {
+    float: left;
+}
+
+.cer-head ul li a img {
+    vertical-align: middle;
+}
+
+.cer-words {
+    margin-top: 12px;
+    padding-left: 10px;
+    line-height: 67px;
+    box-sizing: border-box;
+    border-left: 1px solid #e5e5e5;
+    font-size: 16px;
+}
+
+/*cer-head end*/
+
+/*cer-banner*/
+.cer-banner {
+    width: 100%;
+    min-width: 1170px;
+    height: 590px;
+    background: url("../../../image/activity/certificates/banner.png") no-repeat;
+    background-size: cover;
+
+}
+
+/*cer-banner end*/
+/*cer-mian*/
+.cer-mian {
+    width: 100%;
+    overflow: hidden;
+}
+
+/*label-text1*/
+.label-text1 {
+    width: 100%;
+    height: auto;
+}
+
+.label-text1 ul {
+    width: 1170px;
+    height: auto;
+    margin: 40px auto;
+    overflow: hidden;
+}
+
+.label-text1 ul li {
+    width: 25%;
+    float: left;
+}
+
+.label-text1 ul li > span {
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin: 10px auto;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 1px solid #57a0fe;
+    text-align: center;
+}
+
+.label-text1 ul li > span .iconfont {
+    color: #57a0fe;
+    font-size: 20px;
+}
+
+.label-text1 ul li > h3 {
+    text-align: center;
+    line-height: 30px;
+    font-weight: normal;
+}
+
+.label-text1 ul li > p {
+    padding: 0 25px;
+    line-height: 22px;
+}
+
+.label-text1 ul li > p:hover {
+    color: #57a0fe;
+}
+
+/*label-text1 end*/
+/*label-text2*/
+.label-text2 {
+    width: 100%;
+    padding: 40px 0;
+    margin: 30px 0;
+    background-color: #f6f7f7;
+}
+
+.label-content {
+    width: 1170px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+/*cer-title*/
+.cer-title {
+    width: 1170px;
+    height: 50px;
+    margin: 0 auto;
+    text-align: center;
+    background: url("../../../image/activity/certificates/title-img.png") no-repeat 11px 22px;
+}
+
+.cer-title h3 {
+    color: #00abff;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+/*cer-title end*/
+/*cer-table*/
+.cer-table {
+    width: 1170px;
+    height: 400px;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid #e5e5e5
+}
+
+.cer-table tr th {
+    padding: 13px 0;
+    color: #ffffff;
+    background-color: #00abff;
+}
+
+.cer-table tr td span {
+    display: inline-block;
+    width: 28%;
+    line-height: 30px;
+    margin: 0 20px;
+    text-align: left;
+}
+
+.cer-table tr td div {
+}
+
+/*cer-table end*/
+/*label-text2 end*/
+/*label-text3*/
+.label-text3 {
+    width: 100%;
+    overflow: hidden;
+}
+
+.cer-subtitle {
+    width: 1170px;
+    height: 50px;
+    background: url("../../../image/activity/certificates/subtitle-img.png") no-repeat 0 22px;
+}
+
+.cer-subtitle h3 {
+    color: #00abff;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.cer-subtitle h3 span {
+    font-size: 12px;
+    color: #666666;
+    padding-left: 5px;
+}
+
+.cer-subtitle h3 a {
+    font-size: 12px;
+    padding-right: 10px;
+    padding-top: 4px;
+}
+
+.cer-subtitle h3 a:hover {
+    color: #00abff;
+}
+
+/*recommend-pro*/
+.recommend-pro {
+    width: 100%;
+    overflow: hidden;
+}
+
+/*trs-list*/
+.trs-list li {
+    position: relative;
+    float: left;
+    width: 206px;
+    height: 240px;
+    padding: 10px;
+    margin: 10px 14px;
+    box-sizing: border-box;
+    border: 1px solid #e5e5e5;
+    font-size: 12px;
+    color: #666666;
+    background-color: #fafafa;
+    overflow: hidden;
+}
+
+.trs-list li p {
+    padding: 3px 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.trs-list li a {
+    display: block;
+}
+
+.trs-list li:hover {
+    box-sizing: border-box;
+    border: 1px solid #ef8200;
+}
+
+/*pdt-item-title*/
+.pdt-item-title {
+    position: absolute;
+    top: 98px;
+    text-align: center;
+    width: 185px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 !important;
+    font-size: 16px;
+    color: #ffffff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.font-clor-blue span {
+    color: #00abff;
+}
+
+.title-bg-blue {
+    background-color: #00abff;
+}
+
+.title-bg-org {
+    background-color: #faa30f;
+}
+
+.title-bg-agreen {
+    background-color: #4cd6d6;
+}
+
+/*trs-list end*/
+/*recommend-pro end*/
+/*label-text3 end*/
+/*success-case*/
+.success-case {
+    width: 100%;
+    overflow: hidden;
+}
+
+.success-case ul li {
+    float: left;
+    width: 33.33%;
+    overflow: hidden;
+}
+
+.success-case ul li .put-content {
+    width: 353px;
+    height: 290px;
+    margin: 0 auto;
+    background: url("../../../image/activity/certificates/bg.png") no-repeat;
+}
+
+.success-case ul li .put-content .cot-title {
+    overflow: hidden;
+    padding: 42px 45px 10px 45px;
+    font-size: 14px;
+}
+
+.success-case ul li .put-content p {
+    line-height: 22px;
+    padding: 0 45px;
+    text-align: left;
+}
+
+.put-company {
+    width: 100%;
+    overflow: hidden;
+}
+
+.put-company .com-left {
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin-left: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.put-company .com-right {
+    float: left;
+    margin-left: 20px;
+}
+
+.put-company .com-right h3 {
+    padding: 16px 0 0 0;
+    font-weight: normal;
+}
+
+.put-company .com-right p {
+    line-height: 20px;
+}
+
+/*success-case end*/
+/*prompt*/
+.prompt {
+    width: 843px;
+    height: auto;
+    padding: 20px 0;
+    margin: 0 auto;
+    background: url("../../../image/activity/certificates/prompt.png") no-repeat;
+    box-sizing: border-box;
+    border-bottom: 1px solid #00abff;
+    overflow: hidden;
+}
+
+.prompt h3 {
+    text-align: center;
+    font-weight: normal;
+    padding-top: 40px;
+    line-height: 30px;
+    color: #00abff;
+}
+
+.prompt p {
+    line-height: 20px;
+}
+
+/*prompt end*/
+/*feedback*/
+.feedback {
+    width: 500px;
+    margin: 30px auto;
+    overflow: hidden;
+}
+
+.feedback p {
+    text-align: center;
+    line-height: 25px;
+    font-size: 16px;
+}
+
+.feedback h3 {
+    font-size: 16px;
+    text-align: center;
+    font-weight: normal;
+    line-height: 40px;
+    color: #00abff;
+}
+
+.form {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fafafa;
+    box-sizing: border-box;
+    border: 1px solid #00abff;
+}
+
+.btn-submit {
+    display: block;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin: 0 auto;
+    border-radius: 3px;
+    background-color: #00abff;
+    color: #ffffff;
+}
+
+/*feedback end*/
+/*cer-mian end*/

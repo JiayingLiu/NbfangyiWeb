@@ -1,0 +1,97 @@
+/**
+*项目：亚马逊的基础样式
+*作者：崔洪泉
+*时间：2015年11月12日13:29:51
+*/
+html{
+    font-family: Arial, Hiragino Sans GB, Microsoft YaHei, SimSun;
+    font-size: 12px;
+    background-color: #f7f7f7;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+ul{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+/*body的容器*/
+.content{
+    position: relative;
+    width: 1170px;
+    min-height: 500px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+/*容器*/
+.container{
+    overflow: hidden;
+}
+/*浮动*/
+.float-left{
+    float: left!important;
+}
+.float-right{
+    float: right!important;
+}
+/*文字对齐*/
+.text-left{
+    text-align: left!important;
+}
+.text-right{
+    text-align: right!important;
+}
+.text-center{
+    text-align: center!important;
+}
+/*清除浮动*/
+.clear{
+    clear: both;
+}
+/*是否可调整*/
+.rsize-no{
+    resize: none;
+}
+/*突出*/
+.imp{
+    color: #eb983a;
+}
+/*按钮组*/
+.btns{
+    padding: 5px;
+    text-align: center;
+}
+/*按钮*/
+.btn{
+    display: inline-block;
+    *display:inline;
+    box-sizing: border-box;
+    margin: 0 8px;
+    padding: 12px 20px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+}
+/*input*/
+input{
+    padding: 0 3px;
+    background-color: transparent;
+    border: 0;
+}
+input:focus,
+textarea:focus{
+}
+/*超链接*/
+.link:hover{
+    text-decoration: underline;
+}
+.icon-download{
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    background: url("../img/download.png") no-repeat 0 0 transparent;
+}
+

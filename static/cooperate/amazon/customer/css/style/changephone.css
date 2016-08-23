@@ -1,0 +1,71 @@
+.change-phone {
+    width: 580px;
+    padding: 0 58px;
+    overflow: hidden;
+    font-size: 18px;
+}
+
+.change-phone-title {
+    margin: 45px 0 0 0;
+    padding-left: 15px;
+    border-left: 4px solid #eb983a;
+}
+
+#changephone_form {
+    padding: 30px 0;
+}
+
+.changephone_form_row {
+    padding: 0 15px;
+    height: 90px;
+    line-height: 90px;
+}
+
+.changephone_form_row span {
+}
+
+#changephone_phone,
+#changephone_code {
+    margin-left: 10px;
+    height: 44px;
+    line-height: 44px;
+    box-sizing: border-box;
+    padding-left: 5px;
+    border: 1px solid #b2b3b2;
+    border-radius: 10px;
+}
+
+#changephone_phone {
+    width: 320px;
+}
+
+#changephone_code {
+    width: 150px;
+}
+#getValidCode{
+    display: inline-block;
+    *display:inline;
+    height: 44px;
+    line-height: 45px;
+    width: 150px;
+    margin: 0 0 0 13px;
+    box-sizing: border-box;
+    border: 1px solid #b2b3b2;
+    border-radius: 10px;
+    text-align: center;
+}
+.changephone_form_submit{
+    margin-top: 130px;
+    padding-left: 100px;
+}
+#submit_phonechange{
+    display: inline-block;
+    height: 44px;
+    line-height: 44px;
+    width: 320px;
+    background-color: #14ac85;
+    border-radius:10px;
+    text-align: center;
+    font-size: 20px;
+    color: #ffffff;
+}

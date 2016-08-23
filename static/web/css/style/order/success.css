@@ -1,0 +1,46 @@
+@import url("../public/public.css");
+.container{
+    width: 1000px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #fff;
+    font-size: 30px;
+}
+.top{
+    height: 290px;
+    background: url("../../image/order/banner.png") no-repeat -2px 0 transparent;
+}
+@media screen and (max-height: 768px) {
+    .top{
+        height: 223px;
+    }
+}
+.info{
+    padding: 14px 0 ;
+    text-align: center;
+}
+.font-b{
+    font-size: 32px;
+    color: #545454;
+}
+.logo{
+    height: 137px;
+    background: url("../../image/order/complete.png") no-repeat 440px 10px transparent;
+}
+.funcbar{
+    padding-bottom: 100px;
+    line-height:100px ;
+    text-align: center;
+}
+.funcbar a{
+    width: 170px;
+    height: 50px;
+    font-size: 26px;
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    background-color: #f68c36;
+    border-radius: 5px;
+    display: inline-block;
+}

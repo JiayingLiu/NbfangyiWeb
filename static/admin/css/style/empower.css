@@ -1,0 +1,25 @@
+ul{
+    list-style: none;
+    padding-left: 10px;
+}
+.menu{
+    height: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    margin: 10px 0;
+    background-color: #ECF0F5;
+}
+.menu a{
+    padding: 3px;
+    color: #333333;
+    text-decoration: none;
+}
+.menu a:hover{
+    color: #337AB7;
+}
+.menu-item{
+}
+.modal-body .menu{
+    height: 250px;
+    overflow: scroll;
+}

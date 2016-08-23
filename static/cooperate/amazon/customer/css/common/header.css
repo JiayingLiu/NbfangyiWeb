@@ -1,0 +1,60 @@
+/*reg header*/
+body a{
+    text-decoration: none !important;
+}
+.header {
+    box-sizing: border-box;
+    border-top: 3px solid #eb983a;
+    background-color: #ffffff;
+    border-bottom: 3px solid #efefef;
+    overflow: hidden;
+}
+.header-main{
+    margin: 0 auto;
+    width: 1170px;
+}
+
+.header-logo {
+    float: left;
+    height: 53px;
+    width: 200px;
+    background: url("../img/logo_sm.png") no-repeat 58px 1px transparent;
+}
+
+.header-logo-text {
+    float: left;
+    margin-top: 25px;
+    height: 23px;
+    border-left: 2px solid #eb983a;
+    padding-left: 10px;
+    line-height: 33px;
+    margin-bottom: 0;
+}
+.header-status{
+    box-sizing: border-box;
+    padding-top: 16px;
+    margin-right: 50px;
+}
+.header-status-phone,
+.header-status-login,
+.header-status-reg,
+.header-status-hello{
+    float: right;
+    height: 39px;
+    line-height: 39px;
+}
+.header-status-phone{
+    width: 213px;
+    margin: 0;
+    background: url("../img/phone_sm.png") no-repeat 19px 7px transparent;
+    text-align: center;
+}
+.header-status-reg{
+    padding: 0 5px;
+}
+.header-status-login{
+    padding: 0 3px;
+}
+.header-status-hello{
+    padding: 0 10px;
+}

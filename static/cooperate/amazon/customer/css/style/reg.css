@@ -1,0 +1,226 @@
+.reg {
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #f7f7f7;
+}
+
+.reg-img,
+.reg-area {
+    float: left;
+    width: 50%;
+}
+
+.reg-img {
+    background: url("../img/reg_img.jpg") no-repeat 130px 60px transparent;
+    height: 500px;
+}
+
+.reg-form {
+    margin: 15px 0 0 50px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    width: 395px;
+    border: 1px solid #aeaeae;
+    border-radius: 5px;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.reg-form-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #eb983a;
+}
+
+.reg-form-user,
+.reg-form-pwd {
+    box-sizing: border-box;
+    margin: 8px auto;
+    height: 55px;
+    width: 325px;
+    border: 1px solid #aeaeae;
+    border-radius: 8px;
+}
+
+.reg-form-code-con {
+    padding: 0 34px;
+}
+
+.reg-form-code {
+    float: left;
+    box-sizing: border-box;
+    height: 55px;
+    width: 170px;
+    border: 1px solid #aeaeae;
+    border-radius: 8px;
+}
+
+.form-user-img,
+.form-pwd-img,
+.form-code-img {
+    display: inline-block;
+    margin-top: 7px;
+    height: 40px;
+    width: 58px;
+    border-right: 2px solid #eb983a;
+}
+
+.form-user-img {
+    background: url("../img/user.png") no-repeat 17px 7px transparent;
+}
+
+.form-pwd-img {
+    background: url("../img/lock.png") no-repeat 17px 7px transparent;
+}
+
+.form-code-img {
+    background: url("../img/key.png") no-repeat 17px 7px transparent;
+}
+
+.reg-input {
+    vertical-align: top;
+    height: 30px;
+    width: 235px;
+    line-height: 30px;
+    margin-top: 13px;
+}
+
+.reg-input-sm {
+    vertical-align: top;
+    height: 30px;
+    width: 85px;
+    line-height: 30px;
+    margin-top: 13px;
+}
+
+#user_tip,
+#pwd_tip {
+    margin: 4px 0 18px 0;
+    padding-left: 65px;
+    color: #eb983a;
+}
+
+.reg-btn {
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #eb983a;
+}
+
+.reg-form-info {
+    margin: 10px;
+    height: 16px;
+    line-height: 16px;
+    padding: 0 34px;
+    text-align: center;
+}
+
+#getCode {
+    margin: 0px 0 0 15px;
+    padding-left: 0;
+    padding-right: 0;
+    height: 55px;
+    line-height: 32px;
+    width: 135px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #eb983a;
+    text-align: center;
+    color: #5d5d5d;
+}
+
+#verifyimg {
+    display: inline-block;
+    height: 55px;
+    width: 130px;
+    margin-left: 20px;
+}
+
+/*reg header*/
+.header {
+    box-sizing: border-box;
+    border-top: 3px solid #eb983a;
+    background-color: #ffffff;
+    border-bottom: 3px solid #efefef;
+    overflow: hidden;
+}
+
+.header-main {
+    margin: 0 auto;
+    width: 1170px;
+}
+
+.header-logo {
+    float: left;
+    height: 53px;
+    width: 150px;
+    background: url("../img/logo_sm.png") no-repeat 10px 2px transparent;
+}
+
+.header-serv-line {
+    float: left;
+    height: 33px;
+    width: 10px;
+    line-height: 33px;
+    text-align: center;
+    box-sizing: border-box;
+    border-right: 1px solid #cccccc;
+    margin-top: 15px;
+}
+
+.header-serv-logo {
+    float: left;
+    height: 49px;
+    width: 106px;
+    margin-left: 60px;
+    background: url("../img/eservice_logo.png") no-repeat 0 4px transparent;
+    background-size: 100%;
+}
+
+.header-logo-text {
+    float: left;
+    margin-top: 25px;
+    height: 23px;
+    padding-left: 10px;
+    line-height: 33px;
+    margin-bottom: 0;
+}
+
+.header-status {
+    box-sizing: border-box;
+    padding-top: 16px;
+    margin-right: 50px;
+}
+
+.header-status-phone,
+.header-status-login,
+.header-status-reg,
+.header-status-hello {
+    float: right;
+    height: 39px;
+    line-height: 39px;
+}
+
+.header-status-phone {
+    width: 213px;
+    margin: 0;
+    background: url("../img/phone_sm.png") no-repeat 19px 7px transparent;
+    text-align: center;
+}
+
+.header-status-reg {
+    padding: 0 5px;
+}
+
+.header-status-login {
+    padding: 0 3px;
+}
+
+.header-status-hello {
+    padding: 0 10px;
+}
+
+/*reg header end*/

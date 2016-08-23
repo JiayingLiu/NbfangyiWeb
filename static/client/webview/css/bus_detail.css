@@ -1,0 +1,810 @@
+body {
+    background-color: #fafafa;
+}
+
+img {
+    vertical-align: bottom !important;
+}
+
+a {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -ms-touch-action: none;
+    -moz-user-select: -moz-none;
+}
+
+/*header*/
+header {
+    min-width: 10rem;
+    padding: 0.31rem 0;
+    margin: 0 auto;
+    background: url("../images/bus_head.png") no-repeat center center transparent;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.header-left {
+    float: left;
+    width: 30%;
+    height: 6.41rem;
+}
+
+.head-img {
+    width: 3.19rem;
+    height: 3.4rem;
+    border-radius: 5px;
+    margin: 0.31rem auto 0 auto;
+    overflow: hidden;
+}
+
+.header-right {
+    position: relative;
+    float: left;
+    width: 70%;
+    overflow: hidden;
+}
+
+.header-right .shop-title {
+    margin: 0.31rem 0 0 0;
+    font-size: 0.81rem;
+    color: #ffffff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.separate {
+    padding-top: 0.46rem !important;
+}
+
+.header-right p {
+    position: relative;
+    padding: 0.05rem 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.56rem;
+    color: #ffffff;
+}
+
+.address-box {
+    box-sizing: border-box;
+    width: 80% !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.address-box .icon-address{
+    top: 0.08rem;
+}
+.header-right p span {
+    float: left;
+    display: inline-block;
+    width: 80%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.header-right a {
+    margin: 0.1rem 0.31rem 0.2rem 0;
+    padding: 0.1rem 0.31rem 0.05rem 0.31rem;
+    box-sizing: border-box;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    font-size: 0.56rem;
+    color: #ffffff;
+}
+
+.header-right ul {
+    float: left;
+    width: 80%;
+    height: 1.3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.header-right ul li {
+    float: left;
+    display: inline-block;
+    margin: 0.1rem 0.31rem 0.2rem 0;
+    padding: 0.1rem 0.31rem 0.05rem 0.31rem;
+    box-sizing: border-box;
+    border: 1px solid #fbd151;
+    border-radius: 3px;
+    font-size: 0.56rem;
+    color: #fbd151;
+}
+
+.header-right span {
+    position: relative;
+}
+
+.header-right span a {
+    display: inline-block;
+    font-size: 0.56rem;
+    color: #fbd151;
+}
+
+.head-sever {
+    width: 95%;
+    margin-top: 0.31rem;
+    padding: 0.31rem 0;
+    box-sizing: border-box;
+    border-top: 1px solid #ffffff;
+    color: #ffffff;
+    font-size: 0.56rem;
+    overflow: hidden;
+}
+
+.head-sever span {
+    padding: 0 0.37rem;
+}
+
+/*start*/
+.start-box {
+    position: absolute;
+    top: 1.35rem;
+    left: 6.5rem;
+    font-size: 0.56rem;
+    color: #ffffff;
+}
+
+.start-box div {
+    width: 0.8rem;
+    height: 0.8rem;
+    float: left;
+}
+
+.start-box div span {
+    position: relative;
+}
+
+.full-start {
+    position: absolute;
+    width: 0.53rem;
+    height: 0.53rem;
+    background: url("../images/full-start.png") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.empty-start {
+    position: absolute;
+    width: 0.53rem;
+    height: 0.53rem;
+    background: url("../images/empty-start.png") no-repeat 0 0.05rem;
+    background-size: 100%;
+}
+
+.half-start {
+    position: absolute;
+    width: 0.53rem;
+    height: 0.53rem;
+    background: url("../images/half-start.png") no-repeat 0 0.05rem;
+    background-size: 100%;
+}
+
+/*start end*/
+/*header end*/
+/*section*/
+/*authentication-box*/
+.aut-show {
+    width: 100%;
+    margin-top: 0.56rem;
+    overflow: hidden;
+}
+
+.aut-show ul li {
+    position: relative;
+    width: 100%;
+    font-size: 0.56rem;
+    line-height: 16px;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.aut-show ul li span {
+    padding-left: 1.3rem;
+    display: inline-block;
+    width: 0.88rem;
+    height: 0.63rem;
+    position: relative;
+}
+
+/*icon*/
+.icon-address {
+    position: absolute;
+    top: -0.08rem;
+    width: 0.4rem;
+    height: 0.6rem;
+    background: url("../images/icon-address.png") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.icon-identity {
+    position: absolute;
+    width: 0.88rem;
+    height: 0.68rem;
+    background: url("../images/icon-identity.jpg") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.icon-tax {
+    position: absolute;
+    width: 0.88rem;
+    height: 0.68rem;
+    background: url("../images/icon-tax.jpg") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.icon-license {
+    position: absolute;
+    width: 0.88rem;
+    height: 0.68rem;
+    background: url("../images/icon-license.png") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.icon-education {
+    position: absolute;
+    width: 0.88rem;
+    height: 0.68rem;
+    background: url("../images/icon-education.jpg") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.icon-qualifications {
+    position: absolute;
+    width: 0.88rem;
+    height: 0.68rem;
+    background: url("../images/icon-qualifications.jpg") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.icon-contact {
+    position: absolute;
+    top: 0.3rem;
+    width: 0.56rem;
+    height: 0.63rem;
+    background: url("../images/icon-contact.png") no-repeat transparent center;
+    background-size: 100%;
+}
+
+/*icon end*/
+.box-right {
+    position: relative;
+    float: left;
+    width: 25%;
+    font-size: 0.56rem;
+    color: #666666;
+}
+
+.praise {
+    position: relative;
+    margin: 0.1rem 0 0 0.3rem;
+    text-align: center;
+}
+
+.praise p {
+    width: 100%;
+    text-align: center;
+}
+
+.praise-start {
+    width: 4.5rem;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+}
+
+.praise-start .start-box {
+    top: 0.4rem;
+    left: 0;
+}
+
+.amount-box {
+    width: 100%;
+    overflow: hidden;
+}
+
+.amount-box p {
+    font-size: 0.56rem;
+    padding-top: 0.31rem;
+    padding-left: 0.56rem;
+    color: #666666;
+}
+
+.amount-box p span {
+    padding-right: 0.5rem;
+    color: #fbd151;
+}
+
+/*authentication-box end*/
+/*section end*/
+/*nav*/
+nav {
+    width: 100%;
+    min-width: 10rem;
+    margin: 0.62rem auto 0 auto;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f0f0f0;
+    border-top: 1px solid #f0f0f0;
+    background-color: #e5e5e5;
+    overflow: hidden;
+}
+
+nav a {
+    display: block;
+    float: left;
+    text-align: center;
+    padding: 0.62rem 0;
+    width: 33.33%;
+    font-size: 0.68rem;
+    color: #4a4a4a;
+    box-sizing: border-box;
+    border-right: 1px solid #ffffff;
+    -webkit-appearance: normal;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.selected-state {
+    background-color: #e5c256;
+}
+
+/*nav*/
+section {
+    width: 100%;
+    min-width: 10rem;
+    margin: 0 auto;
+}
+
+/*product-list*/
+.product-list {
+    width: 100%;
+    overflow: hidden;
+}
+
+.product-list ul li {
+    position: relative;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f0f0f0;
+    border-top: 1px solid #f0f0f0;
+    padding: 0.61rem 0;
+    margin-top: 0.31rem;
+    overflow: hidden;
+    font-size: 0.56rem;
+    color: #666666;
+}
+
+.href-block {
+    display: block;
+}
+
+.list-left {
+    float: left;
+    width: 30%;
+    overflow: hidden;
+}
+
+.list-left .icon-address {
+    position: absolute;
+    top: 0.15rem;
+    width: 0.5rem;
+    height: 0.8rem;
+    background: url("../images/icon-address.png") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.list-img {
+    margin: 0 auto;
+    width: 4.47rem;
+    height: 3.38rem;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.list-left p {
+    position: relative;
+    text-align: center;
+    padding: 0.15rem 0;
+    font-size: 0.56rem;
+    color: #666666;
+
+}
+
+.pro-price {
+    display: block;
+    padding: 0.1rem 0;
+    margin: 0.56rem 0.31rem 0 0.31rem;
+    text-align: center;
+    border-radius: 3px;
+    box-sizing: border-box;
+    border: 1px solid #fbd151;
+    font-size: 0.63rem;
+    color: #666666;
+
+    overflow: hidden;
+}
+
+.pro-price span {
+    font-size: 0.56rem;
+    color: #fbd151;
+}
+
+.contact-shop {
+    display: inline-block;
+    padding: 0.1rem;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 3px;
+    background-color: #fbd151;
+    font-size: 0.63rem;
+    color: #ffffff;
+}
+
+.list-right {
+    position: relative;
+    float: left;
+    width: 70%;
+}
+
+.list-right h3 {
+    padding-left: 0.21rem;
+    font-size: 0.7rem;
+    color: #666666;
+}
+
+.list-right h3 span {
+    position: relative;
+    width: 5rem;
+    font-size: 0.56rem;
+    font-weight: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.list-right p {
+    width: 90%;
+    padding: 0.1rem 0 0.1rem 0.21rem;
+    font-size: 0.56rem;
+    color: #666666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.list-right .shop-label {
+    width: 72%;
+    height: 1.56rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.list-right .shop-label li {
+    float: left;
+    display: inline-block !important;
+    margin-left: 0.31rem;
+    margin-top: 0.31rem;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    border: 1px solid #00abff;
+    border-radius: 3px;
+    padding: 0.1rem 0.31rem 0.05rem 0.31rem;
+    font-size: 0.63rem;
+    color: #00abff;
+}
+
+.label-remd {
+    position: absolute;
+    width: 1.38rem;
+    height: 1.38rem;
+    right: 0;
+    top: -0.63rem;
+    background: url("../images/recommend.png") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.buy-btn {
+    position: absolute;
+    bottom: 0.2rem;
+    right: 0.31rem;
+    border-radius: 3px;
+    background-color: #fbd151;
+}
+
+.buy-btn a {
+    display: block;
+    font-size: 0.56rem;
+    padding: 0.15rem 0.31rem;
+    color: #ffffff;
+}
+
+/*product-list end*/
+
+/*service-detail*/
+.service-detail {
+    width: 100%;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.service-detail h3 {
+    padding: 0.31rem 0.56rem 0.1rem 0.56rem;
+    font-size: 0.56rem;
+    color: #4a4a4a;
+}
+
+.service-detail > p {
+    padding: 0 0.56rem 0.31rem 0.56rem;
+    line-height: 1.1rem;
+    font-size: 0.56rem;
+    color: #666666;
+}
+
+.service-detail img {
+    width: 100%;
+    height: auto;
+}
+
+.service-label {
+    margin-left: 0.56rem;
+    display: inline-block;
+}
+
+.service-label li {
+    float: left;
+    margin-right: 0.31rem;
+    margin-top: 0.31rem;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    border: 1px solid #fbd151;
+    border-radius: 3px;
+    padding: 0.1rem 0.31rem 0.05rem 0.31rem;
+    font-size: 0.63rem;
+    color: #fbd151;
+}
+
+/*result-show*/
+.result-show {
+    width: 100%;
+    padding: 0.31rem 0;
+    overflow: hidden;
+}
+
+.result-show p {
+    padding: 0 0.56rem 0.31rem 0.56rem;
+    line-height: 1.1rem;
+    font-size: 0.56rem;
+    color: #666666;
+}
+
+.result-show ul li {
+    margin-left: 1.1rem;
+    position: relative;
+    box-sizing: border-box;
+    border-left: 1px solid #c9c9c9;
+}
+
+.result-text {
+    position: relative;
+    display: inline-block;
+    margin: 0.31rem 0.61rem 0.31rem 1.5rem;
+    padding: 0.31rem;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 1px solid #f0f0f0;
+}
+
+.result-title {
+    padding: 0.61rem 0.31rem;
+    font-size: 0.56rem;
+    color: #666666;
+    background: url("../images/line.png") no-repeat transparent 33px 28px;
+    overflow: hidden;
+}
+
+.icon-result1 {
+    position: absolute;
+    top: 50%;
+    left: -2.2rem;
+    margin-top: -0.64rem;
+    width: 1.28rem;
+    height: 1.28rem;
+    background: url("../images/icon-result1.png") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.icon-result2 {
+    position: absolute;
+    top: 50%;
+    left: -2.2rem;
+    margin-top: -0.64rem;
+    width: 1.28rem;
+    height: 1.28rem;
+    background: url("../images/icon-result2.png") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.icon-result3 {
+    position: absolute;
+    top: 50%;
+    left: -2.2rem;
+    margin-top: -0.64rem;
+    width: 1.28rem;
+    height: 1.29rem;
+    background: url("../images/icon-result3.png") no-repeat transparent center;
+    background-size: 100%;
+}
+
+.icon-triangle {
+    position: absolute;
+    top: 50%;
+    left: -0.55rem;
+    margin-top: -0.33rem;
+    width: 0.56rem;
+    height: 0.66rem;
+    background: url("../images/icon-triangle.png") no-repeat transparent center;
+    background-size: 100%;
+}
+
+/*result-show end*/
+/*service-detail end*/
+/*service-evaluate*/
+.service-evaluate {
+    width: 100%;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.service-evaluate ul li {
+    padding: 0.61rem;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f0f0f0;
+    overflow: hidden;
+    font-size: 0.56rem;
+    color: #666666;
+}
+
+.evaluate-head {
+    float: left;
+    width: 17%;
+    overflow: hidden;
+}
+
+.evaluate-head div {
+    float: left;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.evaluate-content {
+    float: left;
+    width: 83%;
+    color: #666666;
+    overflow: hidden;
+}
+
+.evaluate-title {
+    width: 100%;
+    overflow: hidden;
+    font-size: 0.56rem;
+}
+
+.evaluate-title span {
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.evaluate-content p {
+    width: 100%;
+    font-size: 0.56rem;
+    line-height: 1.1rem;
+    padding-top: 0.31rem;
+    overflow: hidden;
+}
+
+/*service-evaluate end*/
+/*product*/
+/*pro-head*/
+.pro-head {
+    width: 4.56rem;
+    height: 3.2rem;
+}
+
+/*pro-head end*/
+/*trs-head*/
+.trs-head {
+    float: left;
+    width: 20%;
+    height: auto;
+    overflow: hidden;
+}
+
+.trs-head a {
+    display: block;
+    margin: 0 auto;
+    width: 2.2rem;
+    height: 2.2rem;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+/*trs-head*/
+/*trs-introduce*/
+.trs-introduce {
+    float: left;
+    width: 80%;
+    overflow: hidden;
+}
+
+.trs-introduce p {
+    padding-top: 0.21rem;
+    padding-left: 0.56rem;
+    font-size: 0.56rem;
+    color: #666666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*trs-introduce end*/
+/*pro-nav*/
+.pro-nav a {
+    width: 50%;
+}
+
+/*pro-nav end*/
+/*product end*/
+
+.service-detail .list-right h3 {
+    padding: 0 0 0 0.21rem !important;
+}
+
+/*
+@media only screen and (max-width: 375px) {
+    /!*ip6*!/
+    .start-box {
+        top: 2.0rem;
+    }
+
+    .icon-address {
+        position: absolute;
+        top: 0.15rem;
+        width: 0.5rem;
+        height: 0.8rem;
+        background: url("../images/icon-address.png") no-repeat transparent center;
+        background-size: 100%;
+    }
+
+    .list-left .icon-address {
+        position: absolute;
+        top: 0.3rem;
+        width: 0.5rem;
+        height: 0.6rem;
+        background: url("../images/icon-address.png") no-repeat transparent center;
+        background-size: 100%;
+    }
+
+    .icon-contact {
+        position: absolute;
+        top: 0.4rem;
+        width: 0.56rem;
+        height: 0.63rem;
+        background: url("../images/icon-contact.png") no-repeat transparent center;
+        background-size: 100%;
+    }
+}*/

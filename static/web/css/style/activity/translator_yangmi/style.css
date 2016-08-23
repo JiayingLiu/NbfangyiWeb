@@ -1,0 +1,132 @@
+@import url("../../public/public.css");
+/*banner*/
+.banner{
+    width: 100%;
+    min-width: 1170px;
+    height: 600px;
+    text-align: center;
+    background-color: #0A6EC0;
+}
+/*banner end*/
+/*main*/
+.main-box{
+    width: 100%;
+    background-color: #e6e6e6;
+}
+.main{
+    position: relative;
+    width: 1170px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+    box-shadow: #4a4a4a 1px 2px 5px;
+    background-color: #f7f7f7;
+}
+.yang-box{
+    width: 100%;
+    height: 300px;
+    background-color: #ffffff;
+}
+.yangmi{
+    position: relative;
+    top: -20px;
+    left: 80px;
+    float: left;
+    width: 228px;
+}
+.trs-text{
+    width: 830px;
+    float: right;
+}
+.trs-text h3{
+    padding: 30px 0 10px 0;
+}
+.trs-text p{
+    line-height: 23px;
+    padding-right: 40px;
+}
+.trs-more{
+    width: 150px;
+    height: 30px;
+    margin-top: 30px;
+    border-radius: 4px;
+    background-color: #dd1e32;
+}
+.trs-more a{
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    color: #ffffff;
+}
+.consultation{
+    width: 100%;
+    overflow: hidden;
+}
+.con-title{
+    margin: 20px 10px 0 10px;
+    height: 40px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e6e6e6;
+    overflow: hidden;
+}
+.con-title h3{
+    line-height: 40px;
+    color: #00abff;
+    padding-left: 10px;
+    width: 80px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #00abff;
+}
+.consultation ul li{
+    display: block;
+    width: 1100px;
+    margin: 10px 20px;
+    padding: 10px 0;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+.trs-content{
+    width: 80%;
+    float: left;
+}
+.trs-content h3{
+    padding-left: 20px;
+    line-height: 30px;
+}
+.trs-content p{
+    padding-left: 20px;
+    line-height: 23px;
+}
+.trs-img{
+    text-align: center;
+    width: 20%;
+    float: left;
+}
+.video-box{
+    width: 100%;
+    margin: 30px 0;
+    overflow: hidden;
+}
+.video-title{
+    margin: 0 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #00abff;
+}
+.video-title h3{
+    width: 120px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: #ffffff;
+    background-color: #00abff;
+}
+.video-show{
+    width: 100%;
+    margin-top: 30px;
+    overflow: hidden;
+}
+.video-show ul li{
+    float: left;
+    margin: 10px 0 10px 10.9px;
+}
+/*main end*/

@@ -1,0 +1,8 @@
+.settings
+.buildpath
+.project
+initphp/
+.git/
+git/
+.idea
+idea

@@ -1,0 +1,111 @@
+.userinfo {
+    position: relative;
+    width: 580px;
+    padding: 0 58px;
+    overflow: hidden;
+}
+
+.userinfo-title {
+    margin: 45px 0 0 0;
+    padding-left: 15px;
+    border-left: 4px solid #eb983a;
+    font-size: 16px;
+}
+
+#userinfo_form {
+    padding: 30px 0;
+    font-size: 14px;
+}
+
+.userinfo-form-row {
+    padding: 0 15px;
+    height: 70px;
+    line-height: 70px;
+}
+
+.userinfo-form-row span {
+}
+
+.userinfo-input {
+    width: 200px;
+    margin-left: 10px;
+    height: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+    padding-left: 5px;
+    border: 1px solid #b2b3b2;
+    border-radius: 5px;
+}
+
+.userinfo-input-noborder {
+    width: 200px;
+    margin-left: 10px;
+    height: 44px;
+    line-height: 44px;
+    box-sizing: border-box;
+    padding-left: 5px;
+    border-radius: 10px;
+}
+
+.userinfo-form-submit {
+    margin-top: 25px;
+    padding-left: 101px;
+}
+
+#submit_userinfo {
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    width: 150px;
+    background-color: #14ac85;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.userinfo-form-look {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px 15px;
+    text-align: center;
+}
+
+#upload_user_look {
+    position: absolute;
+    top: 155px;
+    right: 31px;
+    padding: 0 20px;
+    line-height: 35px;
+    border-radius: 8px;
+    background-color: #14ac85;
+    color: #ffffff;
+}
+
+.userinfo-form-look span {
+    float: left;
+}
+
+.userinfo-form-look img {
+    box-sizing: border-box;
+    border: 2px solid #eb983a;
+    border-radius: 8px;
+}
+.userinfo-form-look-tip{
+    font-size: 12px;
+    margin: 0;
+    text-align: center;
+}
+
+#upload_user_file {
+    position: absolute;
+    height: 105px;
+    width: 105px;
+    top: 20px;
+    right: 13px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    background-color: #000;
+    cursor: pointer;
+}

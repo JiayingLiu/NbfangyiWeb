@@ -1,0 +1,103 @@
+/*nbfy-appointment*/
+.pub-appointment {
+    position: fixed;
+    bottom: 10%;
+    width: 102%;
+    left: -100%;
+    height: 114px;
+    background-color: #959595;
+    border-radius: 0 10px 10px 0;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    z-index: 20;
+}
+
+.pub-appointment-show {
+    left: 0;
+}
+.pub-appointment-show .appm-toggle{
+    display: none;
+}
+
+.appm-image {
+    float: right;
+    width: 62%;
+    margin-top: -27px;
+}
+
+.appm-form {
+    position: relative;
+    float: right;
+    height: 100%;
+    width: 30%;
+}
+.appm-form .appm-close{
+    position: absolute;
+    display: inline-block;
+    top: 5px;
+    left: 76%;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 30px;
+    color: #666;
+}
+.appm-form .appm-close:hover{
+    color: #FAFAFA;
+}
+
+.appm-form form {
+    float: left;
+    padding: 0 20px;
+    height: 100%;
+    width: 65%;
+    font-size: 16px;
+}
+
+.appm-form .appm-form-group {
+    margin-top: 18px;
+    height: 28px;
+    line-height: 28px;
+    clear: both;
+    overflow: hidden;
+}
+
+.appm-form .appm-with-bg {
+    background-color: #FFFFFF;
+}
+
+.appm-form .appm-with-radius {
+    border-radius: 3px;
+}
+
+.appm-form .appm-form-group input {
+    border: 0;
+    font-size: 14px;
+}
+.appm-form .appm-form-group a{
+    padding: 0 20px;
+    margin: 0;
+    float: right;
+    background-color: #ef8200;
+    color: #FFFFFF;
+    border-radius: 3px;
+}
+.appm-form .appm-form-group a:hover{
+    background-color: #ff003a;
+}
+
+.appm-toggle {
+    float: right;
+    width: 27px;
+    height: 100%;
+    cursor: pointer;
+    background-color: transparent;
+}
+.appm-toggle img{
+    position: absolute;
+    top: 0;
+    float: right;
+}

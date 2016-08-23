@@ -1,0 +1,248 @@
+@import url("../public/public.css");
+
+.wrap {
+    overflow: hidden;
+}
+
+.news-main {
+    position: relative;
+    width: 1170px;
+    margin: 10px auto 20px;
+    overflow: hidden;
+}
+
+.news-main .news-menu {
+    float: left;
+    width: 268px;
+    border: 1px solid #e5e5e5;
+    overflow: hidden;
+    background-color: #f7f7f7;
+}
+
+.news-menu .news-nav {
+    position: relative;
+    float: left;
+    width: 268px;
+    height: 35px;
+    line-height: 35px;
+}
+
+.news-menu .news-nav a {
+    box-sizing: border-box;
+    float: left;
+    width: 50%;
+    text-align: center;
+    background-color: #DDDDDD;
+    border-bottom: 2px solid #DDDDDD;
+}
+
+.news-menu .news-nav .focus {
+    color: #666;
+    font-weight: bold;
+    border-bottom: 2px solid #ef8200;
+}
+
+.news-menu .news-box {
+    float: left;
+    box-sizing: border-box;
+    width: 268px;
+    min-height: 400px;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.news-menu .news-box li {
+    width: 100%;
+    line-height: 35px;
+    overflow: hidden;
+    border-bottom: 1px dashed #e5e5e5;
+}
+
+.news-menu .news-box li a {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.news-main .news-article {
+    float: left;
+    padding: 20px 0;
+    margin-left: 20px;
+    width: 870px;
+    min-height: 430px;
+    border: 1px solid #e5e5e5;
+}
+
+.news-article .news-article-title {
+    font-size: 14px;
+    line-height: 30px;
+    padding-left: 30px;
+    color: #ef8200;
+}
+
+.news-article > ul li {
+    position: relative;
+    box-sizing: border-box;
+    height: 170px;
+    padding: 20px 5px;
+    margin: 0 30px;
+    border-bottom: 1px solid #e5e5e5;
+    overflow: hidden;
+}
+
+.news-article > ul li:hover {
+    background-color: #FAFAFA;
+}
+
+.news-article > ul li img {
+    position: absolute;
+    top: 14px;
+    left: 4px;
+}
+
+.news-article > ul li h3 {
+    position: absolute;
+    top: 22px;
+    left: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #357fb0;
+}
+
+.news-article > ul li div {
+    position: absolute;
+    box-sizing: border-box;
+    padding: 1px;
+    top: 45px;
+    left: 250px;
+    width: 500px;
+    height: 86px;
+    overflow: hidden;
+    text-indent: 2em;
+    line-height: 14px;
+}
+
+.news-article > ul li span {
+    position: absolute;
+    top: 142px;
+    left: 250px;
+    color: #aeaeae;
+}
+
+.news-text {
+    float: left;
+    box-sizing: border-box;
+    padding: 20px 25px;
+    margin-left: 20px;
+    width: 870px;
+    min-height: 430px;
+    border: 1px solid #e5e5e5;
+    color: #000;
+}
+
+.news-text .news-article-title {
+    font-size: 14px;
+    line-height: 30px;
+    color: #ef8200;
+}
+
+.news-text .news-text-title h1{
+    color: #357fb0;
+    line-height: 30px;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+.news-text .news-text-time {
+    color: #666;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.news-text-reset h1,
+.news-text-reset h2,
+.news-text-reset h3,
+.news-text-reset h4,
+.news-text-reset h5,
+.news-text-reset h6,
+.news-text-reset hr,
+.news-text-reset p,
+.news-text-reset dl,
+.news-text-reset dt,
+.news-text-reset dd,
+.news-text-reset ul,
+.news-text-reset ol,
+.news-text-reset li,
+.news-text-reset pre,
+.news-text-reset fieldset,
+.news-text-reset button,
+.news-text-reset input,
+.news-text-reset textarea,
+.news-text-reset th,
+.news-text-reset td {
+    color: #000;
+}
+
+.news-text-reset td {font:12px/1.5 "sans serif",tahoma,verdana,helvetica;}
+.news-text-reset p, .news-text-reset div {word-wrap: break-word;}
+.news-text-reset p {margin:5px 0;}
+.news-text-reset table {border-collapse:collapse;}
+.news-text-reset img {border:0;}
+
+
+/*.news-text h2 {
+    line-height: 100px;
+    text-align: center;
+    color: #357fb0;
+}
+
+.news-text p {
+    color: #aeaeae;
+    text-align: center;
+}*/
+
+.news-ext {
+    float: left;
+    box-sizing: border-box;
+    margin: 0 10px;
+    padding: 15px 10px;
+    border-top: 1px solid #CCCCCC;
+}
+
+.news-ext .title {
+    font-weight: bold;
+    line-height: 30px;
+    font-size: 14px;
+    color: #252525;
+}
+
+.news-ext .info {
+    float: left;
+    line-height: 20px;
+}
+
+.news-ext .hotline {
+    margin: 3px 0;
+    font-weight: bold;
+    line-height: 30px;
+    color: #ef8200;
+}
+
+.news-ext .phone-num {
+    font-size: 20px;
+    color: #ef8200;
+}
+
+.news-ext .phone-num span {
+    vertical-align: 85%;
+}
+
+.img-weixin {
+    margin-top: 20px;
+    margin-left: 60px;
+    margin-bottom: 20px;
+}

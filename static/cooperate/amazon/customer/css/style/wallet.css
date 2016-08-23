@@ -1,0 +1,61 @@
+.wallet {
+    box-sizing: border-box;
+    height: 350px;
+    width: 800px;
+    border: 1px solid #d2d3d3;
+    background-color: #ffffff;
+}
+
+.wallet-top {
+    padding: 0 20px;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #d2d3d3;
+    text-align: right;
+}
+
+.wallet-top a {
+    padding: 7px 18px;
+    background-color: #eb983a;
+    border-radius: 5px;
+    color: #ffffff;
+}
+.wallet-input{
+    margin-top: 88px;
+    text-align: center;
+}
+.wallet-input input{
+    box-sizing: border-box;
+    padding: 0 20px;
+    width:277px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #b2b3b2;
+    border-radius: 8px;
+    font-size:14px;
+}
+.wallet-btns{
+    margin-top: 30px;
+    text-align: center;
+}
+#recharge,
+#withdraw{
+    display: inline-block;
+    box-sizing:border-box;
+    height: 45px;
+    line-height: 45px;
+    width: 132px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 14px;
+}
+#recharge{
+    border:1px solid #f6a538;
+    background-color: #eb983a;
+    color: #ffffff;
+}
+#withdraw{
+    border:1px solid #b2b3b2;
+    background-color: #ffffff;
+    color: #0f0f0f;
+}

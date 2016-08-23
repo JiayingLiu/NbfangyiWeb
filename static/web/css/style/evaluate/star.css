@@ -1,0 +1,43 @@
+/*icon -b is big, -s is small, ss is small star, bs is big star*/
+.icon-eavl-b {
+    display: inline-block;
+    background-image: url("../../image/evaluate/evaluate_star.png");
+    height: 40px;
+    width: 35px;
+    background-repeat: no-repeat;
+}
+
+.icon-eavl-s {
+    display: inline-block;
+    background-image: url("../../image/evaluate/evaluate_star.png");
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+}
+
+.icon-full-bs {
+    background-position: 0px 0px;
+}
+
+.icon-half-bs {
+    background-position: -40px 0px;
+}
+
+.icon-empty-bs {
+    background-position: -80px 0px;
+}
+
+.icon-full-ss {
+    background-position: -7px -47px;
+}
+
+.icon-half-ss {
+    background-position: -47px -47px;
+}
+
+.icon-empty-ss {
+    background-position: -87px -47px;
+}
+.star-selected{
+    background-position: -7px -47px;
+}

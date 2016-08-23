@@ -1,0 +1,38 @@
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot'); /* IE9*/
+  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-Environment-and-environmental-protection:before { content: "\e60a"; }
+.icon-Automotive-engineering:before { content: "\e60c"; }
+.icon-Chemical-energy:before { content: "\e60d"; }
+.icon-Communications-general:before { content: "\e611"; }
+.icon-interpreting:before { content: "\e606"; }
+.icon-resumetranslation:before { content: "\e602"; }
+.icon-Business-documents:before { content: "\e607"; }
+.icon-Documents-translation:before { content: "\e603"; }
+.icon-The-paper-translation:before { content: "\e600"; }
+.icon-Study-abroad-immigration:before { content: "\e604"; }
+.icon-The-Internet-game:before { content: "\e608"; }
+.icon-laws-and-regulations:before { content: "\e605"; }
+.icon-Construction-materials:before { content: "\e609"; }
+.icon-media-file:before { content: "\e613"; }
+.icon-Economic-and-trade:before { content: "\e60e"; }
+.icon-company-introduction:before { content: "\e614"; }
+.icon-Accompanied-by-translation:before { content: "\e601"; }
+.icon-Literature-and-art:before { content: "\e60f"; }
+.icon-Power-electric:before { content: "\e60b"; }
+.icon-Engineering-machinery:before { content: "\e610"; }
+.icon-The-address-of-mineral:before { content: "\e615"; }

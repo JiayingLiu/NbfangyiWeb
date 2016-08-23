@@ -1,0 +1,85 @@
+.login{
+    height: 500px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #f7f7f7;
+}
+.login-img,
+.login-area{
+    float: left;
+    height: inherit;
+    width: 50%;
+}
+.login-img{
+    background: url("../img/login_img.jpg") no-repeat 100px 50px transparent;
+}
+.login-form{
+    margin: 62px 0 0 62px;
+    box-sizing: border-box;
+    height: 395px;
+    width: 395px;
+    border: 1px solid #aeaeae;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+.login-form-title{
+    padding: 10px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #eb983a;
+}
+.login-form-user,
+.login-form-pwd{
+    box-sizing: border-box;
+    margin: 10px auto;
+    height: 55px;
+    width: 325px;
+    border: 1px solid #aeaeae ;
+    border-radius: 8px;
+}
+.form-user-img,
+.form-pwd-img{
+    display: inline-block;
+    margin-top: 7px;
+    height: 40px;
+    width: 58px;
+    border-right: 2px solid #eb983a;
+}
+
+.form-user-img{
+    background: url("../img/user.png") no-repeat 17px 7px transparent;
+}
+.form-pwd-img{
+    background: url("../img/lock.png") no-repeat 17px 7px transparent;
+}
+.login-input{
+    vertical-align: top;
+    height: 30px;
+    width: 235px;
+    line-height: 30px;
+    margin-top: 13px;
+}
+.login-form-text{
+    margin: 2px 0 18px;
+    padding: 0 35px;
+}
+#user_tip,
+#pwd_tip{
+    margin: 4px 0 18px 0;
+    padding-left: 65px;
+    color: #eb983a;
+}
+.login-btn,
+.reg-btn{
+    padding: 12px 42px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.login-btn{
+    color: #ffffff;
+    background-color: #eb983a;
+}
+.reg-btn{
+    border: 1px solid #eb983a;
+}

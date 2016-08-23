@@ -1,0 +1,127 @@
+.myorders {
+    box-sizing: border-box;
+    padding-bottom: 40px;
+    width: 885px;
+    border: 1px solid #d2d3d3;
+    background-color: #ffffff;
+}
+
+.myorders-top {
+    padding: 0 20px;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #d2d3d3;
+    text-align: right;
+}
+
+.myorders-top span {
+    margin-right: 15px;
+}
+
+.myorders-top a {
+    padding: 7px 18px;
+    background-color: #eb983a;
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+.myorders-con {
+    margin: 0 24px;
+}
+
+.myorders-query {
+    margin: 10px 0;
+    height: 52px;
+    line-height: 52px;
+}
+
+.myorders-query a {
+    float: left;
+    box-sizing: border-box;
+    width: 20%;
+    border-left: 1px solid #fff;
+    text-align: center;
+    background-color: #dddddd;
+    transition: all .4s;
+    -webkit-transition: all .4s;
+    -moz-transition: all .4s;
+    -ms-transition: all .4s;
+}
+
+.myorders-query a:hover {
+    background-color: #eb983a !important;
+    color: #ffffff;
+}
+
+.myorders-query-selected {
+    background-color: #eb983a !important;
+    color: #ffffff;
+}
+
+#myorders_query {
+    padding: 3px 20px;
+    background-color: #14ac85;
+    border-radius: 3px;
+    color: #ffffff;;
+}
+
+.myorders-table {
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid #b2b3b2;
+    border-left: 1px solid #b2b3b2;
+}
+
+.myorders-table > thead > tr > th,
+.myorders-table > tbody > tr > td {
+    border-right: 1px solid #b2b3b2;
+    border-bottom: 1px solid #b2b3b2;
+    text-align: center;
+}
+
+.myorders-table > thead > tr {
+    height: 30px;
+    background-color: #c0e2d4;
+}
+
+.myorders-table > tbody > tr {
+    height: 50px;
+}
+.myorders-table-btn{
+    display: inline-block;
+    margin: 2px;
+    width: 70px;
+    height: 20px;
+    line-height:20px;
+    background-color: #eb983a;
+    color: #ffffff;
+    border-radius:5px;
+}
+.orderlist-nodata{
+    padding: 1px;
+    height: 260px;
+    background: url(../../customer/css/img/rhinoceros.png) no-repeat 50% 30% transparent;
+}
+.orderlist-nodata p{
+    margin-top: 160px;
+}
+
+.deal-query {
+    line-height: 30px;
+}
+
+.deal-query input ,
+.deal-query select{
+    height: 23px;
+    line-height: 23px;
+    vertical-align: middle;
+    border: 1px solid #b2b3b2;
+    border-radius: 5px;
+}
+
+#deal_query {
+    padding: 3px 20px;
+    background-color: #14ac85;
+    border-radius: 3px;
+    color: #ffffff;;
+}

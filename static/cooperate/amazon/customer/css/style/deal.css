@@ -1,0 +1,73 @@
+.deal {
+    box-sizing: border-box;
+    padding-bottom: 90px;
+    width: 800px;
+    border: 1px solid #d2d3d3;
+    background-color: #ffffff;
+}
+
+.deal-top {
+    padding: 0 20px;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #d2d3d3;
+    text-align: right;
+}
+
+.deal-top span {
+    margin-right: 15px;
+}
+
+.deal-top a {
+    padding: 7px 18px;
+    background-color: #eb983a;
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+.deal-con {
+    margin: 0 24px;
+}
+
+.deal-query {
+    height: 52px;
+    line-height: 52px;
+}
+
+.deal-query input {
+    height: 23px;
+    line-height: 23px;
+    width: 150px;
+    border: 1px solid #b2b3b2;
+    border-radius: 5px;
+}
+
+#deal_query {
+    padding: 3px 20px;
+    background-color: #14ac85;
+    border-radius: 3px;
+    color: #ffffff;;
+}
+
+.deal-table {
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid #b2b3b2;
+    border-left: 1px solid #b2b3b2;
+}
+
+.deal-table > thead > tr > th,
+.deal-table > tbody > tr > td {
+    border-right: 1px solid #b2b3b2;
+    border-bottom: 1px solid #b2b3b2;
+    text-align: center;
+}
+
+.deal-table > thead > tr {
+    height: 30px;
+    background-color: #c0e2d4;
+}
+
+.deal-table > tbody > tr {
+    height: 50px;
+}

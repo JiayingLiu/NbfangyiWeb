@@ -1,0 +1,91 @@
+@import url("../public/public.css");
+body{
+
+}
+.main-all{
+    background-color: #FAFAFA;
+    overflow: hidden;
+}
+/*nav_help*/
+.nav_help{
+    width: 1170px;
+    height: 40px;
+    margin: 20px auto 0 auto;
+    border-radius: 5px;
+    background-color: #ff7302;
+}
+.nav_help ul{
+    margin-left: 20px;
+}
+.nav_help ul li{
+    float: left;
+    padding: 0 20px;
+    line-height: 40px;
+}
+.nav-help-selected,
+.nav_help ul li:hover{
+    background-color: #ff8d13;
+    box-shadow: 1px 1px 4px #666666;
+}
+.nav_help ul li a{
+    display: block;
+    font-size: 14px;
+    color: #ffffff;
+}
+/*nav_help end*/
+/*main*/
+.main{
+    width: 1170px;
+    margin: 0 auto;
+    padding: 20px 0;
+    background-color: #fafafa;
+    overflow: hidden;
+}
+/*main end*/
+/*label-left*/
+.label-left{
+    float: left;
+    width: 250px;
+    text-align: center;
+    background-color: #fafafa;
+    overflow: hidden;
+}
+.label-left ul li{
+    line-height: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    font-size: 16px;
+}
+.label-left ul .item-title{
+    color: #999999;
+}
+.label-left ul .item-title:hover{
+    background-color: #fafafa;
+    border-right: 1px solid #e5e5e5;
+}
+.label-left ul li a{
+    display: block;
+    font-size: 14px;
+}
+.selected-item{
+    box-sizing: border-box;
+    border-right: 1px solid #ffffff !important;
+    background-color: #ffffff;
+}
+.selected-item a,
+.label-left ul li:hover a{
+    color: #ff7302;
+}
+/*label-left end*/
+/*label-right*/
+.label-right{
+    float: left;
+    width: 890px;
+    min-height: 500px;
+    padding: 20px 15px;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+/*label-right end*/

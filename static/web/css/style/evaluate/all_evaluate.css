@@ -1,0 +1,101 @@
+@import url('star.css');
+/*trs-evaluate*/
+.trs-evaluate {
+    box-sizing: border-box;
+    margin: 20px 0;
+    padding: 10px 0;
+    background-color: #fafafa;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    color: #666;
+}
+
+.evaluate-number {
+    text-align: center;
+    font-size: 40px;
+    color: #ef8200;
+}
+
+.evaluate-star {
+    text-align: center;
+    font-size: 24px;
+    overflow: hidden;
+}
+
+.evaluate-star-s {
+    clear: both;
+    padding: 2px;
+    line-height: 30px;
+}
+
+.evaluate-type {
+    margin: 5px 0;
+    padding: 5px 8px;
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    overflow: hidden;
+}
+
+.evaluate-type ul {
+    height: 20px;
+    line-height: 20px;
+}
+
+.evaluate-type ul li {
+    float: left;
+    margin-left: 30px;
+}
+
+.evaluate-type ul li a:hover, .evaluate-type-selected {
+    color: #ef8200;
+}
+
+.evaluate-list table {
+    width: 100%;
+    text-align: center;
+}
+
+.evaluate-list table tr {
+    border-bottom: 1px solid #ddd !important;
+}
+
+.evaluate-list table td {
+    line-height: 25px;
+    border: 0;
+    padding: 10px;
+}
+
+.evaluate-list table td a {
+    color: #ff8010;
+}
+
+.evaluate-list table .eval-edit, .evaluate-list table .eval-view {
+    display: none;
+}
+
+.evaluate-list table .eval-edit div, .evaluate-list table .eval-view div {
+    padding: 0 30px;
+}
+
+.evaluate-list table .eval-view textarea {
+    border: 0;
+    background-color: transparent;
+    height: auto;
+    min-height: 50px;
+    overflow: hidden;
+    color: #ff8010;
+    padding: 0;
+}
+
+.font-imp {
+    color: #ff8010;
+}
+.eval-success-info{
+    height: 200px;
+    line-height: 200px;
+    font-size: 20px;
+    text-align: center;
+    color: #008000;
+}
+/*trs-evaluate end*/
