@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">商品管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+			<div class="form-group">
+                    <label for="searchForm_telephone">商品名称</label>
+                    <input type="text" class="form-control" id="searchForm_telephone" placeholder="请输入名称" name="product_title"
+                           value="<{$data['search_param']['title']}>">
+                </div>
+				<div class="form-group">
+                    <label for="searchForm_telephone">所属店铺手机号</label>
+                    <input type="text" class="form-control" id="searchForm_telephone" placeholder="请输入手机号" name="phone"
+                           value="<{$data['search_param']['phone']}>">
+                </div>
+
+                <div class="form-group">
+                    <label for="">状态</label>
+                    <select class="form-control" id="status" name="status" value="">
+                        <option value="0" selected="">请选择</option>
+                        <{foreach($data["status_list"] as $k => $v)}>
+                        <option value="<{$k}>"
+                        <{if ($k == $data['search_param']['status'] )}>selected<{/if}> ><{$v}></option>
+                        <{/foreach}>
+                    </select>
+                </div>
+
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+           <hr>
+		   <!--
+		   <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal"
+                        onclick="reset();">新建
+                </button>
+            </div>
+			-->
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered" id="userList">
+                <tr>
+                    <td>店铺名称</td>
+                    <td>店铺id</td>
+                    <th>商品名称</th>
+                    <th>所属用户手机号</th>
+                    <th>添加时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                <{foreach($data["list"] as $k => $v)}>
+                <tr>
+                    <td><{$v["shop_info"]['title']}></td>
+                    <td><{$v["shop_id"]}></td>
+                    <td><{$v["title"]}></td>
+                    <td><{$v["phone"]}></td>
+                    <td><{$v["create_time"]}></td>
+					<td><{$data["status_list"][$v['status']]}></td>
+                    <!--10 lock 20 normal -->
+                    <td>
+                        <{if($v["status"] == 1 || $v["status"] == 4)}>
+						   <button  class="btn btn-danger btn-sm js-lock" data-id="<{$v['id']}>"
+                           data-phone="<{$v['phone']}>">下架</button>
+							<button  class="btn btn-danger btn-sm js-rsync-product" data-id="<{$v['id']}>"
+                           data-phone="<{$v['phone']}>">同步到搜索引擎</button>
+                        <{else}>
+						   <button  class="btn btn-success btn-sm js-unlock" data-id="<{$v['id']}>"
+                           data-phone="<{$v['phone']}>">上架</button>
+                        <{/if}>
+						<a href='/shop/index/index/productDetail?id=<{$v["id"]}>' target='_blank'>详情</a>
+                    </td>
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!--新建窗口-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="">新建商品</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="account">手机号码</label>
+                        <input type="text" class="form-control" id="account" name="account" placeholder="请填写手机号码">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_password">店铺id</label>
+                        <input type="password" class="form-control" id="add_password" name="password" placeholder="请填写登陆">
+                    </div>
+                    <div class="form-group">
+                        <label for="repeatPasswd">商品名称</label>
+                        <input type="password" class="form-control" id="repeatPasswd" name="repeatPasswd" placeholder="请重复登陆">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var URL = {
+        SEARCH: '/admin/shop/product/index',
+    };
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["search_param"]["offset"]}>',
+            total: '<{$data["search_param"]["total_count"]}>',
+            limit: '<{$data["search_param"]["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+    });
+    //查询
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.SEARCH;
+        });
+    }
+	
+	//点击事件
+    $('#userList').on('click', '.btn', function () {
+        var $this = $(this),
+                id = $this.attr('data-id');
+        if ($this.hasClass('js-lock')) {
+            CommonUtils.confirm('确定要下架此商品吗？', function () {
+                $.ajax({
+                    url: '/admin/shop/product/offline',
+                    data: {
+                        id: id,
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            }, null);
+        } else if ($this.hasClass('js-unlock')) {
+            CommonUtils.confirm('确定要上架此商品吗？', function () {
+                $.ajax({
+                    url: '/admin/shop/product/online',
+                    data: {
+                        id: id,
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            }, null);
+        } else if($this.hasClass('js-rsync-product')) {
+            CommonUtils.confirm('确定要同步此商品到搜索引擎吗？', function () {
+                $.ajax({
+                    url: '/admin/shop/product/rsyncProduct',
+                    data: {
+                        id: id,
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            }, null);
+        }else{
+
+		}
+    });
+</script>
+</body>
+</html>

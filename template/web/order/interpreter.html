@@ -1,0 +1,175 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/order/order.css">
+<title>N邦翻译 找好翻译，上N邦-笔译下单</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="order-main">
+    <div class="order-top">
+        <ul>
+            <li class="col-xs-4 progress-cur">
+                <span class="step"></span>
+                填写订单信息
+            </li>
+            <li class="col-xs-4">
+                <span class="step"></span>
+                确认订单信息
+            </li>
+            <li class="col-xs-4">提交订单</li>
+        </ul>
+    </div>
+    <div class="order-main-contect">
+        <div class="row">
+            <div class="col-xs-2">
+                商品名称：
+            </div>
+            <div class="col-xs-10">
+                <{$data['productInfo']['title']}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                语言：
+            </div>
+            <div class="col-xs-10">
+                <{$data['productInfo']['language']}>--><{$data['productInfo']['to_language']}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                翻译类型：
+            </div>
+            <div class="col-xs-10">
+                <{$data['productInfo']['type_str']}>
+            </div>
+        </div>
+        <!--以下是表单数据-->
+        <form id="order_form" class="order_form">
+            <input type="hidden" name="doc_format" id="doc_format">
+            <input type="hidden" name="translate_content_type" id="translate_content_type">
+            <input type="hidden" name="type_name" id="type_name" value="<{$data['productInfo']['type_name']}>">
+            <input type="hidden" name="field_name" id="field_name" value="<{$data['productInfo']['field_name']}>">
+            <input type="hidden" name="product_id" id="product_id" value="<{$data['productInfo']['id']}>">
+            <input type="hidden" name="title" id="title" value="<{$data['productInfo']['title']}>">
+            <input type="hidden" name="language" id="language" value="<{$data['productInfo']['language']}>">
+            <input type="hidden" name="to_language" id="to_language" value="<{$data['productInfo']['to_language']}>">
+            <input type="hidden" name="logo" id="logo" value="<{$data['productInfo']['logo']}>">
+            <input type="hidden" name="shop_id" id="shop_id" value="<{$data['productInfo']['shop_id']}>">
+            <input type="hidden" name="price" id="price" value="<{$data['productInfo']['price']}>">
+            <input type="hidden" name="order_price" id="order_price">
+            <input type="hidden" name="service_address" id="service_address">
+            <!--服务时常 1.天 2.小时-->
+            <input type="hidden" name="price_type" value="<{$data['productInfo']['price_type']}>">
+
+            <div class="form-group">
+                <div class="col-xs-2">
+                    服务地址：
+                </div>
+                <div class="col-xs-6">
+                    <div class="city-select" name="area_id">
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <input class="form-input" type="text" placeholder="详细地址" id="address">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">
+                    <span>预约时间：</span>
+                </div>
+                <div class="col-xs-3">
+                    <input class="form-input" type="text" id="estimate_start" name="estimate_start"
+                           onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',maxDate:'#F{$dp.$D(\'estimate_end\')}',minDate:'%y-%M-%d'});">
+                </div>
+                <div class="col-xs-1 text-center">至</div>
+                <div class="col-xs-3">
+                    <input class="form-input" type="text" id="estimate_end" name="estimate_end"
+                           onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',minDate:'#F{$dp.$D(\'estimate_start\')||\'%y-%M-%d\'}'});">
+                </div>
+                <div class="col-xs-2">
+                    <a href="javascript:void(0);" class="im-openbtn js-im-trigger"
+                       data-chat-id="<{$data['shopInfo']['uid']}>"
+                       data-chat-name="<{$data['shopInfo']['title']}>"
+                       data-chat-logo="<{$file_url}><{$data['shopInfo']['logo']}>">
+                        <i class="iconfont icon-contact"></i>
+                        联系卖家
+                    </a>
+                </div>
+            </div>
+            <!--服务时常 1.天 2.小时-->
+            <{if($data['productInfo']['price_type'] == 1)}>
+            <div class="form-group">
+                <div class="col-xs-2">
+                    <span>服务时长：</span>
+                </div>
+                <div class="col-xs-3">
+                    <input class="form-input" type="text" name="service_time" id="service_time">
+                </div>
+                <div class="col-xs-1 text-center">
+                    <span>天</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 input-tip">
+                    <i class="iconfont icon-remind"></i>
+                    友情提示
+                </div>
+                <div class="col-xs-12 input-tip">
+                    1.一天工作时长为6小时
+                </div>
+                <div class="col-xs-12 input-tip">
+                    2.最低一天起拍
+                </div>
+                <div class="col-xs-12 input-tip">
+                    3.若距离过远，请和商家确认出差费用问题
+                </div>
+            </div>
+            <{else}>
+            <div class="form-group">
+                <div class="col-xs-2">
+                    <span>服务时长：</span>
+                </div>
+                <div class="col-xs-3">
+                    <input class="form-input" type="text" name="service_time" id="service_time">
+                </div>
+                <div class="col-xs-1 text-center">
+                    <span>小时</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 input-tip">
+                    <i class="iconfont icon-remind"></i>
+                    友情提示
+                </div>
+                <div class="col-xs-12 input-tip">
+                    1.一天工作时长为6小时
+                </div>
+                <div class="col-xs-12 input-tip">
+                    2.若距离过远，请和商家确认出差费用问题
+                </div>
+                <div class="col-xs-12 input-tip">
+                    3.考虑到译者路程时间，最低3小时起拍
+                </div>
+            </div>
+            <{/if}>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <span>备注：</span>
+                </div>
+                <div class="col-xs-12">
+                    <textarea name="desc" class="form-textarea" placeholder="备注可以使译者更好的了解您的翻译需求！"></textarea>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-xs-9">
+                <div class="text-right">总价格：<span class="text-stronge" id="total_price"></span></div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <a href="javascript:;" class="order-btn btn-success" id="next">下一步</a>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/order/interpreter.js"></script>
+<{layout:web/public/foot}>

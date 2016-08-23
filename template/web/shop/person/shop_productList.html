@@ -1,0 +1,44 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/shop/shop.css">
+<title><{$data['shop']['data']['title']}>翻译-商品列表【找好翻译,上N邦】</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<{layout:web/shop/person/item/trs_head}>
+<div class="trs-nav">
+    <ul>
+        <li><a href="/shop/?id=<{$data['shop']['data']['id']}>">店铺首页</a></li>
+        <li><a href="/shop/index/index/productList?shop_id=<{$data['shop']['data']['id']}>"  class="trs-nav-li-hover">商品列表</a></li>
+        <li>
+            <a href="/shop/index/index/detail?shop_id=<{$data['shop']['data']['id']}>">
+                <{if($data['shop']['data']['type']== 10)}>
+                译者详情
+                <{else}>
+                公司详情
+                <{/if}>
+            </a>
+        </li>
+        <li><a href="/shop/index/index/evaluate?shop_id=<{$data['shop']['data']['id']}>">服务评价</a></li>
+        <li><a href="/shop/index/index/media?shop_id=<{$data['shop']['data']['id']}>">风采展示</a></li>
+    </ul>
+</div>
+<div class="trs-text">
+    <div class="trs-left">
+        <{layout:web/shop/person/item/trs_ctn_left_productlist}>
+    </div>
+    <div class="trs-right">
+        <{layout:web/shop/person/item/trs_ctn_right_all}>
+    </div>
+</div>
+<script>
+    require(['jquery', 'base','page'], function ($, base,page) {
+        base.init();
+        //分页处理
+        page_config.length = 11;
+        page_config.url ='/shop/index/index/productList?shop_id=<{$data["shop"]["data"]["id"]}>';
+        page.init(page_config);
+    })
+</script>
+<{layout:web/activity/index/appointment}>
+<{layout:web/shop/person/shop_toolbar}>
+<{layout:web/index/sale}>
+<{layout:web/public/foot}>

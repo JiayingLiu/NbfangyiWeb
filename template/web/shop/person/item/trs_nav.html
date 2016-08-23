@@ -1,0 +1,17 @@
+<div class="trs-nav">
+    <ul>
+        <li><a href="/shop/?id=<{$data['shop']['data']['id']}>">店铺首页</a></li>
+        <li><a href="/shop/index/index/productList?shop_id=<{$data['shop']['data']['id']}>">商品列表</a></li>
+        <li>
+            <a href="/shop/index/index/detail?shop_id=<{$data['shop']['data']['id']}>">
+                <{if($data['shop']['data']['type']== 10)}>
+                译者详情
+                <{else}>
+                 公司详情
+                <{/if}>
+            </a>
+        </li>
+        <li><a href="/shop/index/index/evaluate?shop_id=<{$data['shop']['data']['id']}>">服务评价</a></li>
+        <li><a href="/shop/index/index/media?shop_id=<{$data['shop']['data']['id']}>" class="trs-nav-li-hover">风采展示</a></li>
+    </ul>
+</div>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>N邦翻译后台管理平台</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title></title>
+    <style>
+        @-webkit-keyframes move {
+            from {
+                top: 0;
+            }
+            to {
+                top: 85%;
+            }
+        }
+        @-moz-keyframes move {
+            from {
+                top: 0;
+            }
+            to {
+                top: 85%;
+            }
+        }
+        @-webkit-keyframes m {
+             0% {top: 0;}
+             50% {top: 50%;}
+             75% { top: 51%;}
+             100% {top: 50%;}
+         }
+        @-moz-keyframes m {
+            0% {top: 0;}
+            50% {top: 50%;}
+            75% { top: 51%;}
+            100% {top: 50%;}
+        }
+        .rain {
+            position: absolute;
+            top: 0;
+            text-align: center;
+            background: -webkit-radial-gradient(30% 30%, circle farthest-corner, #fff9f0 0%, rgb(146, 171, 255) 50%);
+            background: -moz-radial-gradient(30% 30%, circle farthest-corner, #fff9f0 0%, rgb(146, 171, 255) 50%);
+            border-radius: 50%;
+            color: #ffffff;
+            animation: move 4s ease-in-out forwards;
+            -webkit-animation: move 4s ease-in-out forwards;
+            -moz-animation: move 4s ease-in-out forwards;
+        }
+
+        .center {
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -100px;
+            text-align: center;
+            background: -webkit-radial-gradient(30% 30%, circle farthest-corner, #fff9f0 0%, rgb(146, 171, 255) 50%);
+            border-radius: 50%;
+            font-size: 50px;
+            color: #ffffff;
+            -webkit-animation: m 4s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body style="overflow: hidden">
+<div class="center">
+    404
+</div>
+<script>
+    window.onload = function () {
+        createStorm();
+    };
+    //create storm
+    function createStorm() {
+        var doc = document,
+                i = 100,
+                fragment = doc.createDocumentFragment();
+        while (i--) {
+            var temp = doc.createElement('div'),
+                    rand = Math.random();
+            temp.className = 'rain';
+            temp.style.left = (document.documentElement.clientWidth * Math.random()) + 'px';
+            temp.style.height = (100 * rand) + 'px';
+            temp.style.lineHeight = (100 * rand) + 'px';
+            temp.style.width = (100 * rand) + 'px';
+            temp.style.fontSize = (30 * rand) + 'px';
+            temp.style.animationDelay = (10 * Math.random()) + 's';
+            temp.innerHTML = '404';
+            fragment.appendChild(temp);
+        }
+        doc.body.appendChild(fragment);
+    }
+</script>
+</body>
+</html>

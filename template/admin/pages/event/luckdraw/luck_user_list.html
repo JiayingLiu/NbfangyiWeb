@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading"><{$data['type_name']}></div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="name">手机号:</label>
+                    <input type="text" class="form-control" id="phone" placeholder="手机号" name="phone" value="<{$data["phone"]}>">
+                </div>		
+                <div class="form-group">
+                    <label for="name">奖品:</label>
+                    <select name="prize">
+                    <option value="0">选择奖品</option>
+                    <{foreach($data['prizes'] as $prize)}>
+                    <{if ($data['prize']==$prize['id'])}>
+                    <option value="<{$prize['id']}>" selected="selected"><{$prize['name']}></option>
+                    <{else}>
+                    <option value="<{$prize['id']}>" ><{$prize['name']}></option>
+                    <{/if}>
+                    <{/foreach}>
+                    </select>
+                </div>		
+                					
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>            
+            <hr>
+
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <div class="table-box" >
+                <div class="tableDiv" >
+                <table class="table table-bordered" id="list">
+                <tr>
+                    <th >电话</th>
+                    <th >奖品</th>
+                    <th >描述</th>
+					<th >时间</th>
+                </tr>
+                <{foreach($data['luckUsers'] as $k => $vo)}>
+                <tr>
+                    <td><{$vo['phone']}></td>
+                    <td><{$vo['prize_name']}></td>
+					<td><{$vo['description']}></td>
+					<td><{$vo['create_time']}></td>
+                    
+                </tr>
+                <{/foreach}>
+            </table>
+            </div>
+            </div>        
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script>
+var URL = {
+        SEARCH:'/admin/event/luckDraw/index',
+    };
+    $(function () {
+
+        CommonUtils.pagination({
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["totalCount"]}>',
+            limit: '<{$data["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        search();
+    });
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.SEARCH;
+        });
+    }
+</script>
+</body>
+</html>

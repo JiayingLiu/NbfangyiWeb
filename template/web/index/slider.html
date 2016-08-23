@@ -1,0 +1,46 @@
+<div class="home-banner">
+    <div class="banner-tl">
+        <div id="slide_wrapper"><!-- 最外层部分 -->
+            <div id="slide_banner"><!-- 轮播部分 -->
+                <ul class="img-list"><!-- 图片部分 -->
+                    <{foreach($data['left_top_ads'][0] as $k => $v)}>
+                    <li>
+                        <a href="<{$v['url']}>" target="_blank">
+                            <img src="<{$v['img_url']}>" width="520" height="280" data-id="<{$k}>"
+                                 alt="<{$v['title']}>">
+                        </a>
+                    </li>
+                    <{/foreach}>
+                </ul>
+                <div class="img-list-index">
+                    <{foreach($data['left_top_ads'][0] as $k => $v)}>
+                    <{if($k == 0)}>
+                    <a href="javascript:void(0);" target="_blank" class="img-index-cur" data-index="<{$k}>"></a>
+                    <{else}>
+                    <a href="javascript:void(0);" target="_blank" data-index="<{$k}>"></a>
+                    <{/if}>
+                    <{/foreach}>
+                </div>
+            </div>
+        </div>
+        <!--sales process end-->
+    </div>
+    <!--ads-->
+    <div class="banner-tr">
+        <a href="<{$data['right_top_ads'][0][0]['url']}>" target="_blank"><img
+                src="<{$data['right_top_ads'][0][0]['img_url']}>" width="100%" height="280"></a>
+    </div>
+    <div class="banner-bl">
+        <a href="<{$data['left_bottom_ads'][0][0]['url']}>" target="_blank"><img
+                src="<{$data['left_bottom_ads'][0][0]['img_url']}>" width="257.5" height="200"></a>
+    </div>
+    <div class="banner-bm">
+        <a href="<{$data['middle_bottom_ads'][0][0]['url']}>" target="_blank"><img
+                src="<{$data['middle_bottom_ads'][0][0]['img_url']}>" width="257.5" height="200"></a>
+    </div>
+    <div class="banner-br">
+        <a href="<{$data['right_bottom_ads'][0][0]['url']}>" target="_blank"><img
+                src="<{$data['right_bottom_ads'][0][0]['img_url']}>" width="165" height="200"></a>
+    </div>
+    <!--ads end-->
+</div>

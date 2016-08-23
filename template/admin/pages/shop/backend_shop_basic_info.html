@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/admin/shop/shop/getBackendShopList?status=<{$data['param_data']['status']}>&offset=<{$data['param_data']['offset']}>&name=<{$data['param_data']['name']}>&telephone=<{$data['param_data']['telephone']}>" class="btn btn-default"><i class="fa fa-reply"></i></a>
+            商铺基本信息
+        </div>
+        <div class="panel-body">
+            <form class="form">
+                <div class="row">
+                
+                    <label class="col-sm-2 control-label">真实姓名</label>
+
+                    <div class="col-sm-10"><{$data["basicInfo"]["real_name"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">性别</label>
+
+                    <div class="col-sm-10"><{$data["basicInfo"]["gender"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">昵称</label>
+
+                    <div class="col-sm-10"><{$data["basicInfo"]["nick_name"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">身份证号</label>
+
+                    <div class="col-sm-10"><{$data["basicInfo"]["id_card_num"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">身份证</label>
+
+                    <div class="col-sm-10">                   
+                     <{foreach($data["basicInfo"]["id_card_images"] as $k => $img)}>
+                    <a href="<{$file_url}>/<{$img['img']}>" target="_blank"><img src="<{$file_url}>/<{$img['img_s']}>" /></a>
+                    <{/foreach}></div>
+                </div>                
+                <div class="row">
+                    <label class="col-sm-2 control-label">状态</label>
+
+                    <div class="col-sm-10"><{$data["basicInfo"]["status_name"]}></div>
+                </div>                
+                <div class="row">
+                    <label class="col-sm-2 control-label">原因</label>
+
+                    <div class="col-sm-20"><textarea id="reason" cols=100><{$data["basicInfo"]['reason']}></textarea></div>                
+                 </div>                
+            </form>
+            <{if($data["basicInfo"]["status"] != 3)}>
+			<div class="text-center">
+                <button type="button" class="btn btn-default" id="completeOrder">审核通过</button>
+                <button type="button" class="btn btn-default" id="cantpassOrder">审核不通过</button>
+
+            </div>
+            <{/if}>
+        </div>
+    </div>
+</div>
+
+<script>
+    var URL = {
+        PASS: '/admin/shop/shop/auditBasicInfoPass',
+        UNPASS: '/admin/shop/shop/auditBasicInfoFail'
+    };
+    $(function () {
+        completeOrder();
+        cantpassOrder();
+    });
+    //审核不通过
+    function cantpassOrder() {
+        $('#cantpassOrder').on('click', null, function () {
+        	var reason = $('#reason').val();
+            CommonUtils.confirm('是否确定此商铺不通过审核？', function () {
+                $.ajax({
+                    url: URL.UNPASS,
+                    data: {
+                        shop_id: '<{$data["basicInfo"]["shop_id"]}>',
+                        reason:reason
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+
+    //审核通过
+    function completeOrder() {
+        $('#completeOrder').on('click', null, function () {
+            CommonUtils.confirm('是否确定此商铺通过审核？', function () {
+                $.ajax({
+                    url: URL.PASS,
+                    data: {
+                    	shop_id: '<{$data["basicInfo"]["shop_id"]}>'
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+</script>
+</body>
+</html>

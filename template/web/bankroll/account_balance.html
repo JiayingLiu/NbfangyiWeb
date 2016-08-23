@@ -1,0 +1,79 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-账户余额</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">资金管理</a>&gt;
+        <a href="javascript:void(0);">账户余额</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">账户余额</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <!--show-->
+            <div class="label-content-show">
+                <div class="acc-balance">
+                    账户余额：<span class="font-imp"><{$data['balance']}></span>
+                    <{if($data['userType'] == 1)}>
+                    <a href="/pay/user/recharge/index" class="recharge">充值</a>
+                    <{else}>
+                    <a href="/pay/user/withdraw/index">提现</a>
+                    <{/if}>
+                </div>
+                <div class="row acc-title">
+                    <div class="col-xs-9"><h3>交易明细</h3></div>
+                    <div class="col-xs-3 text-right"><a href="/pay/user/detail/detailList">查看更多>> </a> </div>
+                </div>
+                <div class="deal-table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>来源订单号</th>
+                            <th>金额</th>
+                            <th>支付类型</th>
+                            <th>交易类型</th>
+                            <th>状态</th>
+                            <th>描述</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <{if($data['details']['1'] > 0)}>
+                        <{foreach($data['details'][0] as $k => $v)}>
+                        <tr>
+                            <td><{$v['create_time']}></td>
+                            <td><{$v['order_num']}></td>
+                            <td><{$v['amount']}></td>
+                            <td><{$v['type_name']}></td>
+                            <td><{$v['trade_type_name']}></td>
+                            <td><{$v['status_name']}></td>
+                            <td><{$v['description']}></td>
+                        </tr>
+                        <{/foreach}>
+                        <{else}>
+                        <tr>
+                            <td colspan="5">您没有任何交易明细</td>
+                        </tr>
+                        <{/if}>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--show end-->
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery', 'base'], function ($, base) {
+        base.init();
+    });
+</script>
+<{layout:web/public/foot}>

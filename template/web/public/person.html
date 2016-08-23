@@ -1,0 +1,218 @@
+<!--个译的sider菜单-->
+<div class="siderbar">
+    <div class="siderbar-quick">
+        <{if($_userLoginInfo['data']['_user_type'] == 1)}>
+        <a href="/user/customer/userCenter/index" class="siderbar-quick-look">
+            <img src="<{$file_url}><{$_userLoginInfo['data']['_user_logo']}>"
+                 height="100" width="100">
+        </a>
+        <{else}>
+        <a href="/shop/index/shop/index" class="siderbar-quick-look">
+            <img src="<{$file_url}><{$_userLoginInfo['data']['_user_logo']}>"
+                 height="100" width="100">
+        </a>
+        <{/if}>
+        <p class="text-center">
+            <{if($_userLoginInfo['data']['_user_type'] == 1)}>
+            <a href="/user/customer/userCenter/index"><{$_userLoginInfo['data']['_user_real_name']}></a>
+            <{else}>
+            <a href="/shop/index/shop/index"><{$_userLoginInfo['data']['_user_real_name']}></a>
+            <{/if}>
+        </p>
+    </div>
+    <div class="siderbar-menu" id="siderbar_menu">
+        <!--1 user 2 person 3 company 4 students-->
+        <!--user-->
+        <{if($_userLoginInfo['data']['_user_type'] == 1)}>
+        <dl>
+            <dt><a href="javascript:void(0);">订单管理</a></dt>
+            <dd><a href="/user/customer/order/index">订单列表</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">我的收藏</a></i></dt>
+            <dd><a href="/user/shop/mark/getMarkList">我的收藏</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">资金管理</a></i></dt>
+            <dd><a href="/pay/user/detail/index">账户余额</a></dd>
+            <dd><a href="/pay/user/coupon/couponList">优惠券</a></dd>
+            <dd><a href="/pay/user/detail/detailList">交易明细</a></dd>
+            <dd><a href="/pay/user/recharge/index">充值</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">个人中心</a></dt>
+            <dd><a href="/user/customer/account/userInfo">基本资料</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">账户设置</a></i></dt>
+            <dd><a href="/user/customer/account/password">修改登录密码</a></dd>
+            <dd><a href="/user/customer/account/dealPassword">交易密码</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);" >消息管理</a></dt>
+            <dd><a href="/user/index/message/index">我的消息</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">众包订单</a></dt>
+            <dd><a href="/user/cooperate/user/myOrderList">众包订单</a></dd>
+        </dl>
+        <!--person-->
+        <{elseif($_userLoginInfo['data']['_user_type'] == 2)}>
+        <dl>
+            <dt><a href="javascript:void(0);">订单管理</a></dt>
+            <dd><a href="/user/translate/order/index">订单列表</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">我的店铺</a></dt>
+            <{if(empty($_userLoginInfo['data']['_user_shop_id']))}>
+            <dd><a href="/shop/index/shop/apply">申请店铺</a></dd>
+            <{else}>
+            <dd><a href="/shop/?id=<{$_userLoginInfo['data']['_user_shop_id']}>">我的店铺</a></dd>
+            <{/if}>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">资金管理</a></i></dt>
+            <dd><a href="/pay/user/detail/index">账户余额</a></dd>
+            <dd><a href="/pay/user/card/userCardList">银行卡管理</a></dd>
+            <dd><a href="/pay/user/withdraw/index">提现</a></dd>
+            <dd><a href="/pay/user/detail/detailList">交易明细</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">评价管理</a></dt>
+            <dd><a href="/shop/index/comment/index">我的评价</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">个人中心</a></dt>
+            <dd><a href="/shop/index/shop/apply">资料设置</a></dd>
+            <!--<dd><a href="/shop/index/shop/editBasicInfo">基本资料</a></dd>
+            <dd><a href="/shop/index/shop/editShopDetail">详细介绍</a></dd>-->
+            <dd><a href="/shop/index/shop/addCertification">资质认证</a></dd>
+            <dd><a href="/shop/index/experience/getExperienceList">过往经历</a></dd>
+            <dd><a href="/shop/index/album/getAlbumDetailList">风采展示</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">商品管理</a></dt>
+            <dd><a href="/shop/index/product/productList">商品列表</a></dd>
+            <dd><a href="/shop/index/product/addProduct">添加商品</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">账户设置</a></i></dt>
+            <dd><a href="/user/customer/account/password">修改登录密码</a></dd>
+            <dd><a href="/user/customer/account/dealPassword">交易密码</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">消息管理</a></dt>
+            <dd><a href="/user/index/message/index">我的消息</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">众包订单</a></dt>
+            <dd><a href="/user/cooperate/translatorUser/myOrderList">众包订单</a></dd>
+        </dl>
+        <!--company-->
+        <{elseif($_userLoginInfo['data']['_user_type'] == 3)}>
+        <dl>
+            <dt><a href="javascript:void(0);">订单管理</a></dt>
+            <dd><a href="/user/translate/order/index">订单列表</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">我的店铺</a></dt>
+            <{if(empty($_userLoginInfo['data']['_user_shop_id']))}>
+            <dd><a href="/shop/index/shop/apply">申请店铺</a></dd>
+            <{else}>
+            <dd><a href="/shop/?id=<{$_userLoginInfo['data']['_user_shop_id']}>">我的店铺</a></dd>
+            <{/if}>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">资金管理</a></i></dt>
+            <dd><a href="/pay/user/detail/index">账户余额</a></dd>
+            <dd><a href="/pay/user/card/userCardList">银行卡管理</a></dd>
+            <dd><a href="/pay/user/withdraw/index">提现</a></dd>
+            <dd><a href="/pay/user/detail/detailList">交易明细</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">评价管理</a></dt>
+            <dd><a href="/shop/index/comment/index">我的评价</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">个人中心</a></dt>
+            <dd><a href="/shop/index/shop/apply">资料设置</a></dd>
+            <!--<dd><a href="/shop/index/shop/editBasicInfo">基本资料</a></dd>
+            <dd><a href="/shop/index/shop/editShopDetail">详细介绍</a></dd>-->
+            <dd><a href="/shop/index/shop/addCertification">资质认证</a></dd>
+            <dd><a href="/shop/index/experience/getExperienceList">过往经历</a></dd>
+            <dd><a href="/shop/index/album/getAlbumDetailList">风采展示</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">商品管理</a></dt>
+            <dd><a href="/shop/index/product/productList">商品列表</a></dd>
+            <dd><a href="/shop/index/product/addProduct">添加商品</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">账户设置</a></i></dt>
+            <dd><a href="/user/customer/account/password">修改登录密码</a></dd>
+            <dd><a href="/user/customer/account/dealPassword">交易密码</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">消息管理</a></dt>
+            <dd><a href="/user/index/message/index">我的消息</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">众包订单</a></dt>
+            <dd><a href="/user/cooperate/translatorUser/myOrderList">众包订单</a></dd>
+        </dl>
+        <!--student-->
+        <{elseif($_userLoginInfo['data']['_user_type'] == 4)}>
+        <dl>
+            <dt><a href="javascript:void(0);">订单管理</a></dt>
+            <dd><a href="/user/translate/order/index">订单列表</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">我的店铺</a></dt>
+            <{if(empty($_userLoginInfo['data']['_user_shop_id']))}>
+            <dd><a href="/shop/index/shop/apply">申请店铺</a></dd>
+            <{else}>
+            <dd><a href="/shop/?id=<{$_userLoginInfo['data']['_user_shop_id']}>">我的店铺</a></dd>
+            <{/if}>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">资金管理</a></i></dt>
+            <dd><a href="/pay/user/detail/index">账户余额</a></dd>
+            <dd><a href="/pay/user/card/userCardList">银行卡管理</a></dd>
+            <dd><a href="/pay/user/withdraw/index">提现</a></dd>
+            <dd><a href="/pay/user/detail/detailList">交易明细</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">评价管理</a></dt>
+            <dd><a href="/shop/index/comment/index">我的评价</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">个人中心</a></dt>
+            <dd><a href="/shop/index/shop/apply">资料设置</a></dd>
+            <!--<dd><a href="/shop/index/shop/editBasicInfo">基本资料</a></dd>
+            <dd><a href="/shop/index/shop/editShopDetail">详细介绍</a></dd>-->
+            <dd><a href="/shop/index/shop/addCertification">资质认证</a></dd>
+            <dd><a href="/shop/index/experience/getExperienceList">过往经历</a></dd>
+            <dd><a href="/shop/index/album/getAlbumDetailList">风采展示</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">商品管理</a></dt>
+            <dd><a href="/shop/index/product/productList">商品列表</a></dd>
+            <dd><a href="/shop/index/product/addProduct">添加商品</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">账户设置</a></i></dt>
+            <dd><a href="/user/customer/account/password">修改登录密码</a></dd>
+            <dd><a href="/user/customer/account/dealPassword">交易密码</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">消息管理</a></dt>
+            <dd><a href="/user/index/message/index">我的消息</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="javascript:void(0);">众包订单</a></dt>
+            <dd><a href="/user/cooperate/translatorUser/myOrderList">众包订单</a></dd>
+        </dl>
+        <{else}>
+        <{/if}>
+    </div>
+</div>

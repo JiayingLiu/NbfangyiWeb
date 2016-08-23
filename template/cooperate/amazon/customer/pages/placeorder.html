@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="description" content="N邦翻译是最大的O2O翻译电商平台，是亚马逊唯一官方合作的语言服务平台，N邦翻译的核心是为跨境电商提供快速、高质量的翻译服务，帮助跨境电商企业解决语言翻译难题！">
+    <meta name="keywords" content="N邦翻译,翻译O2O,翻译电商平台,翻译网站,亚马逊,跨境电商,对外贸易交易平台、外贸网站"/>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8d9b837ff56daf73730660e4d86fc338";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <title>N邦译牛 助力跨境电商</title>
+    <link rel="shortcut icon" href="<{$css_url}>/cooperate/amazon/customer/css/img/unbounded.ico" type="image/x-icon"/>
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/header.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/style/placeorder.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+</head>
+<body>
+<!--header-->
+<{layout:cooperate/amazon/customer/public/header}>
+<!--header end-->
+<div class="content">
+    <!--login-->
+    <div class="place-order">
+        <div class="order-step">
+            <div class="order-step-con">
+                <div class="order-step-progress" id="progress"></div>
+                <ul class="order-step-ul">
+                    <li>1、下单</li>
+                    <li class="step">2、支付</li>
+                    <li class="step">3、翻译中</li>
+                    <li class="step">4、翻译完成</li>
+                    <li class="step">5、稿件审校</li>
+                    <li class="step">6、完成</li>
+                </ul>
+            </div>
+        </div>
+        <form class="place-form" id="orderForm">
+            <div class="order-selectlanguage">
+                <span class="selectlanguage-title">翻译类型：</span>
+                <select class="selectlanguage-selectbox" id="sourceLanguage">
+                    <option value="" selected>请选择</option>
+                    <{foreach ($productList['source'] as $k => $v)}>
+                    <{if($v['id'] == '135')}>
+                    <option value="<{$v['id']}>" class="js-language" selected><{$v['title']}></option>
+                    <{else}>
+                    <option value="<{$v['id']}>" class="js-language"><{$v['title']}></option>
+                    <{/if}>
+                    <{/foreach}>
+                </select>
+                <span class="selectlanguage-arrow"></span>
+                <select class="selectlanguage-selectbox" id="targetLanguage">
+                    <option value="" selected>请选择</option>
+                    <{foreach ($productList['target'] as $k => $v)}>
+                    <{if($v['id'] == '135')}>
+                    <option value="<{$v['id']}>" class="js-language" style="display: none;"><{$v['title']}></option>
+                    <{else}>
+                    <option value="<{$v['id']}>" class="js-language"><{$v['title']}></option>
+                    <{/if}>                    <{/foreach}>
+                </select>
+                <span class="selectlanguage-callback" id="product_price_info"></span>
+            </div>
+            <div class="order-main">
+                <ul class="order-main-title" id="type_select_area">
+                    <li><a href="javascript:;" data-type="2" class="order-type order-type-selected">快速翻译</a></li>
+                    <li><a href="javascript:;" data-type="1" class="order-type">普通文件翻译</a></li>
+                    <li><a href="javascript:;" data-type="3" class="order-type">flat file文件翻译（亚马逊专用）</a></li>
+                </ul>
+                <div class="order-main-content">
+                    <textarea class="order-textarea  js_selectType" id="order_textarea" placeholder="请输入或粘贴需要翻译的文字！"
+                              data-type="text"></textarea>
+
+                    <div class="upload-btns" id="upload_btns">
+                        <div id="upload_con">点击添加文件</div>
+                        <div id="upload_progress"></div>
+                        <input type="file" id="upload" name="order_file"
+                               accept="text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                       application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+                               class="js_selectType" data-type="file">
+                        <span id="upload_Limit"></span>
+
+                        <p id="upload_callback_name"></p>
+                        <input id="upload_url" type="hidden" name="file_url">
+                    </div>
+                    <div id="kindly_reminder_file" class="kindly-reminder-info">
+
+                        <h3 class="imp">友情提示：</h3>
+
+                        <p>1、目前系统支持的文件格式包括：文本文档（txt）、word（docx）、excel（xls、xlsx）。</p>
+
+                        <p>2、文件大小不大于10M，excel支持多个sheet上传，但仅处理第一个sheet。</p>
+
+                        <p>3、系统不支持含有图片的文件，无法处理加密文件。</p>
+                    </div>
+                    <div id="kindly_reminder_flat" class="kindly-reminder-info">
+
+                        <h3 class="imp">友情提示：</h3>
+
+                        <p>1、请查看<a href="<{$file_url}>/doc/Flat.File.Wireless.xlsx" class="imp link">亚马逊flat file</a>文件模板，请勿修改模板格式。
+                        </p>
+
+                        <p>2、请保证数据各列标题位于前三行，数据内容从第四行开始输入。</p>
+
+
+                        <p>3、如有任何疑问，请拨打我们热线电话4006-808-525。</p>
+
+                    </div>
+                    <div id="kindly_reminder_text" class="kindly-reminder-info" style="display: block">
+
+                        <h3 class="imp">友情提示：</h3>
+
+                        <p>1、输入的文本在500字以内。</p>
+
+                        <p>2、停止输入0.5秒会自动计算价格。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="order-compute" id="order_compute">
+                <div class="loading"></div>
+                <span class="order-total">字/词数：<strong class="imp">0</strong></span>
+                <span class="order-price">价格：<strong class="imp">0.00</strong>元</span>
+                <span class="order-plantime">预计交稿时间：<strong class="imp"></strong></span>
+            </div>
+            <div class="order-place">
+                <div class="order-place-remark">
+                    <p>备注：</p>
+                    <textarea id="place_remark" placeholder="帮助译员理解您的个性化需求，获取更高的翻译质量"></textarea>
+                </div>
+                <div class="order-place-btn">
+                    <a href="javascript:;" id="order_place" class="btn">下一步</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--login end-->
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<!--model-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">N邦译牛</span><span class="model-close">X</span></div>
+    <div class="model-content">
+    </div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<script src="<{$js_url}>/cooperate/amazon/translator/js/common.js"></script>
+<script src="<{$js_url}>/cooperate/amazon/customer/js/language.js"></script>
+<script>
+    var CONST_URL = {
+        HUPLOAD: '/order/api/order/uploadFile',
+        GETPRODUCTPRICEINFO: '/order/api/order/getProductPriceInfo',
+        COUNTFONTINFO: '/order/api/order/countFontInfo',
+        CONFIRMORDER: '/order/cooporder/order/confirmOrder'
+    };
+
+    $(function () {
+        //语言的选择
+        selectLanguage();
+        //设置选项事件
+        selectType();
+        //文本输入事件
+        textareaInput();
+        //下一步事件
+        stepToComfirm();
+        //设置进度
+        setProgress();
+    });
+    //语言的选择
+    function selectLanguage() {
+        $('#orderForm').on('change', '.selectlanguage-selectbox', function (e) {
+            var $source = $('#sourceLanguage'),
+                    $target = $('#targetLanguage'),
+                    source_val = $source.val(),
+                    target_val = $target.val();
+            resetMainInput();
+            CommonUtils.language($source,$target,e);
+            if (source_val && target_val) {
+                $.ajax({
+                    url: CONST_URL.GETPRODUCTPRICEINFO + '?product_id=' + source_val + '_' + target_val,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == '0') {
+                            $('#product_price_info').html('价格：<strong class="imp">' + data.data.desc + '</strong>');
+                        }
+                    }
+                });
+            } else {
+                $('#product_price_info').html('');
+            }
+        });
+    }
+    //设置选项事件
+    function selectType() {
+        var $type = $('#type_select_area'),
+                $upload = $('#upload_btns'),
+                $text = $('#order_textarea');
+        $type.on('click', '.order-type', function () {
+            var $this = $(this),
+                    type = $this.attr('data-type');
+            resetMainInput();
+            showComputeInfo();
+            $type.find('.order-type-selected').removeClass('order-type-selected');
+            $this.addClass('order-type-selected');
+            if (type == '1') {
+                $upload.show();
+                $text.hide();
+                upload(1);
+                $('#kindly_reminder_file').show();
+                $('#kindly_reminder_flat').hide();
+                $('#kindly_reminder_text').hide();
+            } else if (type == '2') {
+                $upload.hide();
+                $text.show();
+                $('#kindly_reminder_file').hide();
+                $('#kindly_reminder_flat').hide();
+                $('#kindly_reminder_text').show();
+            } else {
+                $upload.show();
+                $text.hide();
+                upload(3);
+                $('#kindly_reminder_file').hide();
+                $('#kindly_reminder_flat').show();
+                $('#kindly_reminder_text').hide();
+            }
+        });
+    }
+    //文本框的输入事件
+    function textareaInput() {
+        var timer;
+        $('#order_textarea').on('keyup', function () {
+            var len = $(this).val().length;
+            clearTimeout(timer);
+            if (len) {
+                timer = setTimeout(function () {
+                    fontCompute();
+                }, 500);
+            } else {
+                showComputeInfo();
+            }
+        });
+    }
+    //文件上传的字数计算
+    function fontCompute() {
+        var $type = $('#type_select_area'),
+                $type_selected = $type.find('.order-type-selected'),
+                type = $type_selected.attr('data-type'),
+                $compute = $('#order_compute'),
+                $loading = $compute.find('.loading'),
+                $spans = $compute.find('span'),
+                content;
+        $loading.show();
+        $spans.hide();
+        if (type == '1') {
+            content = $('#upload_url').val();
+        } else if (type == '2') {
+            content = $('#order_textarea').val();
+        } else if (type == '3') {
+            content = $('#upload_url').val();
+        } else {
+        }
+        if ($.trim(content)) {
+            $.ajax({
+                url: CONST_URL.COUNTFONTINFO,
+                type: 'post',
+                data: {
+                    'act': type,
+                    'product_id': $('#sourceLanguage').val() + '_' + $('#targetLanguage').val(),
+                    'word': content
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == '0') {
+                        var data = data.data;
+                        showComputeInfo(data.font_count, data.price_count, data.time_count);
+                    } else {
+                        CommonUtils.model({
+                            html: data.message,
+                            type: 'tip'
+                        });
+                    }
+                    $loading.hide();
+                    $spans.show();
+                }
+            });
+        } else {
+            showComputeInfo();
+        }
+    }
+    //下一步事件
+    function stepToComfirm() {
+        $('#order_place').click(function () {
+            $.ajax({
+                url: '/usercore/api/member/getUserLoginInfo',
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        saveOrder();
+                    } else {
+                        $('#quickLoginModal').show();
+						$('.login_mask').show();
+                    }
+                }
+            });
+        })
+    }
+
+    //展示价格
+    function showComputeInfo(total, price, plantime) {
+        var $order_compute = $('#order_compute');
+        total = total ? '字/词数：<strong class="imp">' + total + '</strong>' : '字/词数：<strong class="imp">0</strong>';
+        price = price ? '价格：<strong class="imp">' + price + '</strong>元' : '价格：<strong class="imp">0.00</strong>元';
+        plantime = plantime ? '预计交稿时间：<strong class="imp">' + plantime + '</strong>' : '预计交稿时间：<strong class="imp"></strong>';
+        $order_compute.find('.order-total').html(total);
+        $order_compute.find('.order-price').html(price);
+        $order_compute.find('.order-plantime').html(plantime);
+    }
+
+    //提交
+    var saveOrder = function () {
+        var source_val = $('#sourceLanguage').val(),
+                target_val = $('#targetLanguage').val(),
+                remark_val = $('#place_remark').val(),
+                $type = $('#type_select_area'),
+                $type_selected = $type.find('.order-type-selected'),
+                type = $type_selected.attr('data-type'),
+                $compute = $('#order_compute'),
+                $totalText = $compute.find('.order-total'),
+                $priceText = $compute.find('.order-price'),
+                $plantimeText = $compute.find('.order-plantime'),
+                $totalNum = $totalText.find('.imp'),
+                $priceNum = $priceText.find('.imp'),
+                content;
+        if (type == '1') {
+            content = $('#upload_url').val();
+        } else if (type == '2') {
+            content = $('#order_textarea').val();
+        } else if (type == '3') {
+            content = $('#upload_url').val();
+        } else {
+        }
+        if (!source_val) {
+            CommonUtils.model({
+                html: '请选择源语言',
+                type: 'tip'
+            });
+            return
+        }
+        if (!target_val) {
+            CommonUtils.model({
+                html: '请选择目标语言',
+                type: 'tip'
+            });
+            return
+        }
+        if (!content) {
+            CommonUtils.model({
+                html: '请填写翻译文本或上传翻译文件',
+                type: 'tip'
+            });
+            return
+        }
+        if ($totalNum.text() - 0 <= 10) {
+            CommonUtils.model({
+                html: '翻译文本或翻译文件统计字数必须大于10',
+                type: 'tip'
+            });
+            return
+        }
+
+        if ($.trim(remark_val).length - 0 > 50) {
+            CommonUtils.model({
+                html: '备注不能大于50个字',
+                type: 'tip'
+            });
+            return
+        }
+        var domStr = '<input type="hidden" name="act" value="' + type + '">' +
+                '<textarea type="hidden" name="file_id">' + content + '</textarea>' +
+                '<input type="hidden" name="product_id" value="' + source_val + '_' + target_val + '">' +
+                '<input type="hidden" name="desc" value="' + remark_val + '">' +
+                '<input type="hidden" name="font_count" value="' + $totalText.text() + '">' +
+                '<input type="hidden" name="price_count" value="' + $priceText.text() + '">' +
+                '<input type="hidden" name="price" value="' + $priceNum.text() + '">' +
+                '<input type="hidden" name="time_count" value="' + $plantimeText.text() + '">';
+        $('<form>', {
+            action: CONST_URL.CONFIRMORDER,
+            method: 'POST'
+        }).css('display', 'none').append(domStr).appendTo($('body')).submit();
+    };
+
+    //tab动作时对于文本域的初始化
+    function resetMainInput() {
+        $('#order_textarea,#upload,#upload_url').val('');
+        $('#upload_con').text('点击添加文件');
+        $('#upload_callback_name').html('');
+        showComputeInfo();
+        $('#upload_progress').css({'width': 0});
+    }
+
+    //文件上传
+    function upload(type) {
+        var limitType, limitSuffix;
+        if (type == '1') {
+            limitType = 'text\/plain,application\/vnd.openxmlformats-officedocument.wordprocessingml.document,' +
+                    'application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application\/vnd.ms-excel';
+            limitSuffix = 'txt,docx,xls,xlsx';
+        } else if (type == '3') {
+            limitType = 'application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+            limitSuffix = 'xlsx';
+        } else {
+        }
+        $('#upload_Limit').html('支持格式：' + limitSuffix + '；文件大小<strong class="imp">10M</strong>以内');
+        $('#upload').attr('accept', limitType);
+        //配置参数
+        var config = {
+            //上传地址
+            url: CONST_URL.HUPLOAD,
+            //文件大小10485760 10M
+            limitSize: 10485760,
+            //上传的类型 h5判断
+            limitType: limitType,
+            //上传的类型 ie8 ie9
+            limitSuffix: limitSuffix,
+            //h5进度回调函数
+            progressUploadHandler: function (event) {
+                var pecent = ((event.loaded / event.total) * 100 + '').split('.')[0] + '%';
+                $('#upload_progress').css({'width': pecent});
+                $('#upload_con').html('文件上传中  ' + pecent);
+            },
+            //h5上传之前回调函数 如果要上传 必须返回true
+            beforeUploadHandler: function () {
+                var source_val = $('#sourceLanguage').val(),
+                        target_val = $('#targetLanguage').val();
+                if (source_val && target_val) {
+                    return true;
+                } else {
+                    CommonUtils.model({
+                        html: '请先选择翻译类型',
+                        type: 'tip'
+                    });
+                    $('#upload').val('');
+                    return false;
+                }
+            },
+            //h5上传发送之前回调函数
+            beforeSendHandler: function () {
+                $('#upload_progress').css({'width': 0});
+                $('#upload').hide();
+                $('#upload_Limit').hide();
+            },
+            //h5完成时的回调函数
+            completeUploadHandler: function (data) {
+                var data = data.data;
+                $('#upload').show();
+                $('#upload_Limit').show();
+                $('#upload_con').html('上传完成');
+                $('#upload_callback_name').html('文件：<a class="link" href="/order/api/order/downloadFile?file_path=' + data.file_url + '" target="_blank">' + data.file_name + '</a>');
+                $('#upload_url').val(data.file_url);
+                fontCompute();
+            },
+            //h5错误时的回调函数
+            errorUploadHandler: function (e) {
+            },
+            //ie8 9开始上传回调函数 如果要上传 必须返回true
+            beforeIframeUploadHandler: function () {
+                var source_val = $('#sourceLanguage').val(),
+                        target_val = $('#targetLanguage').val();
+                if (source_val && target_val) {
+                    var time = 0;
+                    $('#upload_con').html('文件上传中...');
+                    this.timer = window.setInterval(function () {
+                        time % 4 == 0 && $('#upload_con').html('文件上传中');
+                        time % 4 == 1 && $('#upload_con').html('文件上传中.');
+                        time % 4 == 2 && $('#upload_con').html('文件上传中..');
+                        time % 4 == 3 && $('#upload_con').html('文件上传中...');
+                        time++;
+                    }, 1000);
+                    $('#upload').hide();
+                    $('#upload_Limit').hide();
+                    return true;
+                } else {
+                    CommonUtils.model({
+                        html: '请先选择翻译类型',
+                        type: 'tip'
+                    });
+                    $('#upload').val('');
+                    return false;
+                }
+            },
+            //ie8 9 完成上传回调函数
+            completeIframeUploadHandler: function (data) {
+                window.clearInterval(this.timer);
+                $('#upload').show();
+                $('#upload_Limit').show();
+                $('#upload_con').html('上传完成');
+                $('#upload_callback_name').html('文件：<a class="link" href="/order/api/order/downloadFile?file_path=' + data.data.file_url + '" target="_blank">' + data.data.file_name + '</a>');
+                $('#upload_url').val(data.data.file_url);
+                fontCompute();
+            }
+        };
+        CommonUtils.upload(config);
+    }
+
+    //设置进度
+    function setProgress() {
+        $('#progress').animate({
+            'width': '179px'
+        }, 1000);
+    }
+</script>
+</body>
+</html>

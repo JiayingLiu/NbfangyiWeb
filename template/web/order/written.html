@@ -1,0 +1,174 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/order/order.css">
+<title>N邦翻译 找好翻译，上N邦-笔译下单</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="order-main">
+    <div class="order-top">
+        <ul>
+            <li class="col-xs-4 progress-cur">
+                <span class="step"></span>
+                填写订单信息
+            </li>
+            <li class="col-xs-4">
+                <span class="step"></span>
+                确认订单信息
+            </li>
+            <li class="col-xs-4">提交订单</li>
+        </ul>
+    </div>
+    <div class="order-main-contect">
+        <div class="row">
+            <div class="col-xs-2">
+                商品名称：
+            </div>
+            <div class="col-xs-10">
+                <{$data['productInfo']['title']}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                语言：
+            </div>
+            <div class="col-xs-10">
+                <{$data['productInfo']['language']}>--><{$data['productInfo']['to_language']}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                服务类型：
+            </div>
+            <div class="col-xs-10">
+                <{$data['productInfo']['type_name']}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                涉及领域：
+            </div>
+            <div class="col-xs-2">
+                <{$data['productInfo']['field_name']}>
+            </div>
+        </div>
+        <div class="row" id="choose_type">
+            <ul class="trans-type-select-area">
+                <li><a href="javascript:;" class="trans-type-select trans-type-selected" data-id="4">文件翻译</a></li>
+                <li><a href="javascript:;" class="trans-type-select" data-id="2">快速翻译</a></li>
+            </ul>
+        </div>
+        <form id="data_form">
+            <input type="hidden" name="translate_content_type" id="translate_content_type">
+            <input type="hidden" name="type_name" id="type_name" value="<{$data['productInfo']['type_name']}>">
+            <input type="hidden" name="field_name" id="field_name" value="<{$data['productInfo']['field_name']}>">
+            <input type="hidden" name="product_id" id="product_id" value="<{$data['productInfo']['id']}>">
+            <input type="hidden" name="title" id="title" value="<{$data['productInfo']['title']}>">
+            <input type="hidden" name="language" id="language" value="<{$data['productInfo']['language']}>">
+            <input type="hidden" name="to_language" id="to_language" value="<{$data['productInfo']['to_language']}>">
+            <input type="hidden" name="logo" id="logo" value="<{$data['productInfo']['logo']}>">
+            <input type="hidden" name="shop_id" id="shop_id" value="<{$data['productInfo']['shop_id']}>">
+            <input type="hidden" name="file_or_str" id="file_or_str">
+            <input type="hidden" name="file_name" id="file_name">
+            <div class="form-group" id="translation_fast" style="display: none;">
+                <textarea id="fast_input" placeholder="输入您的内容，马上进行快速翻译！" class="form-textarea"></textarea>
+
+                <div class="col-xs-12 input-tip">
+                    <i class="iconfont icon-remind"></i>
+                    友情提示
+                </div>
+                <div class="col-xs-12 input-tip">
+                    1.快速翻译最一次下单多可翻译500字
+                </div>
+                <div class="col-xs-12 input-tip">
+                    2.停止输入0.5秒会自动计算价格
+                </div>
+            </div>
+            <div class="form-group" id="translation_file">
+                <div class="col-xs-12">
+                    <input type="file" id="upload" name="">
+                </div>
+                <div class="col-xs-12 input-tip">
+                    <i class="iconfont icon-remind"></i>
+                    友情提示
+                </div>
+                <div class="col-xs-12 input-tip">
+                    1.目前系统支持自动计算字数的文件格式包括：文本文档（txt）、word （docx）、excel（xls、xlsx） 。
+                </div>
+                <div class="col-xs-12 input-tip">
+                    2.文件大小不大于10M，excel支持多个sheet上传，但仅处理第一个 sheet
+                </div>
+                <div class="col-xs-12 input-tip">
+                    3.若觉的字数计算不准确可手动修改
+                </div>
+            </div>
+            <div class="form-group data-review" id="data_review">
+                <div class="col-xs-1">
+                    <span>&nbsp;字数：</span>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-input" placeholder="填写你计算的字数" name="total_font_count">
+                </div>
+                <div class="col-xs-1">
+                    <span>&nbsp;单价：</span>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-input" readonly placeholder="价格" value="<{$data['productInfo']['price']}>" name="price">
+                </div>
+                <div class="col-xs-2 text-right">
+                    <span>总价：￥</span>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-input" readonly placeholder="计算总价" name="order_price">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">
+                    <span>预约交稿时间：</span>
+                </div>
+                <div class="col-xs-3">
+                    <input class="form-input" type="text" id="estimate_start" name="estimate_start"
+                           onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',maxDate:'#F{$dp.$D(\'estimate_end\')}',minDate:'%y-%M-%d'});">
+                </div>
+                <div class="col-xs-1 text-center">至</div>
+                <div class="col-xs-3">
+                    <input class="form-input" type="text" id="estimate_end" name="estimate_end"
+                           onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',minDate:'#F{$dp.$D(\'estimate_start\')||\'%y-%M-%d\'}'});">
+                </div>
+                <div class="col-xs-2">
+                    <a href="javascript:void(0);" class="im-openbtn js-im-trigger"
+                            data-chat-id="<{$data['shopInfo']['uid']}>"
+                            data-chat-name="<{$data['shopInfo']['title']}>"
+                            data-chat-logo="<{$file_url}><{$data['shopInfo']['logo']}>">
+                        <i class="iconfont icon-contact"></i>
+                        联系卖家
+                    </a>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">
+                    选择回稿格式：
+                </div>
+                <{foreach($data['docFormatList'] as $k => $v)}>
+                <div class="col-xs-2">
+                    <label>
+                        <input class="order-input" type="radio" name="doc_format" value="<{$k}>"><{$v}>
+                    </label>
+                </div>
+                <{/foreach}>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <span>备注：</span>
+                </div>
+                <div class="col-xs-12">
+                    <textarea name="desc" placeholder="备注可以使译者更好的了解您的翻译需求！" class="form-textarea"></textarea>
+                </div>
+            </div>
+        </form>
+        <div class="row text-center">
+            <a href="javascript:void(0);" class="order-btn btn-success" id="place_order">下一步</a>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/order/written.js"></script>
+<{layout:web/public/foot}>

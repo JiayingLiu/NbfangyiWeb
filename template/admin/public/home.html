@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>N邦翻译后台管理平台</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/dist/css/skins/skin-black-all.css">
+    <style>
+        .main-content {
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-black-all sidebar-mini">
+<div class="wrapper">
+    <!-- Main Header -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="#" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>N</b>邦翻译后台管理平台</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>N</b>邦翻译后台管理平台</span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">管理员</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">您有4条信息</li>
+                            <li>
+                                <!-- inner menu: contains the messages -->
+                                <ul class="menu">
+                                    <li><!-- start message -->
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <!-- User Image -->
+                                                <img src="<{$css_url}>/admin/plugins/dist/img/man.jpg"
+                                                     class="img-circle"
+                                                     alt="User Image">
+                                            </div>
+                                            <!-- Message title and timestamp -->
+                                            <h4>
+                                                这里是题目
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <!-- The message -->
+                                            <p>这里是内容</p>
+                                        </a>
+                                    </li>
+                                    <!-- end message -->
+                                </ul>
+                                <!-- /.menu -->
+                            </li>
+                            <li class="footer"><a href="#">more</a></li>
+                        </ul>
+                    </li>
+                    <!-- /.messages-menu -->
+
+                    <!-- Notifications Menu -->
+                    <li class="dropdown notifications-menu">
+                        <!-- Menu toggle button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">10</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">您有10条提醒</li>
+                            <li>
+                                <!-- Inner Menu: contains the notifications -->
+                                <ul class="menu">
+                                    <li><!-- start notification -->
+                                        <a href="#">
+                                            <i class="fa fa-users text-aqua"></i> 今日网络流量统计2049位
+                                        </a>
+                                    </li>
+                                    <!-- end notification -->
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">more</a></li>
+                        </ul>
+                    </li>
+                    <!-- Tasks Menu -->
+                    <li class="dropdown tasks-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-flag-o"></i>
+                            <span class="label label-danger">9</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">您有9个任务</li>
+                            <li>
+                                <!-- Inner menu: contains the tasks -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <!-- Task title and progress text -->
+                                            <h3>
+                                                Design some buttons
+                                                <small class="pull-right">20%</small>
+                                            </h3>
+                                            <!-- The progress bar -->
+                                            <div class="progress xs">
+                                                <!-- Change the css width attribute to simulate progress -->
+                                                <div class="progress-bar progress-bar-aqua" style="width: 20%"
+                                                     role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                     aria-valuemax="100">
+                                                    <span class="sr-only">20% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">more</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- User Account Menu -->
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!-- The user image in the navbar-->
+                            <img src="<{$css_url}>/admin/plugins/dist/img/man.jpg" class="user-image"
+                                 alt="User Image">
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                            <span class="hidden-xs">管理员</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-body">
+                                <form id="pwdForm">
+                                    <input type="hidden" name="uid" value="<{$data['_admin_uid']}>">
+                                    <input type="hidden" name="name" value="<{$data['_admin_uname']}>">
+                                    <div class="form-group">
+                                        <label for="pwd_oldPwd">旧密码</label>
+                                        <input type="text" class="form-control" id="pwd_oldPwd" name="password" placeholder="请填写旧密码">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pwd_newPwd">新密码</label>
+                                        <input type="password" class="form-control" id="pwd_newPwd" name="newPassWord" placeholder="请填写新密码">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pwd_cPwd">重复密码</label>
+                                        <input type="password" class="form-control" id="pwd_cPwd" placeholder="请填写确认密码">
+                                    </div>
+                                </form>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-default btn-flat" id="updatePwd">修改密码</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="/admin/rbac/login/logout"><i class="fa fa-sign-out"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="<{$css_url}>/admin/plugins/dist/img/man.jpg" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p><{$data['_admin_nick_name']}></p>
+                    <!-- Status -->
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+
+            <!-- search form (Optional) -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="查找...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu" id="sidebar_menu">
+                <li class="header">功能菜单</li>
+            </ul>
+            <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="position: relative;">
+        <!-- Content Header (Page header) -->
+        <!-- Main content -->
+        <section class="main-content">
+            <iframe id="main_content" src="/admin/index/index/welcome" height="100%" width="100%" frameborder="0">
+            </iframe>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
+<!-- jQuery 2.1.4 -->
+<script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<!-- Bootstrap 3.3.5 -->
+<script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="<{$css_url}>/admin/plugins/dist/js/app.min.js"></script>
+<script src="<{$css_url}>/admin/js/common.js"></script>
+<script>
+    $(function () {
+        $('#sidebar_menu').on('click', '.js-menu-item', function () {
+            var doc = document.getElementById('main_content');
+            if($(this).attr('data-url') && $(this).attr('data-url') != '#'){
+                doc.src = $(this).attr('data-url');
+            }
+        });
+        //菜单树的遍历
+        createMenuTree();
+        //修改密码
+        updatePwd();
+    });
+    //修改密码
+    function updatePwd(){
+        $("#updatePwd").click(function () {
+            if($('#pwd_newPwd').val() != $('#pwd_cPwd').val()){
+                CommonUtils.tips('两次输入的密码不一致',2000,false);
+                return ;
+            }
+            CommonUtils.confirm('确定要修改吗？', function () {
+                $.ajax({
+                    url: '/admin/rbac/user/updateUserPasswd',
+                    dataType: 'json',
+                    type: 'post',
+                    data: $('#pwdForm').serialize(),
+                    success: function (data) {
+                        if (data.status == 0) {
+                            window.location.href = '/admin/rbac/login/index';
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            },null);
+        });
+    }
+    //菜单树的遍历
+    function createMenuTree() {
+        var html = [];
+        $.ajax({
+            url: '/admin/menu/index/getMenuList',
+            dataType: 'json',
+            success: function (data) {
+                var list = data.data;
+                createDom(list);
+                $('#sidebar_menu').append(html.join(''));
+            }
+        })
+        var createDom = function (list) {
+            var len = list.length;
+            for (var i = 0; i < len; i++) {
+                var cur = list[i];
+                html.push('<li class="treeview"> <a href="javascript:void(0);" class="js-menu-item" data-url="'+cur.menu_url+'">');
+                if(cur.item ){
+                    html.push('<i class="fa fa-folder-o"></i><span>'+ cur.menu_title +'</span><i class="fa fa-angle-left pull-right"></i>');
+                }else{
+                    html.push('<i class="fa fa-file-o"></i><span>'+ cur.menu_title +'</span>');
+                }
+                html.push('</a><ul class="treeview-menu">');
+                if (cur.item && cur.item.length) {
+                    arguments.callee(cur.item);
+                }
+                html.push('</ul></li>');
+            }
+        }
+    }
+</script>
+</body>
+</html>

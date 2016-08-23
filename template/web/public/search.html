@@ -1,0 +1,40 @@
+<div class="search-result js-sear-keep" id="nbs_result">
+</div>
+<div class="rect-wrap">
+    <div class="rect">
+        <div class="nav-logo">
+            <a href="/">
+                <img src="<{$css_url}>web/css/image/public/logo.png" height="86">
+            </a>
+        </div>
+        <div class="search" id="nb_sear">
+            <div class="sear-tab">
+                <ul>
+                    <{if($data['request_param']['t'] == 1)}>
+                    <li class="js-sear-tab" data-type="2">商品</li>
+                    <li class="js-sear-tab js-sear-selected" data-type="1">店铺</li>
+                    <{elseif($data['request_param']['t'] == 2)}>
+                    <li class="js-sear-tab js-sear-selected" data-type="2">商品</li>
+                    <li class="js-sear-tab" data-type="1">店铺</li>
+                    <{else}>
+                    <li class="js-sear-tab js-sear-selected" data-type="2">商品</li>
+                    <li class="js-sear-tab" data-type="1">店铺</li>
+                    <{/if}>
+                </ul>
+            </div>
+            <div class="sear-main">
+                <div class="sear-input">
+                    <input type="text" placeholder="请输入您要搜索的翻译服务" class="js-search-input js-sear-keep"
+                           value="<{$data['request_param']['q']}>">
+                </div>
+                <div class="sear-btn">
+                    <button type="submit" id="nb_global_search">搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="nav-hotline">
+            <p class="title">免费服务电话</p>
+            <p class="text">4006-808-525</p>
+        </div>
+    </div>
+</div>

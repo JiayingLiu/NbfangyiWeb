@@ -1,0 +1,65 @@
+<div class="pub-appointment" id="pub_appm">
+    <div class="appm-toggle"  id="appm_show">
+        <img src="<{$css_url}>web/css/image/index/appointment_btn1.png">
+    </div>
+    <div class="appm-form">
+        <form>
+            <div class="appm-form-group appm-with-radius">
+                <div class="col-xs-1 text-center appm-with-bg"><i class="iconfont icon-mobile"></i></div>
+                <div class="col-xs-11 appm-with-bg"><input type="text" placeholder="请输入您的手机号" class="form-input" id="pub_appm_phone"></div>
+            </div>
+            <div class="appm-form-group">
+                <div class="col-xs-6 appm-with-radius appm-with-bg">
+                    <div class="col-xs-2 text-center"><i class="iconfont icon-user"></i></div>
+                    <div class="col-xs-10"><input type="text" class="form-input" id="pub_appm_name" placeholder="请输入您的姓名"></div>
+                </div>
+                <div class="col-xs-6 appm-with-radius text-center">
+                    <a href="javascript:void(0);" class="btn btn-submit" id="pub_appm_submit">免费预约</a>
+                </div>
+            </div>
+        </form>
+        <a href="javascript:void(0);" class="appm-close" id="appm_hide"><i class="iconfont icon-close"></i></a>
+    </div>
+    <div class="appm-image">
+        <img src="<{$css_url}>web/css/image/index/appointment_logo.png">
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery', 'validate', 'model'], function ($, validate, model) {
+        //appointment
+        //show
+        $('#appm_show').on('click', function () {
+            $('#pub_appm').addClass('pub-appointment-show');
+        });
+        //hide
+        $('#appm_hide').click(function () {
+            $('#pub_appm').removeClass('pub-appointment-show');
+        });
+        //click appointment
+        $('#pub_appm_submit').on('click', null, function () {
+            var phone = $('#pub_appm_phone').val();
+            if (!validate.phone(phone)) {
+                model.tip('手机为空或格式不正确', 2000);
+                return;
+            }
+            $.ajax({
+                url: '/index/index/guestBook/addGuestBook',
+                dataType: 'json',
+                data: {
+                    phone: phone,
+                    name: $('#pub_appm_name').val(),
+                    type: '1'
+                },
+                type: 'POST',
+                success: function (data) {
+                    if (data.status == 0) {
+                        $('#pub_appm').removeClass('pub-appointment-show');
+                        model.tip('稍后会有译员联系您', 2000);
+                    } else {
+                        model.tip(data.message, 2000);
+                    }
+                }
+            });
+        });
+    });
+</script>

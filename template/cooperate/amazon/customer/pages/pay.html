@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="description" content="N邦翻译是最大的O2O翻译电商平台，是亚马逊唯一官方合作的语言服务平台，N邦翻译的核心是为跨境电商提供快速、高质量的翻译服务，帮助跨境电商企业解决语言翻译难题！">
+    <meta name="keywords" content="N邦翻译,翻译O2O,翻译电商平台,翻译网站,亚马逊,跨境电商,对外贸易交易平台、外贸网站" />
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8d9b837ff56daf73730660e4d86fc338";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <title>N邦译牛 助力跨境电商</title>
+    <link rel="shortcut icon" href="<{$css_url}>/cooperate/amazon/customer/css/img/unbounded.ico" type="image/x-icon" />
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/header.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/style/pay.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+</head>
+<body>
+<!--header-->
+<{layout:cooperate/amazon/customer/public/header}>
+<!--header end-->
+<div class="content">
+    <!--login-->
+    <div class="place-order">
+        <div class="order-step">
+            <div class="order-step-con">
+                <div class="order-step-progress" id="progress"></div>
+                <ul class="order-step-ul">
+                    <li>1、下单</li>
+                    <li class="step">2、支付</li>
+                    <li class="step">3、翻译中</li>
+                    <li class="step">4、翻译完成</li>
+                    <li class="step">5、稿件审校</li>
+                    <li class="step">6、完成</li>
+                </ul>
+            </div>
+        </div>
+        <div class="pay">
+            <div class="order-details">
+                <div class="detail-content">
+                    <p class="detail-content-tip">请您及时付款，以便订单尽快处理！</p>
+
+                    <p>订单号：<{$orderNum}></p>
+
+                    <p>商品名称：<{$title}></p>
+
+                    <p>应付金额：<strong class="imp"><{$total_fee}></strong>元</p>
+                </div>
+            </div>
+            <div class="pay-filter" id="pay_filter">
+                <a href="javascript:;" class="pay-filter-selected" data-type="0">在线支付</a>
+                <!-- <a href="javascript:;" data-type="1">余额支付</a>
+                <a href="javascript:;" data-type="2">银行卡支付</a>-->
+            </div>
+            <div class="pay-type" id="pay_type">
+                <!--在线支付-->
+                <div id="pay_online">
+                    <div id="pay_alipay" class="pay-type-item pay-type-selected"></div>
+                    <div id="pay_weixin" class="pay-type-item"></div>
+                </div>
+                <!--银行卡支付-->
+                <div id="pay_bankcard">
+                   <!-- <p class="pay-bankcard-title">企业用户(B2B)</p>
+                    <ul class="bank-wrap">
+                        <li class="bank-item bank-type-selected" data-id="ICBCBTB"><span class="bank-logo bank-icbc"></span></li>
+                        &lt;!&ndash;中国工商银行（B2B）&ndash;&gt;
+                        <li class="bank-item" data-id="ABCBTB"><span class="bank-logo bank-abc"></span></li>
+                        &lt;!&ndash;中国农业银行（B2B）&ndash;&gt;
+                        <li class="bank-item" data-id="CCBBTB"><span class="bank-logo bank-ccb"></span></li>
+                        &lt;!&ndash;中国建设银行（B2B）&ndash;&gt;
+                        <li class="bank-item" data-id="SPDBB2B"><span class="bank-logo bank-spdb"></span></li>
+                        &lt;!&ndash;上海浦东发展银行（B2B）&ndash;&gt;
+                        <li class="bank-item" data-id="BOCBTB"><span class="bank-logo bank-boc"></span></li>
+                        &lt;!&ndash;中国银行（B2B）&ndash;&gt;
+                        <li class="bank-item" data-id="CMBBTB"><span class="bank-logo bank-cmb"></span></li>
+                        &lt;!&ndash;招商银行（B2B）&ndash;&gt;
+                    </ul>
+                    <p class="pay-bankcard-title">个人用户</p>-->
+                    <ul class="bank-wrap">
+                        <li class="bank-item" data-id="ICBCB2C"><span class="bank-logo bank-icbc"></span></li>
+                        <!--中国工商银行-->
+                        <li class="bank-item" data-id="CCB"><span class="bank-logo bank-ccb"></span></li>
+                        <!--中国建设银行-->
+                        <li class="bank-item" data-id="CMB"><span class="bank-logo bank-cmb"></span></li>
+                        <!--招商银行-->
+                        <li class="bank-item" data-id="ABC"><span class="bank-logo bank-abc"></span></li>
+                        <!--中国农业银行-->
+                        <li class="bank-item" data-id="COMM-DEBIT"><span class="bank-logo bank-bcm"></span></li>
+                        <!--交通银行-->
+                        <li class="bank-item" data-id="GDB"><span class="bank-logo bank-gdb"></span></li>
+                        <!--广发银行-->
+                        <li class="bank-item" data-id="BOCB2C"><span class="bank-logo bank-boc"></span></li>
+                        <!--中国银行-->
+                        <li class="bank-item" data-id="CMBC"><span class="bank-logo bank-cmbc"></span></li>
+                        <!--中国民生银行-->
+                        <li class="bank-item" data-id="SPDB"><span class="bank-logo bank-spdb"></span></li>
+                        <!--上海浦东发展银行-->
+                        <li class="bank-item" data-id="POSTGC"><span class="bank-logo bank-post"></span></li>
+                        <!--中国邮政储蓄银行-->
+                        <li class="bank-item" data-id="SPABANK"><span class="bank-logo bank-pab"></span></li>
+                        <!--平安银行-->
+                        <li class="bank-item" data-id="CEB-DEBIT"><span class="bank-logo bank-ceb"></span></li>
+                        <!--中国光大银行-->
+                        <li class="bank-item" data-id="CIB"><span class="bank-logo bank-cib"></span></li>
+                        <!--兴业银行-->
+                        <li class="bank-item" data-id="CITIC-DEBIT"><span class="bank-logo bank-citic"></span></li>
+                        <!--中信银行-->
+                        <li class="bank-item" data-id="BJBANK"><span class="bank-logo bank-bob"></span></li>
+                        <!--北京银行-->
+                        <li class="bank-item" data-id="BJRCB"><span class="bank-logo bank-bjrcb"></span></li>
+                        <!--北京农村商业银行-->
+                        <li class="bank-item" data-id="SHBANK"><span class="bank-logo bank-shb"></span></li>
+                        <!--上海银行-->
+                        <li class="bank-item" data-id="SHRCB"><span class="bank-logo bank-srcb"></span></li>
+                        <!--上海农商银行-->
+                        <li class="bank-item" data-id="HZCBB2C"><span class="bank-logo bank-hzb"></span></li>
+                        <!--杭州银行-->
+                        <li class="bank-item" data-id="NBBANK"><span class="bank-logo bank-nbcb"></span></li>
+                        <!--宁波银行-->
+                        <li class="bank-item" data-id="WZCBB2C-DEBIT"><span class="bank-logo bank-wzcb"></span></li>
+                        <!--温州银行-->
+                        <li class="bank-item" data-id="FDB"><span class="bank-logo bank-fudian"></span></li>
+                        <!--富滇银行-->
+                    </ul>
+                </div>
+                <!--余额支付-->
+                <div id="pay_nb">
+                    <p>您的余额为：<strong class="imp">￥400</strong><a href="wallet.html" class="link">充值</a></p>
+
+                    <p>请输入交易密码：<input type="password"></p>
+                </div>
+            </div>
+            <div class="pay-btns">
+                <a href="/user/cooperate/user/orderInfo?order_num=<{$orderNum}>" class="pay-cancel">稍后支付</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:;" class="pay-ok" id="to_pay">立即支付</a>
+            </div>
+        </div>
+    </div>
+    <!--login end-->
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<!--model-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">微信支付</span><span class="model-close">X</span></div>
+    <div class="model-content">
+    </div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<script src="<{$js_url}>/cooperate/amazon/translator/js/common.js"></script>
+<script>
+    $(function () {
+        //设置进度
+        setProgress(2);
+        //支付种类的选择
+        selectPayType();
+        selectFilter();
+        selectBankType();
+        //支付动作
+        toPay();
+    });
+    //选择银行卡支付
+    function selectBankType(){
+        var $banks = $('#pay_bankcard');
+        $banks.on('click','.bank-item', function () {
+            $banks.find('.bank-type-selected').removeClass('bank-type-selected');
+            $(this).addClass('bank-type-selected');
+        });
+    }
+    //支付动作
+    function toPay() {
+        //微信支付的html代码
+        var weixinHtml = '<img src="<{$wxPayUrl}>" height="200" width="200" style="margin: 5px 0 0 27px">' +
+                        '<p style="margin-bottom: 30px; ">请使用微信扫一扫，扫描二维码进行支付</p>',
+                alipayHtml = '<p>支付宝支付页已跳转，请进行支付...</p><p style="text-align: center;padding: 10px;">' +
+                        '<a href="javascript:;" onclick="window.location.reload();" class="btn" style="background-color:\#aeaeae;color:#fff;">支付遇到问题</a>' +
+                        '<a href="/user/cooperate/user/myOrderList" class="btn" style="background-color: \#eb983a;color:#fff;">支付完成</a></p>',
+                bankcardHtml = '<p>银行卡支付页已跳转，请进行支付...</p><p style="text-align: center;padding: 10px;">' +
+                        '<a href="javascript:;" onclick="window.location.reload();" class="btn" style="background-color:\#aeaeae;color:#fff;">支付遇到问题</a>' +
+                        '<a href="/user/cooperate/user/myOrderList" class="btn" style="background-color: \#eb983a;color:#fff;">支付完成</a></p>',
+                timer;
+        //监测支付的定时器
+        $('#to_pay').on('click', null, function () {
+            var $payFilter = $('#pay_filter'),
+            type = $payFilter.find('.pay-filter-selected').attr('data-type');
+            //快捷支付
+            if(type == '0'){
+                alipayOrWeChat(weixinHtml,alipayHtml);
+            }else if(type == '1'){//余额支付
+
+            }else if(type == '2'){//银行卡支付
+                payByBankCard(bankcardHtml);
+            }else{
+
+            }
+            checkPaySuccess(timer);
+        });
+    }
+    //银行卡支付
+    function payByBankCard(bankcardHtml){
+        var $bankcard = $('#pay_bankcard'),
+                bankCode = $bankcard.find('.bank-type-selected').attr('data-id');
+        //银行卡跳转
+        window.open('/pay/index/pay/payment?pay_type=1&order_num=<{$orderNum}>&bank_type='+bankCode);
+        CommonUtils.model({
+            html: bankcardHtml,
+            type: 'window',
+            width: 400,
+            title: '银行卡支付'
+        });
+    }
+    //支付宝或者微信支付
+    function alipayOrWeChat(weixinHtml,alipayHtml){
+        var $pay = $('#pay_type').find('.pay-type-selected'),
+                id = $pay.attr('id');
+        if (id == 'pay_alipay') {
+            //支付宝的跳转
+            window.open('/pay/index/pay/payment?pay_type=1&order_num=<{$orderNum}>');
+            CommonUtils.model({
+                html: alipayHtml,
+                type: 'window',
+                width: 400,
+                title: '支付宝支付'
+            });
+        } else if (id == 'pay_weixin') {
+            CommonUtils.model({
+                html: weixinHtml,
+                type: 'window',
+                width: 300,
+                title: '微信支付'
+            });
+        } else {
+
+        }
+    }
+    //检测支付成功事件
+    function checkPaySuccess(timer){
+        //清除定时器
+        window.clearInterval(timer);
+        //监测支付是否成功事件
+        timer = window.setInterval(function () {
+            $.ajax({
+                url: '/pay/index/pay/ajaxIsSuccess',
+                type: 'post',
+                data: {
+                    'order_num': '<{$orderNum}>'
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == '0') {
+                        //清除定时器
+                        window.clearInterval(timer);
+                        CommonUtils.model({
+                            html: '支付成功',
+                            type: 'tip'
+                        });
+                        window.setTimeout(function () {
+                            window.location.href = '/pay/index/pay/paySuccess?order_num=<{$orderNum}>'
+                        }, 1000);
+                    }
+                }
+            })
+        }, 1000);
+    }
+    //支付种类的选择
+    function selectFilter() {
+        var $filter = $('#pay_filter');
+        $filter.on('click', 'a', function () {
+            var $this = $(this);
+            $filter.find('.pay-filter-selected').removeClass('pay-filter-selected');
+            if ($this.attr('data-type') == '0') {
+                $('#pay_online').show();
+                $('#pay_bankcard').hide();
+            } else {
+                $('#pay_online').hide();
+                $('#pay_bankcard').show();
+            }
+            $this.addClass('pay-filter-selected');
+        })
+    }
+    //支付种类最后的选择
+    function selectPayType() {
+        var $type = $('#pay_type');
+        $type.on('click', '.pay-type-item', function () {
+            var $this = $(this);
+            $type.find('.pay-type-selected').removeClass('pay-type-selected');
+            $this.addClass('pay-type-selected');
+        });
+    }
+    //设置进度
+    function setProgress(num) {
+        var len = 0;
+        switch (num) {
+            case 1:
+                len = 179;
+                break;
+            case 2:
+                len = 346;
+                break;
+            case 3:
+                len = 512;
+                break;
+            case 4:
+                len = 679;
+                break;
+            case 5:
+                len = 844;
+                break;
+            case 6:
+                len = 1000;
+                break;
+            default :
+                break;
+        }
+        $('#progress').animate({
+            'width': len + 'px'
+        }, 1000);
+    }
+</script>
+</body>
+</html>

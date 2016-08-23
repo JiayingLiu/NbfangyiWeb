@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/css/public/common.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/css/style/empower.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/admin/rbac/group/index" class="btn btn-default"><i class="fa fa-reply"></i></a>
+            权限组管理>赋予权限
+        </div>
+        <div class="panel-body">
+            <p class="text-primary">当前操作组：<{$data['groupList'][$data['rbac_id']]}></p>
+
+            <p class="text-danger">请选择以下的权限：</p>
+
+            <div class="menu" id="menu">
+
+                <a href="javascript:void(0);">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="0">根目录
+                    </label>
+                </a>
+                <ul class="menu-item" id="menu_content">
+
+                </ul>
+            </div>
+            <button type="button" class="btn btn-success pull-right" id="empower">授权</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        //菜单树的遍历
+        createMenuTree();
+        //菜单树的点击事件
+        MenuTreeClickHandle();
+        //授权确认
+        empower();
+    });
+    //授权确认
+    function empower() {
+        $('#empower').on('click', null, function () {
+            var html = [],
+                    inputs = $('#menu').find('input:checked');
+            if (inputs.length)
+                $.each(inputs, function (index, value) {
+                    var val = $(value).val();
+                    if (val) {
+                        html.push(val);
+                    }
+                });
+            if (!html.length) {
+                CommonUtils.tips('请选择您要赋予的权限!', 1000,true);
+            }
+            $.ajax({
+                url: '/admin/rbac/group/accreditUpdate',
+                data: {
+                    'rbac_id': '<{$data["rbac_id"]}>',
+                    'node_ids': html.join(',')
+                },
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    CommonUtils.tips(data.message, 1000);
+                }
+            });
+        });
+    }
+    //菜单树的点击事件
+    function MenuTreeClickHandle() {
+        $('#menu').on('click', 'a', function () {
+            if ($(this).find('input:checked').length) {
+                $(this).parents('.menu-item').prev('a').find('input').prop('checked', 'checked');
+                $(this).next('.menu-item').find('input').prop('checked', 'checked');
+            } else {
+                $.each($(this).parents('.menu-item'),function(i,v){
+                    var $t = $(v);
+                    $t.find('input:checked').length || $t.prev('a').find('input').removeAttr('checked');
+                });
+                $(this).next('.menu-item').find('input:checked').removeAttr('checked');
+            }
+        });
+    }
+    //菜单树的遍历
+    function createMenuTree() {
+        var $menu_content = $('#menu_content'),
+                html = [];
+        $.ajax({
+            url: '/admin/menu/index/getMenuList',
+            dataType: 'json',
+            success: function (data) {
+                var list = data.data;
+                createDom(list);
+                $menu_content.html(html.join(''));
+                $menu_content.find('input:checked').length && $('#menu').find('input:eq(0)').prop('checked','checked');
+            }
+        })
+        var createDom = function (list) {
+            var len = list.length;
+            for (var i = 0; i < len; i++) {
+                var cur = list[i];
+                html.push('<li><a href="javascript:void(0);"><label class="checkbox-inline">');
+                if('<{$data["node_ids"]}>'.match(cur.id)){
+                    html.push( '<input type="checkbox" value="' + cur.id + '" checked>');
+                }else{
+                    html.push( '<input type="checkbox" value="' + cur.id + '">');
+                }
+                html.push(cur.menu_title + '</label></a><ul class="menu-item">');
+                if (cur.item && cur.item.length) {
+                    arguments.callee(cur.item);
+                }
+                html.push('</ul></li>');
+            }
+        }
+    }
+</script>
+</body>
+</html>

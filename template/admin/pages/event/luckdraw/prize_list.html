@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <div class="table-box" >
+                <div class="tableDiv" >
+                <table class="table table-bordered" id="list">
+                <tr>
+                    <th >ID</th>
+                    <th >名称</th>
+                    <th >概率</th>
+                    <th >总量</th>
+                    <th >剩余数量</th>
+                    <th >关联优惠券</th>
+					<th >操作</th>
+                </tr>
+                <{foreach($data['prizes'] as $k => $vo)}>
+                <tr>
+                	<td ><{$vo['id']}></td>
+                    <td><{$vo['name']}></td>
+                    <td><{$vo['rate']}></td>
+                    <td><{$vo['total_num']}></td>
+                    <td><{$vo['left_num']}></td>
+					<td><{$vo['coupon_package_name']}></td>
+					<td hidden><{$vo['coupon_package_id']}></td>
+					<td hidden><{$vo['is_coupon']}></td>
+					<td>
+                                <button type="button" data-toggle="modal" data-target="#updateModal" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary js-edit"
+                                data-id="<{$vo['id']}>">编辑</button>
+
+</td>
+                    
+                </tr>
+                <{/foreach}>
+            </table>
+            </div>
+            </div>
+            <!-- /.modal -->
+
+             <!-- /.modal -->
+            <!-- 生成模态弹出窗 -->
+            <div class="modal" id="disable">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否执行此操作？</p>
+                            <input type="hidden" name="" id="disable_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="disableItem" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->           
+        </div>
+    </div>
+</div>
+<!--编辑窗口-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm">
+                <input type="hidden" id="id" name="id">
+                    <div class="form-group">
+                    
+                        <label for="addForm_telephone">名称</label>
+                       <label id="update_name"></label>
+                    </div>                  
+                    <div class="form-group">
+                    
+                        <label for="addForm_telephone">概率</label>
+                       <input type="text" class="form-control" id="update_rate" name="rate" >
+                    </div>                
+                    <div class="form-group">
+                    
+                        <label for="addForm_telephone">总量</label>
+                       <input type="text" class="form-control" id="update_total_num" name="total_num" >
+                    </div>
+                    <div class="form-group">
+                        <label for="addForm_realname">剩余量</label>
+                        <input type="text" class="form-control" id="update_left_num" name="left_num" >
+                        
+                    </div>                    
+                    <div class="form-group" id="coupon_package_div" style="display:none">
+                        <label for="addForm_realname">关联优惠券</label>
+                        <select id="update_package_id" name="coupon_package_id">
+                        <option value="0">选择优惠券</option>
+                        <{foreach($data['coupons'] as $coupon)}>
+                        <option value="<{$coupon['id']}>"><{$coupon['name']}></option>
+                        <{/foreach}>
+                        </select>
+                    </div>                   
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="update">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var URL = {
+        SAVE: '/admin/event/luckDraw/updatePrize',
+        DELETE: '/admin/home/home/delete',
+        DISABLE: '/admin/home/home/updateStatus',
+        SEARCH:'/admin/home/home/getHotList?type=<{$data['type']}>',
+    };
+    $(function () {
+
+        CommonUtils.pagination({
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["totalCount"]}>',
+            limit: '<{$data["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        save();
+        deleteItem();
+        disableItem();
+        editModal();
+    });
+    $('#list').on('click', '.js-set', function () {
+        $('#delete_id').val($(this).attr('data-id'));
+        $('#disable_id').val($(this).attr('data-id'));
+    });
+    //保存
+    function save() {
+        $('#save').click(function () {
+            $.ajax({
+                url: URL.SAVE,
+                data: $('#addForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //删除
+    function deleteItem() {
+        $('#deleteItem').click(function () {
+        	id = $('#delete_id').val();
+
+            $.ajax({
+                url: URL.DELETE+'?id='+id,
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //禁用
+    function disableItem() {
+        $('#disableItem').click(function () {
+        	id = $('#disable_id').val();
+
+            $.ajax({
+                url: URL.DISABLE+'?id='+id,
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //编辑
+    function editModal() {
+        $('#list').on('click', '.js-edit', function () {
+        	
+            var $this = $(this),
+                    $tr = $this.closest('tr');
+            
+            $('#id').val($tr.find('td').eq(0).text());
+            $('#update_name').html($tr.find('td').eq(1).text());
+            $('#update_rate').val($tr.find('td').eq(2).text());
+            $('#update_total_num').val($tr.find('td').eq(3).text());
+            $('#update_left_num').val($tr.find('td').eq(4).text());
+            $("#update_package_id option[value='"+$tr.find('td').eq(6).text()+"']").attr("selected",true);;
+            if ($tr.find('td').eq(7).text() == 2) {
+            	$('#coupon_package_div').show();
+            } else {
+            	$('#coupon_package_div').hide();
+            }
+        });
+        $('#update').on('click', null, function () {
+            $.ajax({
+                url: URL.SAVE,
+                data: $('#updateForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            })
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<form id="detail_form">
+    <input type="hidden" name="shop_id" value="<{$data['shopInfo']['shopInfo']['id']}>">
+
+    <div class="label-title">
+        <span class="label-title-text">详细资料</span>
+        <span class="label-title-circle"></span>
+        <span class="label-title-line"></span>
+    </div>
+    <!--详细资料-->
+    <div class="label-content">
+        <!--show-->
+        <div class="label-content-show">
+            <div class="label-content-show-left">
+                <div class="row font-remind">
+                    <i class="iconfont icon-remind"></i>详细资料是开通店铺必填项，信息填写不全店铺将无法通过审核，请务必将您的资料填写完整。
+                </div>
+                <div class="row">
+                    <span class="col-xs-2">简介：</span>
+                    <{if(empty($data['shopInfo']['shopInfo']['slogan']))}>
+                    <span class="col-xs-8">未设置</span>
+                    <{else}>
+                    <span class="col-xs-8"><{$data['shopInfo']['shopInfo']['slogan']}></span>
+                    <{/if}>
+                </div>
+                <div class="row">
+                    <span class="col-xs-2">翻译年限：</span>
+                    <{if(empty($data['shopInfo']['shopInfo']['shop_date']))}>
+                    <span class="col-xs-8">未设置</span>
+                    <{else}>
+                    <span class="col-xs-8"><{$data['shopInfo']['shopInfo']['shop_date']}>&nbsp;年</span>
+                    <{/if}>
+                </div>
+                <div class="row">
+                    <span class="col-xs-2">地址：</span>
+                    <{if(empty($data['shopInfo']['shopInfo']['city']))}>
+                    <span class="col-xs-8">未设置</span>
+                    <{else}>
+                    <span class="col-xs-8"><{$data['shopInfo']['shopInfo']['city']}></span>
+                    <{/if}>
+                </div>
+                <div class="row">
+                    <span class="col-xs-2">简历：</span>
+                    <{if(empty($data['shopInfo']['shopInfo']['resume']))}>
+                    <span class="col-xs-8">未设置</span>
+                    <{else}>
+                    <a href="<{$file_url}><{$data['shopInfo']['resume']}>">下载简历</a>
+                    <{/if}>
+                </div>
+                <div class="row">
+                    <span class="col-xs-2">个人标签：</span>
+                    <{if($data['shopInfo']['shopInfo']['label_word_ids'][1]>0)}>
+                    <{foreach ($data['shopInfo']['shopInfo']['label_word_ids'][0] as $k => $v)}>
+                    <span><{$data['shopInfo']['tags'][$v]}>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <{/foreach}>
+                    <{else}>
+                    <span class="col-xs-2">未设置</span>
+                    <{/if}>
+                </div>
+            </div>
+            <div class="label-content-show-right">
+                <div class="label-content-show-edit">
+                    <a href="javascript:;" class="js-pc-btn" data-ele="edit" data-index="3">
+                        <i class="iconfont icon-edit"></i>
+                        编辑
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--show end-->
+        <!--edit-->
+        <div class="label-content-edit" style="display: none;">
+            <div class="row font-remind">
+                <i class="iconfont icon-remind"></i>详细资料是开通店铺必填项，信息填写不全店铺将无法通过审核，请务必将您的资料填写完整。
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1"><span class="font-remind">*</span>简介：</div>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control form-input" id="" name="slogan"
+                           value="<{$data['shopInfo']['shopInfo']['slogan']}>">
+                </div>
+                <div class="font-remind col-xs-4"><i class="iconfont icon-remind"></i> 提醒：编辑字数为20个字以内</div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1"><span class="font-remind">*</span>翻译年限：</div>
+                <div class="col-xs-1">
+                    <input type="text" id="years" name="shop_date" class="form-input"
+                           value="<{$data['shopInfo']['shopInfo']['shop_date']}>"/>
+                </div>
+                &nbsp;年
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1"><span class="font-remind">*</span>地址：</div>
+                <div class="col-xs-6">
+                    <div class="city-select" name="area_id"
+                         data-init="<{$data['shopInfo']['shopInfo']['area_id']}>">
+
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" name="address" placeholder="详细地址"
+                           class="form-input"
+                           value="<{$data['shopInfo']['shopInfo']['address']}>"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1"><span class="font-remind">*</span>简历：</div>
+                <div class="col-xs-6">
+                    <input type="file" id="upload_file" name="resume" data-text="上传简历"
+                           data-init="<{$data['shopInfo']['shopInfo']['resume_arr']}>">
+                </div>
+                <div class="col-xs-2">（简历大小在3M以内）</div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1"><span class="font-remind">*</span>个人标签：</div>
+                <div class="col-xs-10">
+                    <span class="font-remind">（选择下列标签，最多设置六个标签）</span>
+                </div>
+                <div id="tag_person" name="label_word_ids">
+                </div>
+            </div>
+            <div class="row text-center">
+                <a href="javascript:;" class="btn btn-cancel js-pc-btn" data-ele="cancel">取消</a>
+                <a href="javascript:;" class="btn btn-submit" id="submit_details">提交</a>
+            </div>
+        </div>
+        <!--edit end-->
+    </div>
+</form>

@@ -1,0 +1,76 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-优惠券</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">消息管理</a>&gt;
+        <a href="javascript:void(0);">我的消息</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">我的消息</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <!--show-->
+            <div class="label-content-show">
+                <div class="row font-remind">
+                    <i class="iconfont icon-remind"></i>点击您要查看的信息，可查看详细信息！
+                    您要发送消息给别人吗？<a href="/user/index/message/wirteMessage" class="btn btn-submit">点击发送</a>
+                </div>
+                <div class="message-nav" id="message_nav">
+                    <{foreach($data['status_list'] as $k => $v)}>
+                    <{if($data['request_param']['status'] == $k)}>
+                    <a href="/user/index/message/index?status=<{$k}>" class="msg-type-selected" data-id="<{$k}>"><{$v}></a>
+                    <{else}>
+                    <a href="/user/index/message/index?status=<{$k}>" class="" data-id="<{$k}>" ><{$v}></a>
+                    <{/if}>
+                    <{/foreach}>
+                </div>
+                <div class="message-box" id="message_box">
+                    <ul>
+                        <li class="msg-header">
+                            <span>消息标题</span><span>时间</span>
+                        </li>
+                        <{if($data['request_param']['total_count'] > 0)}>
+                        <{foreach($data['list'] as $k => $v)}>
+                        <li class="msg-i">
+                            <a href="javascript:void(0);" class="js-toggle-ext" data-id="<{$v['id']}>" data-read="<{$v['status']}>">
+                                <span><{$v['title']}></span>
+                                <span><{$v['create_time']}></span> 
+                            </a>
+
+                            <div class="msg-ext">
+                                <div class="row">发送者:<{$v['ext_data']['send_user_info']['show_nick_name']}></div>
+                                <p class="row">内容:<{$v['ext_data']['msg']}></p>
+
+                                <div class="row">时间:<{$v['create_time']}></div>
+                            </div>
+                        </li>
+                        <{/foreach}>
+                        <{else}>
+                        <li class="row text-center">您还没有任何的信息！</li>
+                        <{/if}>
+                    </ul>
+                </div>
+                <div class="pagination-wrap">
+                    <ul id="pagination" class="pagination"></ul>
+                </div>
+                <script>var page_config = {
+                    offset: '<{$data["request_param"]["offset"]}>',
+                    total: "<{$data['request_param']['total_count']}>",
+                    limit: '<{$data["request_param"]["limit"]}>'
+                };
+                </script>
+                <script src="<{$css_url}>web/js/message/message.js"></script>
+            </div>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<{layout:web/public/foot}>

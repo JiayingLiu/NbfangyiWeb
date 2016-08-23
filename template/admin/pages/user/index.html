@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+    <style>
+        .bg-0 {
+            background-color: #262626;
+        }
+
+        .bg-1, .bg-6, .bg-11 {
+            background-color: #5cb85c;
+        }
+
+        .bg-2, .bg-7, .bg-12 {
+            background-color: #337ab7;
+        }
+
+        .bg-3, .bg-8, .bg-13 {
+            background-color: #d43f3a;
+        }
+
+        .bg-4, .bg-9, .bg-14 {
+            background-color: #ff7302;
+        }
+
+        .bg-5, .bg-10, .bg-15 {
+            background-color: #ff0475;
+        }
+    </style>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">用户管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="name">登陆名</label>
+                    <input type="text" class="form-control" id="name" placeholder="请输入登陆名" name="name"
+                           value="<{$data['param']['name']}>">
+                </div>
+                <div class="form-group">
+                    <label for="nick_name">真实姓名</label>
+                    <input type="text" class="form-control" id="nick_name" placeholder="请输入真实姓名" name="nick_name"
+                           value="<{$data['param']['nick_name']}>">
+                </div>
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input type="text" class="form-control" id="email" placeholder="请输入邮箱" name="email"
+                           value="<{$data['param']['email']}>">
+                </div>
+                <div class="form-group">
+                    <label for="telphone">手机号码</label>
+                    <input type="text" class="form-control" id="telphone" placeholder="请输入手机号码" name="telphone"
+                           value="<{$data['param']['telphone']}>">
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+            <hr>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal"
+                        onclick="reset();">新建
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered" id="userList">
+                <tr>
+                    <th>uid</th>
+                    <th>登陆名称</th>
+                    <th>真实姓名</th>
+                    <th>邮箱</th>
+                    <th>电话</th>
+                    <th>所属组</th>
+                    <th>创建时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                <{foreach($data['userList'][0] as $k => $v)}>
+                <tr>
+                    <td><{$v['uid']}></td>
+                    <td><{$v['uname']}></td>
+                    <td><{$v['nick_name']}></td>
+                    <td><{$v['email']}></td>
+                    <td><{$v['tel']}></td>
+                    <td data-id="<{$v['rbac_id']}>">
+                        <{foreach ($v['rbac_title_list'] as $i=>$value)}>
+                        <span class="label bg-<{$i}>"><{$value}></span>
+                        <{/foreach}>
+                    </td>
+                    <td><{$v['create_time']}></td>
+                    <td>
+                        <{if($v['status'] == 1)}>
+                        <span class="label label-success">正常</span>
+                        <{else}>
+                        <span class="label label-default">锁定</span>
+                        <{/if}>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm js-edit" data-toggle="modal"
+                                data-target="#updateModal">编辑
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm js-em" data-toggle="modal"
+                                data-target="#empowerModal">授权
+                        </button>
+                        <{if( $v['status'] == 2)}>
+                        <button type="button" data-uid="<{$v['uid']}>" data-name="<{$v['uname']}>"
+                                class="btn btn-success btn-sm js-enable">解锁
+                        </button>
+                        <{else}>
+                        <button type="button" data-uid="<{$v['uid']}>"  data-name="<{$v['uname']}>"
+                                class="btn btn-danger btn-sm js-disable">锁定
+                        </button>
+                        <{/if}>
+                        <button type="button" class="btn btn-primary btn-sm js-pwd" data-toggle="modal"
+                                data-target="#pwdModal" data-uid="<{$v['uid']}>"  data-name="<{$v['uname']}>">修改密码
+                        </button>
+                    </td>
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!--新建窗口-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="">新建</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="add_name">登录用户名</label>
+                        <input type="text" class="form-control" id="add_name" name="name" placeholder="请填写登录用户名">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_nick_name">真实姓名</label>
+                        <input type="text" class="form-control" id="add_nick_name" name="nick_name"
+                               placeholder="请填写真实姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_password">登陆密码</label>
+                        <input type="text" class="form-control" id="add_password" name="password" placeholder="请填写登陆密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_email">邮箱地址</label>
+                        <input type="text" class="form-control" id="add_email" name="email" placeholder="请填写邮箱地址">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_telphone">手机号码</label>
+                        <input type="text" class="form-control" id="add_telphone" name="telphone" placeholder="请填写手机号码">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑窗口-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm">
+                    <input type="hidden" id="update_uid" name="uid">
+
+                    <div class="form-group">
+                        <label for="update_name">登录用户名</label>
+                        <input type="text" class="form-control" id="update_name" name="name" placeholder="请填写登录用户名" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="update_nick_name">真实姓名</label>
+                        <input type="text" class="form-control" id="update_nick_name" name="nick_name"
+                               placeholder="请填写真实姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="update_email">邮箱地址</label>
+                        <input type="text" class="form-control" id="update_email" name="email" placeholder="请填写邮箱地址">
+                    </div>
+                    <div class="form-group">
+                        <label for="update_telphone">手机号码</label>
+                        <input type="text" class="form-control" id="update_telphone" name="telphone"
+                               placeholder="请填写手机号码">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="update">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--授权窗口-->
+<div class="modal fade" id="empowerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">授权</h4>
+            </div>
+            <div class="modal-body">
+                <form id="empowerForm">
+                    <input type="hidden" name="empower_uid" id="empower_uid">
+                    <{foreach ($data['groupList'] as $k => $v)}>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="<{$k}>" class="js-check"><{$v}>
+                        </label>
+                    </div>
+                    <{/foreach}>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="empower">授权</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改密码-->
+<div class="modal fade" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <form id="pwdForm">
+                    <div class="form-group">
+                        <label for="pwd_pwd">新密码</label>
+                        <input type="hidden" name="uid" id="pwd_uid">
+                        <input type="hidden" name="name" id="pwd_name">
+                        <input type="text" class="form-control" id="pwd_pwd" name="password" placeholder="请填写密码">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="updatePwd">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var URL = {
+        SEARCH: '/admin/rbac/user/index',
+        ADD: '/admin/rbac/user/addUser',
+        EDIT: '/admin/rbac/user/updateUserInfo',
+        ACCREDIT: '/admin/rbac/user/accredit',
+        ENABLEUSER: '/admin/rbac/user/enableUser',
+        FORBIDDENUSER: '/admin/rbac/user/forbiddenUser',
+        UPDATEUSERPASSWD:'/admin/rbac/user/updateUserPasswd'
+    };
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["userList"]["1"]}>',
+            limit: '<{$data["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        save();
+        editModal();
+        empowerModal();
+        enable();
+        disable();
+        updatePwd();
+    });
+    //修改密码
+    function updatePwd(){
+        $('#userList').on('click', '.js-pwd', function () {
+            $('#pwd_uid').val($(this).attr('data-uid'));
+            $('#pwd_name').val($(this).attr('data-name'));
+
+        });
+        $('#updatePwd').on('click', function () {
+            $.ajax({
+                url: URL.UPDATEUSERPASSWD,
+                dataType: 'json',
+                type:'post',
+                data:$('#pwdForm').serialize(),
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //启用
+    function enable() {
+        $('#userList').on('click', '.js-enable', function () {
+            var $this = $(this);
+            CommonUtils.confirm('确定要锁定此用户吗？', function () {
+                $.ajax({
+                    url: URL.ENABLEUSER,
+                    dataType: 'json',
+                    type:'post',
+                    data:{
+                        uid : $this.attr('data-uid'),
+                        name : $this.attr('data-name')
+                    },
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            },null);
+        });
+    }
+    //禁用
+    function disable() {
+        $('#userList').on('click', '.js-disable', function () {
+            var $this = $(this);
+            CommonUtils.confirm('确定要解锁此用户吗？', function () {
+                $.ajax({
+                    url:URL.FORBIDDENUSER,
+                    dataType: 'json',
+                    type:'post',
+                    data:{
+                        uid : $this.attr('data-uid'),
+                        name : $this.attr('data-name')
+                    },
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            },null);
+        });
+    }
+    //编辑
+    function editModal() {
+        $('#userList').on('click', '.js-edit', function () {
+            var $this = $(this),
+                    $tr = $this.closest('tr');
+            $('#update_uid').val($tr.find('td').eq(0).text());
+            $('#update_name').val($tr.find('td').eq(1).text());
+            $('#update_nick_name').val($tr.find('td').eq(2).text());
+            $('#update_email').val($tr.find('td').eq(3).text());
+            $('#update_telphone').val($tr.find('td').eq(4).text());
+        });
+        $('#update').on('click', null, function () {
+            $.ajax({
+                url: URL.EDIT,
+                data: $('#updateForm').serialize(),
+                type:'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            })
+        });
+    }
+    //授权
+    function empowerModal() {
+        $('#userList').on('click', '.js-em', function () {
+            document.getElementById('empowerForm').reset();
+            var $this = $(this),
+                    $tr = $this.closest('tr');
+            $('#empower_uid').val($tr.find('td').eq('0').text());
+            var rbac_ids = $tr.find('td').eq('5').attr('data-id'),
+                    arr = rbac_ids.split(','),
+                    len = 0;
+            if (rbac_ids) {
+                len = arr.length;
+                for (var i = 0; i < len; i++) {
+                    var cur = arr[i];
+                    $('#empowerModal').find('input[value=' + cur + ']').prop('checked', 'checked');
+                }
+            }
+        });
+        $('#empower').click(function () {
+            var $emsArr = $('#empowerModal').find('.js-check:checked'),
+                    len = $emsArr.length,
+                    emsStr = [];
+            for (var i = 0; i < len; i++) {
+                emsStr.push($emsArr.eq(i).val());
+            }
+            $.ajax({
+                url: URL.ACCREDIT,
+                data: {
+                    uid: $('#empower_uid').val(),
+                    rbac_id: emsStr.join(',')
+                },
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //初始化表单
+    function reset() {
+        document.getElementById('addForm').reset();
+    }
+    //保存
+    function save() {
+        $('#save').click(function () {
+            $.ajax({
+                url: URL.ADD,
+                data: $('#addForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //查询
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.SEARCH;
+        });
+    }
+</script>
+</body>
+</html>

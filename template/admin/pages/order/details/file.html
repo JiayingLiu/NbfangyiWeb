@@ -1,0 +1,59 @@
+<!--笔译文件展示-->
+<div class="row">翻译文件附件：</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>文件名称</th>
+        <th>上传时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><{$data['order_info']['ext']['file_title']}></td>
+        <td><{$data['order_info']['order']['create_time']}></td>
+        <td><a href="<{$file_url}>/<{$data['order_info']['ext']['file_path']}>" class="icon-color-blue"
+               target="_blank">下载</a></td>
+    </tr>
+    </tbody>
+</table>
+<{if($data['order_info']['ext']['status']==5)}>
+<div class="row">译稿附件：</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>文件名称</th>
+        <th>上传时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><{$data['order_info']['ext']['order_file_title']}></td>
+        <td><{$data['order_info']['ext']['update_time']}></td>
+        <td><a href="<{$file_url}>/<{$data['order_info']['ext']['order_file']}>" class="icon-color-blue"
+               target="_blank">下载</a></td>
+    </tr>
+    </tbody>
+</table>
+<{elseif($data['order_info']['ext']['status']==20)}>
+<div class="row">译稿附件：</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>文件名称</th>
+        <th>上传时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><{$data['order_info']['ext']['order_file_title']}></td>
+        <td><{$data['order_info']['ext']['update_time']}></td>
+        <td><a href="<{$file_url}>/<{$data['order_info']['ext']['order_file']}>" class="icon-color-blue"
+               target="_blank">下载</a></td>
+    </tr>
+    </tbody>
+</table>
+<{else}>
+<{/if}>

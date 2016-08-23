@@ -1,0 +1,152 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<link rel="stylesheet" href="<{$css_url}>web/plugin/uploadify/uploadify.css">
+<script src="<{$js_url}>web/js/orderlist/transorder/tdetails.js"></script>
+<title>N邦翻译 找好翻译，上N邦-订单详情</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">订单管理</a>&gt;
+        <a href="javascript:void(0);">订单详情</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span>订单详情</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <div class="row order-title">
+                <div class="col-xs-5">
+                    &nbsp;订单号：<{$data['order_info']['order']['order_num']}>
+                </div>
+                <div class="col-xs-5">
+                    订单状态：<span class="font-color-orange"><{$data['order_status_list'][$data['order_info']['ext']['status']]}></span>
+                </div>
+            </div>
+            <div class="label-content-show">
+                <{layout:web/orderlist/transorder/details/progress}><!--progress-->
+                <div class="row order-title">
+                    <div class="col-xs-5">
+                        &nbsp;订单信息
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        买家姓名：<{$data['order_info']['ext']['ext_data']['add_order_user_info']['_show_nick_name']}>
+                    </div>
+                    <div class="col-xs-6">
+                        买家电话：<{$data['order_info']['ext']['ext_data']['add_order_user_info']['_user_phone']}>
+                    </div>
+                </div>
+                <div class="row bottom-line">
+                    <div class="col-xs-6">
+                        下单时间：<{$data['order_info']['order']['create_time']}>
+                    </div>
+                    <!--type 1 written 2 in-->
+                    <{if($data['order_info']['ext']['ext_data']['product_info']['type'] == 1)}>
+                    <div class="col-xs-6">
+                        交稿时间：<{$data['order_info']['ext']['estimate_start']}>至<{$data['order_info']['ext']['estimate_end']}>
+                    </div>
+                    <{else}>
+                    <div class="col-xs-6">
+                        服务时间：<{$data['order_info']['ext']['estimate_start']}>至<{$data['order_info']['ext']['estimate_end']}>
+                    </div>
+                    <{/if}>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        设计领域：<{$data['product_info']['field_name']}>
+                    </div>
+                    <div class="col-xs-6">
+                        服务类型：<{$data['product_info']['type_str']}>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        服务承诺：<{$data['product_info']['service_commitment_name']}>
+                    </div>
+                    <{if(empty($data['order_info']['ext']['ext_data']['doc_translate_format']))}>
+                    <{else}>
+                    <div class="col-xs-3">
+                        回稿格式：<{$data['order_info']['ext']['ext_data']['doc_translate_format_str']}>
+                    </div>
+                    <{/if}>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        订单金额：<{$data['order_info']['order']['total_price']}>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1">
+                        &nbsp;&nbsp;备注：
+                    </div>
+                    <div class="col-xs-9 font-remind">
+                        <i class="iconfont icon-remind"></i>
+                        提醒：查看用户给予您的备注信息，以便提高服务质量，让客户满意！
+                    </div>
+                </div>
+                <div class="row bottom-line">
+                    <{if(empty($data['order_info']['ext']['desc']))}>
+                    <textarea class="form-textarea" readonly>卖家没有填写备注内容</textarea>
+                    <{else}>
+                    <textarea class="form-textarea" readonly><{$data['order_info']['ext']['desc']}></textarea>
+                    <{/if}>
+                </div>
+            </div>
+            <div class="label-content-show">
+                <!--type 1 written 2 in-->
+                <{if($data['order_info']['ext']['ext_data']['product_info']['type'] == 1)}>
+                <!--trans_type 2 fast 4 file-->
+                <{if($data['order_info']['ext']['file_type'] == 2)}>
+                <{layout:web/orderlist/transorder/details/online}><!--online-->
+                <{else}>
+                <{layout:web/orderlist/transorder/details/file}><!--file-->
+                <{/if}>
+                <{else}>
+                <{layout:web/orderlist/transorder/details/interpret}><!--interpret-->
+                <{/if}>
+                <{layout:web/orderlist/transorder/details/btns}><!--btns-->
+            </div>
+            <div class="label-content-show">
+                <div class="row order-title">
+                    <div class="col-xs-5 paddingLeft">
+                        &nbsp;商品信息
+                    </div>
+                </div>
+                <table border="1" style="border: 1px solid #e5e5e5;">
+                    <thead>
+                    <tr>
+                        <th>翻译语言</th>
+                        <th>商品图片</th>
+                        <th>商品名称</th>
+                        <th>翻译类型</th>
+                        <th>服务领域</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><{$data['product_info']['language']}>--><{$data['product_info']['to_language']}></td>
+                        <td>
+                            <img src="<{$file_url}><{$data['product_info']['logo']}>" width="90" height="70"
+                                 style="vertical-align: middle; padding: 20px 0;">
+                        </td>
+                        <td class="font-color-orange"><{$data['product_info']['title']}></td>
+                        <td><{$data['product_info']['type_name']}></td>
+                        <td><{$data['product_info']['field_name']}></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div id="refundhtml_container" style="display: none;">
+                    <{layout:web/orderlist/transorder/details/refund}>
+                </div>
+            </div>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<{layout:web/public/foot}>

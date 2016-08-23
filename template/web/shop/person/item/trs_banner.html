@@ -1,0 +1,5 @@
+<!--店铺页banner大图-->
+<{if($data['shop']['data']['type']== 10)}>
+<{else}>
+<div class="trs-banner" style="<{if(empty($data['shop']['data']['banner']))}><{else}>background-image:url('<{$file_url}><{$data['shop']['data']['banner']}>');<{/if}>"></div>
+<{/if}>

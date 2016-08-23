@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">订单列表</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="orderId">订单号</label>
+                    <input type="text" class="form-control" placeholder="请输入订单号" id="orderId" name="order_num"
+                           value="<{$data['request_param']['order_num']}>">
+                </div>
+                <div class="form-group">
+                    <label>卖家手机号</label>
+                    <input type="text" class="form-control" placeholder="请输入卖家手机号" name="tphone"
+                           value="<{$data['request_param']['tphone']}>">
+                </div>
+                <div class="form-group">
+                    <label>买家手机号</label>
+                    <input type="text" class="form-control" placeholder="买家手机号" name="phone"
+                           value="<{$data['request_param']['phone']}>">
+                </div>
+
+                <div class="form-group">
+                    <label for="stm">开始时间</label>
+                    <input id="stm" class="form-control" name="stm" type="text"
+                           onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'etm\')}'})"
+                           value="<{$data['request_param']['stm']}>"/>
+                </div>
+                <div class="form-group">
+                    <label for="etm">结束时间</label>
+                    <input id="etm" class="form-control" name="etm" type="text"
+                           onFocus="WdatePicker({minDate:'#F{$dp.$D(\'stm\')}',maxDate:'2020-10-01'})"
+                           value="<{$data['request_param']['etm']}>"/>
+                </div>
+                <div class="form-group">
+                    <label for="status">状态</label>
+                    <select class="form-control" id="status" name="status">
+                        <option>请选择</option>
+                        <{foreach($data['order_search_status_list'] as $k=>$v)}>
+                        <{if($data['request_param']['status'] == $k)}>
+                        <option value="<{$k}>" selected><{$v}></option>
+                        <{else}>
+                        <option value="<{$k}>"><{$v}></option>
+                        <{/if}>
+                        <{/foreach}>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status">是否评价</label>
+                    <select class="form-control" name="is_comment">
+                        <{if($data['request_param']['is_comment'] == 1)}>
+                        <option>请选择</option>
+                        <option value="1" selected>未评论</option>
+                        <option value="2">已评论</option>
+                        <{elseif($data['request_param']['is_comment'] == 2)}>
+                        <option>请选择</option>
+                        <option value="1">未评论</option>
+                        <option value="2" selected>已评论</option>
+                        <{else}>
+                        <option selected>请选择</option>
+                        <option value="1">未评论</option>
+                        <option value="2">已评论</option>
+                        <{/if}>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="type">类型</label>
+                    <select class="form-control" id="type" name="order_product_type">
+                        <option>请选择</option>
+                        <{foreach($data['order_product_type'] as $k=>$v)}>
+                        <{if($data['request_param']['product_type'] == $k)}>
+                        <option value="<{$k}>" selected><{$v}></option>
+                        <{else}>
+                        <option value="<{$k}>"><{$v}></option>
+                        <{/if}>
+                        <{/foreach}>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+                <hr>
+                <div class="from-group" id="searchForm_payType">
+                    <{foreach($pay_type as $k => $v)}>
+                    <label><input type="checkbox" class="js-pay-type" value="<{$k}>" name="pay_type[]"><{$v}></label>
+                    <{/foreach}>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <tr>
+                    <th>订单号</th>
+                    <th>商品名称</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>产品类型</th>
+                    <th>总金额</th>
+                    <th>买家</th>
+                    <th>卖家</th>
+                    <th>交易时间</th>
+                    <th>交易状态</th>
+                    <th>是否评价</th>
+                    <th>操作</th>
+                </tr>
+                <{if ( $data["order_list"]['total_count'] > 0)}>
+                <{foreach($data["order_list"]['data'] as $k => $v)}>
+                <tr>
+                    <td><{$v['order_num']}></td>
+                    <td><{$v['ext_data']['product_info']['title']}></td>
+                    <td><{$v['ext_data']['product_info']['price']}></td>
+
+                    <{if($v['product_type'] == '1')}>
+                    <!-- 文档翻译-->
+                    <td><{$v['font_count']}></td>
+
+                    <{elseif ($v['product_type'] == '2') }>
+                    <!-- 口译-->
+                    <td><{$v['service_time_count']}></td>
+                    <{/if}>
+                    <td><{$data['order_product_type'][$v['product_type']]}></td>
+                    <td><{$v['order_main_info']['total_price']}></td>
+                    <td><{$v['ext_data']['add_order_user_info']['_user_phone']}></td>
+                    <td><{$v['ext_data']['shop_order_user_info']['phone']}></td>
+                    <td><{$v['create_time']}></td>
+                    <td><span class="label label-success"><{$data['order_status_list'][$v['status']]}></span></td>
+                    <td>
+                        <{if($v['is_comment'] == 1)}>
+                        未评论
+                        <{else}>
+                        已评论
+                        <{/if}>
+                    </td>
+                    <td><a href='/admin/order/list/detail?order_num=<{$v["order_num"]}>'>详情</a></td>
+                </tr>
+                <{/foreach}>
+                <{else}>
+                <{/if}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    var url = '/admin/order/list/browse';
+    $(function () {
+        search();
+        setQueryPayType();
+        CommonUtils.pagination({
+            offset: '<{$data["order_list"]["offset"]}>',
+            total: '<{$data["order_list"]["total_count"]}>',
+            limit: '<{$data["order_list"]["limit"]}>',
+            length: 11,
+            url: url + '?' + $('#searchForm').serialize()
+        });
+        payTypeClick();
+    });
+    //数据回显
+    function setQueryPayType() {
+        var type = '<{$data["cond"]["str_pay_type"]}>',
+                arr = type.split(',');
+        $.each(arr, function (i, v) {
+            $('#searchForm_payType').find('.js-pay-type[value="' + v + '"]').prop('checked', 'checked');
+        })
+    }
+    //支付方式
+    function payTypeClick() {
+        $('#searchForm_payType').on('click', '.js-pay-type', function () {
+            window.location.href = url + '?' + $('#searchForm').serialize();
+        });
+    }
+
+    function search() {
+        $('#search').click(function () {
+            window.location.href = url + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

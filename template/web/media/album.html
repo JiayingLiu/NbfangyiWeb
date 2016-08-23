@@ -1,0 +1,95 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-风采展示</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">个人中心</a>&gt;
+        <a href="javascript:void(0);">风采展示</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">风采展示</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <div class="label-content-show">
+                <div class="row">
+                    <!--<div class="media-type media-type-selected">
+                        <a href="/shop/index/album/getAlbumDetailList" class="show-href">我的相册</a>
+                    </div>
+                    <div class="media-type">
+                        <a href="/shop/index/album/getVideoList" class="show-href">我的视频</a>
+                    </div>-->
+                </div>
+                <div class="row">
+                    <form id="album_form">
+                        <!--类型 1图片 2视频-->
+                        <input type="hidden" name="type" value="1">
+
+                        <div class="form-group">
+                            <input id="upload" type="file" name="img_path">
+                        </div>
+                        <div class="row text-center">
+                            <a href="javascript:;" class="btn btn-cancel">取消</a>
+                            <a href="javascript:;" class="btn btn-submit">添加</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="row media-title">
+                    <div class="col-xs-5">
+                        已上传照片
+                    </div>
+                    <div class="col-xs-7">
+                        <a href="javascript:;" class="media-sort pull-right">
+                            <i class="iconfont icon-sort"></i>
+                            排序
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <ul class="media-content" id="image_show">
+                        <{if($data['albums'][1] > 0)}>
+                        <{foreach($data['albums'][0] as $k => $v)}>
+                        <li>
+                            <a class="js-image-item" rel="group" href="<{$file_url}><{$v['img']['big_thumb']}>" title="<{$v['name']}>">
+                                <img src="<{$file_url}><{$v['img']['small_thumb']}>" width="140" height="100">
+                            </a>
+
+                            <div class="row">
+                                <p class="col-xs-10 media-item-name" alt="<{$v['name']}>"><{$v['name']}></p>
+                                <div class="col-xs-1">
+                                    <a href="javascript:void(0);" class="js-image-del" data-id="<{$v['id']}>">
+                                        <i class="iconfont icon-delete"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <{/foreach}>
+                        <{else}>
+                        <li>
+                            <div class="row text-center">还没有照片，赶紧上传吧！</div>
+                        </li>
+                        <{/if}>
+                    </ul>
+                    <div class="pagination-wrap">
+                        <ul id="pagination" class="pagination"></ul>
+                    </div>
+                    <script>var page_config = {
+                        offset: '<{$data["param_data"]["offset"]}>',
+                        total: '<{$data["albums"]["1"]}>',
+                        limit: '<{$data["param_data"]["limit"]}>'
+                    };
+                    </script>
+                </div>
+            </div>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/media/album.js"></script>
+<{layout:web/public/foot}>

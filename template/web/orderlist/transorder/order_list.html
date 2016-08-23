@@ -1,0 +1,167 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-订单列表</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">订单管理</a>&gt;
+        <a href="javascript:void(0);">订单列表</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">订单列表</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <form class="form" id="search_form">
+                <div class="form-group">
+                    <ul class="order-status-filter">
+                        <{foreach($data['order_search_status_list'] as $k => $v)}>
+                        <li>
+                            <a href="javascript:void(0);" class="js-order-status" data-id="<{$k}>"><{$v}></a>
+                        </li>
+                        <{/foreach}>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1">
+                        订单号：
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="text" class="form-input" placeholder="请输入订单号进行搜索" name="order_num"
+                               value="<{$data['request_param']['order_num']}>">
+                    </div>
+                    <div class="col-xs-2 text-center">
+                        订单类型：
+                    </div>
+                    <div class="col-xs-2">
+                        <select class="form-input" name="order_product_type">
+                            <option value="">请选择</option>
+                            <{foreach($data['order_product_type'] as $k => $v)}>
+                            <{if($k == $data['request_param']['order_product_type'])}>
+                            <option value="<{$k}>" selected><{$v}></option>
+                            <{else}>
+                            <option value="<{$k}>"><{$v}></option>
+                            <{/if}>
+                            <{/foreach}>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1">
+                        订单日期：
+                    </div>
+                    <div class="col-xs-2">
+                        <input class="form-input" type="text" id="estimate_start" name="stm"
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',maxDate:'#F{$dp.$D(\'estimate_end\')}'});"
+                               value="<{$data['request_param']['stm']}>">
+                    </div>
+                    <div class="col-xs-1 text-center">至</div>
+                    <div class="col-xs-2">
+                        <input class="form-input" type="text" id="estimate_end" name="etm"
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',minDate:'#F{$dp.$D(\'estimate_start\')}'});"
+                               value="<{$data['request_param']['etm']}>">
+                    </div>
+                    <div class="col-xs-2 text-center">
+                        <a href="javascript:void(0);" class="btn btn-cancel" id="search">查询</a>
+                    </div>
+                </div>
+            </form>
+            <div class="orderlist">
+                <div class="row orderlist-title">
+                    <div class="col-xs-4 text-center">
+                        商品信息
+                    </div>
+                    <div class="col-xs-1 text-center">
+                        买家
+                    </div>
+                    <div class="col-xs-1 text-center">
+                        单价
+                    </div>
+                    <div class="col-xs-1 text-center">
+                        数量
+                    </div>
+                    <div class="col-xs-1 text-center">
+                        总金额
+                    </div>
+                    <div class="col-xs-1 text-center">
+                        订单状态
+                    </div>
+                    <div class="col-xs-3 text-center">
+                        操作
+                    </div>
+                </div>
+                <div class="orderlist-content">
+                    <{if($data['order_list']['total_count']>0)}>
+                    <{foreach($data['order_list']['data'] as $k => $v)}>
+                    <div class="orderlist-item">
+                        <div class="row orderitem-title">
+                            <div class="col-xs-2 text-center font-remind">
+                                <{$v['create_time']}>
+                            </div>
+                            <div class="col-xs-4 text-center font-remind">
+                                订单号：<{$v['order_num']}>
+                            </div>
+                            <div class="col-xs-2 text-center">
+
+                               <!-- <a href="javascript:;" class="im-openbtn">
+                                    <i class="iconfont icon-contact"></i>联系买家
+                                </a>-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 text-center border-right">
+                                <a href="/shop/index/index/productDetail?id=<{$v['ext_data']['product_info']['id']}>" target="_blank"
+                                   class="link"><{$v['ext_data']['product_info']['title']}>-<{$v['ext_data']['product_info']['category_name']}>-<{$v['ext_data']['product_info']['language']}>翻译成<{$v['ext_data']['product_info']['to_language']}>-<{$v['ext_data']['product_info']['type_name']}>
+                                </a>
+                            </div>
+                            <div class="col-xs-1 text-center border-right">
+                             <{$v['ext_data']['add_order_user_info']['_show_nick_name']}>
+                            </div>
+                            <div class="col-xs-1 text-center">
+                                <{$v['ext_data']['product_info']['price']}>
+                            </div>
+                            <div class="col-xs-1 text-center">
+                                <!--type 1 written 2 kouyi price_type 1 day 2 hour-->
+                                <{if($v['ext_data']['product_info']['type'] == 1)}>
+                                <{$v['font_count']}><{$v['ext_data']['product_info']['order_price_type_text']}>
+                                <{else}>
+                                <{$v['service_time_count']}><{$v['ext_data']['product_info']['order_price_type_text']}>
+                                <{/if}>
+                            </div>
+                            <div class="col-xs-1 text-center border-right">
+                                ￥<{$v['order_main_info']['total_price']}>
+                            </div>
+                            <div class="col-xs-1 text-center border-right">
+                                <{$data['order_status_list'][$v['status']]}>
+                            </div>
+                            <{layout:web/orderlist/transorder/list/btns}>
+                        </div>
+                    </div>
+                    <{/foreach}>
+                    <{else}>
+                    <div class="row">
+                        <p class="text-center">没有订单信息！</p>
+                    </div>
+                    <{/if}>
+                    <div class="pagination-wrap">
+                        <ul id="pagination" class="pagination"></ul>
+                    </div>
+                    <script>var page_config = {
+                        offset: '<{$data["order_list"]["offset"]}>',
+                        total: '<{$data["order_list"]["total_count"]}>',
+                        limit: '<{$data["order_list"]["limit"]}>'
+                    };
+                    </script>
+                    <script src="<{$css_url}>web/js/orderlist/transorder/torderlist.js"></script>
+                </div>
+            </div>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<{layout:web/public/foot}>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">优惠券管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="name">名称:</label>
+                    <input type="text" class="form-control" id="name" placeholder="优惠券名称" name="name" value="<{$data['param_data']['name']}>">
+                </div>
+                <div class="form-group">
+                    <label for="send_type">发放类型:</label>
+                    <select class="form-control" id="send_type" name="send_type" value="">
+					<{if($data['param_data']['send_type']==1)}>
+                        <option value="0" >请选择</option>
+                        <option value="1" selected>按数量发放</option>
+                        <option value="2">无上限</option>
+					<{elseif($data['param_data']['send_type']==2)}>	
+                        <option value="0" >请选择</option>
+                        <option value="1">按数量发放</option>
+                        <option value="2" selected>无上限</option>				
+					<{else}> 
+                        <option value="0" selected>请选择</option>
+                        <option value="1">按数量发放</option>
+                        <option value="2">无上限</option>					
+					<{/if}>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="send_type">状态:</label>
+                    <select name="status" class="form-control">
+					<{if($data['param_data']['status']==1)}>
+                        <option value="0" >全部</option>
+                        <option value="1" selected>正常</option>
+                        <option value="2">下线</option>
+					<{elseif($data['param_data']['status']==2)}>
+                        <option value="0" >全部</option>
+                        <option value="1">正常</option>
+                        <option value="2" selected>下线</option>					
+					<{else}> 
+                        <option value="0" selected>全部</option>
+                        <option value="1">正常</option>
+                        <option value="2">下线</option>					
+					<{/if}>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+            <hr>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" id="addCoupon">添加
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <div class="table-box" style="overflow-x: scroll;">
+                <div class="tableDiv" style="width: 2000px;height: auto;">
+                <table class="table table-bordered" id="list">
+                <tr>
+                    <th rowspan="2">优惠券编号</th>
+                    <th rowspan="2">名称</th>
+                    <th rowspan="2">单张金额</th>
+                    <th rowspan="2">发放数量</th>
+                    <th rowspan="2">状态</th>
+                    <th rowspan="2">操作</th>
+                    <th rowspan="2">类型</th>
+                    <th rowspan="2">发布平台</th>
+                    <th rowspan="2">上线时间</th>
+                    <th rowspan="2">下线时间</th>
+                    <th rowspan="2">是否可叠加</th>
+                    <th rowspan="2">发放类型</th>
+                    <th rowspan="2">是否可重复领取</th>
+                    <th rowspan="2">每人可领取上限</th>
+                    <th rowspan="2">下线原因</th>
+                    <th rowspan="2">描述</th>
+                    <th colspan="5">可选条件</th>
+                    <th rowspan="2">最后操作人</th>
+                </tr>
+                <tr>
+                    <th>使用范围</th>
+                    <th>技能范围</th>
+                    <th>服务级别</th>
+                    <th>选择类型</th>
+                    <th>单次订单金额限制</th>
+                </tr>
+                <{foreach($data['0'] as $k => $vo)}>
+                <tr>
+                    <td><{$vo['id']}></td>
+                    <td><{$vo['plat_coupon_name']}></td>
+                    <td><{$vo['money']}></td>
+                    <td><{$vo['number_count']}>/<{$vo['number_count_all']}></td>
+                    <td>
+                        <{if($vo['status'] == '1')}>
+                        <span class="label label-success">正常</span>
+                        <{else}>
+                        <span class="label label-danger">下线</span>
+                        <{/if}>
+                    </td>
+                    <td>
+					<{if($vo['number_count'] != $vo['number_count_all'])}>
+					     <button type="button" data-toggle="modal" data-target="#setModal" role="button"  style="margin-bottom: 5px; display: inline-block;" class="btn btn-xs btn-success js-set"
+                                data-id="<{$vo['id']}>">生成</button>
+								<{/if}>
+                        <{if($vo['status'] == 1)}>
+
+                        <button type="button" data-toggle="modal" data-target="#offlineModal" class="btn btn-xs btn-danger js-delete"
+                           data-id="<{$vo['id']}>">下架</button>
+                        <{else}>
+                        <{/if}>
+                        <a  href="/admin/pay/coupon/getCouponDetailList?id=<{$vo['id']}>"
+                           style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary"
+                           data-id="<{$vo['id']}>">查看</a>
+                    </td>
+                    <td><{$vo['plat_coupon_type_text']}></td>
+                    <td><{$vo['push_plat_text']}></td>
+                    <td><{$vo['start_time']}></td>
+                    <td><{$vo['end_time']}></td>
+                    <td><{$vo['repeat_number']}></td>
+                    <td><{$vo['send_type_text']}></td>
+                    <td><{$vo['is_repeat_text']}></td>
+                    <td><{$vo['person_max']}></td>
+                    <td><{$vo['delete_reason']}></td>
+                    <td><{$vo['desc']}></td>
+                    <td><{$vo['ranges_text']}></td>
+                    <td><{$vo['skill_range_text']}></td>
+                    <td><{$vo['service_level_text']}></td>
+                    <td><{$vo['select_type_text']}></td>
+                    <td><{$vo['one_money']}></td>
+                    <td><{$vo['last_uname']}></td>
+                </tr>
+                <{/foreach}>
+            </table>
+            </div>
+            </div>
+            <!-- 下线模态弹出窗 -->
+            <div class="modal" id="offlineModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否下线优惠券,此操作不可逆！</p>
+                            <input type="hidden" name="" id="delete_reason_id">
+                            <textarea placeholder="请填写下架原因" id="delete_reason_text" style="height: 50px;width: 100%"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="couponDelete" data-dismiss="modal">下架
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- 生成模态弹出窗 -->
+            <div class="modal" id="setModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否生成生成优惠券？</p>
+                            <input type="hidden" name="" id="set_reason_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="couponSet" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    var url = '/admin/pay/coupon/index';
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["param_data"]["offset"]}>',
+            total: '<{$data["1"]}>',
+            limit: '<{$data["param_data"]["limit"]}>',
+            length: 11,
+            url: url + '?' + $('#searchForm').serialize()
+        });
+        //添加
+        $('#addCoupon').on('click', null, function () {
+            window.location.href = '/admin/pay/coupon/addCoupon';
+        });
+        //下架
+        $('#list').on('click', '.js-delete', function () {
+            $('#delete_reason_id').val($(this).attr('data-id'));
+        });
+        $('#couponDelete').on('click',null, function () {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '/admin/pay/coupon/offline',
+                data: {
+                    'id': $('#delete_reason_id').val(),
+                    'reason': $('#delete_reason_text').val()
+                },
+                success: function (data) {
+                    if(data.status == 0 ){
+                        CommonUtils.tips(data.message,2000,true);
+                    }else{
+                        CommonUtils.tips(data.message,2000,false);
+                    }
+                }
+            });
+        });
+        //生成
+        $('#list').on('click', '.js-set', function () {
+            $('#set_reason_id').val($(this).attr('data-id'));
+        });
+        $('#couponSet').on('click',null, function () {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '/admin/pay/coupon/createCouponDetail',
+                data: {
+                    'id': $('#set_reason_id').val()
+                },
+                success: function (data) {
+                    if(data.status == 0 ){
+                        CommonUtils.tips('生成成功',2000,true);
+                    }else{
+                        CommonUtils.tips(data.message,2000,false);
+                    }
+                }
+            });
+        });
+    });
+    function search() {
+        $('#search').click(function () {
+            window.location.href = url + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

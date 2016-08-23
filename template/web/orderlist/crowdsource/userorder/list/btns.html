@@ -1,0 +1,30 @@
+<!--订单列表的点击按钮-->
+<div class="col-xs-3 text-center">
+    <p class="text-center">
+        <a href="/user/customer/order/details?order_num=<{$v['order_num']}>" class="link">查看</a>
+        <{if($v['status']==1)}>
+        |<a href="javascript:void(0);" class="link js-btn" data-type="cancel" data-order="<{$v['order_num']}>">取消订单</a>
+        <{elseif($v['status']==2)}>
+        |<a href="javascript:void(0);" class="link js-btn" data-type="cancel" data-order="<{$v['order_num']}>">取消订单</a>
+        <{elseif($v['status']==4)}>
+
+        <{elseif($v['status']==5)}>
+        |<a href="/user/customer/order/details?order_num=<{$v['order_num']}>" class="link">确认完成</a>
+        <{elseif($v['status']==20)}>
+        |<a href="/shop/index/comment/userComment?order_num=<{$v['order_num']}>" class="link">评价</a>
+        <{else}>
+
+        <{/if}>
+    </p>
+
+    <p class="text-center">
+        <{if($v['status']==1)}>
+        <a href="javascript:void(0);" class="orderlist-pay js-btn" data-type="pay" data-order="<{$v['order_num']}>"><i
+                class="iconfont icon-pay-safe"></i>立即支付</a>
+        <{elseif($v['status']==2)}>
+        <{elseif($v['status']==20)}>
+        <a href="/order/order/buy/buyProduct?product_id=<{$v['ext_data']['product_info']['id']}>" class="orderlist-pay">重新购买</a>
+        <{else}>
+        <{/if}>
+    </p>
+</div>

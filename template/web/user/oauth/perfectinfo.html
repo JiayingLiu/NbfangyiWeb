@@ -1,0 +1,70 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/oauth/reg.css">
+<title>N邦翻译 找好翻译，上N邦-完善资料</title>
+<{layout:web/public/top}>
+<div class="rect-wrap">
+    <div class="rect">
+        <div class="nav-logo">
+            <a href="/">
+                <img src="<{$css_url}>file/img/web/logo-big.png" height="80">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="register-middle" style="background-image: url('<{$css_url}>file/img/web/register-bg.png');">
+    <div class="register-contect">
+        <div class="text-center">
+            <p>亲爱的：<span class="font-remind"><{$data['userName']}></span>，请先完善资料，即可完成登录设置</p>
+        </div>
+        <div class="form-control">
+            <div class="pull-right choice-identity">
+                <ul id="reg_user_type">
+                    <li class="pull-left">
+                        <a href="javascript:;" class="js-usertype">
+                            <i class="iconfont icon-circular" data-id="1"></i>
+                            用户
+                        </a>
+                    </li>
+                    <li class="pull-left center-identity">
+                        <a href="javascript:;" class="js-usertype">
+                            <i class="iconfont icon-circular" data-id="2"></i>
+                            译者
+                        </a>
+                    </li>
+                    <li class="pull-right">
+                        <a href="javascript:;" class="js-usertype">
+                            <i class="iconfont icon-circular" data-id="3"></i>
+                            公司
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <label>身份选择:</label>
+        </div>
+        <div class="form-control">
+            <input class="pull-right" type="text" placeholder="请输入手机号码" name="account">
+            <label>手机号:</label>
+        </div>
+        <div class="form-control">
+            <input class="pull-right verification-button" value="发送验证码" type="button" id="sendMsg">
+            <input class="pull-right verification-input" type="text" name="code" placeholder="请输入验证码">
+            <label>验证码:</label>
+        </div>
+        <div class="form-control">
+            <input class="pull-right" type="password" placeholder="请输入输入密码" name="password">
+            <label>密码:</label>
+        </div>
+        <div class="form-control">
+            <input class="pull-right" type="password" placeholder="请输入确认密码" name="repeatPasswd">
+            <label>确认密码:</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" value="" id="rules" checked/>我已阅读，并同意</label><a href="#">《平台使用规则》</a>
+        </div>
+        <div class="form-control">
+            <a href="javascript:;" id="next-step" class="form-btn">提交</a>
+        </div>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/user/oauth/perfectinfo.js"></script>
+<{layout:web/public/foot}>

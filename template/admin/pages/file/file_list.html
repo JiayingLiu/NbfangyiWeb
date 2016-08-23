@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">文件管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="add_title">类型</label>
+                    <select class="form-control" name="type">
+                    <option value="0">请选择类型</option>
+                        <{foreach($data['type'] as $k => $v)}>
+                        <{if($k == $data["param_data"]["type"])}>
+                        <option value="<{$k}>" selected ><{$v}></option>
+                        <{else}>
+                        <option value="<{$k}>"><{$v}></option>
+                        <{/if}>
+                        <{/foreach}>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+            <hr>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addImgModal"
+                        onclick="reset();">上传图片
+                </button>
+                               
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addFileModal"
+                        onclick="reset();">上传文件
+                </button>
+                               
+            </div>            
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered" id="list">
+                <tr>
+                    <th>名称</th>
+                    <th>类型</th>
+                    <th>地址</th>
+                    <th>文件大小</th>
+                    <th>创建时间</th>
+                    
+                    <th>操作</th>
+                </tr>
+                <{foreach($data["files"] as $k => $v)}>
+                <tr>
+                    <td><{$v["file_title"]}></td>
+                    <td>
+                        <{$v["type_name"]}>
+                    </td>
+                    <{if ($v['file_type']==1)}>
+                    <td><{$v["file_path"]}><br><a href="<{$file_url}>/<{$v['big_thumb']}>" target="_blank"><img src="<{$file_url}>/<{$v['small_thumb']}>"></a></td>
+                    <{else}>
+                    <td><a href="<{$file_url}>/<{$v['file_path']}>"><{$v["file_path"]}></a></td>
+                    <{/if}>
+                    <td><{$v["file_size"]}></td>
+                    
+                    <td><{$v["create_time"]}></td>
+
+                    <td>
+                        
+                        <button type="button" data-toggle="modal" data-target="#setModal" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-success js-set"
+                                data-id="<{$v['id']}>">删除</button>
+
+                    </td>
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!--新建窗口-->
+<div class="modal fade" id="addImgModal" role="dialog" aria-labelledby="addModal_title">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addModal_title">上传图片</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="file">图片上传</label>
+                        <input type="hidden" name="down_url" id="upload_down_url">
+                        <input type="file" class="form-control" id="update_img">
+                        <input type="hidden" name="file_type" value="1" id="file_type">
+                        <input type="hidden" name="file_title" id="file_title">
+                        <input type="hidden" name="file_size" id="file_size">
+                        <input type="hidden" name="file_path" id="file_path">
+                        <input type="hidden" name="file_md5" id="file_md5">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary save" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addFileModal" role="dialog" aria-labelledby="addModal_title">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addModal_title">上传文件</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="file">文件上传</label>
+                        <input type="hidden" name="down_url" id="upload_down_url">
+                        <input type="file" class="form-control" id="update_file">
+                       
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary save" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑窗口-->
+<div class="modal fade" id="updateModal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm">
+                    <div class="form-group">
+                        <label for="file">图片上传</label>
+                        <input type="hidden" name="down_url" id="upload_down_url">
+                        <input type="file" class="form-control" id="update_file">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="update">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+            <div class="modal" id="setModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否删除？</p>
+                            <input type="hidden" name="" id="delete_file_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="deleteFile" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+<script>
+    var URL = {
+        SEARCH: '/admin/file/file/getFileList',
+        UPLOAD_FILE: '/index/common/uploadFile/file',
+        UPLOAD_IMG: '/index/common/uploadFile/img',
+        SAVE: '/admin/file/file/addFile',
+        DELETE: '/admin/file/file/deleteFile',
+        
+    };
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["param_data"]["offset"]}>',
+            total: '<{$data["total_count"]}>',
+            limit: '<{$data["param_data"]["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        save();
+        editModal();
+        uploadImg();
+        uploadFile();
+        deleteFile();
+        $('.js-qr').popover({html: '1'});
+    });
+
+    //上传
+    function uploadFile() {
+        CommonUtils.upload({
+            id: 'update_file',//绑定上传事件的dom id,
+            url: URL.UPLOAD_FILE,//文件上传的地址，
+            fileName: 'file_name',//后台拿取问件时的key值
+            limitSize: 102400,//上传文件的大小
+            limitType: '',//上传文件的MIME类型
+            limitSuffix: '',//上传文件的后缀名称
+            extData: null,//上传文件同时附加的参数
+            beforeUploadHandler: function () {
+                return true;
+            }
+            ,//上传文件之前回调函数
+            progressUploadHandler: null,//进度回调函数h5有效
+            beforeSendHandler: null,//文件发送之前回调函数
+            completeUploadHandler: function (data) {
+                if (data.status == 0) {
+                	$('#file_type').val(2);
+                    $('#file_title').val(data.data.name);
+                    $('#file_size').val(data.data.size);
+                    $('#file_path').val(data.data.url);
+                    $('#file_md5').val(data.data.md5);
+                    
+
+                }
+            }
+            ,//完成上传时回调函数
+            errorUploadHandler: null//失败时候的回调函数
+        });
+
+    }
+    //图片上传
+    function uploadImg() {
+
+        CommonUtils.upload({
+            id: 'update_img',//绑定上传事件的dom id,
+            url: URL.UPLOAD_IMG,//文件上传的地址，
+            fileName: 'file_name',//后台拿取问件时的key值
+            limitSize: 102400,//上传文件的大小
+            limitType: '.jpg',//上传文件的MIME类型
+            beforeUploadHandler: function () {
+                return true;
+            }
+            ,//上传文件之前回调函数
+            completeUploadHandler: function (data) {
+            	
+                if (data.status == 0) {
+                	$('#file_type').val(1);
+                    $('#file_title').val(data.data.name);
+                    $('#file_size').val(data.data.size);
+                    $('#file_path').val(data.data.url);
+                    $('#file_md5').val(data.data.md5);
+                    
+                   
+                }
+            }
+        });
+    }
+
+
+    //编辑
+    function editModal() {
+        $('#userList').on('click', '.js-edit', function () {
+            var $this = $(this);
+            $('#update_id').val($this.attr('data-id'));
+            $('#update_type').val($this.attr('data-type'));
+            $('#update_title').val($this.attr('data-title'));
+            $('#update_version_code').val($this.attr('data-versionCode'));
+            $('#update_version').val($this.attr('data-version'));
+            $('#upload_down_url').val($this.attr('data-url'));
+            $('#update_desc').val($this.attr('data-desc'));
+        });
+        $('#update').on('click', null, function () {
+            $.ajax({
+                url: URL.EDIT,
+                data: $('#updateForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            })
+        });
+    }
+    //初始化表单
+    function reset() {
+        document.getElementById('addForm').reset();
+    }
+    //保存
+    function save() {
+        $('.save').click(function () {
+            $.ajax({
+                url: URL.SAVE,
+                data: $('#addForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //删除
+        $('#list').on('click', '.js-set', function () {
+            $('#delete_file_id').val($(this).attr('data-id'));
+        });    
+    function deleteFile() {
+        $('#deleteFile').click(function () {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: URL.DELETE,
+                data: {
+					'id': $('#delete_file_id').val()
+				},
+                success: function (data) {
+                    if(data.status == 0 ){
+                        CommonUtils.tips(data.message,2000,true);
+                        (setTimeout(function(){
+                            window.location.href = '/admin/file/file/getFileList';
+                        },2000));
+                    }else{
+                        CommonUtils.tips(data.message,2000,false);
+                    }
+                }
+            });	
+    	});
+    }
+    
+    //查询
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.SEARCH;
+        });
+    }
+</script>
+</body>
+</html>

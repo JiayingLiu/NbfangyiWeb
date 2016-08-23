@@ -1,0 +1,174 @@
+<div class="per-basic">
+    <div class="per-title">欢迎来到N邦翻译，<{$data['user_name']}></div>
+    <!--status 1 dai 2 failed 3 success-->
+    <{if($data['status'] == 3)}>
+    <div class="person-basic">
+        <div class="basic-left">
+            <div class="basic-name"><{$_userLoginInfo['data']['_user_real_name']}></div>
+            <div class="basic-title">资料完成程度</div>
+            <div class="basic-data">
+                <a href="/shop/index/shop/apply">资料设置<{if($data['flag'] == 0)}><!--1 complete-->
+                    <i class="iconfont icon-success font-success"></i><{else}><i
+                            class="iconfont icon-remind font-remind"></i><{/if}>
+                </a>
+                <a href="/shop/index/product/addProduct" class="add-product">添加商品+</a>
+            </div>
+            <div class="basic-dpgs">
+                <div style="width: 100%;">
+                    100%
+                </div>
+            </div>
+        </div>
+        <div class="basic-mid">
+            <!--<a href="#" class="recharge">充值</a>-->
+            <a href="/pay/user/withdraw/index" class="withdrawals">提现</a>
+        </div>
+        <div class="basic-right">
+            <{if(empty($_userLoginInfo['data']['_user_shop_id']))}>
+            <{else}>
+            <a href="/shop/?id=<{$_userLoginInfo['data']['_user_shop_id']}>" class="basic-link">我的店铺</a>
+            <{/if}>
+            <a href="/user/translate/order/index" class="basic-link">我的订单</a>
+            <a href="/pay/user/detail/index" class="basic-link">资金管理</a>
+
+        </div>
+    </div>
+    <{else}>
+    <div class="basic-first-data">
+        <div class="b-first-left">
+            <p>免费开通店铺</p>
+
+            <h2>海量订单等你来拿</h2>
+            <a class="btn-open" href="/shop/index/shop/apply">立即开通</a>
+        </div>
+        <div class="b-first-right">
+            <img src="<{$css_url}>file/img/personcenter/per-first-basic.png">
+        </div>
+    </div>
+    <{/if}>
+</div>
+
+<div class="per-prompt">
+    <p class="font-remind"><i class="iconfont icon-remind"></i>亲爱的<{if($data['user_type'] ==
+        2)}>译者<{else}>翻译公司<{/if}>：开通店铺，添加商品后用户才能给你下单吆~</p>
+
+    <div class="pro-block">
+        <p class="font-remind">1、开通店铺需要完成资料设置，资料设置分五部分，每部分占比20%，当资料完整度为100%时，店铺才能审核通过，店铺审核通过后才能添加商品；
+
+        <p class="font-remind">2、已经通过审核的店铺也可修改资料，资料修改后重新进入待审核状态，平台审核通过后修改的资料才能在前台页面显示</p>
+    </div>
+</div>
+
+<div class="per-complete-info">
+    <div class="complete-title">
+        <h3><span><i class="iconfont icon-comment"></i></span>
+            <{if($data['flag'] == 0 )}>
+            <{if($data['user_is_product'] == 1 && $data['status'] == 3)}>
+            您的资料完成度<em class="font-remind">100%</em>，您还没有添加商品，有商品用户才能下单吆~
+            <{elseif($data['user_is_product'] == 1 && $data['status'] == 2)}>
+            您的资料完成度<em class="font-remind">100%</em>，您的店铺审核失败，原因为：<em class="font-remind"><{$data['reason']}></em>
+            <{elseif($data['user_is_product'] == 1 && $data['status'] == 1)}>
+            您的资料完成度<em class="font-remind">100%</em>，您的店铺资料审核中...
+            <{elseif($data['user_is_product'] == 2 && $data['status'] == 3)}>
+            您的资料完成度<em class="font-remind">100%</em>，您的店铺营业中...
+            <{else}>
+            <{/if}>
+            <{elseif($data['flag'] == 1 )}>
+            您的资料完成度<em class="font-remind">0%</em>，还不能被客户搜索到，赶紧完善您的资料吧！
+            <{elseif($data['flag'] == 2 )}>
+            您的资料完成度<em class="font-remind">20%</em>，还不能被客户搜索到，赶紧完善您的资料吧！
+            <{elseif($data['flag'] == 3 )}>
+            您的资料完成度<em class="font-remind">40%</em>，还不能被客户搜索到，赶紧完善您的资料吧！
+            <{elseif($data['flag'] == 4 )}>
+            您的资料完成度<em class="font-remind">60%</em>，还不能被客户搜索到，赶紧完善您的资料吧！
+            <{elseif($data['flag'] == 5 )}>
+            您的资料完成度<em class="font-remind">80%</em>，还不能被客户搜索到，赶紧完善您的资料吧！
+            <{else}>
+            <{/if}>
+        </h3>
+    </div>
+    <{if($data['status'] == 3)}>
+    <div class="add-product-text">
+        <ul>
+            <li>
+                <a href="/shop/index/product/addProduct" class="add-product">添加商品 >></a>
+
+                <p>完善公司的商品属性、商品描述客户才能给您下单</p>
+            </li>
+            <li><span><a href="/shop/index/product/addProduct">+</a> </span></li>
+        </ul>
+    </div>
+    <{else}>
+    <p class="subtitle">仅需二步，轻松接单</p>
+    <ul>
+        <li>
+            <div>
+                <{if($data['status'] == 3)}>
+                <span class="examine">审核通过</span>
+                <{else}>
+                <{/if}>
+                <h3><span>1</span>资料设置</h3>
+
+                <p>完善姓名，身份证，擅长语言，领域等信息便于精确匹配订单</p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <{if($data['user_is_product'] == 2)}>
+                <span class="examine">添加成功</span>
+                <{else}>
+                <{/if}>
+                <h3><span>2</span>添加商品</h3>
+
+                <p>添加您商品的基本信息、用户才能购买您的服务</p>
+            </div>
+        </li>
+    </ul>
+    <div class="btn-org-open">
+        <a href="/shop/index/shop/apply">立即开通</a>
+    </div>
+    <{/if}>
+</div>
+<div class="per-detailed-info">
+    <div class="complete-title">
+        <h3><span><i class="iconfont icon-file"></i></span>完善信息，让用户更好的了解您</h3>
+    </div>
+    <ul>
+        <li>
+            <div>
+                <img src="<{$css_url}>file/img/personcenter/qualifications.png">
+
+                <h3>资质认证</h3>
+
+                <p>添加您的学历证书、专业资质证书信息</p>
+                <a href="/shop/index/shop/addCertification">去认证</a>
+            </div>
+        </li>
+        <li>
+            <div>
+                <img src="<{$css_url}>file/img/personcenter/experience.png">
+
+                <h3>填写过往经历</h3>
+
+                <p>添加您的教育经历、工作经历</p>
+                <a href="/shop/index/experience/getExperienceList">添加经历</a>
+            </div>
+        </li>
+        <li>
+            <div>
+                <img src="<{$css_url}>file/img/personcenter/style.png">
+
+                <h3>个人风采展示</h3>
+
+                <p>上传您的个人照片让用户了解您更多</p>
+                <a href="/shop/index/album/getAlbumDetailList">添加相册</a>
+            </div>
+        </li>
+    </ul>
+</div>
+<script>
+    require(['jquery', 'base'], function ($, base) {
+        //初始化登录状态
+        base.init();
+    });
+</script>

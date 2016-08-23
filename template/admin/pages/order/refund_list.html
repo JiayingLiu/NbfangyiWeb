@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<!--
+<?php print_r($data);?>
+-->
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">退款列表</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="orderId">订单号</label>
+                    <input type="text" class="form-control" placeholder="请输入订单号" id="orderId" name="order_num"
+                           value="<{$data['request_param']['order_num']}>">
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+                <hr>
+                <div class="from-group" id="searchForm_payType">
+                    <{foreach($pay_type as $k => $v)}>
+                    <label><input type="checkbox" class="js-pay-type" value="<{$k}>" name="pay_type[]"><{$v}></label>
+                    <{/foreach}>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered" id="refund_list">
+                <tr>
+                    <th>订单号</th>
+                    <th>商品名称</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>产品类型</th>
+                    <th>总金额</th>
+                    <th>买家</th>
+                    <th>卖家</th>
+                    <th>交易时间</th>
+                    <th>交易状态</th>
+                    <th>退款金额</th>
+                    <th>操作</th>
+                </tr>
+                <{if ( $data["order_list"]['total_count'] > 0)}>
+                <{foreach($data["order_list"]['data'] as $k => $v)}>
+                <tr>
+                    <td><{$v['order_num']}></td>
+                    <td><{$v['ext_data']['product_info']['title']}></td>
+                    <td><{$v['ext_data']['product_info']['price']}></td>
+
+                    <{if($v['product_type'] == '1')}>
+                    <!-- 文档翻译-->
+                    <td><{$v['font_count']}></td>
+
+                    <{elseif ($v['product_type'] == '2') }>
+                    <!-- 口译-->
+                    <td><{$v['service_time_count']}></td>
+                    <{/if}>
+                    <td><{$data['order_product_type'][$v['product_type']]}></td>
+                    <td><{$v['order_main_info']['total_price']}></td>
+                    <td><{$v['ext_data']['add_order_user_info']['_user_phone']}></td>
+                    <td><{$v['ext_data']['shop_order_user_info']['phone']}></td>
+                    <td><{$v['create_time']}></td>
+                    <td><span class="label label-success"><{$data['order_status_list'][$v['status']]}></span></td>
+                    <td>
+                        <{$v['order_main_info']['refund_money']}>
+                    </td>
+                    <td><a href='/admin/order/list/detail?order_num=<{$v["order_num"]}>'>详情</a>|
+                        <a href="javascript:void(0);" class="js-refund" data-id="<{$v['order_num']}>"
+                           data-money="<{$v['order_main_info']['refund_money']}>" data-toggle="modal"
+                           data-target="#refundModal">退款</a>
+                    </td>
+                </tr>
+                <{/foreach}>
+                <{else}>
+                <{/if}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!--退款窗口-->
+<div class="modal fade" id="refundModal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">退款操作</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm">
+
+                    <div class="form-group">
+                        <label for="money">输入金额：</label>
+                        <input type="text" class="form-control" id="money" name="title"
+                               placeholder="请填写退款金额">
+                        <input type="hidden" id="order_num">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="confirm_btn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var URL = {
+        LIST: '/admin/order/refund/browse',
+        REFUND: '/admin/order/refund/platRefund'
+    }
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["order_list"]["offset"]}>',
+            total: '<{$data["order_list"]["total_count"]}>',
+            limit: '<{$data["order_list"]["limit"]}>',
+            length: 11,
+            url: URL.LIST + '?' + $('#searchForm').serialize()
+        });
+        //打开退款按钮
+        $('#refund_list').on('click', '.js-refund', function () {
+            var $this = $(this),
+                    num = $this.attr('data-id'),
+                    money = $this.attr('data-money');
+            $('#order_num').val(num);
+            $('#money').val(money);
+        });
+        //输入退款 的按钮
+        $('#confirm_btn').click(function () {
+            $.ajax({
+                url: URL.REFUND,
+                type: 'POST',
+                data: {
+                    'money': $('#money').val(),
+                    'order_num': $('#order_num').val()
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    });
+
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.LIST + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.LIST;
+        });
+    }
+</script>
+</body>
+</html>

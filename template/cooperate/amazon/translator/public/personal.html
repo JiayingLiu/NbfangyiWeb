@@ -1,0 +1,42 @@
+<div class="sidebar">
+    <div class="sidebar-menu">
+        <div class="sidebar-look">
+            <div class="look-mask"></div>
+            <img src="<{$css_url}>/cooperate/amazon/customer/css/img/man.jpg" height="106" width="106">
+        </div>
+        <p class="sidebar-phone">您好</p>
+<!--
+        <a href="javascript:;" class="place-order" data-model="model">预留按钮</a>
+-->
+        <ul class="sidebar-tree" id="person_menu">
+            <li class="sidebar-trunk">
+                <ul class="sidebar-leaves tree-open">
+                    <li class="sidebar-leaf"><a href="/user/cooperate/translatorUser/myOrderList">接单列表</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    $(function () {
+        handleTreeClick();
+    })
+    //树的点击事件
+    function handleTreeClick() {
+        var $menu = $('#person_menu'), nav = window.localStorage.nav;
+        nav = nav ? nav : '系统订单';
+        $menu.find('.sidebar-leaf').each(function () {
+            var $this = $(this), $a = $this.find('a');
+            $.trim($a.text()) == nav && $this.addClass('tree-selected').closest('.sidebar-leaves').addClass('tree-open');
+            $a.attr('data-url', $a.attr('href')).attr('href', 'javascript:;');
+        });
+        $menu.on('click', '.sidebar-trunk-title,.sidebar-leaf', function () {
+            var $this = $(this), $select = $this.find('a');
+            $this.hasClass('sidebar-trunk-title') && $this.next('.sidebar-leaves').toggleClass('tree-open')
+            if ($this.hasClass('sidebar-leaf')) {
+                window.localStorage.nav = $select.text();
+                window.location.href = $select.attr('data-url');
+            }
+        })
+    }
+</script>

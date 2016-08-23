@@ -1,0 +1,33 @@
+<{layout:web/public/head}>
+<title><{$data['cate_name']}></title>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/help/service.css">
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-all">
+    <{layout:web/static/help/help_nav}>
+    <div class="main">
+        <div class="label-left">
+            <ul id="js-list">
+                <li class="item-title"><i class="iconfont icon-message"></i> <{$data['cate_name']}></li>
+                <{foreach($data['lists'][0] as $k => $v)}>
+                <{if($v['id'] == $data['article']['id'])}>
+                <li class="selected-item"><a href="/index/index/help/detail?id=<{$v['id']}>"><{$v['title']}></a></li>
+                <{else}>
+                <li><a href="/index/index/help/detail?id=<{$v['id']}>"><{$v['title']}></a></li>
+                <{/if}>
+                <{/foreach}>
+            </ul>
+        </div>
+        <div class="label-right" id="js-label-right">
+            <div class="consumer">
+                <{echo htmlspecialchars_decode($data['article']['content']);}>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery', 'base'], function ($, base) {
+        base.init();
+    });
+</script>
+<{layout:web/public/foot}>

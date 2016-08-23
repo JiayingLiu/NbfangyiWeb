@@ -1,0 +1,47 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-修改登录密码</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&nbsp;&gt;
+        <a href="javascript:void(0);">个人中心</a>&nbsp;&gt;
+        <a href="javascript:void(0);">修改登录密码</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label" id="person_center">
+        <div class="label-title">
+            <span class="label-title-text">修改登录密码</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <div class="form-group">
+                <label for="old-password" class="col-xs-4 text-right">当前登录密码：</label>
+                <div class="col-xs-5">
+                    <input type="password" class="form-input" name="old_password" id="old-password" placeholder="请输入旧密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="new-password" class="col-xs-4 text-right">新登录密码：</label>
+                <div class="col-xs-5">
+                    <input type="password" class="form-input" name="new_password" id="new-password" placeholder="请输入新密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="repeat-password" class="col-xs-4 text-right">确认新登录密码：</label>
+                <div class="col-xs-5">
+                    <input type="password" class="form-input" name="repeat_password" id="repeat-password" placeholder="再次输入新密码">
+                </div>
+            </div>
+            <div class="row text-center">
+                <a href="javascript:void(0);" class="btn btn-submit js-personcenter-btn" id="js_submit">修改</a>
+            </div>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/user/account/account_pwd.js"></script>
+<{layout:web/public/foot}>
+

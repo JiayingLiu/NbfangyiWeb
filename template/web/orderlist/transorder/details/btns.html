@@ -1,0 +1,60 @@
+<!--type 1 written 2 in-->
+<{if($data['order_info']['ext']['ext_data']['product_info']['type'] == 1)}>
+<!--trans_type 2 fast 4 file-->
+<{if($data['order_info']['ext']['file_type'] == 2)}>
+<!--[1] => 提交订单 ,[2] => 支付成功,[4] => 开始翻译,[5] => 译稿上传,[20] => 订单完成,[30] => 已取消,[33] => 已退款-->
+<!--online-->
+<div class="row text-center" id="detatis_toolbar">
+    <{if($data['order_info']['ext']['status']==1)}>
+    <{elseif($data['order_info']['ext']['status']==2)}>
+    <a href="javascript:;" class="btn btn-cancel" data-value="1" data-order="<{$data['order_info']['order']['order_num']}>">拒绝接单</a>
+    <a href="javascript:;" class="btn btn-submit" data-value="0" data-order="<{$data['order_info']['order']['order_num']}>">立即接单</a>
+    <{elseif($data['order_info']['ext']['status']==4)}>
+    <a href="javascript:;" class="btn btn-submit" data-value="2" data-order="<{$data['order_info']['order']['order_num']}>">提交译稿</a>
+    <{elseif($data['order_info']['ext']['status']==5)}>
+    <a href="javascript:;" class="btn btn-submit" data-value="2" data-order="<{$data['order_info']['order']['order_num']}>">提交译稿</a>
+    <{elseif($data['order_info']['ext']['status']==20)}>
+    <{elseif($data['order_info']['ext']['status']==30)}>
+    <{elseif($data['order_info']['ext']['status']==34)}>
+    <a href="javascript:;" class="btn btn-cancel" data-value="3" data-total="<{$data['order_info']['order']['total_price']}>" data-favo="<{$data['order_info']['order']['favourable_money']}>" data-order="<{$data['order_info']['order']['order_num']}>">处理退款</a>
+    <{else}>
+    <{/if}>
+</div>
+<{else}>
+<!--[1] => 提交订单 ,[2] => 支付成功,[4] => 开始翻译,[5] => 译稿上传,[20] => 订单完成,[30] => 已取消,[33] => 已退款-->
+<!--file-->
+<div class="row text-center" id="detatis_toolbar">
+    <{if($data['order_info']['ext']['status']==1)}>
+    <{elseif($data['order_info']['ext']['status']==2)}>
+    <a href="javascript:;" class="btn btn-cancel" data-value="1" data-order="<{$data['order_info']['order']['order_num']}>">拒绝接单</a>
+    <a href="javascript:;" class="btn btn-submit" data-value="0" data-order="<{$data['order_info']['order']['order_num']}>">立即接单</a>
+    <{elseif($data['order_info']['ext']['status']==4)}>
+    <input type="file" id="upload" data-order="<{$data['order_info']['order']['order_num']}>">
+    <{elseif($data['order_info']['ext']['status']==5)}>
+    <input type="file" id="upload" data-order="<{$data['order_info']['order']['order_num']}>">
+    <{elseif($data['order_info']['ext']['status']==20)}>
+    <{elseif($data['order_info']['ext']['status']==30)}>
+    <{elseif($data['order_info']['ext']['status']==34)}>
+    <a href="javascript:;" class="btn btn-cancel" data-value="3" data-total="<{$data['order_info']['order']['total_price']}>" data-favo="<{$data['order_info']['order']['favourable_money']}>" data-order="<{$data['order_info']['order']['order_num']}>">处理退款</a>
+    <{else}>
+    <{/if}>
+</div>
+<{/if}>
+<{else}>
+<!--[1] => 提交订单 ,[2] => 支付成功,[4] => 开始翻译,[5] => 译稿上传,[20] => 订单完成,[30] => 已取消,[33] => 已退款-->
+<!--kouyi-->
+<div class="row text-center" id="detatis_toolbar">
+    <{if($data['order_info']['ext']['status']==1)}>
+    <{elseif($data['order_info']['ext']['status']==2)}>
+    <a href="javascript:;" class="btn btn-cancel" data-value="1" data-order="<{$data['order_info']['order']['order_num']}>">拒绝接单</a>
+    <a href="javascript:;" class="btn btn-submit" data-value="0" data-order="<{$data['order_info']['order']['order_num']}>">立即接单</a>
+    <{elseif($data['order_info']['ext']['status']==4)}>
+    <{elseif($data['order_info']['ext']['status']==5)}>
+    <{elseif($data['order_info']['ext']['status']==20)}>
+    <{elseif($data['order_info']['ext']['status']==30)}>
+    <{elseif($data['order_info']['ext']['status']==34)}>
+    <a href="javascript:;" class="btn btn-cancel" data-value="3" data-total="<{$data['order_info']['order']['total_price']}>" data-favo="<{$data['order_info']['order']['favourable_money']}>" data-order="<{$data['order_info']['order']['order_num']}>">处理退款</a>
+    <{else}>
+    <{/if}>
+</div>
+<{/if}>

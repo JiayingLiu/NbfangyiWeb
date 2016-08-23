@@ -1,0 +1,181 @@
+<form id="service_form">
+    <input type="hidden" name="shop_id" value="<{$data['param_data']['shopInfo']['id']}>">
+
+    <div class="label-title">
+        <span class="label-title-text">服务设置</span>
+        <span class="label-title-circle"></span>
+        <span class="label-title-line"></span>
+    </div>
+    <div class="label-content">
+        <!--show-->
+        <div class="label-content-show">
+            <div class="label-content-show-left">
+                <div class="row font-remind">
+                    <i class="iconfont icon-remind"></i>服务设置是开通店铺必填项，信息填写不全店铺将无法通过审核，请务必将您的资料填写完整。
+                </div>
+                <div class="row">
+                    <span class="col-xs-2">服务类型：</span>
+                    <{if($data['shopInfo']['shopInfo']['service_type'][1] > 0)}>
+                    <{foreach($data['shopInfo']['shopInfo']['service_type'][0] as $k => $v)}>
+                    <span><{$data['shopInfo']['serviceTypeLists'][$v]}>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <{/foreach}>
+                    <{else}>
+                    <span>未设置</span>
+                    <{/if}>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">翻译语言：</div>
+                    <div class="col-xs-10">
+                        <{if($data['shopInfo']['shopInfo']['good_at'][1]>0)}>
+                        <{foreach ($data['shopInfo']['shopInfo']['good_at'][0] as $k => $v)}>
+                        <span><{$data['shopInfo']['languages'][$v]}>&nbsp;&nbsp;</span>
+                        <{/foreach}>
+                        <{else}>
+                        <span>未设置</span>
+                        <{/if}>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">服务领域：</div>
+                    <{if($data['shopInfo']['shopInfo']['field'][1]>0)}>
+                    <{foreach ($data['shopInfo']['shopInfo']['field'][0] as $k => $v)}>
+                    <span><{$data['shopInfo']['fields'][$v]}>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <{/foreach}>
+                    <{else}>
+                    <span>未设置</span>
+                    <{/if}>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">服务时间：</div>
+                    <span>周一至周五:</span>
+                    <{if(empty($data['shopInfo']['shopInfo']['work_time'][0][0]))}>
+                    <span>9:00-18:00</span>
+                    <{else}>
+                    <span><{$data['shopInfo']['shopInfo'][work_time][0][0]}>-<{$data['shopInfo']['shopInfo'][work_time][0][1]}></span>
+                    <{/if}>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <span>周六、周日:</span>
+                    <{if(empty($data['shopInfo']['shopInfo']['work_time'][0][2]))}>
+                    <span>9:00-18:00</span>
+                    <{else}>
+                    <span><{$data['shopInfo']['shopInfo'][work_time][0][2]}>-<{$data['shopInfo']['shopInfo'][work_time][0][3]}></span>
+                    <{/if}>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                </div>
+            </div>
+            <div class="label-content-show-right">
+                <div class="label-content-show-edit">
+                    <a href="javascript:;" class="js-pc-btn" data-ele="edit" data-index="4">
+                        <i class="iconfont icon-edit"></i>
+                        编辑
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--show end-->
+        <!--edit-->
+        <div class="label-content-edit" style="display: none;">
+            <div class="row font-remind">
+                <i class="iconfont icon-remind"></i>服务设置是开通店铺必填项，信息填写不全店铺将无法通过审核，请务必将您的资料填写完整。
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1"><span class="font-remind">*</span>服务类别：</div>
+                <div class="col-xs-10">
+                    <div name="service_type" id="checkbox_type"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1"><span class="font-remind">*</span>翻译语言：</div>
+                <div class="col-xs-10">
+                    <span class="font-remind">（选择下列标签）</span>
+                </div>
+                <div id="tag_language" name="good_at">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1"><span class="font-remind">*</span>服务领域：</div>
+                <div class="col-xs-10">
+                    <span class="font-remind">（选择下列标签，最多设置十个标签）</span>
+                </div>
+                <div id="tag_service" name="field">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1"><span class="font-remind">*</span>服务时间：</div>
+                <span class="col-xs-1">周一至周五</span>
+                <{if(empty($data['shopInfo']['shopInfo'][work_time][0][0]))}>
+                <div class="col-xs-3">
+                    <input type="text" class="form-input js-time-input"
+                           onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'00:00:',maxDate:'23:59'});"
+                           value="9:00">
+                </div>
+                <{else}>
+                <div class="col-xs-3">
+                    <input type="text" class="form-input js-time-input"
+                           onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'00:00:',maxDate:'23:59'});"
+                           value="<{$data['shopInfo']['shopInfo'][work_time][0][0]}>">
+                </div>
+                <{/if}>
+                <div class="col-xs-1 text-center">至</div>
+                <{if(empty($data['shopInfo']['shopInfo'][work_time][0][1]))}>
+                <div class="col-xs-3">
+                    <input type="text" class="form-input js-time-input"
+                           onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'00:00:',maxDate:'23:59'});"
+                           value="18:00">
+                </div>
+                <{else}>
+                <div class="col-xs-3">
+                    <input type="text" class="form-input js-time-input"
+                           onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'00:00:',maxDate:'23:59'});"
+                           value="<{$data['shopInfo']['shopInfo'][work_time][0][1]}>">
+                </div>
+                <{/if}>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <span class="col-xs-1">周六、周日</span>
+                <{if(empty($data['shopInfo']['shopInfo'][work_time][0][2]))}>
+                <div class="col-xs-3">
+                    <input type="text" class="form-input js-time-input"
+                           onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'00:00:',maxDate:'23:59'});"
+                           value="9:00">
+                </div>
+                <{else}>
+                <div class="col-xs-3">
+                    <input type="text" class="form-input js-time-input"
+                           onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'00:00:',maxDate:'23:59'});"
+                           value="<{$data['shopInfo']['shopInfo'][work_time][0][2]}>">
+                </div>
+                <{/if}>
+                <div class="col-xs-1 text-center">至</div>
+                <{if(empty($data['shopInfo']['shopInfo'][work_time][0][3]))}>
+                <div class="col-xs-3">
+                    <input type="text" class="form-input js-time-input"
+                           onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'00:00:',maxDate:'23:59'});"
+                           value="18:00">
+                </div>
+                <{else}>
+                <div class="col-xs-3">
+                    <input type="text" class="form-input js-time-input"
+                           onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'00:00:',maxDate:'23:59'});"
+                           value="<{$data['shopInfo']['shopInfo'][work_time][0][3]}>">
+                </div>
+                <{/if}>
+                <input type="hidden" name="work_time" id="work_time_hidden">
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            </div>
+            <div class="row text-center">
+                <a href="javascript:;" class="btn btn-cancel js-pc-btn" data-ele="cancel">取消</a>
+                <a href="javascript:;" class="btn btn-submit" id="submit_service">提交</a>
+            </div>
+        </div>
+        <!--edit end-->
+    </div>
+    <!--服务设置 end-->
+</form>

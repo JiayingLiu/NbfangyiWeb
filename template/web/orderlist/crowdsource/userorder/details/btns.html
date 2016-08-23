@@ -1,0 +1,46 @@
+<!--type 1 written 2 in-->
+<{if($data['order_info']['ext']['ext_data']['product_info']['type'] == 1)}>
+<div class="row text-center" id="detatis_toolbar">
+    <{if($data['order_info']['ext']['status']==1)}>
+    <a href="javascript:void(0);" class="btn btn-cancel" data-value="0" data-order="<{$data['order_info']['order']['order_num']}>">取消订单</a>
+    <a href="javascript:void(0);" class="btn btn-submit" data-value="1" data-order="<{$data['order_info']['order']['order_num']}>">立即支付</a>
+    <{elseif($data['order_info']['ext']['status']==2)}>
+    <a href="javascript:void(0);" class="btn btn-cancel" data-value="0" data-order="<{$data['order_info']['order']['order_num']}>">取消订单</a>
+    <{elseif($data['order_info']['ext']['status']==4)}>
+    <{elseif($data['order_info']['ext']['status']==5)}>
+    <a href="javascript:;" class="btn btn-cancel" data-value="2" data-order="<{$data['order_info']['order']['order_num']}>">申请退款</a>
+    <a href="javascript:;" class="btn btn-submit" data-value="3" data-order="<{$data['order_info']['order']['order_num']}>">确认完成</a>
+    <{elseif($data['order_info']['ext']['status']==20)}>
+    <a href="/order/order/buy/buyProduct?product_id=<{$data['order_info']['ext']['ext_data']['product_info']['id']}>" class="btn btn-submit">重新购买</a>
+    <{if($data['order_info']['ext']['is_comment']==1)}><!--1没有评价 ，2已经评价-->
+    <a href="/shop/index/comment/userComment?order_num=<{$data['order_info']['order']['order_num']}>" class="btn btn-submit">评价</a>
+    <{else}>
+    <{/if}>
+    <{elseif($data['order_info']['ext']['status']==30)}>
+    <a href="/order/order/buy/buyProduct?product_id=<{$data['order_info']['ext']['ext_data']['product_info']['id']}>" class="btn btn-submit">重新购买</a>
+    <{else}>
+    <{/if}>
+</div>
+<{else}>
+<div class="row text-center" id="detatis_toolbar">
+    <{if($data['order_info']['ext']['status']==1)}>
+    <a href="javascript:void(0);" class="btn btn-cancel" data-value="0" data-order="<{$data['order_info']['order']['order_num']}>">取消订单</a>
+    <a href="javascript:void(0);" class="btn btn-submit" data-value="1" data-order="<{$data['order_info']['order']['order_num']}>">立即支付</a>
+    <{elseif($data['order_info']['ext']['status']==2)}>
+    <a href="javascript:void(0);" class="btn btn-cancel" data-value="0" data-order="<{$data['order_info']['order']['order_num']}>">取消订单</a>
+    <{elseif($data['order_info']['ext']['status']==4)}>
+    <{elseif($data['order_info']['ext']['status']==5)}>
+    <a href="javascript:;" class="btn btn-cancel" data-value="2" data-order="<{$data['order_info']['order']['order_num']}>">申请退款</a>
+    <a href="javascript:;" class="btn btn-submit" data-value="3" data-order="<{$data['order_info']['order']['order_num']}>">确认完成</a>
+    <{elseif($data['order_info']['ext']['status']==20)}>
+    <a href="/order/order/buy/buyProduct?product_id=<{$data['order_info']['ext']['ext_data']['product_info']['id']}>" class="btn btn-submit">重新购买</a>
+    <{if($data['order_info']['ext']['is_comment']==1)}><!--1没有评价 ，2已经评价-->
+    <a href="/shop/index/comment/userComment?order_num=<{$data['order_info']['order']['order_num']}>" class="btn btn-submit">评价</a>
+    <{else}>
+    <{/if}>
+    <{elseif($data['order_info']['ext']['status']==30)}>
+    <a href="/order/order/buy/buyProduct?product_id=<{$data['order_info']['ext']['ext_data']['product_info']['id']}>" class="btn btn-submit">重新购买</a>
+    <{else}>
+    <{/if}>
+</div>
+<{/if}>

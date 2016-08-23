@@ -1,0 +1,13 @@
+<div class="form-group">
+    <div class="col-xs-3">*输入金额：</div>
+    <div class="col-xs-3">
+        <input type="text" class="form-input" id="refund_input" onkeyup="moneyValidate(this,'<{$data['order_info']['order']['total_price']}>','<{$data['order_info']['order']['favourable_money']}>');">
+    </div>
+</div>
+<div class="row font-remind">
+    <i class="iconfont icon-remind"></i>
+    提醒:请输入您要退还的金额。
+</div>
+<div class="form-group text-right">
+    <a href="javascript:void(0);" class="btn btn-submit" onclick="submitRefundData('<{$data['order_info']['order']['order_num']}>');" >提交</a>
+</div>

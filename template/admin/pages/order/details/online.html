@@ -1,0 +1,22 @@
+<!--快速翻译展示-->
+<div class="row" style="padding: 0 15px;">快速翻译内容：</div>
+<div class="row" style="padding: 0 15px;">
+    <textarea class="form-control" readonly><{$data['order_info']['ext']['font']}></textarea>
+</div>
+<{if($data['order_info']['ext']['status']==4)}>
+<div class="row" style="padding: 0 15px;">翻译完成内容：</div>
+<div class="row" style="padding: 0 15px;">
+    <textarea class="form-control" id="submit_trans_text"><{$data['order_info']['ext']['order_content']}></textarea>
+</div>
+<{elseif($data['order_info']['ext']['status']==5)}>
+<div class="row" style="padding: 0 15px;">翻译完成内容：</div>
+<div class="row" style="padding: 0 15px;">
+    <textarea class="form-control" id="submit_trans_text"><{$data['order_info']['ext']['order_content']}></textarea>
+</div>
+<{elseif($data['order_info']['ext']['status']==20)}>
+<div class="row" style="padding: 0 15px;">翻译完成内容：</div>
+<div class="row" style="padding: 0 15px;">
+    <textarea class="form-control" id="submit_trans_text"><{$data['order_info']['ext']['order_content']}></textarea>
+</div>
+<{else}>
+<{/if}>

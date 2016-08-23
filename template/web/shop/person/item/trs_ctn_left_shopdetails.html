@@ -1,0 +1,41 @@
+<!--店铺详情-->
+<div class="trs-left-title">
+    <span>
+        <{if($data['shop']['data']['type']== 10)}>
+        译者简介
+        <{else}>
+        公司简介
+        <{/if}>
+    </span>
+</div>
+<div class="trs-content">
+    <div class="row">
+        <p class="trs-p"><{echo htmlspecialchars_decode($data['shop']['data']['detail']);}></p>
+    </div>
+</div>
+<div class="trs-left-title">
+    <span>成果展示</span>
+</div>
+<div class="trs-content">
+    <{if($data['experiences']['1'] > 0)}>
+    <div class="results-show">
+        <ul class="results-time-axis">
+            <{foreach($data['experiences']['0'] as $k =>$v)}>
+            <li>
+                <h3><{$v['start_time']}>-<{$v['end_time']}></h3>
+
+                <h3>
+                    <span class="results-circular"></span>
+                    <span class="results-triangle"></span>
+                    <{$v['type_text']}>
+                </h3>
+
+                <p><{$v['content']}></p>
+            </li>
+            <{/foreach}>
+        </ul>
+    </div>
+    <{else}>
+    <div class="row text-center">商家暂未添加过往经历！</div>
+    <{/if}>
+</div>

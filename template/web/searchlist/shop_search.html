@@ -1,0 +1,412 @@
+<{layout:web/public/head}>
+<title><{if(empty($data['request_param']['q']))}>翻译店铺【找好翻译,上N邦】<{else}><{$data['request_param']['q']}>【找好翻译,上N邦】<{/if}></title>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/searchlist/search.css">
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="search-main">
+    <{layout:web/public/nav}>
+    <div class="search-nav">
+        <ul id="search_nav">
+            <li><a href="javascript:void(0);">翻译分类</a></li>
+            <li><span>&gt;</span></li>
+
+            <{foreach($data['request_param'] as $k => $v)}>
+            <{if($k == 'sl'&& $v!='')}>
+            <li><a href="javascript:void(0);" class="search-nav-item" data-type="<{$k}>">源语言：<{$data['language_list'][$v]}><span><i
+                    class="iconfont icon-close"></i></span></a></li>
+            <li><span>&gt;</span></li>
+            <{elseif($k == 'tl'&& $v!='')}>
+            <li><a href="javascript:void(0);" class="search-nav-item" data-type="<{$k}>">目标语言：<{$data['language_list'][$v]}><span><i
+                    class="iconfont icon-close"></i></span></a></li>
+            <li><span>&gt;</span></li>
+            <{elseif($k == 'sst'&& $v!='')}>
+            <li><a href="javascript:void(0);" class="search-nav-item" data-type="<{$k}>">技能类型：<{$data['shop_service_type_list'][$v]}><span><i
+                    class="iconfont icon-close"></i></span></a></li>
+            <li><span>&gt;</span></li>
+            <{elseif($k == 'st'&& $v!='')}>
+            <li><a href="javascript:void(0);" class="search-nav-item" data-type="<{$k}>">身份：<{$data['shop_type_list'][$v]}><span><i
+                    class="iconfont icon-close"></i></span></a></li>
+            <li><span>&gt;</span></li>
+            <{elseif($k == 'sf'&& $v!='')}>
+            <li><a href="javascript:void(0);" class="search-nav-item" data-type="<{$k}>">领域分类：<{$data['shop_fields'][$v]}><span><i
+                    class="iconfont icon-close"></i></span></a></li>
+            <li><span>&gt;</span></li>
+            <{elseif($k == 'ct'&& $v!='')}>
+            <li><a href="javascript:void(0);" class="search-nav-item" data-type="<{$k}>">城市：<{$v}><span><i
+                    class="iconfont icon-close"></i></span></a></li>
+            <li><span>&gt;</span></li>
+            <{else}>
+            <{/if}>
+            <{/foreach}>
+
+            <li>约<span class="font-remind"><{$data["total_count"]}></span>个店铺</li>
+        </ul>
+
+        <div class="search-filter" id="search_filter">
+            <{if(empty($data['request_param']['sl']))}>
+            <div class="filter-item">
+                <div class="fil-key">
+                    源语言
+                </div>
+                <div class="fil-value">
+                    <{foreach($data['language_list'] as $k => $v)}>
+                    <{if($data['request_param']['tl'] != $k || empty($data['request_param']['tl']))}>
+                    <a href="javascript:void(0);" class="js-btn js-sl" data-id="<{$k}>"><{$v}></a>
+                    <{else}>
+                    <{/if}>
+                    <{/foreach}>
+                </div>
+                <div class="fil-ext">
+                    <a href="javascript:void(0);" class="js-more">
+                        <span class="fil-ext-more">更多<i class="iconfont icon-arrow-down"></i></span>
+                        <span class="fil-ext-up">收起<i class="iconfont icon-arrow-up"></i></span>
+                    </a>
+                </div>
+            </div>
+            <{else}>
+            <{/if}>
+            <{if(empty($data['request_param']['tl']))}>
+            <div class="filter-item">
+                <div class="fil-key">
+                    目标语言
+                </div>
+                <div class="fil-value">
+                    <{foreach($data['language_list'] as $k => $v)}>
+                    <{if($data['request_param']['sl'] != $k|| empty($data['request_param']['sl']))}>
+                    <a href="javascript:void(0);" class="js-btn js-tl" data-id="<{$k}>"><{$v}></a>
+                    <{else}>
+                    <{/if}>
+                    <{/foreach}>
+                </div>
+                <div class="fil-ext">
+                    <a href="javascript:void(0);" class="js-more">
+                        <span class="fil-ext-more">更多<i class="iconfont icon-arrow-down"></i></span>
+                        <span class="fil-ext-up">收起<i class="iconfont icon-arrow-up"></i></span>
+                    </a>
+                </div>
+            </div>
+            <{else}>
+            <{/if}>
+            <{if(empty($data['request_param']['sst']))}>
+            <div class="filter-item">
+                <div class="fil-key">
+                    技能分类
+                </div>
+                <div class="fil-value">
+                    <{foreach($data['shop_service_type_list'] as $k => $v)}>
+                    <a href="javascript:void(0);" class="js-btn js-sst" data-id="<{$k}>"><{$v}></a>
+                    <{/foreach}>
+                </div>
+                <div class="fil-ext">
+                </div>
+            </div>
+            <{else}>
+            <{/if}>
+            <{if(empty($data['request_param']['st']))}>
+            <div class="filter-item">
+                <div class="fil-key">
+                    身份
+                </div>
+                <div class="fil-value">
+                    <{foreach($data['shop_type_list'] as $k => $v)}>
+                    <a href="javascript:void(0);" class="js-btn js-st" data-id="<{$k}>"><{$v}></a>
+                    <{/foreach}>
+                </div>
+                <div class="fil-ext">
+                </div>
+            </div>
+            <{else}>
+            <{/if}>
+            <{if(empty($data['request_param']['sf']))}>
+            <div class="filter-item">
+                <div class="fil-key">
+                    领域分类
+                </div>
+                <div class="fil-value">
+                    <{foreach($data['shop_fields'] as $k => $v)}>
+                    <a href="javascript:void(0);" class="js-btn js-sf" data-id="<{$k}>"><{$v}></a>
+                    <{/foreach}>
+                </div>
+                <div class="fil-ext">
+                </div>
+            </div>
+            <{else}>
+            <{/if}>
+            <{if(empty($data['request_param']['ct']))}>
+            <div class="filter-item">
+                <div class="fil-key">
+                    城市
+                </div>
+                <div class="fil-value">
+                    <a href="javascript:void(0);" data-flag="" id="area_select">选择地区</a>
+
+                    <div id="area_box" class="area-box">
+                        <ul class="box-title">
+                        </ul>
+                        <div class="box-text">
+                            <{foreach($data['city_list'] as $k => $v)}>
+                            <a href="javascript:void(0);" class="js-ct" data-level="<{$v['level']}>"
+                               data-id="<{$v['id']}>"><{$v['title']}></a>
+                            <{/foreach}>
+                        </div>
+                    </div>
+                </div>
+                <div class="fil-ext">
+                </div>
+            </div>
+            <{else}>
+            <{/if}>
+        </div>
+    </div>
+    <div class="search-label">
+        <div class="se-label-left">
+            <div class="se-title-list">
+                <div class="row">
+                    <div class="col-xs-11">
+                        <ul class="search-type" id="sear_sort">
+                            <li><a href="javascript:void(0);" class="js-z">综合 <i class="iconfont icon-arrow-up"></i></a>
+                            </li>
+                            <li><a href="javascript:void(0);" class="js-p">评价 <i class="iconfont icon-arrow-up"></i></a>
+                            </li>
+                            <li><a href="javascript:void(0);" class="js-f">服务次数 <i
+                                    class="iconfont icon-arrow-up"></i></a></li>
+                            <li><a href="javascript:void(0);" class="js-j">价格 <i class="iconfont icon-arrow-up"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="se-label-shop">
+                <ul>
+                    <{if($data['total_count'] > 0)}>
+                    <{foreach($data['list'] as $k => $v)}>
+                    <li>
+                        <{if($v['shop_is_recommend'] == 1)}>
+                        <div class="recommend"></div>
+                        <{/if}>
+                        <div class="row">
+                            <div class="col-xs-2 shop-image">
+                                <div class="row text-center">
+                                    <a href="/shop/?id=<{$v['shop_id']}>" target="_blank"><img
+                                            src="<{$file_url}><{$v['shop_logo']['small_thumb']}>"
+                                            width="120" height="120"></a>
+                                </div>
+                                <div class="shop-contact">
+                                    <a href="javascript:void(0);">
+                                        <i class="iconfont icon-phone"></i>
+                                        <div class="shop-contact-label">
+                                            <div class="shop-contact-phone"></div>
+                                            <p>4006-808-525</p>
+                                        </div>
+                                    </a>
+                                    <a href="javascript:void(0);">
+                                        <i class="iconfont icon-telephone"></i>
+                                        <div class="shop-contact-label">
+                                            <div class="shop-contact-telephone"></div>
+                                            <p>this is phone</p>
+                                        </div>
+                                    </a>
+                                    <a href="javascript:void (0);" class="js-im-trigger" data-chat-id="<{$v['shop_author_uid']}>"
+                                       data-chat-name="<{$v['subject']}>" data-chat-logo="<{$file_url}><{$v['shop_logo']['small_thumb']}>"
+                                       data-id="<{$v['shop_id']}>"><i
+                                            class="iconfont icon-contact"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="row">
+                                    <h3 class="se-shop-name">
+                                        <{if($v['shop_type'] == 10)}>
+                                        <a href="/shop/?id=<{$v['shop_id']}>">
+                                            <{$v['subject']}>
+                                        </a>
+                                        <span>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <i class="iconfont icon-address color-blue"></i>
+                                            <{$v['shop_address']}>
+                                        </span>
+                                        <{else}>
+                                        <a href="/shop/?id=<{$v['shop_id']}>">
+                                            <{$v['subject']}>
+                                        </a>
+                                        <span>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                           <i class="iconfont icon-address color-blue"></i>
+                                            <{$v['shop_address']}>
+                                        </span>
+                                        <{/if}>
+                                    </h3>
+                                </div>
+                                <div class="row shop-years">
+                                    <div class="col-xs-2">
+                                        <{if($v['shop_type'] == 10)}>
+                                        译龄：<{$v['shop_translate_year']}>年
+                                        <{else}>
+                                        <{$v['shop_translate_year']}>成立
+                                        <{/if}>
+                                    </div>
+                                    <div class="col-xs-5 text-left start-color">
+                                        <!--1-->
+                                        <{if($v['shop_star_level'] == 0)}>
+                                        <i class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i>
+                                        <{elseif($v['shop_star_level'] > 0 && $v['shop_star_level'] < 1)}>
+                                        <i class="iconfont icon-star-half"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i>
+                                        <{elseif($v['shop_star_level'] == 1)}>
+                                        <i class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i>
+                                        <{elseif($v['shop_star_level'] > 1 && $v['shop_star_level'] < 2)}>
+                                        <i class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-half"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i>
+                                        <{elseif($v['shop_star_level'] == 2)}>
+                                        <i class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i>
+                                        <{elseif($v['shop_star_level'] > 2 && $v['shop_star_level'] < 3)}>
+                                        <i class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-half"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i>
+                                        <{elseif($v['shop_star_level'] == 3)}>
+                                        <i class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-empty"></i><i
+                                            class="iconfont icon-star-empty"></i>
+                                        <{elseif($v['shop_star_level'] > 3 && $v['shop_star_level'] < 4)}>
+                                        <i class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-half"></i><i
+                                            class="iconfont icon-star-empty"></i>
+                                        <{elseif($v['shop_star_level'] == 4)}>
+                                        <i class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-empty"></i>
+                                        <{elseif($v['shop_star_level'] > 4 && $v['shop_star_level'] < 5)}>
+                                        <i class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-half"></i>
+                                        <{elseif($v['shop_star_level'] == 5)}>
+                                        <i class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i><i
+                                            class="iconfont icon-star-full"></i>
+                                        <{else}>
+                                        <{/if}>
+                                        <span><{$v['shop_star_level']}>分</span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span>服务<{$v['shop_service_time']}>次</span>
+                                    </div>
+                                </div>
+                                <div class="row se-service">
+                                    服务语言：<{$v['shop_service_language']}>
+                                </div>
+                                <div class="row">
+                                    <{if($v['shop_type'] == 10)}>擅长<{else}>适用<{/if}>领域：<{$v['shop_field']}>
+                                </div>
+                                <div class="row">
+                                    <!--<{$v['shop_label']}>-->
+                                    <ul class="shop-label">
+                                        <{foreach($v['shop_label'] as $kl => $vl)}>
+                                        <{if($kl < 5)}>
+                                        <li><{$vl}></li>
+                                        <{/if}>
+                                        <{/foreach}>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <div class="se-authentication">
+                                    <!--个人-->
+                                    <{if($v['shop_type'] == 10)}>
+                                    <div class="se-aut-text">
+                                        <{if($v['shop_qualification_identity'] == 1)}>
+                                        <i class="icon-authentication icon-over-person"></i><span>身份认证</span>
+                                        <{else}>
+                                        <{/if}>
+                                    </div>
+                                    <div class="se-aut-text">
+                                        <{if($v['shop_qualification_education'] == 1)}>
+                                        <i class="icon-authentication icon-over-education"></i><span>学历认证</span>
+                                        <{else}>
+                                        <{/if}>
+                                    </div>
+                                    <div class="se-aut-text">
+                                        <{if($v['shop_qualification_qualified'] == 1)}>
+                                        <i class="icon-authentication icon-over-qualifications"></i><span>资质认证</span>
+                                        <{else}>
+                                        <{/if}>
+                                    </div>
+                                    <{else}>
+                                    <div class="se-aut-text">
+                                        <{if($v['shop_qualification_identity'] == 1)}>
+                                        <i class="icon-authentication icon-over-person"></i><span>法人认证</span>
+                                        <{else}>
+                                        <{/if}>
+                                    </div>
+                                    <div class="se-aut-text">
+                                        <{if($v['shop_qualification_tax'] == 1)}>
+                                        <i class="icon-authentication icon-over-tax"></i><span>税务认证</span>
+                                        <{else}>
+                                        <{/if}>
+                                    </div>
+                                    <div class="se-aut-text">
+                                        <{if($v['shop_qualification_license'] == 1)}>
+                                        <i class="icon-authentication icon-over-license"></i><span>营业执照</span>
+                                        <{else}>
+                                        <{/if}>
+                                    </div>
+                                    <{/if}>
+                                </div>
+                                <div class="position-price">
+                                    <span class="se-price">￥:<{$v['shop_user_min_price']}></span>元起
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <{/foreach}>
+                    <{else}>
+                    <li class="se-empty">
+                        您搜索的店铺不存在！请尝试搜索其他店铺~
+                    </li>
+                    <{/if}>
+                </ul>
+            </div>
+            <div class="pagination-wrap">
+                <ul id="pagination" class="pagination"></ul>
+            </div>
+        </div>
+        <{layout:web/searchlist/fast-trs}>
+    </div>
+</div>
+<script>var page_config = {
+    offset: '<{$data["offset"]}>',
+    total: '<{$data["total_count"]}>',
+    limit: '<{$data["limit"]}>'
+};
+</script>
+<script src="<{$css_url}>web/js/searchlist/search_shop.js"></script>
+<{layout:web/activity/index/appointment}>
+<{layout:web/public/foot}>

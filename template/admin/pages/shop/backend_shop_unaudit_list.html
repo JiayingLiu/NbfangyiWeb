@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">店铺管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="name">姓名:</label>
+                    <input type="text" class="form-control" id="name" placeholder="姓名" name="name" value="<{$data["param_data"]["name"]}>">
+                </div>
+                <div class="form-group">
+                    <label for="name">手机号:</label>
+                    <input type="text" class="form-control" id="telephone" placeholder="手机号" name="telephone" value="<{$data["param_data"]["telephone"]}>">
+                </div>		
+                <div class="form-group">
+                    <label for="name">状态:</label>
+                    <{if (!$data['param_data']['is_audit'])}>
+                    <select name="status" class="form-control">
+					<{if ($data['param_data']['status'] == 1)}>
+						
+						<option value="1" selected>待审核</option>
+						<option value="2">未通过</option>
+					<{elseif ($data['param_data']['status']==2)}>
+						
+						<option value="1" >待审核</option>
+						<option value="2" selected>未通过</option>
+											
+					<{else}>
+						
+						<option value="1" >待审核</option>
+						<option value="2" >未通过</option>									
+					<{/if}>
+
+                    </select> 
+                    <{/if}>
+                                       
+                </div>					
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+            <hr>
+            <div class="btn-group" role="group">
+                <!--<button type="button" class="btn btn-success" id="addCoupon">添加
+                </button>-->
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <div class="table-box" style="overflow-x: scroll;">
+                <div class="tableDiv" >
+                <table class="table table-bordered" id="list">
+                <tr>
+                    <!-- <th >店铺名称</th> -->
+                    <th >所属用户</th>
+                    <th >真实姓名</th>
+                    <th >身份</th>
+					<th >状态</th>
+					<th >是否推荐</th>
+                    <th >申请时间</th>
+                    <th >更新时间</th>
+					<th >操作</th>
+                </tr>
+                <{foreach($data['0'] as $k => $vo)}>
+                <tr>
+                    <!-- <td><{$vo['title']}></td> -->
+                    <td><{$vo['uname']}></td>
+                    <td><{$vo['real_name']}></td>
+                    <td><{$vo['type_text']}></td>
+					<td><{$vo['status_text']}></td>
+					<td><{$data['recommendNames'][$vo['recommend']]}></td>
+					<td><{$vo['create_time']}></td>
+					<td><{$vo['update_time']}></td>
+					<td>
+					<{if($vo['status'] ==1 || $vo['basic_status'] ==1)}>
+					<a  href="/admin/shop/shop/basicInfo?shop_id=<{$vo['id']}>&status=<{$data['param_data']['status']}>&offset=<{$data['param_data']['offset']}>&name=<{$data['param_data']['name']}>&telephone=<{$data['param_data']['telephone']}>"
+                           style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary"
+                           data-id="<{$vo['id']}>">审核基础信息</a>|<a  href="/admin/shop/shop/shopDetail?shop_id=<{$vo['id']}>&status=<{$data['param_data']['status']}>&offset=<{$data['param_data']['offset']}>&name=<{$data['param_data']['name']}>&telephone=<{$data['param_data']['telephone']}>"
+                           style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary"
+                           data-id="<{$vo['id']}>">审核详细信息</a>
+                    <{else}>
+                    <{if($vo['status'] ==3 && $vo['basic_status'] ==3)}>
+	                    <{if($vo['recommend']==1)}>
+	                    <button type="button" data-toggle="modal" data-target="#setModal" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-success js-set"
+	                                data-id="<{$vo['id']}>">取消推荐</button> 
+	                     <{else}>
+	                     <button type="button" data-toggle="modal" data-target="#setModal" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-success js-set"
+	                                data-id="<{$vo['id']}>">推荐</button>
+	                     <{/if}>
+	                     <button type="button" data-toggle="modal" data-target="#addToSearch" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-success to-search"
+	                                data-id="<{$vo['id']}>">同步到搜索引擎</button>
+	                     <button type="button" data-toggle="modal" data-target="#editShop" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-success edit-shop"
+	                                data-level="<{$vo['level']}>" data-service_times="<{$vo['service_times']}>" data-total_translate_time="<{$vo['total_translate_time']}>" data-total_translate_num="<{$vo['total_translate_num']}>"  
+	                                data-speed_star_num="<{$vo['speed_star_num']}>" data-quality_star_num="<{$vo['quality_star_num']}>" data-serve_star_num="<{$vo['serve_star_num']}>" data-star_num="<{$vo['star_num']}>"  
+	                                data-id="<{$vo['id']}>">修改店铺星级</button>  
+	                  <{/if}>
+					<a  href="/admin/shop/shop/basicInfo?shop_id=<{$vo['id']}>&status=<{$data['param_data']['status']}>&offset=<{$data['param_data']['offset']}>&name=<{$data['param_data']['name']}>&telephone=<{$data['param_data']['telephone']}>"
+                           style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary"
+                           data-id="<{$vo['id']}>">查看基础信息</a>&nbsp;<a  href="/admin/shop/shop/shopDetail?shop_id=<{$vo['id']}>&status=<{$data['param_data']['status']}>&offset=<{$data['param_data']['offset']}>&name=<{$data['param_data']['name']}>&telephone=<{$data['param_data']['telephone']}>"
+                           style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary"
+                           data-id="<{$vo['id']}>">查看详细信息</a>&nbsp;	                                	                                
+                    <{/if}>
+                    <a  href="/admin/shop/shop/auditCertification?shop_id=<{$vo['id']}>&status=<{$data['param_data']['status']}>&offset=<{$data['param_data']['offset']}>&name=<{$data['param_data']['name']}>&telephone=<{$data['param_data']['telephone']}>"
+                           style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary"
+                           data-id="<{$vo['id']}>">资质审核</a>
+                         
+</td>
+                    
+                </tr>
+                <{/foreach}>
+            </table>
+            </div>
+            </div>
+            <!-- /.modal -->
+            <!-- 生成模态弹出窗 -->
+            <div class="modal" id="setModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否推荐？</p>
+                            <input type="hidden" name="" id="recommend_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="recommendBtn" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- 生成模态弹出窗 -->
+            <div class="modal" id="addToSearch">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否同步到搜索引擎？</p>
+                            <input type="hidden" name="" id="to_search_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="toSearchBtn" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->   
+             <!-- 生成模态弹出窗 -->
+            <div class="modal" id="editShop">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">修改店铺资料</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>店铺等级:<input type="text" name="level" id="level"></p>
+                            <p>服务次数:<input type="text" name="service_times" id="service_times">次</p>
+                            <p>服务总时长:<input type="text" name="total_translate_time" id="total_translate_time">小时</p>
+                            <p>翻译总字数:<input type="text" name="total_translate_num" id="total_translate_num">字</p>
+                            <p>速度星级:<input type="text" name="speed_star_num" id="speed_star_num">(1-5之间的数字)</p>
+                            <p>质量星级:<input type="text" name="quality_star_num" id="quality_star_num">(1-5之间的数字)</p>
+                            <p>服务星级:<input type="text" name="serve_star_num" id="serve_star_num">(1-5之间的数字)</p>
+                            <p>综合星级:<input type="text" name="star_num" id="star_num">(1-5之间的数字)</p>
+                            <input type="hidden" id="shop_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="editShopBtn" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->                      
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    var url = '/admin/shop/shop/getBackendUnAuditShopList';
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["param_data"]["offset"]}>',
+            total: '<{$data["1"]}>',
+            limit: '<{$data["param_data"]["limit"]}>',
+            length: 11,
+            url: url + '?' + $('#searchForm').serialize()
+        });
+        //添加
+        $('#addCoupon').on('click', null, function () {
+            window.location.href = '/admin/shop/shop/addDictionary';
+        });
+        //推荐
+        $('#list').on('click', '.js-set', function () {
+            $('#recommend_id').val($(this).attr('data-id'));
+        });
+        //同步到搜索引擎
+        $('#list').on('click', '.to-search', function () {
+            $('#to_search_id').val($(this).attr('data-id'));
+        });	
+        //修改店铺
+        $('#list').on('click', '.edit-shop', function () {
+            $('#shop_id').val($(this).attr('data-id'));
+            $('#level').val($(this).attr('data-level'));
+            $('#service_times').val($(this).attr('data-service_times'));
+            $('#total_translate_time').val($(this).attr('data-total_translate_time'));
+            $('#total_translate_num').val($(this).attr('data-total_translate_num'));
+            $('#speed_star_num').val($(this).attr('data-speed_star_num'));
+            $('#quality_star_num').val($(this).attr('data-quality_star_num'));
+            $('#serve_star_num').val($(this).attr('data-serve_star_num'));
+            $('#star_num').val($(this).attr('data-star_num'));
+        });  
+        $('#speed_star_num').on('keyup', null, function(){
+        	var starNum = (parseFloat($('#speed_star_num').val())+parseFloat($('#quality_star_num').val())+parseFloat($('#serve_star_num').val()))/3
+        	$('#star_num').val(starNum.toFixed(1));
+        })
+        $('#quality_star_num').on('keyup', null, function(){
+        	var starNum = (parseFloat($('#speed_star_num').val())+parseFloat($('#quality_star_num').val())+parseFloat($('#serve_star_num').val()))/3
+        	$('#star_num').val(starNum.toFixed(1));
+        })
+        $('#serve_star_num').on('keyup', null, function(){
+        	var starNum = (parseFloat($('#speed_star_num').val())+parseFloat($('#quality_star_num').val())+parseFloat($('#serve_star_num').val()))/3
+        	$('#star_num').val(starNum.toFixed(1));
+        })        
+		$('#recommendBtn').on('click', null, function(){
+                        $.ajax({
+                            type: 'post',
+                            dataType: 'json',
+                            url: '/admin/shop/shop/recommend',
+                            data: {
+								'shop_id': $('#recommend_id').val()
+							},
+                            success: function (data) {
+                                if(data.status == 0 ){
+                                    CommonUtils.tips(data.message,2000,true);
+                                    (setTimeout(function(){
+                                        window.location.href = '/admin/shop/shop/getBackendShopList'
+                                    },2000));
+                                }else{
+                                    CommonUtils.tips(data.message,2000,false);
+                                }
+                            }
+                        });			
+		});
+		$('#toSearchBtn').on('click', null, function(){
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '/admin/shop/shop/addToSearch',
+                data: {
+					'id': $('#to_search_id').val()
+				},
+                success: function (data) {
+                    if(data.status == 0 ){
+                        CommonUtils.tips(data.message,2000,true);
+                        (setTimeout(function(){
+                            window.location.href = '/admin/shop/shop/getBackendShopList'
+                        },2000));
+                    }else{
+                        CommonUtils.tips(data.message,2000,false);
+                    }
+                }
+            });			
+	});
+		$('#editShopBtn').on('click', null, function(){
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '/admin/shop/shop/editShop',
+                data: {
+					'id': $('#shop_id').val(),
+					'level': $('#level').val(),
+					'service_times': $('#service_times').val(),
+					'total_translate_time': $('#total_translate_time').val(),
+					'total_translate_num': $('#total_translate_num').val(),
+					'speed_star_num': $('#speed_star_num').val(),
+					'quality_star_num': $('#quality_star_num').val(),
+					'serve_star_num': $('#serve_star_num').val(),
+					'star_num': $('#star_num').val()					
+				},
+                success: function (data) {
+                    if(data.status == 0 ){
+                        CommonUtils.tips(data.message,2000,true);
+                        (setTimeout(function(){
+                            window.location.href = '/admin/shop/shop/getBackendShopList'
+                        },2000));
+                    }else{
+                        CommonUtils.tips(data.message,2000,false);
+                    }
+                }
+            });			
+	});		
+    });
+    function search() {
+        $('#search').click(function () {
+            window.location.href = url + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

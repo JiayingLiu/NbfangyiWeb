@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">退款管理</div>
+        <!-- <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="name">名称:</label>
+                    <input type="text" class="form-control" id="name" placeholder="优惠券名称" name="name" value="<{$data["param_data"]["name"]}>">
+                </div>
+
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+            <hr>
+        </div> -->
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <div class="table-box" style="overflow-x: scroll;">
+                <div class="tableDiv" >
+                <table class="table table-bordered" id="list">
+                <tr>
+                    <th >订单号</th>
+                    <th >订单支付类型</th>
+                    <th >订单金额</th>
+                    <th >退款金额</th>
+                    <th >用户电话</th>
+                    <th >译者电话</th>
+                    <th >状态</th>
+                    <th >申请时间</th>
+                    <th >原因</th>
+					<th >操作</th>
+                </tr>
+
+                <{foreach($data['refunds']['0'] as $k => $vo)}>
+                <tr>
+                    <td><{$vo['order_num']}></td>
+                    <td><{$vo['pay_type_name']}></td>
+                    <td><{$vo['total_amount']}></td>
+                    <td><{$vo['refund_amount']}></td>
+					<td><{$vo['user_phone']}></td>
+					<td ><{$vo['to_user_phone']}></td>
+					<td><{$vo['status_name']}></td>
+					<td><{$vo['create_time']}></td>
+					<td><{$vo['reason']}></td>
+					<td>
+					<{if($vo['status']==10)}>
+					<button type="button" data-toggle="modal" data-target="#audit_pass" role="button"  style="margin-bottom: 5px; display: inline-block;" class="btn btn-xs btn-success js-set audit-pass"
+                                data-id="<{$vo['id']}>">审核通过</button>
+                    <button type="button" data-toggle="modal" data-target="#audit_unpass" role="button"  style="margin-bottom: 5px; display: inline-block;" class="btn btn-xs js-set un-pass"
+                                data-id="<{$vo['id']}>">审核不通过</button>
+                     <{/if}>
+                     <{if($vo['status']==20)}>
+<button type="button" data-toggle="modal" data-target="#finish_withdraw" role="button"  style="margin-bottom: 5px; display: inline-block;" class="btn btn-xs js-set finish_wit"
+                                data-id="<{$vo['id']}>">完成退款</button>                     
+                     <{/if}>                     
+
+</td>
+                    
+                </tr>
+                <{/foreach}>
+            </table>
+            </div>
+            </div>
+            <!-- /.modal -->
+            <!-- 完成提现 -->
+            <div class="modal" id="finish_withdraw">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否完成退款？</p>
+                            <input type="hidden" id="finish_wit_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="finish_wit_btn" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>            
+            <!-- 审核通过 -->
+            <div class="modal" id="audit_pass">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否审核通过？</p>
+                            <input type="hidden" id="wit_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="audit_pass_btn" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- 审核不通过 -->
+            <div class="modal" id="audit_unpass">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <input type="hidden" id="un_wit_id">
+                            <p>审核不通过原因</p>
+                            <textarea id="reason"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="audit_unpass_btn" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    var url = '/admin/pay/refund/getRefundList';
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["param_data"]["offset"]}>',
+            total: '<{$data["refunds"]["1"]}>',
+            limit: '<{$data["param_data"]["limit"]}>',
+            length: 11,
+            url: url + '?' + $('#searchForm').serialize()
+        });
+
+        $('#list').on('click', '.audit-pass', function () {
+        	
+            $('#wit_id').val($(this).attr('data-id'));
+            
+        });    
+        $('#list').on('click', '.un-pass', function () {
+        	
+            $('#un_wit_id').val($(this).attr('data-id'));
+            
+        });      
+        $('#list').on('click', '.finish_wit', function () {
+        	
+            $('#finish_wit_id').val($(this).attr('data-id'));
+            
+        });         
+        $('#audit_pass_btn').on('click',null, function () {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '/admin/pay/refund/auditPass',
+                data: {
+                    'id': $('#wit_id').val()
+                },
+                success: function (data) {
+                    if(data.status == 0 ){
+                        CommonUtils.tips(data.message,2000,true);
+                    }else{
+                        CommonUtils.tips(data.message,2000,false);
+                    }
+                }
+            });
+        });
+        $('#finish_wit_btn').on('click',null, function () {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '/admin/pay/refund/refundFinish',
+                data: {
+                    'id': $('#finish_wit_id').val()
+                },
+                success: function (data) {
+                    if(data.status == 0 ){
+                        CommonUtils.tips(data.message,2000,true);
+                    }else{
+                        CommonUtils.tips(data.message,2000,false);
+                    }
+                }
+            });
+        });        
+        $('#audit_unpass_btn').on('click',null, function () {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '/admin/pay/refund/auditUnPass',
+                data: {
+                    'id': $('#un_wit_id').val(),
+                    'reason': $('#reason').val()
+                },
+                success: function (data) {
+                    if(data.status == 0 ){
+                        CommonUtils.tips(data.message,2000,true);
+                    }else{
+                        CommonUtils.tips(data.message,2000,false);
+                    }
+                }
+            });
+        });        
+    });
+    function search() {
+        $('#search').click(function () {
+            window.location.href = url + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

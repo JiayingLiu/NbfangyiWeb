@@ -1,0 +1,54 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-银行卡管理</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">资金管理</a>&gt;
+        <a href="javascript:void(0);">银行卡管理</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">银行卡管理</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <!--show-->
+            <div class="label-content-show" id="">
+                <div class="row font-imp">
+                    <i class="iconfont icon-remind"></i>
+                    1、银行卡绑定是为了方便译者进行的提现操作,添加银行卡请填写正确的个人信息，否则无法进行提现操作。
+                </div>
+                <div class="row font-imp">
+                    <i class="iconfont icon-remind"></i>
+                    2、为了您的帐户安全，添加和删除银行卡的操作我们需要您的交易密码验证。
+                </div>
+                <div class="row">
+                    您的银行卡信息：
+                </div>
+                <{if(empty($data['card']['id']))}>
+                <div class="bank-card-add">
+                    <a href="/pay/user/card/addCardFirst"><i class="iconfont icon-add-label"></i>添加银行卡</a>
+                </div>
+                <{else}>
+                <div class="bank-card-view">
+                    <span class="bank-logo bank-<{$data['card']['bank_name']}>"></span>
+                    <span class="bank-card-type">储蓄卡</span>
+                    <span class="bk-user-name">持卡人：<{$data['card']['real_name']}></span>
+                    <span class="bk-user-tel">手机号：<{$data['card']['mobile']}></span>
+                    <a class="bk-del" href="javascript:void(0);" id="bk_del" data-id="<{$data['card']['id']}>"><i
+                            class="iconfont icon-delete"></i>删除</a>
+                </div>
+                <{/if}>
+            </div>
+            <!--show end-->
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/bankroll/bc_view.js"></script>
+<{layout:web/public/foot}>

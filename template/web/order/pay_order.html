@@ -1,0 +1,53 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/order/order.css">
+<title>N邦翻译 找好翻译，上N邦-笔译下单</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="order-main">
+    <div class="order-top">
+        <ul>
+            <li class="col-xs-4">
+                <span class="step"></span>
+                填写订单信息
+            </li>
+            <li class="col-xs-4">
+                <span class="step"></span>
+                确认订单信息
+            </li>
+            <li class="col-xs-4 progress-cur">提交订单</li>
+        </ul>
+    </div>
+    <div class="order-main-contect">
+        <div class="row">
+            <h3>请您及时付款，以便订单尽快处理！</h3>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                订单号：<{$data['order_num']}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                应付金额：<span class="big-font"><{$data['total_fee']}></span>元
+            </div>
+        </div>
+        <div class="pay-type">
+            <ul class="pay-type-select" id="pay_type">
+                <li><a href="javascript:void(0);" class="pay-type-selected" data-index="1">第三方支付</a></li>
+                <li><a href="javascript:void(0);" data-index="2">余额支付</a></li>
+            </ul>
+            <{layout:web/order/paytype/fast}><!--在线支付-->
+            <{layout:web/order/paytype/wallet}><!--余额支付-->
+        </div>
+        <div class="form-group text-center">
+              <a href="/user/customer/order/index" class="order-btn btn-primary">取消支付</a>&nbsp;&nbsp;&nbsp;&nbsp;
+             <a href="javascript:void(0);" class="order-btn btn-success" id="pay" data-order="<{$data['order_num']}>">立即支付</a>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script>
+    var werxin_url = '<{$wxPayUrl}>';
+</script>
+<script src="<{$css_url}>web/js/order/pay.js"></script>
+<{layout:web/public/foot}>

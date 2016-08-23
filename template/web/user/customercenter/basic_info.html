@@ -1,0 +1,80 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-基本资料</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&nbsp;&gt;
+        <a href="javascript:void(0);">个人中心</a>&nbsp;&gt;
+        <a href="javascript:void(0);">基本资料</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label" id="person_center">
+        <div class="label-title">
+            <span class="label-title-text">基本资料</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <div class="label-content-show">
+                <div class="label-content-show-left" style="height: 210px;">
+                    <div class="row">
+                        <span class="col-xs-2">真实姓名：</span>
+                        <{if(empty($data["user"]["real_name"]))}>
+                        <span class="col-xs-4">未设置</span>
+                        <{else}>
+                        <span class="col-xs-4"><{$data["user"]["real_name"]}></span>
+                        <{/if}>
+                    </div>
+                    <div class="row">
+                        <span class="col-xs-2">昵称：</span>
+                        <{if(empty($data["user"]["nick_name"]))}>
+                        <span class="col-xs-4">未设置</span>
+                        <{else}>
+                        <span class="col-xs-4"><{$data["user"]["nick_name"]}></span>
+                        <{/if}>
+                    </div>
+                </div>
+                <div class="label-content-show-right">
+                    <div class="person-head-img">
+                        <img src="<{$file_url}><{$_userLoginInfo['data']['_user_logo']}>"
+                             height="100" width="100"><br>
+                        <a href="/user/customer/userCenter/userPhoto" class="change-head">更换头像</a>
+                    </div>
+                    <div class="label-content-show-edit">
+                        <a href="javascript:;" class="js-personcenter-btn" data-type="edit">
+                            <i class="iconfont icon-edit"></i>
+                            编辑
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="label-content-edit" style="display: none;">
+                <form id="basic_form" class="form">
+                    <div class="form-group">
+                        <div class="col-xs-1">真实姓名：</div>
+                        <div class="col-xs-3">
+                            <input type="text" class="form-input" id="realName" name="real_name"
+                                   value="<{$data['user']['real_name']}>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-1">昵称：</div>
+                        <div class="col-xs-3"><input type="text" class="form-input" id="nickname"
+                                                     name="nick_name"
+                                                     value="<{$data['user']['nick_name']}>"/>
+                        </div>
+                    </div>
+                </form>
+                <div class="row text-center">
+                    <a href="javascript:;" class="btn btn-cancel js-personcenter-btn" data-type="cancel">取消</a>
+                    <a href="javascript:;" class="btn btn-submit js-personcenter-btn" data-type="save">提交</a>
+                </div>
+            </div>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/user/customercenter/cbasicinfo.js"></script>
+<{layout:web/public/foot}>

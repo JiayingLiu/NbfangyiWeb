@@ -1,0 +1,45 @@
+<div class="pub-nav">
+    <div class="nav-hot">
+        <h2>热门分类</h2>
+    </div>
+    <div class="nav-con" id="pub_nav">
+        <ul>
+            <li>
+                <a href="/">首页</a>
+            </li>
+            <li>
+                <a href="/search/?sst=1&q=&t=1" target="_blank">笔译</a>
+            </li>
+            <li>
+                <a href="/search/?sst=2&q=&t=1" target="_blank">口译</a>
+            </li>
+            <li>
+                <a href="http://fast.nbangfanyi.com/" target="_blank">快速翻译</a>
+            </li>
+            <li>
+                <a href="/index/static/recruit/index" target="_blank">翻译入驻</a>
+            </li>
+            <li>
+                <a href="/index/static/app/index" target="_blank">APP下载</a>
+            </li>
+        </ul>
+        <a href="javascript:void(0);" class="pub-btn-video js-video"><img src="<{$css_url}>web/css/image/index/icon-video.png"> N邦翻译宣传片</a>
+    </div>
+</div>
+<div class="pub-video-show" style="display: none;">
+    <div class="embed-close">X</div>
+    <embed src="http://static.video.qq.com/TPout.swf?vid=n0300o2dntl&auto=0" width="800" height="530" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" type="application/x-shockwave-flash"> </embed>
+</div>
+<script type="text/javascript">
+    require(['jquery'], function ($) {
+        //点击播放视频
+        $('#pub_nav').on('click','.js-video',function(){
+            $('.pub-video-show').show();
+            document.getElementById('nbfy_mask').style.display='block';
+        });
+        $('.pub-video-show').on('click','.embed-close',function(){
+            $('.pub-video-show').hide();
+           document.getElementById('nbfy_mask').style.display='none';
+        });
+    });
+</script>

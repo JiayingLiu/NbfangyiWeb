@@ -1,0 +1,12 @@
+<div class="col-xs-3 text-center">
+    <!--0全部，50进行中，51待评价，1待付款，2已付款，33已退款，30已取消-->
+    <p class="text-center">
+        <{if($v['status']==1)}>
+        <{elseif($v['status']==2)}>
+        <a href="/user/translate/order/details?order_num=<{$v['order_num']}>" class="orderlist-pay">接单</a>|
+        <a href="/user/translate/order/details?order_num=<{$v['order_num']}>" class="link">拒绝接单</a>|
+        <{else}>
+        <{/if}>
+        <a href="/user/translate/order/details?order_num=<{$v['order_num']}>" class="link">查看</a>
+    </p>
+</div>

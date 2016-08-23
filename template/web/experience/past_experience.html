@@ -1,0 +1,176 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-过往经历</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">个人中心</a>&gt;
+        <a href="javascript:void(0);">过往经历</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">过往经历</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <div class="label-content-show">
+                <form id="add_form">
+                    <div class="form-group">
+                        <div class="col-xs-1">
+                            开始时间：
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-input" type="text" id="start_time" name="start_time"
+                                   onfocus="WdatePicker({dateFmt:'yyyy-MM',maxDate:'#F{$dp.$D(\'end_time\')}'});">
+                        </div>
+                        <div class="col-xs-1">
+                            *必填
+                        </div>
+                        <div class="col-xs-1">
+                            结束时间：
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-input" type="text" id="end_time" name="end_time"
+                                   onfocus="WdatePicker({dateFmt:'yyyy-MM',minDate:'#F{$dp.$D(\'start_time\')}'});">
+                        </div>
+                        <div class="col-xs-1">
+                            *必填
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-1">
+                            描述经历：
+                        </div>
+                        <div class="col-xs-3">
+                            <select class="form-input" name="type" id="add_type"><!--类型-->
+                                <option value="">请选择</option>
+                                <{foreach($data['types'] as $k => $v)}>
+                                <option value="<{$k}>"><{$v}></option>
+                                <{/foreach}>
+                            </select>
+                        </div>
+                        <div class="col-xs-1">
+                            *必填
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-1">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="col-xs-11 font-remind">
+                            <i class="iconfont icon-remind"></i>
+                            提示：详细描述你的学习经历、培训经历、工作经历，有助于买家更好的了解你！
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <textarea class="form-textarea" name="content" id="add_content"
+                                      placeholder="例如：2008-2011年北京外国语大学学习英语专业"></textarea>
+                        </div>
+                        <div class="pull-right js-font-num">
+                            0/1000
+                        </div>
+                    </div>
+
+                    <div class="row text-center">
+                        <a href="javascript:;" class="btn btn-cancel">清空</a>
+                        <a href="javascript:;" class="btn btn-submit">添加</a>
+                    </div>
+                </form>
+                <ul id="exp_list">
+                    <{if($data['experiences'][1]>0)}>
+                    <{foreach($data['experiences'][0] as $k => $v)}>
+                    <li class="exp-item"  data-type="<{$v['type']}>" data-st="<{$v['start_time']}>" data-et="<{$v['end_time']}>" data-ct="<{$v['content']}>">
+                        <div class="exp-item-title"><{$v['type_text']}></div>
+                        <div class="exp-item-time">
+                            <{$v['start_time']}>—<{$v['end_time']}>
+                        </div>
+                        <div class="form-group">
+                            <p class="exp-item-content"><{$v['content']}></p>
+                        </div>
+                        <div class="row text-right">
+                            <a href="javascript:void(0);" class="exp-btn js-exp-delete" data-id="<{$v['id']}>">
+                                <i class="iconfont icon-delete"></i>
+                                删除
+                            </a>
+                            <a href="javascript:void(0);" class="exp-btn js-exp-edit" data-id="<{$v['id']}>">
+                                <i class="iconfont icon-edit"></i>
+                                编辑
+                            </a>
+                        </div>
+                    </li>
+                    <{/foreach}>
+                    <{else}>
+                    <{/if}>
+                </ul>
+                <div class="exp-item" id="edit_form_wrap">
+                    <form id="edit_form" style="display: block;">
+                        <input type="hidden" id="edit_id" name="id">
+                        <div class="form-group">
+                            <div class="col-xs-1">
+                                开始时间：
+                            </div>
+                            <div class="col-xs-3">
+                                <input class="form-input" type="text" id="edit_start_time" name="start_time"
+                                       onfocus="WdatePicker({dateFmt:'yyyy-MM',maxDate:'#F{$dp.$D(\'edit_end_time\')}'});">
+                            </div>
+                            <div class="col-xs-1">
+                                *必填
+                            </div>
+                            <div class="col-xs-1">
+                                结束时间：
+                            </div>
+                            <div class="col-xs-3">
+                                <input class="form-input" type="text" id="edit_end_time" name="end_time"
+                                       onfocus="WdatePicker({dateFmt:'yyyy-MM',minDate:'#F{$dp.$D(\'edit_start_time\')}'});">
+                            </div>
+                            <div class="col-xs-1">
+                                *必填
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-1">
+                                描述经历：
+                            </div>
+                            <div class="col-xs-3">
+                                <select class="form-input" name="type" id="edit_type"><!--类型-->
+                                    <option value="">请选择</option>
+                                    <{foreach($data['types'] as $k => $v)}>
+                                    <option value="<{$k}>"><{$v}></option>
+                                    <{/foreach}>
+                                </select>
+                            </div>
+                            <div class="col-xs-1">
+                                *必填
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-1">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div class="col-xs-11 font-remind">
+                                <i class="iconfont icon-remind"></i>
+                                提示：详细描述你的学习经历、培训经历、工作经历，有助于买家更好的了解你！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                            <textarea class="form-textarea" name="content" id="edit_content"
+                                      placeholder="例如：2008-2011年北京外国语大学学习英语专业"></textarea>
+                            </div>
+                            <div class="pull-right js-font-num">
+                                0/1000
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <a href="javascript:;" class="btn btn-cancel">取消</a>
+                            <a href="javascript:;" class="btn btn-submit js-exp-update">修改</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="<{$js_url}>web/js/experience/past_experience.js"></script>
+<{layout:web/public/foot}>

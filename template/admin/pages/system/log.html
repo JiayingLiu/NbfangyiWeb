@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">系统日志</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="uid">操作人id</label>
+                    <input type="text" class="form-control" id="uid" placeholder="请输入操作人id" name="uid"
+                           value="<{$data['uid']}>">
+                </div>
+                <div class="form-group">
+                    <label for="name">操作人</label>
+                    <input type="text" class="form-control" id="name" placeholder="请输入操作人名称" name="name"
+                           value="<{$data['name']}>">
+                </div>
+                <div class="form-group">
+                    <label for="logType">日志类型</label>
+                    <select class="form-control" id="logType" name="logType" value="">
+                        <option value="">请选择</option>
+                        <{foreach( $data['logTypeList'] as $k => $v)}>
+                        <{if ($k == $data['logType'])}>
+                        <option value="<{$k}>" selected><{$v}></option>
+                        <{else}>
+                        <option value="<{$k}>"><{$v}></option>
+                        <{/if}>
+                        <{/foreach}>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+     <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <tr>
+                    <th>操作人id</th>
+                    <th>操作人</th>
+                    <th>日志类型</th>
+                    <th>操作内容</th>
+                    <th>操作日期</th>
+                </tr>
+                <{foreach($data['logDataList'][0] as $k => $v)}>
+                <tr>
+                    <td><{$v['uid']}></td>
+                    <td><{$v['uname']}></td>
+                    <td><{$v['log_type_txt']}></td>
+                    <td><{$v['data']['info']}></td>
+                    <td><{$v['create_time']}></td>
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    var url = '/admin/log/index/main';
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["logDataList"]["1"]}>',
+            limit: '<{$data["limit"]}>',
+            length: 11,
+            url: url + '?uid=' + $('#uid').val() + '&name=' + $('#name').val() + '&logType=' + $('#logType').val()
+        });
+    });
+    function search() {
+        $('#search').click(function () {
+            window.location.href = url + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

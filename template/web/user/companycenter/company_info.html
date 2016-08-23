@@ -1,0 +1,23 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-公司店铺资料</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&nbsp;&gt;
+        <a href="javascript:void(0);">个人中心</a>&nbsp;&gt;
+        <a href="javascript:void(0);">公司店铺资料</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label" id="person_center">
+        <{layout:web/user/companycenter/info/info_look}>
+        <{layout:web/user/companycenter/info/info_basic}>
+        <{layout:web/user/companycenter/info/info_detail}>
+        <{layout:web/user/companycenter/info/info_service}>
+        <{layout:web/user/companycenter/info/info_custom}>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/user/companycenter/company_info.js"></script>
+<{layout:web/public/foot}>

@@ -1,0 +1,20 @@
+<!--口译展示-->
+<div class="row">服务内容说明：</div>
+<table>
+    <thead>
+    <tr>
+        <th>服务时间</th>
+        <th>服务地址</th>
+        <th>联系人电话</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <{$data['order_info']['ext']['estimate_start']}>至<{$data['order_info']['ext']['estimate_end']}>
+        </td>
+        <td><{$data['order_info']['ext']['ext_data']['service_address']}></td>
+        <td><{$data['order_info']['ext']['ext_data']['shop_order_user_info']['phone']}></td>
+    </tr>
+    </tbody>
+</table>

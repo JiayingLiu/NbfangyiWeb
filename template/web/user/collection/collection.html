@@ -1,0 +1,80 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-我的收藏</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">个人中心</a>&gt;
+        <a href="javascript:void(0);">我的收藏</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">我的收藏</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <!--show-->
+            <div class="label-content-show">
+                <div class="deal-table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>类型</th>
+                            <th>收藏时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="collect_list">
+                        <{if($data['list']['1'] > 0)}>
+                        <{foreach($data['list'][0] as $k => $v)}>
+                        <tr>
+                            <td><{$v['info']['title']}></td>
+                            <td>
+                                <{if($v['type'] == 1)}>
+                                店铺
+                                <{else}>
+                                商品
+                                <{/if}>
+                            </td>
+                            <td><{$v['create_time']}></td>
+                            <td>
+                                <{if($v['type']==1)}>
+                                <a href="/shop/?id=<{$v['info']['id']}>" target="_blank" class="link">查看</a>|
+                                <{else}>
+                                <a href="/shop/index/index/productDetail?id=<{$v['info']['id']}>" target="_blank"
+                                   class="link">查看</a>|
+                                <{/if}>
+                                <a href="javascript:void(0);" class="link js-del" data-id="<{$v['id']}>">删除</a>
+                            </td>
+                        </tr>
+                        <{/foreach}>
+                        <{else}>
+                        <tr>
+                            <td colspan="5">您没有任何交易明细</td>
+                        </tr>
+                        <{/if}>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination-wrap">
+                    <ul id="pagination" class="pagination"></ul>
+                </div>
+                <script>var page_config = {
+                    offset: '<{$data["request_param"]["offset"]}>',
+                    total: "<{$data['request_param']['total_count']}>",
+                    limit: '<{$data["request_param"]["limit"]}>'
+                };
+                </script>
+                <script src="<{$css_url}>web/js/user/collection/collection.js"></script>
+            </div>
+            <!--show end-->
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<{layout:web/public/foot}>

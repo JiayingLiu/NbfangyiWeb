@@ -1,0 +1,68 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-设置交易密码</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&nbsp;&gt;
+        <a href="javascript:void(0);">个人中心</a>&nbsp;&gt;
+        <a href="javascript:void(0);">设置交易密码</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label" id="person_center">
+        <div class="label-title">
+            <span class="label-title-text">设置交易密码</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <div class="show_pwd"  style="display: none;">
+                <div class="row font-remind">
+                    <i class="iconfont icon-remind"></i>交易密码必须为6位数字
+                </div>
+                <div class="form-group">
+                    <label for="new_password" class="col-xs-2 text-right">设置交易密码：</label>
+                    <div class="col-xs-4">
+                        <input type="password" class="form-input" name="new_password" maxlength="6" id="new_password" placeholder="请输入新密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="repeat_pwd" class="col-xs-2 text-right">重新输入交易密码：</label>
+                    <div class="col-xs-4">
+                        <input type="password" class="form-input" name="repeat_pwd" maxlength="6" id="repeat_pwd" placeholder="请再次输入新密码">
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <a href="javascript:;" class="btn btn-submit js-personcenter-btn" id="js_submit">确定</a>
+                </div>
+            </div>
+            <div class="show_code">
+                <div class="row font-remind">
+                    <i class="iconfont icon-remind"></i>设置交易密码需要发送验证码给您的手机
+                </div>
+                <div class="row">
+                    <div class="col-xs-2 text-right">手机号：</div>
+                    <div class="col-xs-2"><{$data['mobile']}></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 text-right">填写验证码：</div>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-input" placeholder="输入验证码" id="code">
+                    </div>
+                    <div class="col-xs-2 text-center">
+                        <input type="button" class="get-msg-btn" id="valid_code_btn" value="获取验证码" data-phone="<{$data}>">
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <a href="javascript:;" class="btn btn-submit js-personcenter-btn" id="js_submit_code">下一步</a>
+                </div>
+            </div>
+
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/user/account/deal_pwd.js"></script>
+<{layout:web/public/foot}>
+

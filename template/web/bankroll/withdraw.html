@@ -1,0 +1,74 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-提现</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">资金管理</a>&gt;
+        <a href="javascript:void(0);">提现</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">提现</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <!--show-->
+            <div class="label-content-show" id="">
+                <div class="user-balance">
+                    账户<span class="font-imp"><{$data['account']}></span>，
+                    真实姓名：<span class="font-imp"><{$data['card']['real_name']}></span>，
+                    您的账户余额是：<span class="font-imp"><{$data['amount']}></span>元，
+                    可提现金额：<span class="font-imp" id="withdraw_money" data-number="<{$data['withdraw_amount']}>"><{$data['withdraw_amount']}></span>元
+                </div>
+                <div class="row">
+                    <form class="withdraw-form">
+                        <div class="form-group">
+                            <div class="col-xs-2 text-right">提现金额：</div>
+                            <div class="col-xs-2">
+                                <div class="col-xs-8">
+                                    <input type="text" name="money" class="form-input" id="money_inter">
+                                </div>
+                                <div class="col-xs-1 text-center">.
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="text" name="money" class="form-input" id="money_float" value="00">
+                                </div>
+                                <div class="col-xs-1 text-center">元
+                                </div>
+                            </div>
+                            <div class="col-xs-9 font-imp text-center">
+                                <i class="iconfont icon-remind"></i>
+                                请注意：输入提现金额需大于0.01元，最多精确到2位小数，每笔提现平台需扣除1%的服务费用。
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 text-right">银行卡卡号：</div>
+                            <{if(empty($data['card']['card_num']))}>
+                            <div class="col-xs-3">没有绑定银行卡！</div>
+                            <{else}>
+                            <div class="col-xs-3"><{$data['card']['card_num']}></div>
+                            <{/if}>
+                            <div class="col-xs-5">
+                                <{if(empty($data['card']['card_num']))}>
+                                &nbsp;还没有绑定银行卡，<a href="/pay/user/card/userCardList" class="link font-imp">点击添加银行卡</a>
+                                <{/if}>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <a href="javascript:void(0);" class="btn btn-submit" id="withdraw" data-is-set-pwd="<{$data['isSetDealPassword']}>">提现</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--show end-->
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/bankroll/withdraw.js"></script>
+<{layout:web/public/foot}>

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/admin/pay/coupon/index" class="btn btn-default"><i class="fa fa-reply"></i></a>
+            优惠券管理
+        </div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="name">优惠券编号:</label>
+                    <input type="text" class="form-control" id="name" placeholder="优惠券编号" name="coupon_num" value="<{$data['param_data']['coupon_num']}>">
+                </div>
+
+                <div class="form-group">
+                    <label for="send_type">状态:</label>
+                    <select name="status" id="send_type" class="form-control">
+					<{if($data['param_data']['status']==10)}>
+                        <option value="0" >全部</option>
+                        <option value="10" selected>正常</option>
+                        <option value="20">已使用</option>
+						<{elseif($data['param_data']['status']==20)}>
+                        <option value="0" >全部</option>
+                        <option value="10">正常</option>
+                        <option value="20" selected>已使用</option>						
+						<{else}>
+                        <option value="0" selected>全部</option>
+                        <option value="10">正常</option>
+                        <option value="20">已使用</option>						
+						<{/if}>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <tr>
+                    <th>优惠券编号</th>
+                    <th>优惠券类型</th>
+                    <th>优惠券名称</th>
+                    <th>用户ID</th>
+                    <th>优惠券金额</th>
+                    <th>有效期</th>
+                    <th>状态</th>
+                    <th>创建时间</th>
+                </tr>
+                <{foreach($data['0'] as $k => $vo)}>
+                    <tr>
+                        <td><{$vo['coupon_num']}></td>
+                        <td><{$data['plat_coupon']['plat_coupon_type_text']}></td>
+                        <td><{$data['plat_coupon']['plat_coupon_name']}></td>
+                        <td><{$vo['uid']}></td>
+                        <td><{$data['plat_coupon']['money']}></td>
+                        <td><{$vo['start_time']}>-<{$vo['end_time']}></td>
+                        <td><{$vo['status_text']}></td>
+                        <td><{$vo['create_time']}></td>
+                    </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    var url = '/admin/pay/coupon/getCouponDetailList?id='+'<{$data["plat_coupon"]["id"]}>';
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["param_data"]["offset"]}>',
+            total: '<{$data["1"]}>',
+            limit: '<{$data["param_data"]["limit"]}>',
+            length: 11,
+            url: url + '?' + $('#searchForm').serialize()
+        });
+    });
+    function search() {
+        $('#search').click(function () {
+            window.location.href = url  +'&'+ $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

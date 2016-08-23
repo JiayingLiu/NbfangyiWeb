@@ -1,0 +1,344 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/activity/certificates/certificates.css">
+<title>N邦翻译 找好翻译，上N邦-证件翻译</title>
+<{layout:web/public/top}>
+<div class="cer-head">
+    <ul>
+        <li><a href="/"><img src="<{$css_url}>file/img/translated/logo.png"></a></li>
+        <li class="cer-words"><a href="javascript:void(0);">证件翻译</a></li>
+    </ul>
+</div>
+<div class="cer-banner"></div>
+<div class="cer-mian">
+    <div class="label-text1">
+        <ul>
+            <li>
+                <span><i class="iconfont icon-empty-trophy"></i></span>
+
+                <h3>权威认证</h3>
+
+                <p>
+                    平台证件翻译产品均是由工商管理局正规注册，拥有翻译资质，持有公安备案的中英双语的《翻译专用章》的翻译公司提供，保证涉外资料原件与翻译件的一致性，提供各国使领馆、公检法、工商局、外汇管理局、税务局、劳动局、教育局、公证处、婚姻登记处等国家机关单位办理相关登记业务盖章证明。
+                </p>
+            </li>
+            <li>
+                <span><i class="iconfont icon-diamonds"></i></span>
+
+                <h3>专业翻译</h3>
+
+                <p>
+                    按照各类证件标准模板翻译，熟悉各机构对翻译件的要求，签字、盖章、翻译资质、联系方式等；配备专家级审校，保证翻译内容100%准确。译文可附带翻译公司资质、涉外翻译专用章、译者资质及亲笔签名等信息，翻译全程可追溯。
+                </p>
+            </li>
+            <li>
+                <span><i class="iconfont icon-rocket"></i></span>
+
+                <h3>快速高效</h3>
+
+                <p>
+                    万名位资深译者，数百个翻译公司，在线接单，即时响应。证件类翻译24小时内交稿（盖章寄出）。免费提供电子版译件，免费顺丰快递。
+                </p>
+            </li>
+            <li>
+                <span><i class="iconfont icon-guarantee"></i></span>
+
+                <h3>售后保障</h3>
+
+                <p>
+                    N邦翻译平台所有产品都可免费修改，不满意申诉退款服务。详情请查看“译点通”为您的翻译保驾护航，贴心专业的翻译服务尽在N邦翻译。 </p>
+            </li>
+        </ul>
+    </div>
+    <div class="label-text2">
+        <div class="label-content">
+            <div class="cer-title">
+                <h3>服务报价</h3>
+            </div>
+
+        </div>
+        <table class="cer-table" border="1">
+            <thead>
+            <tr>
+                <th>类型</th>
+                <th>证书名称</th>
+                <th>价格</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>标准化证件、证书</td>
+                <td>
+                    <div>
+                        <span>身份证</span>
+                        <span>毕业证</span>
+                    </div>
+                    <div>
+                        <span>港澳台通行证</span>
+                        <span>学位证</span>
+                    </div>
+                    <div>
+                        <span>护照</span>
+                        <span>驾照</span>
+                    </div>
+                    <div>
+                        <span>户口本</span>
+                        <span>结婚证</span>
+                    </div>
+                    <div>
+                        <span>离婚证</span>
+                        <span>出生证明</span>
+                    </div>
+                    <div>
+                        <span>死亡证明</span>
+                        <span>其他各类规范证件</span>
+                    </div>
+                </td>
+                <td>50元起（包邮）</td>
+                <td>50元为中英价格，其它语种价格致电4006-808-525</td>
+            </tr>
+            <tr>
+                <td>非保准化证件、证书</td>
+                <td>
+                    <div>
+                        <span>成绩单</span>
+                        <span>病例</span>
+                    </div>
+                    <div>
+                        <span></span>
+                        <span>其他非规范证件</span>
+                    </div>
+                </td>
+                <td>100元起（包邮）</td>
+                <td>
+                    <div>150元为中英价格，其它语种价格 致电4006-808-525</div>
+                    <br>
+
+                    <div>根据翻译证件内容多少价格不同</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="label-text3">
+        <div class="label-content">
+            <div class="cer-subtitle">
+                <h3>推荐商品<span>我们为您推荐放心可靠的服务商</span><a href="/search/?q=&t=2" target="_blank" class="pull-right">更多+</a></h3>
+            </div>
+            <div class="recommend-pro">
+                <ul class="trs-list">
+                    <{foreach($data['products'][0] as $k => $v)}>
+                    <{if($k < 16)}>
+                    <li>
+                        <a href="<{$v['url']}>">
+                            <img src="<{$v['source']['product']['logo']}>" width="185" height="118">
+
+                            <!--product title 0 蓝色 1 橘色 2 绿色-->
+                            <{if($k%3 == 0)}>
+                            <p class="pdt-item-title title-bg-blue">
+                                <{if(empty($v['title']))}>未知<{else}><{$v['title']}><{/if}></p>
+                            <{elseif($k%3 == 1)}>
+                            <p class="pdt-item-title title-bg-org">
+                                <{if(empty($v['title']))}>未知<{else}><{$v['title']}><{/if}></p>
+                            <{else}>
+                            <p class="pdt-item-title title-bg-agreen">
+                                <{if(empty($v['title']))}>未知<{else}><{$v['title']}><{/if}></p>
+                            <{/if}>
+
+                            <p>
+                                <span class="big-size"><{$v['source']['product']['price']}></span>
+                                <{if ($v['source']['product']['type'] == 1)}>
+                                元/千字
+                                <{else}>
+                                <!--1 天 2 小时-->
+                                <{if ($v['source']['product']['price_type'] == 1)}>
+                                元/天
+                                <{else}>
+                                元/小时
+                                <{/if}>
+                                <{/if}>
+                                    <span class="pull-right put-city">
+                                        <i class="iconfont icon-address color-blue"></i>
+                                        <{if(empty($v['source']['product']['city']))}>未知<{else}><{$v['source']['product']['city']}><{/if}>
+                                    </span>
+                            </p>
+
+                            <p class="font-clor-blue">
+                                    <span class="pull-left">
+                                        <{if ($v['source']['product']['type'] == 1)}>
+                                        <{$v['source']['product']['language']}>-><{$v['source']['product']['to_language']}>
+                                        <{else}>
+                                        <{$v['source']['product']['language']}><-><{$v['source']['product']['to_language']}>
+                                        <{/if}>
+
+                                    </span>
+                                <span class="pull-right"><{$v['source']['product']['type_name']}></span>
+                            </p>
+                            <!--1 written 2 kouyi-->
+                            <{if($v['source']['product']['type'] == 1)}>
+                            <p>文件类型：<{$v['source']['product']['category_name']}></p>
+                            <{else}>
+                            <p>服务类型：<{$v['source']['product']['category_name']}></p>
+                            <{/if}>
+                            <p>适用领域：
+                                <{if(empty($v['source']['product']['field_name']))}>
+                                未知
+                                <{else}>
+                                <{$v['source']['product']['field_name']}>
+                                <{/if}>
+                            </p>
+                        </a>
+                    </li>
+                    <{/foreach}>
+                    <{/if}>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="label-text2">
+        <div class="label-content">
+            <div class="cer-subtitle">
+                <h3>成功案例<span>我们会为您提供完美服务舒心体验舒心体验</span></h3>
+            </div>
+            <div class="success-case">
+                <ul>
+                    <li>
+                        <div class="put-content">
+                            <div class="cot-title">
+                                <span class="pull-left">公正证明翻译</span>
+                                <span class="pull-right">2016-04-02</span>
+                            </div>
+                            <p>
+                                北京安赫丽达翻译公司是北京市出入境管理局指定翻译盖章服务商之一，我们的翻译盖章服务可在车管所、出入境、外事局、大使馆、留学、派遣、医院、党政单位、国外各级政府部门等均有效，公证处各级人民法院、检察院、公安局、各地区辖区民政局、派出所等权威机构部门可一次通过。</p>
+                        </div>
+                        <div class="put-company">
+                            <div class="com-left">
+                                <img src="http://124.192.162.18:2347/old/Shop/2015-09-30/560b38835190b.jpg" height="60"
+                                     width="60">
+                            </div>
+                            <div class="com-right">
+                                <h3>北京安赫丽达翻译公司</h3>
+
+                                <p>安赫丽达翻译，专注高品质翻译服务</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="put-content">
+                            <div class="cot-title">
+                                <span class="pull-left">出国留学翻译 </span>
+                                <span class="pull-right">2016-01-02</span>
+                            </div>
+                            <p>
+                                大连哲贤翻译是工商局批准注册、公安部正规备案的专业涉外翻译机构，我们现在拥有100名专职翻译人员，能快速完成您的翻译需求，无论您是出国留学、工作、旅游、商务、探亲、度假等，都可以100%让您信赖。我们承诺证件翻译24小时交稿，国内快递包邮。</p>
+                        </div>
+                        <div class="put-company">
+                            <div class="com-left">
+                                <img src="images/wsgs.png" height="60" width="60">
+                            </div>
+                            <div class="com-right">
+                                <h3>大连哲贤翻译</h3>
+
+                                <p>优秀的团队，打造一流的服务</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="put-content">
+                            <div class="cot-title">
+                                <span class="pull-left">商务证明翻译</span>
+                                <span class="pull-right">2016-01-02</span>
+                            </div>
+                            <p>
+                                我们擅长英、日、韩语种的多种类专项证明的翻译与盖章，如公司注册审计翻译、学历职称认证翻译、法院诉讼材料翻译、医学证明类翻译等等。我们长期与新加坡驻华大使馆、比利时驻华大使馆、以及国内诸多公证处、领事馆均有良好的翻译合作，熟悉证明类翻译的细节要点。</p>
+                        </div>
+                        <div class="put-company">
+                            <div class="com-left">
+                                <img src="http://124.192.162.18:2347/old/Shop/2015-10-13/561c5d79b1894.jpg" height="60"
+                                     width="60">
+                            </div>
+                            <div class="com-right">
+                                <h3>顺译中盛翻译</h3>
+
+                                <p>您给我们一份信任，我还您们一份舒心。</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="prompt">
+        <h3>温馨提示</h3>
+
+        <p>请在购买证件翻译商品前与服务商取得联系，并保证电子版与原件的一致；请保持电子版文件的清晰辨别度，尽量上传高清扫描件。如果需要快递服务，请在下单时注明。免费邮寄只支持普通快递，如需加急需客户承担快递费用。</p>
+
+        <h3>特别提醒</h3>
+
+        <p>如果您的证件翻译需要有资质的翻译公司盖章，请联系服务商或备注盖章需求。<br>
+            N邦翻译提示您：翻译专用章是由公安系统备案，具有双中英翻译公司字样的专用章，专用章上有11位可查询备案序列号。</p>
+    </div>
+    <div class="feedback">
+        <p>如果您有证件翻译需求，请联系我们的客服或拨打客服热线</p>
+
+        <h3><i class="iconfont icon-telephone"></i> 4006-808-525</h3>
+
+        <form class="form">
+            <div class="form-group">
+                <div class="col-xs-2">您的姓名</div>
+                <div class="col-xs-9"><input class="form-input" id="name" placeholder="请输入您的姓名"></div>
+                <div class="col-xs-1">*</div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">您的电话</div>
+                <div class="col-xs-9"><input class="form-input" id="phone" placeholder="请输入您的电话"></div>
+                <div class="col-xs-1">*</div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">您的邮箱</div>
+                <div class="col-xs-9"><input class="form-input" id=email" placeholder="请输入您的邮箱"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">您的留言</div>
+                <div class="col-xs-9"><textarea class="form-textarea" id=content" placeholder="请输入您想说的话"></textarea>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="btn-submit" id="js-submit">提交</a>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery', 'base', 'validate', 'model'], function ($, base, validate, model) {
+        base.init();
+        //form
+        //提交
+        $('#js-submit').on('click', null, function () {
+            var username = $('#name').val();
+            phone = $('#phone').val();
+            email = $('#email').val();
+            content = $('#content').val();
+            $.ajax({
+                url: '/index/index/guestBook/addGuestBook',
+                dataType: 'json',
+                data: {
+                    phone: phone,
+                    name: username,
+                    email: email,
+                    content: content,
+                    type: '4'
+                },
+                type: 'POST',
+                success: function (data) {
+                    if (data.status == 0) {
+                        model.tip('稍后会有译员联系您', 2000, function () {
+                            location.reload();
+                        });
+                    } else {
+                        model.tip(data.message, 2000);
+                    }
+                }
+            });
+        });
+    });
+</script>
+<{layout:web/public/foot}>

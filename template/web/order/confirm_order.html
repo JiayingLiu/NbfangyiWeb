@@ -1,0 +1,116 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/order/order.css">
+<title>N邦翻译 找好翻译，上N邦-确认订单信息</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="order-main">
+    <div class="order-top">
+        <ul>
+            <li class="col-xs-4">
+                <span class="step"></span>
+                填写订单信息
+            </li>
+            <li class="col-xs-4 progress-cur">
+                <span class="step"></span>
+                确认订单信息
+            </li>
+            <li class="col-xs-4">提交订单</li>
+        </ul>
+    </div>
+    <div class="order-main-contect">
+        <div class="order-details">
+            <div class="order-details-title">确认您的订单信息</div>
+            <div class="order-details-content">
+                <div class="order-details-content-text">
+                    <p>
+                        <span>语言：</span><{$data['product_info']['language']}>&nbsp;&nbsp;-->&nbsp;&nbsp;<{$data['product_info']['to_language']}>
+                    </p>
+                    <p>
+                        <span>服务类型：</span><{$data['product_info']['type_name']}>
+                    </p>
+                    <p>
+                        <span>预约交稿时间：</span>预计在<{$data['product_info']['estimate_end']}>之前完成
+                    </p>
+                </div>
+                <div class="order-details-content-image">
+                    <p>
+                        <img src="<{$file_url}><{$data['product_info']['logo']}>" data-url="<{$file_url}><{$data['product_info']['logo']}>" height="70" class="order-details-img">
+                        <a href="/shop/index/index/productDetail?id=<{$data['product_info']['product_id']}>" target="_blank" class="link"><{$data['product_info']['title']}></a>
+                        <!-- 1.bi 2.kou-->
+                        <{if($data['product_all_info']['type'] == 2)}>
+                        <span class="order-details-num">共<{$data['product_info']['service_time']}><{$data['product_all_info']['order_price_type_text']}></span>
+                        <{elseif($data['product_all_info']['type'] == 1)}>
+                        <span class="order-details-num">共<{$data['product_info']['total_font_count']}><{$data['product_all_info']['order_price_type_text']}></span>
+                        <{else}>
+                        <{/if}>
+                    </p>
+                    <p>
+                        <span class="pull-left">提供服务商家：</span><a href="/shop/?id=<{$data['shop_info']['id']}>" class="link" target="_blank"><{$data['shop_info']['title']}></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="order-coupons-wrap">
+            <a href="javascript:void(0);" class="font-hover-color" id="order_coupons_show">
+                <i class="iconfont icon-add-label"></i>
+                使用优惠券(N邦平台优惠券/商店优惠券/译牛券)
+            </a>
+            <dl class="order-coupons"  id="order_coupons" style="display: none;">
+                <dt>
+                    可用优惠券(<span><{$data['coupons_list']['1']['total_count']}></span>)
+                </dt>
+                <dd>
+                    <p class="order-coupons-tip">您可以<a class="link" href="/pay/user/coupon/couponList" target="_blank">查看所有优惠券</a>!<!--了解使用限制。 [<a class="link" href="#">了解N邦优惠券规则</a>]--></p>
+
+                    <p class="order-coupons-tip">有优惠券兑换码？ [<a class="link" href="/pay/user/coupon/couponList" target="_blank">点击进行兑换</a>]</p>
+
+                    <{if($data['coupons_list']['1']['total_count']>0)}>
+                    <{foreach($data['coupons_list']['0'] as $k => $v)}>
+                    <p class="order-coupons-item" data-money="<{$v['money']}>" data-num="<{$v['coupon_num']}>">
+                        <span class="order-coupons-item-title"><{$v['coupon_num']}></span>
+                        <span class="order-coupons-item-plat"><{$v['plat_coupon_name']}></span>
+                        <span class="order-coupons-item-money"><{$v['money']}>元</span>
+                        <span class="order-coupons-item-time">到<{$v['end_time']}>过期</span>
+                    </p>
+                    <{/foreach}>
+                    <{else}>
+                    <p class="order-coupons-tip">此订单没有可以使用的优惠券！</p>
+                    <{/if}>
+                </dd>
+            </dl>
+        </div>
+        <div class="order-price">
+            <p>
+                商品金额：<span id="product_info_price"><{$data['product_info']['order_price']}></span>元
+            </p>
+            <p>
+                优惠金额：<span id="product_caupon_price">0</span>元
+            </p>
+            <p>
+                应付总额：<span id="pay_price"><{$data['product_info']['order_price']}></span>元
+            </p>
+        </div>
+        <form id="order_form">
+            <input type="hidden" name="product_id" value="<{$data['product_info']['product_id']}>">
+            <input type="hidden" name="estimate_start" value="<{$data['product_info']['estimate_start']}>">
+            <input type="hidden" name="estimate_end" value="<{$data['product_info']['estimate_end']}>">
+            <input type="hidden" name="desc" value="<{$data['product_info']['desc']}>">
+            <input type="hidden" name="doc_format" value="<{$data['product_info']['doc_format']}>">
+            <input type="hidden" name="translate_content_type" value="<{$data['product_info']['translate_content_type']}>">
+            <input type="hidden" name="order_price" value="<{$data['product_info']['order_price']}>">
+            <input type="hidden" name="total_font_count" value="<{$data['product_info']['total_font_count']}>">
+            <input type="hidden" name="file_or_str" value="<{$data['product_info']['file_or_str']}>">
+            <input type="hidden" name="file_name" value="<{$data['product_info']['file_name']}>">
+            <input type="hidden" name="service_address" value="<{$data['product_info']['service_address']}>"><!--口译-->
+            <input type="hidden" name="service_time" value="<{$data['product_info']['service_time']}>"><!--口译-->
+            <input type="hidden" name="coupon_id" value="<{$data['product_info']['coupon_id']}>">
+        </form>
+        <div class="order-total-price">
+            应付总额：￥<span id="pay_price_submit"><{$data['product_info']['order_price']}></span>
+            <a href="javascript:void(0);" class="submit-order-btn" id="submit_btn">提交订单</a>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/order/confirm_order.js"></script>
+<{layout:web/public/foot}>

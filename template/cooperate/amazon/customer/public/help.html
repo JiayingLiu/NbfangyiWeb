@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>个人中心-更换手机</title>
+    <link href="../static/css/common/normalize.css" rel="stylesheet">
+    <link href="../static/css/common/common.css" rel="stylesheet">
+    <link href="../static/css/common/header.css" rel="stylesheet">
+    <link href="../static/css/common/footer.css" rel="stylesheet">
+    <link href="../static/css/common/model.css" rel="stylesheet">
+    <link href="../static/css/common/help.css" rel="stylesheet">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/model.js"></script>
+</head>
+<body>
+<div class="content">
+    <!--header-->
+    <div class="header">
+        <div class="header-logo float-left">
+            <h3 class="header-logo-text">跨境电商语言服务平台</h3>
+        </div>
+        <div class="header-status float-right">
+            <h2 class="header-status-phone">4006-808-525</h2>
+            <!--<a href="javascirpt:;" class="header-status-reg link">注册</a>
+            <span class="header-status-login">请 登陆</span>-->
+            <a href="login.html" class="header-status-reg link">退出</a>
+            <span class="header-status-hello">您好，欢迎来到<strong class="imp">N邦译牛！</strong></span>
+            <a href="deal.html" class="header-status-login link">张三</a>
+        </div>
+    </div>
+    <!--header end-->
+    <!--personal-->
+    <div class="help">
+        <div class="sidebar" id="help_tree">
+            <p class="sidebar-title">帮助中心</p>
+            <p class="sidebar-text">关于译牛</p>
+            <p class="sidebar-text">翻译价格</p>
+            <p class="sidebar-text">服务协议</p>
+            <p class="sidebar-text">联系我们</p>
+        </div>
+        <div class="active-region">
+            <div id="active_region_title">关于译牛</div>
+            <div id="active_region_content">
+            </div>
+        </div>
+    </div>
+    <!--personal end -->
+    <!--footer-->
+    <div class="footer">
+        <p class="footer-help">
+            <a href="javascript:;" target="_blank">关于译牛</a>/
+            <a href="javascript:;" target="_blank">翻译价格</a>/
+            <a href="javascript:;" target="_blank">服务协议</a>/
+            <a href="javascript:;" target="_blank">联系我们</a>
+        </p>
+
+        <p class="footer-copyright">
+            Copyright 2015 www.nbangfanyi.com N邦翻译版权所有 备案：京ICP备15036767号。
+        </p>
+    </div>
+    <!--footer end-->
+</div>
+<!--model-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">N邦译牛</span><span class="model-close">X</span></div>
+    <div class="model-content">
+        是否立即下单，点击确认将跳转
+    </div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<script>
+    $(function () {
+        var model = new Model();
+        model.init();
+        handleTreeClick();
+    });
+    //树的点击事件
+    function handleTreeClick() {
+        $('#help_tree').on('click','p',function(){
+            $('#help_tree').find('.help-selected').removeClass('help-selected');
+            $(this).addClass('help-selected');
+        });
+    }
+</script>
+</body>
+</html>

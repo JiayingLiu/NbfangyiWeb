@@ -1,0 +1,88 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<script src="<{$js_url}>web/js/product/product_list.js"></script>
+<title>N邦翻译 找好翻译，上N邦-添加商品</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">商品管理</a>&gt;
+        <a href="javascript:void(0);">商品列表</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">商品列表</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <div class="add-produt-btn">
+                <a href="/shop/index/product/addProduct">
+                    <i class="iconfont icon-add-label"></i>
+                    添加商品
+                </a>
+            </div>
+            <div class="clear"></div>
+            <div class="label-content-show">
+                <table id="product_list">
+                    <thead>
+                    <tr>
+                        <th>商品</th>
+                        <th>价格</th>
+                        <th>
+                            类型
+                            <select id="table_type">
+                                <option value="">全部</option>
+                                <{foreach($data['param_data']['types'] as $k => $v)}>
+                                <{if($k == $data['param_data']['type'])}>
+                                <option value="<{$k}>" selected><{$v}></option>
+                                <{else}>
+                                <option value="<{$k}>"><{$v}></option>
+                                <{/if}>
+                                <{/foreach}>
+                            </select>
+                        </th>
+                        <th>语言</th>
+                        <th>领域</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <{if($data['products'][1]>0)}>
+                    <{foreach($data['products'][0] as $k => $v)}>
+                    <tr>
+                        <td><{$v['title']}></td>
+                        <td><{$v['price']}>元/<{$v['price_type_text']}></td>
+                        <td><{$v['type_name']}> + <{$v['category_name']}></td>
+                        <td><{$v['language']}>-><{$v['to_language']}></td>
+                        <td><{$v['field_name']}></td>
+                        <td>
+                            <a href="/shop/index/product/editProduct?id=<{$v['id']}>" class="table-edit-btn">编辑</a>
+                            <a href="javascript:void(0);" data-id="<{$v['id']}>" class="table-delete-btn">删除</a>
+                        </td>
+                    </tr>
+                    <{/foreach}>
+                    <{else}>
+                    <tr>
+                        <td colspan="6">没有查询到任何商品！</td>
+                    </tr>
+                    <{/if}>
+                    </tbody>
+                </table>
+                <div class="pagination-wrap">
+                    <ul id="pagination" class="pagination"></ul>
+                </div>
+                <script>var page_config = {
+                    offset: '<{$data["param_data"]["offset"]}>',
+                    total: '<{$data["products"][1]}>',
+                    limit: '<{$data["param_data"]["limit"]}>'
+                }
+                </script>
+            </div>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<{layout:web/public/foot}>

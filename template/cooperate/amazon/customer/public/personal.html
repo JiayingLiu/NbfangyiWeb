@@ -1,0 +1,54 @@
+<div class="sidebar">
+    <div class="sidebar-menu">
+        <div class="sidebar-look">
+            <div class="look-mask"></div>
+            <img src="<{$css_url}>/cooperate/amazon/customer/css/img/man.jpg"
+                 onerror="this.src='<{$css_url}>/cooperate/amazon/customer/css/img/man.jpg'" height="106" width="106"
+                 id="side_showLook">
+        </div>
+        <p class="sidebar-phone" id="side_showName"></p>
+        <a href="/order/cooporder/order/buyProduct" class="place-order" data-model="model">立即下单</a>
+        <ul class="sidebar-tree" id="person_menu">
+            <li class="sidebar-leaf ">
+                <a data-url="/user/api/user/userInfo" href="javascript:;" data-id="0">基本信息</a>
+            </li>
+            <li class="sidebar-leaf ">
+                <a data-url="/user/api/user/resetPassword" href="javascript:;" data-id="1">修改密码</a>
+            </li>
+            <li class="sidebar-leaf ">
+                <a data-url="/user/cooperate/user/myOrderList" href="javascript:;" data-id="2">订单管理</a>
+            </li>
+            <li class="sidebar-leaf">
+                <a data-url="/user/cooperate/user/couponList?status=0" href="javascript:;" data-id="3">优惠券管理</a>
+            </li>
+            <!-- <li class="sidebar-trunk">
+                 <li class="sidebar-leaf ">更换手机</li>
+                     <li class="sidebar-leaf">钱包管理</li>
+                     <li class="sidebar-leaf">交易明细</li>
+                     <li class="sidebar-leaf">银行卡管理</li>
+                 </ul>
+             </li>-->
+        </ul>
+    </div>
+</div>
+<script>
+    $(function () {
+        handleTreeClick();
+    })
+    //树的点击事件
+    function handleTreeClick() {
+        var $menu = $('#person_menu'), nav = window.sessionStorage.nav;
+        nav = nav ? nav : '2';
+        $menu.find('.sidebar-leaf').each(function () {
+            var $this = $(this), $a = $this.find('a');
+            $.trim($a.attr('data-id')) == nav && $this.addClass('tree-selected');
+        });
+        $menu.on('click', '.sidebar-leaf', function () {
+            var $this = $(this), $select = $this.find('a');
+            if ($this.hasClass('sidebar-leaf')) {
+                window.sessionStorage.nav = $select.attr('data-id');
+                window.location.href = $select.attr('data-url');
+            }
+        })
+    }
+</script>

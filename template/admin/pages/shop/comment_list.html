@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">评论管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="searchForm_uid">订单号</label>
+                    <input type="text" class="form-control" id="searchForm_order_num" placeholder="请输入订单" name="order_num"
+                           value="<{$data['search_param']['order_num']}>">
+                </div>
+                <div class="form-group">
+                    <label for="searchForm_uid">店铺名称</label>
+                    <input type="text" class="form-control" id="searchForm_shop_title" placeholder="请输入店铺名称" name="shop_title"
+                           value="<{$data['search_param']['shop_title']}>">
+                </div>
+                <div class="form-group">
+                    <label for="searchForm_telephone">评论人</label>
+                    <input type="text" class="form-control" id="searchForm_tname" placeholder="请输入评论人" name="tname"
+                           value="<{$data['search_param']['tname']}>">
+                </div>
+                <div class="form-group">
+                    <label for="searchForm_telephone">商品名称</label>
+                    <input type="text" class="form-control" id="searchForm_product_title" placeholder="请输入商品名称" name="product_title"
+                           value="<{$data['search_param']['product_title']}>">
+                </div>
+
+                <div class="form-group">
+                    <!-- <label for="">状态</label>
+                    <select class="form-control" id="status" name="status" value="">
+                        <option value="0" selected="">请选择</option>
+                        <{foreach($data["status_list"] as $k => $v)}>
+                        <option value="<{$k}>"
+                        <{if ($k == $data['search_param']['status'] )}>selected<{/if}> ><{$v}></option>
+                        <{/foreach}>
+                    </select> -->
+                </div>
+
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+           <hr>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal"
+                        onclick="reset();">增加评论
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered" id="userList">
+                <tr>
+                    <td>店铺id</td>
+                    <td>评论类型</td>
+                    <td>评论人</td>
+                    <th>订单号</th>
+                    <th>店铺名称</th>
+                    <th>商品名称</th>
+                    <th>图片</th>
+                    <th>评论内容</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                <{foreach($data["list"] as $k => $v)}>
+                <tr>
+                    <td><{$v['shop_id']}></td>
+                    <td><{$data['comment_type'][$v["comment_type"]]}></td>
+                    <td><{$v['tname']}></td>
+                    <td><{$v["order_num"]}></td>
+                    <td><{$v["shop_title"]}></td>
+                    <td><{$v['product_title']}></td>
+                    <td>
+                        <{foreach ($v['comment_images'] as $img)}>
+                            <a href='<{$file_url}><{$img}>' target='_blank'><img src='<{$file_url}><{$img}>' width='50' height='50'></a><br>
+                        <{/foreach}>
+                    </td>
+                    <td><{$v["comment_content"]}></td>
+                    <td><{$v["status_title"]}></td>
+                    <td>
+                        <{if ($v['status'] == 1)}>
+                        <button  class="btn btn-danger btn-sm js-delet" data-id="<{$v['id']}>"
+                           data-phone="<{$v['phone']}>">删除</button>
+                        <{/if}>
+
+                    </td>
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!--新建窗口-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="">新增评论</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label>店铺id(<font color="red">必填</font>)</label>
+                        <input type="text" class="form-control" id="account" name="shop_id" value="" placeholder="">
+                    </div>
+                    <!-- <div class="form-group">
+                        <label>店铺名称(<font color="red">必填</font>)</label>
+                        <input type="text" class="form-control" id="account" name="shop_title" placeholder="">
+                    </div> -->
+                    <!-- <div class="form-group">
+                        <label>商品id</label>
+                        <input type="text" class="form-control" id="account" name="product_id" value="0" placeholder="">
+                    </div> -->
+                    <div class="form-group">
+                        <label>商品名称(<font color="red">必填</font>)</label>
+                        <input type="text" class="form-control" id="account" name="product_title" placeholder="">
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="account">订单号</label>
+                        <input type="text" class="form-control" id="account" name="order_num" value="0" placeholder="">
+                    </div> -->
+                    <!-- <div class="form-group">
+                        <label for="add_password">所属店铺用户uid</label>
+                        <input type="text" class="form-control" id="add_password" name="uid" value="0" placeholder="">
+                    </div> -->
+                    <div class="form-group">
+                        <label for="repeatPasswd">评论人(<font color="red">必填</font>)</label>
+                        <input type="text" class="form-control" id="repeatPasswd" name="tname" value="" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="repeatPasswd">评论内容(<font color="red">必填</font>)</label>
+                        <textarea type="text" class="form-control" id="desc" name="comment_content" value=""></textarea>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="save">新增评论</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改身份-->
+<div class="modal fade" id="identityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">变更身份</h4>
+            </div>
+            <div class="modal-body">
+                <form id="pwdForm">
+                    <div class="form-group">
+                        请谨慎变更身份操作。
+                    </div>
+                    <div class="form-group">
+                        <label for="indentity">请选择身份</label>
+                        <select type="text" class="form-control" name="indentity" id="indentity">
+                            <{foreach($data['type_list'] as $k => $v)}>
+                            <option value="<{$k}>"><{$v}></option>
+                            <{/foreach}>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="updateIndentity">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var URL = {
+        SEARCH: '/admin/shop/comment/index',
+    };
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["total_count"]}>',
+            limit: '<{$data["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+    });
+    //新建清除表单
+    function reset(){
+        document.getElementById('addForm').reset();
+    }
+    //保存事件
+    $('#save').click(function(){
+        $.ajax({
+            url:'/admin/shop/comment/add',
+            type:'POST',
+            data:$('#addForm').serialize(),
+            dataType:'json',
+            success:function(data){
+                if (data.status == 0) {
+                    CommonUtils.tips(data.message, 2000, true);
+                } else {
+                    CommonUtils.tips(data.message, 2000, false);
+                }
+            }
+        });
+    });
+    //点击事件
+    $('#userList').on('click', '.btn', function () {
+        var $this = $(this),
+                id = $this.attr('data-id'),
+                phone = $this.attr('data-phone'),
+                type = $this.attr('data-type');
+        if ($this.hasClass('js-delet')) {
+            CommonUtils.confirm('确定删除这条评论吗？', function () {
+                $.ajax({
+                    url: '/admin/shop/comment/del',
+                    data: {
+                        id: id
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            }, null);
+        } else if ($this.hasClass('js-unlock')) {
+            CommonUtils.confirm('确定要解锁此用户吗？', function () {
+                $.ajax({
+                    url: '/admin/usercore/list/unlockUser',
+                    data: {
+                        uid: uid,
+                        phone: phone
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            }, null);
+        } else {
+            $('#indentity').val(type).attr('data-phone',phone);
+        }
+    });
+    //变更身份
+    $('#updateIndentity').click(function () {
+        CommonUtils.confirm('确定要变更此用户吗？', function () {
+            $.ajax({
+                url: '/admin/usercore/list/modifyUserType',
+                data: {
+                    phone: $('#indentity').attr('data-phone'),
+                    userType: $('#indentity').val()
+                },
+                type: 'POST',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        }, null);
+    });
+
+    //查询
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.SEARCH;
+        });
+    }
+</script>
+</body>
+</html>

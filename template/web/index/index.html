@@ -1,0 +1,124 @@
+<{layout:web/public/head}>
+<title>N邦翻译平台_全国顶尖专业翻译平台,一站式满足您的翻译需求</title>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/index/index.css">
+<{layout:web/public/top}>
+<{layout:web/index/top_activity}>
+<{layout:web/public/search}>
+<div class="home-main">
+    <div class="wrap">
+        <{layout:web/public/nav}>
+        <{layout:web/index/menu}>
+        <{layout:web/index/slider}>
+        <{layout:web/index/news}>
+    </div>
+    <{layout:web/index/written}>
+    <{layout:web/index/company}>
+    <{layout:web/index/interpret}>
+    <{layout:web/index/hot}>
+    <{layout:web/index/sale}>
+</div>
+<{layout:web/activity/index/appointment}>
+<{layout:web/index/index_toolbar}>
+<script type="text/javascript">
+    require(['jquery', 'base', 'validate', 'model'], function ($, base, validate, model) {
+        base.init({
+            afterLoginHandler: function (user) {
+                $('#side_login').find('.sl-img').attr('src', BASE_FILE_URL + user.logo);
+                $('#side_login').find('.sl-name').text('Hi~,' + user.nickname);
+                $('#side_login').find('.sl-btn').html('<a href="' + user.url + '">个人中心</a>');
+            }
+        });
+        //news
+        $('#news_nav').on('mouseover', 'a', function () {
+            var $this = $(this),
+                    id = $this.attr('data-id');
+            $('#news_nav').find('.news-nav-selected').removeClass('news-nav-selected');
+            $this.addClass('news-nav-selected');
+            //1 notice 2 news
+            if (id == 1) {
+                $('#home_news').hide();
+                $('#home_notice').show();
+            } else {
+                $('#home_news').show();
+                $('#home_notice').hide();
+            }
+        });
+
+        /*slide*/
+        var IMG_W = 520;
+        var $slide = $('#slide_banner'),
+                $images = $slide.find('.img-list'),
+                $indexes = $slide.find('.img-list-index'),
+                timer,
+                click_timer,
+                index = 0;
+        var $li = $images.find('li'),
+                len = $li.length,
+                animation_slide = function () {
+                    //轮播的监听
+                    timer = setTimeout(function () {
+                        if (_index >= len) {
+                            _index = 0;
+                        }
+                        $images.animate({
+                            'left': '-' + (IMG_W * _index) + 'px'
+                        }, 800);
+                        $indexes.find('.img-index-cur').removeClass('img-index-cur');
+                        $indexes.find('a').eq(_index).addClass('img-index-cur');
+                        _index++;
+                        timer = setTimeout(arguments.callee, 3000);
+                    }, 3000);
+                };
+        animation_slide();
+        //绑定事件
+        $indexes.on('mouseover', 'a', function () {
+            clearTimeout(click_timer);
+            clearTimeout(timer);
+            var $this = $(this),
+                    i = $this.attr('data-index') - 0;
+            _index = i + 1;
+            $images.animate({
+                'left': '-' + (IMG_W * i) + 'px'
+            }, 200);
+            $indexes.find('.img-index-cur').removeClass('img-index-cur');
+            $this.addClass('img-index-cur');
+            click_timer = setTimeout(animation_slide, 1000);
+        });
+        /*//appointment
+        //show
+        $('#appm_show').on('click', function () {
+            $('#pub_appm').addClass('pub-appointment-show');
+        });
+        //hide
+        $('#appm_hide').click(function () {
+            $('#pub_appm').removeClass('pub-appointment-show');
+        });
+        //click appointment
+        $('#appm_submit').on('click', null, function () {
+            var phone = $('#appm_phone').val();
+            if (!validate.phone(phone)) {
+                model.tip('手机为空或格式不正确', 2000);
+                return;
+            }
+            $.ajax({
+                url: '/index/index/guestBook/addGuestBook',
+                dataType: 'json',
+                data: {
+                    phone: phone,
+                    name: $('#appm_name').val(),
+                    type: '1'
+                },
+                type: 'POST',
+                success: function (data) {
+                    if (data.status == 0) {
+                        $('#pub_appm').removeClass('pub-appointment-show');
+                        model.tip('稍后会有译员联系您', 2000);
+                    } else {
+                        model.tip(data.message, 2000);
+                    }
+                }
+            });
+        });*/
+    });
+</script>
+<{layout:web/public/foot}>

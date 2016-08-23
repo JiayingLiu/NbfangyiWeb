@@ -1,0 +1,93 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-我的评价</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">评价管理</a>&gt;
+        <a href="javascript:void(0);">我的评价</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label" id="person_center">
+        <div class="label-title">
+            <span class="label-title-text">我的评价</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <div class="label-content-show">
+                <div class="trs-evaluate">
+                    <div class="col-xs-4">
+                        <div class="row">
+                            <h2 class="evaluate-number" id="star_num">0.0</h2>
+                        </div>
+                        <div class="evaluate-star" id="total_star">
+                            <i class="icon-eavl-b icon-empty-bs"></i><i class="icon-eavl-b icon-empty-bs"></i><i
+                                class="icon-eavl-b icon-empty-bs"></i><i class="icon-eavl-b icon-empty-bs"></i><i
+                                class="icon-eavl-b icon-empty-bs"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 text-center">
+                        <div class="evaluate-star-s">
+                            <div class="col-xs-3">速度：</div>
+                            <div class="col-xs-6" id="sp_star">
+                                <i class="icon-eavl-s icon-empty-ss"></i><i class="icon-eavl-s icon-empty-ss"></i><i
+                                    class="icon-eavl-s icon-empty-ss"></i><i class="icon-eavl-s icon-empty-ss"></i><i
+                                    class="icon-eavl-s icon-empty-ss"></i>
+                            </div>
+                        </div>
+                        <div class="evaluate-star-s">
+                            <div class="col-xs-3">质量：</div>
+                            <div class="col-xs-6" id="qu_star">
+                                <i class="icon-eavl-s icon-empty-ss"></i><i class="icon-eavl-s icon-empty-ss"></i><i
+                                    class="icon-eavl-s icon-empty-ss"></i><i class="icon-eavl-s icon-empty-ss"></i><i
+                                    class="icon-eavl-s icon-empty-ss"></i>
+                            </div>
+                        </div>
+                        <div class="evaluate-star-s">
+                            <div class="col-xs-3">服务：</div>
+                            <div class="col-xs-6" id="se_star">
+                                <i class="icon-eavl-s icon-empty-ss"></i><i class="icon-eavl-s icon-empty-ss"></i><i
+                                    class="icon-eavl-s icon-empty-ss"></i><i class="icon-eavl-s icon-empty-ss"></i><i
+                                    class="icon-eavl-s icon-empty-ss"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="row">
+                            <i class="iconfont icon-face-good font-imp"></i>
+                            好评（<span class="font-imp" id="good">0</span>）个
+                        </div>
+                        <div class="row">
+                            <i class="iconfont icon-face-line font-imp"></i>
+                            中评（<span class="font-imp" id="normal">0</span>）个
+                        </div>
+                        <div class="row">
+                            <i class="iconfont icon-face-bad icon-eavl-bad-evaluate"></i>
+                            差评（<span class="font-imp" id="poor">0</span>）个
+                        </div>
+                    </div>
+                </div>
+                <div class="evaluate-type">
+                    <ul id="eva_select">
+                    </ul>
+                </div>
+                <div class="evaluate-list">
+                    <table>
+                        <tbody id="eval_list">
+                        </tbody>
+                    </table>
+                    <div class="pagination-wrap">
+                        <ul id="pagination" class="pagination"></ul>
+                        <p class="text-center"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/evaluate/reply_evaluate.js"></script>
+<{layout:web/public/foot}>

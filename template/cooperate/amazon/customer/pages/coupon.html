@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="description" content="N邦翻译是最大的O2O翻译电商平台，是亚马逊唯一官方合作的语言服务平台，N邦翻译的核心是为跨境电商提供快速、高质量的翻译服务，帮助跨境电商企业解决语言翻译难题！">
+    <meta name="keywords" content="N邦翻译,翻译O2O,翻译电商平台,翻译网站,亚马逊,跨境电商,对外贸易交易平台、外贸网站" />
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8d9b837ff56daf73730660e4d86fc338";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <title>N邦译牛 助力跨境电商</title>
+    <link rel="shortcut icon" href="<{$css_url}>/cooperate/amazon/customer/css/img/unbounded.ico" type="image/x-icon" />
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/header.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/personal.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/page.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/style/coupon.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+</head>
+<body>
+<!--header-->
+<{layout:cooperate/amazon/customer/public/header}>
+<!--header end-->
+<div class="content">
+    <!--personal-->
+    <div class="personal">
+        <!--personal-->
+        <{layout:cooperate/amazon/customer/public/personal}>
+        <!--personal end -->
+        <div class="active-region">
+            <div class="coupon">
+                <div style="padding: 3px;background-color: #FF7675;color: #ffffff;font-size: 14px;">由于系统升级，2016年1月之前未兑换的优惠券不能使用了，如需兑换请联系N邦客服为您解决！</div>
+                <div class="coupon-top">
+                    <span class="float-left">我的优惠券</span>
+                    <a href="javascript:;" id="get_coupon_package">领取优惠券</a>
+                   <!-- <a href="javascript:;" id="get_coupon_id">领取优惠券</a>-->
+                </div>
+                <div class="myorders-query" id="myorders_query_btns">
+                    <a href="javascript:;" data-id="0" data-url="/user/cooperate/user/couponList?status=0" class="">全部</a>
+                    <a href="javascript:;" data-id="10" data-url="/user/cooperate/user/couponList?status=10">正常</a>
+                    <a href="javascript:;" data-id="20" data-url="/user/cooperate/user/couponList?status=20">已使用</a>
+                    <a href="javascript:;" data-id="30" data-url="/user/cooperate/user/couponList?status=30">已过期</a>
+                </div>
+                <ul class="coupons-con">
+                    <{foreach($data['data'][0] as $k => $v)}>
+                    <{if($v['status'] == '30')}>
+                    <li class="nb-coupon nb-coupon-over">
+                        <{elseif($v['status'] == '10')}>
+                    <li class="nb-coupon nb-coupon-use">
+                        <{elseif($v['status'] == '20')}>
+                    <li class="nb-coupon nb-coupon-used">
+                        <{else}>
+                        <{/if}>
+                        <div class="nb-coupon-info">
+                            <span class="coupon-info-money">￥<strong><{$v['money']}></strong></span>
+                            <span class="coupon-info-limit"><{$v['status']}>每次交易仅限使用一张</span>
+                        </div>
+                        <p>编号：<{$v['coupon_num']}></p>
+
+                        <p>有效期：<{$v['start_time']}>-<{$v['end_time']}></p>
+                    </li>
+                    <{/foreach}>
+                </ul>
+                <div class="pagination-con">
+                    <div id="pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--personal end -->
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<!--model-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">N邦译牛</span><span class="model-close">X</span></div>
+    <div class="model-content">
+    </div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<script src="<{$js_url}>/cooperate/amazon/translator/js/common.js"></script>
+<script>
+    $(function () {
+        //状态选择栏的定位
+        statusSelectPo();
+        //分页
+        var config = {
+            offset: '<{$data["offset"]}>',
+            limit: '<{$data["limit"]}>',
+            total: '<{$data["data"][1]}>',
+            url: '/user/cooperate/user/couponList?status=' + $('#myorders_query_btns').find('.myorders-query-selected').attr('data-id')
+        };
+        CommonUtils.pagination(config);
+        //添加优惠券
+        addCoupons();
+        //添加大礼包
+        addCouponPackage();
+    });
+    //获取图片验证码的方法
+    function getImgCode(that) {
+        var verifyimg = '/user/cooperate/user/verify',
+                $verifyimg = $(that);
+        if (verifyimg.indexOf('?') > 0) {
+            $verifyimg.attr("src", verifyimg + '&random=' + Math.random());
+        } else {
+            $verifyimg.attr("src", verifyimg.replace(/\?.*$/, '') + '?' + Math.random());
+        }
+    }
+    //添加大礼包
+    function addCouponPackage(){
+        var html = '<div class="coupon-addCon">' +
+                '<p><span>礼包编码：</span><input type="text" id="addCouponPackage" placeholder="请输入优惠大礼包编码"></p>' +
+                '<span id="add_couponPackage_info"></span></div>';
+        $('#get_coupon_package').on('click', null, function () {
+            CommonUtils.model({
+                type: 'model',
+                html: html,
+                btnOkEventHandler: function () {
+                    return comfirmAddCouponPackage(this);
+                }
+            });
+        });
+    }
+    //添加优惠券
+    function addCoupons() {
+        var html = '<div class="coupon-addCon">' +
+                '<p><span>优惠券编码：</span><input type="text" id="addCouponId" placeholder="请输入优惠券编码"></p>' +
+                '<span id="add_couponId_info"></span></div>';
+        $('#get_coupon_id').on('click', null, function () {
+            CommonUtils.model({
+                type: 'model',
+                html: html,
+                btnOkEventHandler: function () {
+                    return comfirmAddCoupon(this);
+                }
+            });
+
+        });
+    }
+    //确定添加优惠券大礼包按钮
+    var comfirmAddCouponPackage = function (that) {
+        that.showCurrent();
+        var id = $.trim($('#addCouponPackage').val());
+        id ? ($.ajax({
+                    url: '/user/cooperate/user/changeCouponPackage',
+                    type: 'post',
+                    data: {
+                        package_id: id
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == '0') {
+                            CommonUtils.model({
+                                html: data.message,
+                                type: 'tip'
+                            });
+                            window.setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            $('#add_couponPackage_info').html(data.message);
+                        }
+                    }
+                })) : $('#add_couponPackage_info').html('礼包编码不能为空')
+    }
+    //确定添加优惠券按钮
+    var comfirmAddCoupon = function (that) {
+        that.showCurrent();
+        var id = $.trim($('#addCouponId').val());
+        id ? ($.ajax({
+                    url: '/user/cooperate/user/changeCoupon',
+                    type: 'post',
+                    data: {
+                        coupon_id: id
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == '0') {
+                            CommonUtils.model({
+                                html: data.message,
+                                type: 'tip'
+                            });
+                            window.setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            $('#add_couponId_info').html(data.message);
+                        }
+                    }
+                })) : $('#add_couponId_info').html('优惠券编码不能为空')
+    }
+    //状态选择栏的定位
+    function statusSelectPo() {
+        var $po = $('#myorders_query_btns'), nav = window.sessionStorage.coupon_nav;
+            $po.find('a[data-id="' + (nav || 0) + '"]').addClass('myorders-query-selected');
+        $po.on('click', 'a', function () {
+            var $this = $(this),
+                    url = $this.attr('data-url'),
+                    data_id = $this.attr('data-id');
+            window.sessionStorage.coupon_nav = data_id;
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

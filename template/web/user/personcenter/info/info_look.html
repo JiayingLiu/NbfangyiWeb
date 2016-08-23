@@ -1,0 +1,37 @@
+<div class="label-title">
+    <span class="label-title-text">个人头像</span>
+    <span class="label-title-circle"></span>
+    <span class="label-title-line"></span>
+</div>
+<div class="label-content">
+    <div class="label-content-show">
+        <div class="label-content-show-left">
+            <div class="row font-remind">
+                <i class="iconfont icon-remind"></i>个人头像是开通店铺必填项，信息填写不全店铺将无法通过审核，请务必将您的资料填写完整。
+            </div>
+            <div class="person-head-img">
+                <img src="<{$file_url}><{$_userLoginInfo['data']['_user_logo']}>"
+                     height="160" width="160"><br>
+            </div>
+        </div>
+        <div class="label-content-show-right">
+            <div class="label-content-show-edit">
+                <a href="javascript:void(0);" class="js-pc-btn" data-ele="edit" data-index="1">
+                    <i class="iconfont icon-edit"></i>
+                    编辑
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="label-content-edit" style="display: none;">
+        <div class="row font-remind">
+            <i class="iconfont icon-remind"></i>个人头像是开通店铺必填项，信息填写不全店铺将无法通过审核，请务必将您的资料填写完整。
+        </div>
+        <div id="look_wrap">
+        </div>
+        <div class="row text-center">
+            <a href="javascript:void(0);" class="btn btn-cancel js-pc-btn" data-ele="cancel">取消</a>
+            <a href="javascript:void(0);" class="btn btn-submit" id="submit_look">提交</a>
+        </div>
+    </div>
+</div>

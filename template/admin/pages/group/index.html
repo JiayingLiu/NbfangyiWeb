@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/css/public/common.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/css/style/empower.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">权限组管理</div>
+        <div class="panel-body">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">新建</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table table-bordered" id="groupList">
+                <tr>
+                    <th>ID</th>
+                    <th>权限组名称</th>
+                    <th>操作</th>
+                </tr>
+                <{foreach ($data['groupRbacList'] as $k => $v)}>
+                <tr>
+                    <th><{$v['id']}></th>
+                    <th><{$v['title']}></th>
+                    <th>
+                        <{if($v['rbac_id'] == 10000)}>
+                        <{else}>
+                        <a href="/admin/rbac/group/accredit?rbac_id=<{$v['rbac_id']}>" class="btn btn-primary btn-sm js-empower">授权</a>
+                        <{/if}>
+                    </th>
+                </tr>
+                <{/foreach}>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- 新建 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新建</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="id">名称</label>
+                        <select class="form-control" id="id" name="id">
+                            <option value="">请选择</option>
+                            <{foreach ($data['groupList'] as $k => $v)}>
+                            <option value="<{$k}>"><{$v}></option>
+                            <{/foreach}>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        //保存
+        save();
+    });
+    //保存
+    function save() {
+        $('#save').click(function () {
+            $('#addModal').modal('hide');
+            $.ajax({
+                url: '/admin/rbac/group/addGroup',
+                data: $('#addForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    CommonUtils.tips(data.message, 1000 , true);
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

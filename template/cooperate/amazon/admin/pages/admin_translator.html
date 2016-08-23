@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>N邦翻译官方管理后台-译者列表</title>
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/header.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/personal.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/page.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/admin/css/admin_translator.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+</head>
+<body>
+<!--header-->
+<{layout:cooperate/amazon/customer/public/header}>
+<!--header end-->
+<div class="content">
+    <div class="personal">
+        <!--personal-->
+        <{layout:cooperate/amazon/admin/public/personal}>
+        <!--personal end -->
+        <div class="active-region">
+            <div class="myorders">
+                <div class="myorders-top">
+                    <span class="float-left">译者管理列表</span>
+                </div>
+                <div class="myorders-con">
+                    <div class="myorders-query" id="myorders_query_btns">
+                        <a href="javascript:;" data-id="" data-url="/admin/cooporder/translatorUser/index">全部</a>
+                        <a href="javascript:;" data-id="1"
+                           data-url="/admin/cooporder/translatorUser/index?status=1">空闲中</a>
+                        <a href="javascript:;" data-id="2"
+                           data-url="/admin/cooporder/translatorUser/index?status=2">接单中</a>
+                        <a href="javascript:;" data-id="3"
+                           data-url="/admin/cooporder/translatorUser/index?status=3">禁止中</a>
+                        <a href="javascript:;" data-id="4"
+                           data-url="/admin/cooporder/translatorUser/index?status=4">删除</a>
+                    </div>
+                    <div class="deal-query">
+                        手机号：<input type="text" placeholder="请输入交易号" id="orderId">&nbsp;&nbsp;
+                        <a href="javascript:;" id="deal_query">搜索</a>
+                        <a href="javascript:;" id="openAddTranslator">添加人员</a>
+                    </div>
+                    <table class="myorders-table">
+                        <thead>
+                        <tr>
+                            <th>手机号</th>
+                            <th>用户名</th>
+                            <th>价格（元/字）</th>
+                            <th>添加时间</th>
+                            <th>擅长</th>
+                            <th>状态</th>
+                            <!--<th>操作</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <{if ( $data["totalCount"] > 0)}>
+                        <{foreach($data["data"] as $k => $v)}>
+                        <tr>
+                            <td><{$v["telephone"]}></td>
+                            <td><{$v["realname"]}></td>
+                            <td><{$v["proportion"]}></td>
+                            <td><{$v["create_time"]}></td>
+                            <td width="400px">
+                                <{foreach($v["languageList"] as $i => $val)}>
+                                <span style="display: inline-block;margin: 2px;background-color: #dfdfdf;"><{$data["productList"][$val]["title"]}></span>
+                                <{/foreach}>
+                            </td>
+                            <td>
+                                <{$data["status"][$v["status"]]}>
+                            </td>
+                            <!-- <td>
+                                 <a href="javascript:;"
+                                    class="myorders-table-btn">编辑</a>
+                             </td>-->
+                        </tr>
+                        <{/foreach}>
+                        <{else}>
+                        <tr>
+                            <td colspan="6">
+                                <div class="orderlist-nodata">
+                                    <p>目前没有译者信息！</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <{/if}>
+                        </tbody>
+                    </table>
+                    <div class="pagination-con">
+                        <div id="pagination"></div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<!--model-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">N邦译牛</span><span class="model-close">X</span></div>
+    <div class="model-content">
+        <form id="addTranslatorForm">
+            <div class="add-translator-con">
+                手机号：<input type="text" placeholder="请输入手机号" id="translator_telephone" name="telephone"
+                           class="add-translator-con-input">
+
+                <p>
+                    价　格：<input type="text" placeholder="价格" name="price" class="add-translator-con-input"
+                               id="translator_price">元/千字
+                </p>
+
+                <div id="add_translator_goodAts">
+                    <label><input type="checkbox" data-id="">全选</label>
+                    <{foreach ($data["productList"] as $k => $v)}>
+                    <label><input type="checkbox" data-id="<{$v['id']}>"><{$v["title"]}></label>
+                    <{/foreach}>
+                    <input id="translator_uid" name="tuid" type="hidden">
+                    <input id="translator_language" name="language" type="hidden">
+                </div>
+                <p>
+                    <span id="add_translator_info"></span>
+                </p>
+
+                <p>
+                    <a href="javascript:;" id="add_translator">确认添加</a>
+                </p>
+            </div>
+        </form>
+    </div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<script src="<{$js_url}>/cooperate/amazon/translator/js/common.js"></script>
+<script>
+    $(function () {
+        //状态选择栏的定位
+        statusSelectPo();
+        //分页
+        var config = {
+            offset: '<{$data["offset"]}>',
+            limit: '<{$data["limit"]}>',
+            total: '<{$data["totalCount"]}>',
+            url: '/admin/cooporder/translatorUser/index?status=' + $('#myorders_query_btns').find('.myorders-query-selected').attr('data-id')
+        };
+        CommonUtils.pagination(config);
+        //打开添加人员页面
+        openAddTransltor();
+        //查询
+        $('#deal_query').click(function () {
+            var id = $('#orderId').val(),
+                    status = $('#orderStatus').val();
+            window.location.href = '/admin/cooporder/translatorUser/index?telephone=' + id + '&status=' + $('#myorders_query_btns').find('.myorders-query-selected').attr('data-id');
+        });
+    });
+    //打开添加人员页面
+    function openAddTransltor() {
+        $('#openAddTranslator').click(function () {
+            CommonUtils.model({
+                type: 'window',
+                width: 600,
+                html:$('#model').find('.model-content').html()
+            });
+            //人员验证
+            checkTransltor();
+            //构建添加人员的动作
+            addTransltor();
+            //全选联动
+            selectGoodAts()
+        });
+    }
+    //构建人员验证的页面
+    function checkTransltor() {
+        $('#translator_telephone').off().on('blur', function () {
+            $('#add_translator_info').html('');
+            var $this = $(this), val = $.trim($this.val()), flag = CommonUtils.validate('telephone', val);
+            if (flag) {
+                $.ajax({
+                    url: '/admin/cooporder/translatorUser/getUserInfo?telephone=' + val,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == '0') {
+                            var data = data.data,
+                                    name = data.realname;
+                            name ? $('#add_translator_info').html('<span style="color: #008000;">该用户：' + name + '，可以添加</span>') :
+                                    $('#add_translator_info').html('<span style="color: #ff7c3d;">该用户不存在</span>');
+                            $('#telephone').val(name);
+                            $('#translator_uid').val(data.tuid);
+                        } else {
+                            $('#add_translator_info').html(data.message);
+                        }
+                    }
+                })
+            } else {
+                val && $('#add_translator_info').html('<span style="color: #ff7c3d;;">手机号码格式不合法</span>');
+            }
+        });
+    }
+    //构建添加人员的动作
+    function addTransltor() {
+        $('#add_translator').off().on('click',null,function () {
+            $('#add_translator_info').html('');
+            var $tel = $('#translator_telephone'),
+                    val = $.trim($tel.val()),
+                    flag = CommonUtils.validate('telephone', val),
+                    price = $.trim($('#translator_price').val());
+            if (flag) {
+                if (price && /^[0-9]*$/.test(price)) {
+                    if (!$('#add_translator_goodAts').find('input:checked').length) {
+                        $('#add_translator_info').html('<span style="color: #ff7c3d;;">请至少选择一项擅长翻译</span>');
+                        return
+                    }
+                    $.ajax({
+                        url: '/admin/cooporder/translatorUser/addTranslatorUser',
+                        data: $('#addTranslatorForm').serialize(),
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.status == '0') {
+                                CommonUtils.model({
+                                    html: data.message,
+                                    type: 'tip'
+                                });
+                                window.setTimeout(function () {
+                                    window.location.reload();
+                                }, 1000);
+                            } else {
+                                $('#add_translator_info').html('<span style="color: #ff7c3d;;">' + data.message + '</span>');
+                            }
+                        }
+                    })
+                } else {
+                    $('#add_translator_info').html('价格金额在1元到3000元');
+                }
+            } else {
+                $('#add_translator_info').html('手机号码格式不合法');
+            }
+        });
+    }
+    //全选联动
+    function selectGoodAts() {
+        $('#add_translator_goodAts').off().on('click', 'label', function () {
+            var $this = $(this).find('input'), $check, checkVal = [];
+            if (!$this.attr('data-id')) {
+                $check = $this.prop('checked') ? $('#add_translator_goodAts').find('input').prop('checked', 'checked') :
+                        $('#add_translator_goodAts').find('input').removeProp('checked');
+            } else {
+                $check = $('#add_translator_goodAts').find('input:checked');
+            }
+            $.each($check, function () {
+                var id = $(this).attr('data-id');
+                id && checkVal.push(id);
+            });
+            $('#translator_language').val(checkVal.join());
+        });
+    }
+    //状态选择栏的定位
+    function statusSelectPo() {
+        var $po = $('#myorders_query_btns'), nav = window.sessionStorage.adminorder_nav;
+        nav || $po.find('a[data-id=""]').addClass('myorders-query-selected');
+        $po.find('a[data-id="' + nav + '"]').addClass('myorders-query-selected');
+        $('#myorders_query_btns').on('click', 'a', function () {
+            var $this = $(this),
+                    url = $this.attr('data-url'),
+                    data_id = $this.attr('data-id');
+            window.sessionStorage.adminorder_nav = data_id;
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

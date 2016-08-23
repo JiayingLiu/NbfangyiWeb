@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="description" content="N邦翻译是最大的O2O翻译电商平台，是亚马逊唯一官方合作的语言服务平台，N邦翻译的核心是为跨境电商提供快速、高质量的翻译服务，帮助跨境电商企业解决语言翻译难题！">
+    <meta name="keywords" content="N邦翻译,翻译O2O,翻译电商平台,翻译网站,亚马逊,跨境电商,对外贸易交易平台、外贸网站" />
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8d9b837ff56daf73730660e4d86fc338";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <title>N邦译牛 助力跨境电商</title>
+    <link rel="shortcut icon" href="<{$css_url}>/cooperate/amazon/customer/css/img/unbounded.ico" type="image/x-icon" />
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/header.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/style/login.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+</head>
+<body>
+<!--header-->
+<{layout:cooperate/amazon/customer/public/header}>
+<!--header end-->
+<div class="content">
+    <!--login-->
+    <div class="login">
+        <div class="login-img">
+        </div>
+        <div class="login-area">
+            <form class="login-form">
+                <p class="login-form-title">用户登陆</p>
+                <div class="login-form-user">
+                    <label for="username" class="form-user-img"></label>
+                    <input type="text" id="username" name="username" class="login-input" placeholder="请输入用户名">
+                </div>
+                <p class="login-form-text"><span id="user_tip"></span></p>
+                <div class="login-form-pwd">
+                    <label for="pwd" class="form-pwd-img"></label>
+                    <input type="password" id="pwd" name="password" class="login-input" placeholder="请输入密码">
+                </div>
+                <p class="login-form-text"><span id="pwd_tip"></span><!--<a href="resetpassword.html" class="float-right link">忘记密码？</a>--></p>
+                <div class="btns">
+                    <a href="javascript:;" class="btn login-btn" id="to_login">立即登陆</a>
+                    <a href="/user/index/register/index" class="btn reg-btn">快速注册</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--login end-->
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<!--model-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">N邦译牛</span><span class="model-close">X</span></div>
+    <div class="model-content">
+    </div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok" id="btn_ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<script src="<{$js_url}>/cooperate/amazon/customer/js/common.js"></script>
+<script>
+    $(function(){
+        //模态框初始化
+        CommonUtils.model();
+        //登陆
+        login();
+    })
+    //登陆
+    function login() {
+        $('#to_login').click(function () {
+            loginMethod();
+        });
+        $(document).on('keyup',function(e){
+            if(e.keyCode == 13){
+                loginMethod();
+            }
+        });
+    }
+    //登陆的方法
+    function loginMethod(){
+        $('#user_tip').html('');
+        $('#pwd_tip').html('');
+        var username = $('#username').val(),
+                pwd = $.trim($('#pwd').val());
+        if (!CommonUtils.validate('require', username)) {
+            $('#user_tip').html('用户名不能为空');
+            return
+        }
+        if (!$.trim(pwd)) {
+            $('#pwd_tip').html('密码为为空');
+            return
+        }
+        $.ajax({
+            url: '/user/index/login/ajaxLogin',
+            type: 'post',
+            data: {
+                tel: username,
+                pwd: pwd
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == '0') {
+                    window.location.href = '/user/index/login/loginSuccess';
+                }else{
+                    CommonUtils.model('show', {
+                        html: data.message,
+                        type: 'tip'
+                    })
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

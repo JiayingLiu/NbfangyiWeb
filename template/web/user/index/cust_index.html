@@ -1,0 +1,81 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-个人中心</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&nbsp;&gt;
+        <a href="javascript:void(0);">个人中心</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label" id="person_center">
+        <div class="label-title">
+            <span class="label-title-text">个人中心首页</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <div class="person-basic">
+                <div class="per-title">欢迎来到N邦翻译<{$data['user_name']}></div>
+                <div class="basic-first-data">
+                    <div class="b-first-left">
+                        <h2>下载N邦翻译客户端</h2><br>
+                        <a class="btn-open" href="/index/static/app/index">立即下载</a>
+                        <div class="down-app">
+                            <img src="<{$css_url}>file/img/personcenter/downapp.png">
+                        </div>
+                    </div>
+                    <div class="b-first-right">
+                        <img src="<{$css_url}>file/img/personcenter/per-right.png">
+                    </div>
+                </div>
+                <div class="per-user-info">
+                    <div class="complete-title">
+                        <h3><span><i class="iconfont icon-file"></i></span>我的订单<a href="/user/customer/order/index" class="pull-right">查看全部订单>></a></h3>
+                    </div>
+                    <div class="oder-list">
+                        <ul>
+                            <li>
+                                <div><i class="iconfont icon-wait-pay"></i></div>
+                                <div><a href="/user/customer/order/index?status=1">待付款</a> </div>
+                            </li>
+                            <li>
+                                <div><i class="iconfont icon-have-pay"></i></div>
+                                <div><a href="/user/customer/order/index?status=2">已付款</a> </div>
+                            </li>
+                            <li>
+                                <div><i class="iconfont icon-paying"></i></div>
+                                <div><a href="/user/customer/order/index?status=50">进行中</a> </div>
+                            </li>
+                            <li>
+                                <div><i class="iconfont icon-over-pay"></i></div>
+                                <div><a href="/user/customer/order/index?status=20">已完成</a> </div>
+                            </li>
+                            <li>
+                                <div><i class="iconfont icon-refund-pay"></i></div>
+                                <div><a href="/user/customer/order/index?status=33">退款单</a> </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="complete-title">
+                        <h3><span><i class="iconfont icon-file"></i></span>余额管理</h3>
+                    </div>
+                    <div class="balance">
+                       <p>
+                           账户余额：<span><{$data['balance']}></span>元
+                           <a href="/pay/user/recharge/index" class="recharge">充值</a>
+                       </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script>
+    require(['jquery', 'base'], function ($, base) {
+        base.init()
+    });
+</script>
+<{layout:web/public/foot}>

@@ -1,0 +1,37 @@
+<div class="trs-left-title">
+    <span>我的相册</span>
+</div>
+<div class="trs-content">
+    <{if($data['albums'][1] > 0)}>
+    <ul class="trs-photo" id="shop_albums">
+        <{foreach($data['albums'][0] as $k => $v)}>
+        <li>
+            <a href="<{$file_url}><{$v['big_thumb']}>" title="<{$v['name']}>" rel="group_1"><img
+                    src="<{$file_url}><{$v['small_thumb']}>" width="130" height="110" data-name="<{$v['name']}>"
+                    alt="<{$v['name']}>"></a>
+        </li>
+        <{/foreach}>
+    </ul>
+    <{else}>
+    <div class="row text-center">商家暂未添加相册！</div>
+    <{/if}>
+</div>
+<!--
+<div class="trs-left-title">
+    <span>我的视频</span>
+</div>
+<div class="trs-content">
+    <{if($data['videos'][1] > 0)}>
+    <ul class="trs-photo" id="video_show">
+        <{foreach($data['videos'][0] as $k => $v)}>
+        <li>
+            <a href="javascript:void(0);" data-id="<{$v['video_path']}>" class="js-video-item">
+                <img src="<{$v['img_path']}>" width="130" height="110" alt="<{$v['name']}>">
+            </a>
+        </li>
+        <{/foreach}>
+    </ul>
+    <{else}>
+    <div class="row text-center">商家暂未添加视频！</div>
+    <{/if}>
+</div>-->

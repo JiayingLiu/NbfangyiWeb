@@ -1,0 +1,90 @@
+<{layout:web/public/head}>
+<title>N邦翻译-<{if($data['type'] == 1)}>公告<{else}>新闻<{/if}></title>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/help/news.css">
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="wrap">
+    <{layout:web/public/nav}>
+    <div class="news-main">
+        <div class="news-menu">
+            <div class="news-nav" id="news_nav">
+                <!--1 is notice 2 is news -->
+                <{if($data['type'] == 1)}>
+                <a href="/index/index/news/index?type=2" data-id="2">新闻</a>
+                <a href="/index/index/news/index?type=1" class="focus" data-id="1">公告</a>
+                <{else}>
+                <a href="/index/index/news/index?type=2" class="focus" data-id="2">新闻</a>
+                <a href="/index/index/news/index?type=1" data-id="1">公告</a>
+                <{/if}>
+            </div>
+            <ul class="news-box">
+                <{if($data['news']['1']> 0)}>
+                <{foreach($data['news']['0'] as $k => $v)}>
+                <li>
+                    <a href="/index/index/news/detail?id=<{$v['id']}>" class="pull-left link"><{$v['title']}></a>
+                </li>
+                <{/foreach}>
+                <{else}>
+                <li class="text-center">没有更新新闻公告！</li>
+                <{/if}>
+            </ul>
+            <div class="news-ext">
+                <p class="title">联系我们</p>
+
+                <p class="info">如果您在平台遇到问题或者对我们有任何建议，请及时与我们联系</p>
+
+                <p class="hotline">服务咨询热线</p>
+
+
+                <p class="phone-num">
+                    <img class="img-phone" src="<{$css_url}>web/css/image/news/phone.jpg">
+                    <span>4006-808-525</span>
+                </p>
+
+                <p class="title">官方微信</p>
+
+                <p class="info">N邦翻译为公司和个人译者提供一个宣传自己的平台</p>
+                <img class="img-weixin" src="<{$css_url}>web/css/image/public/weixin.jpg" height="100" width="100">
+            </div>
+        </div>
+        <div class="news-article">
+            <div class="news-article-title"><{if($data['type'] == 1)}>公告<{else}>新闻<{/if}>列表</div>
+            <{if($data['news']['1']> 0)}>
+            <ul>
+                <{foreach($data['news']['0'] as $k => $v)}>
+                <li>
+                    <a href="/index/index/news/detail?id=<{$v['id']}>">
+                        <img src="<{$file_url}><{$v['img_url']}>" width="205" height="140">
+
+                        <h3 class="link"><{$v['title']}></h3>
+
+                        <div><{echo htmlspecialchars_decode($v['description']);}></div>
+                        <span>发布时间：<{$v['create_time']}></span>
+                    </a>
+                </li>
+                <{/foreach}>
+            </ul>
+            <{else}>
+            <li class="text-center">没有更新新闻公告！</li>
+            <{/if}>
+            <div class="pagination-wrap">
+                <ul id="pagination" class="pagination"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    require(['jquery', 'base', 'page'], function ($, base, page) {
+        base.init();
+        var page_config = {
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["news"][1]}>',
+            limit: '<{$data["limit"]}>'
+        }
+        page_config.length = 11;
+        page_config.url = '/index/index/news/index?type=' + $('#news_nav').find('.focus').attr('data-id');
+        page.init(page_config);
+
+    });
+</script>
+<{layout:web/public/foot}>

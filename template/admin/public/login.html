@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/css/style/login.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body>
+<div class="warpper">
+    <div id="image_slider" class="slider">
+        <ul class="slider-con">
+            <li class="slider-item active"><img src="<{$file_url}>/common/admin/login/monkey.jpg" height="100%"
+                                                width="100%">
+            </li>
+            <li class="slider-item"><img src="<{$file_url}>/common/admin/login/mountain_1.jpg" height="100%"
+                                         width="100%"></li>
+            <li class="slider-item"><img src="<{$file_url}>/common/admin/login/road.jpg" height="100%" width="100%">
+            </li>
+            <li class="slider-item"><img src="<{$file_url}>/common/admin/login/road_red.jpg" height="100%" width="100%">
+            </li>
+        </ul>
+    </div>
+    <div class="login container-fluid">
+        <form class="form-horizontal" id="login_form">
+            <div class="logo"></div>
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label"></label>
+
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="请输入用户名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-2 control-label"></label>
+
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="code" class="col-sm-2 control-label"></label>
+
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="code" name="code" placeholder="验证码">
+                </div>
+                <a href="javascript:void(0);">
+                    <img src="/admin/rbac/login/verify" width="100"
+                         onclick="this.src='/admin/rbac/login/verify/'+new Date().getTime()" id="codeImg">
+                </a>
+            </div>
+            <div class="text-center " role="group">
+                <button type="button" class="btn btn-success" id="confirm">登陆</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        slider();
+        $(window).on('keydown', function (event) {
+            if (event.keyCode == 13) {
+                login();
+            }
+        });
+        $('#confirm').click(function () {
+            login();
+        });
+    })
+    //确认按钮
+    function login() {
+        $.ajax({
+            url: '/admin/rbac/login/userLogin',
+            dataType: 'json',
+            type: 'post',
+            data: $('#login_form').serialize(),
+            success: function (data) {
+                if (data.status == 0) {
+                    location.href = '/admin/menu/index/main';
+                } else {
+                    CommonUtils.tips(data.message, 2000, false);
+                    document.getElementById('codeImg').src = '/admin/rbac/login/verify/' + new Date().getTime();
+                }
+            }
+        })
+    }
+    //图片轮播
+    function slider() {
+        var time = 1, $slide = $('#image_slider');
+        window.setTimeout(function () {
+            var index = time % 4;
+            $slide.find('.active').removeClass('active');
+            $slide.find('li').eq(index).addClass('active');
+            time++;
+            window.setTimeout(arguments.callee, 5000);
+        }, 5000)
+    }
+</script>
+</body>
+</html>

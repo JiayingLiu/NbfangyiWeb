@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">译牛译者管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="searchForm_telephone">手机号</label>
+                    <input type="text" class="form-control" id="searchForm_telephone" placeholder="请输入手机号" name="telephone"
+                           value="<{$data['telephone']}>">
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+            <hr>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal"
+                        onclick="reset();">新建
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered" id="userList">
+                <tr>
+                    <td hidden></td>
+                    <td hidden></td>
+                    <th>手机号</th>
+                    <th>用户名</th>
+                    <th>价格（元/字）</th>
+                    <th>添加时间</th>
+                    <th>擅长</th>
+                    <th>说明</th>
+                    <th>操作</th>
+                </tr>
+                <{foreach($data["data"] as $k => $v)}>
+                <tr>
+                    <td hidden><{$v["id"]}></td>
+                    <td hidden><{$v["tuid"]}></td>
+                    <td><{$v["telephone"]}></td>
+                    <td><{$v["realname"]}></td>
+                    <td><{$v["proportion"]}></td>
+                    <td><{$v["create_time"]}></td>
+                    <td data-id="<{$v['language']}>"><{$v["language_title"]}></td>
+                    <td><{$v["desc"]}></td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm js-edit" data-toggle="modal"
+                                data-target="#updateModal">编辑
+                        </button>
+                    </td>
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!--新建窗口-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addModal_title">新建</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="addForm_telephone">手机号码</label>
+                        <input type="text" class="form-control" id="addForm_telephone" name="telephone"
+                               placeholder="请填写手机号码">
+                    </div>
+                    <div class="form-group">
+                        <label for="addForm_realname">当前用户</label>
+                        <input type="text" class="form-control" id="addForm_realname" name="realname" readonly>
+                        <input type="hidden" id="addForm_uid" name="uid">
+                    </div>
+                    <div class="form-group">
+                        <label for="addForm_price">价格（元/字）</label>
+                        <input type="text" class="form-control" id="addForm_price" name="price" placeholder="请填写价格">
+                    </div>
+                    <div class="form-group">
+                        <label>擅长：</label><br>
+                        <{foreach ($data["productList"] as $k => $v)}>
+                        <label class="checkbox-inline">
+                            <input type="radio" value="<{$v['id']}>" name="translator_language"><{$v["title"]}>
+                        </label>
+                        <{/foreach}>
+                    </div>
+                    <div class="form-group">
+                        <label for="addForm_price">说明</label>
+                        <textarea class="form-control" name="desc" placeholder="请填写说明"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑窗口-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm">
+                    <div class="form-group">
+                        <label for="updateForm_telephone">手机号码</label>
+                        <input type="text" class="form-control" id="updateForm_telephone" name="telephone"
+                               placeholder="请填写手机号码" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateForm_realname">当前用户</label>
+                        <input type="text" class="form-control" id="updateForm_realname" name="realname" readonly>
+                        <input type="hidden" id="updateForm_uid" name="uid">
+                        <input type="hidden" id="updateForm_id" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateForm_price">价格（元/字）</label>
+                        <input type="text" class="form-control" id="updateForm_price" name="price" placeholder="请填写价格">
+                    </div>
+                    <div class="form-group" id="goodAts">
+                        <label>擅长：</label><br>
+                        <{foreach ($data["productList"] as $k => $v)}>
+                        <label class="checkbox-inline">
+                            <input type="radio" value="<{$v['id']}>" name="translator_language"><{$v["title"]}>
+                        </label>
+                        <{/foreach}>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="update">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var URL = {
+        SEARCH: '/admin/cooporder/translatorUser/index',
+        EDIT: '/admin/cooporder/translatorUser/updateTranslatorUserInfo',
+        SAVE: '/admin/cooporder/translatorUser/addTranslatorUser',
+        CHECK: '/admin/cooporder/translatorUser/getUserInfo'
+    };
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["totalCount"]}>',
+            limit: '<{$data["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        save();
+        editModal();
+        checkTransltor();
+    });
+    //构建人员验证的页面
+    function checkTransltor() {
+        $('#addForm_telephone').on('blur', function () {
+            var val = $(this).val();
+            if (val && $.trim(val)) {
+                $.ajax({
+                    url: URL.CHECK + '?telephone=' + val,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == '0') {
+                            var data = data.data,
+                                    name = data.realname;
+                            $('#addForm_realname').val(name);
+                            $('#addForm_uid').val(data.tuid);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }
+        });
+    }
+    //编辑
+    function editModal() {
+        $('#userList').on('click', '.js-edit', function () {
+            var $this = $(this),
+                    $tr = $this.closest('tr');updateForm_uid
+            $('#updateForm_id').val($tr.find('td').eq(0).text());
+            $('#updateForm_uid').val($tr.find('td').eq(1).text());
+            $('#updateForm_telephone').val($tr.find('td').eq(2).text());
+            $('#updateForm_realname').val($tr.find('td').eq(3).text());
+            $('#updateForm_price').val($tr.find('td').eq(4).text());
+            $('#goodAts').find('input[value='+$tr.find('td').eq(6).attr('data-id')+']').attr('checked','checked');
+        });
+        $('#update').on('click', null, function () {
+            $.ajax({
+                url: URL.EDIT,
+                data: $('#updateForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            })
+        });
+    }
+    //初始化表单
+    function reset() {
+        document.getElementById('addForm').reset();
+    }
+    //保存
+    function save() {
+        $('#save').click(function () {
+            $.ajax({
+                url: URL.SAVE,
+                data: $('#addForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //查询
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.SEARCH;
+        });
+    }
+</script>
+</body>
+</html>

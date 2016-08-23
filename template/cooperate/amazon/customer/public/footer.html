@@ -1,0 +1,154 @@
+<!--footer-->
+<div class="quick-login" id="quickLoginModal">
+    <form id="quickLoginForm">
+        <div>
+            <span class="quick-login-tile">用户登录</span>
+            <span class="quick-login-close" style="cursor: pointer;">X</span>
+        </div>
+        <div class="quick-login-row">
+            <div class="quick-login-row-title">
+                用户名:
+            </div>
+            <div class="quick-login-row-text">
+                <input type="text" placeholder="请输入账户" name="account" id="pub_account">
+            </div>
+        </div>
+        <div class="quick-login-row">
+            <div class="quick-login-row-title">
+                密码:
+            </div>
+            <div class="quick-login-row-text">
+                <input type="password" placeholder="请输入密码" name="password" id="pub_password">
+            </div>
+        </div>
+        <div class="quick-login-row">
+            <div class="quick-login-row-title">
+                验证码:
+            </div>
+            <div class="quick-login-row-text">
+                <label class="code">
+                    <input type="text" placeholder="验证码" name="verifyCode" id="pub_verifyCode">
+                </label>
+                <img src="/usercore/api/member/verify" height="38"
+                     onclick="this.src='/usercore/api/member/verify?'+new Date().getTime()" id="quickLoginModal_codeImg" style="cursor: pointer;">
+            </div>
+        </div>
+        <div class="quick-login-row" id="quickLoginModal_info" style="color: #eb983a; padding: 0;">
+        </div>
+        <div class="quick-login-row">
+            <a class="btn imp login-hover-button" style="margin-left: 142px;" href="javascript:void(0);">登录</a>
+            <a class="btn login-hover-button" href="/user/index/register/index">立即注册</a>
+        </div>
+    </form>
+</div>
+<div class="login_mask"></div>
+<div class="footer">
+    <p class="footer-help">
+        <a href="/user/index/help/index?flag=0" target="_blank">关于译牛</a>/
+        <a href="/user/index/help/index?flag=1" target="_blank">服务说明</a>/
+        <a href="/user/index/help/index?flag=2" target="_blank">服务协议</a>/
+        <a href="/user/index/help/index?flag=3" target="_blank">联系我们</a>
+    </p>
+
+    <p class="footer-copyright">
+        Copyright 2015 www.nbangfanyi.com N邦翻译版权所有 备案：京ICP备15036767号。
+    </p>
+</div>
+<script>
+    $(function () {
+        checkLoginStatus();
+        openLoginModal();
+        login();
+        logout();
+    });
+    //退出事件
+    function logout() {
+        $('#logout').click(function () {
+            $.ajax({
+                url: '/usercore/api/member/logout',
+                type: 'GET',
+                data:{
+                    dataType:'json'
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == '0') {
+                        window.location.href = '/order/cooporder/order/buyProduct';
+                    } else {
+                    }
+                }
+            });
+        })
+    }
+    //登陆事件
+    function login() {
+        //点击事件
+        $('#quickLoginForm').on('click', '.btn', function () {
+            var $this = $(this);
+            if ($this.hasClass('imp')) {
+                $.ajax({
+                    url: '/usercore/api/member/login',
+                    type: 'POST',
+                    data: {
+                        verifyCode: $('#pub_verifyCode').val(),
+                        account: $('#pub_account').val(),
+                        password: $('#pub_password').val(),
+                        dataType: 'json', //数据返回类型，web登陆有效(非必须)，如果需要返回json，直接dataType = json即可
+                        url: ''//跳转地址, DataType不为json时传递要跳转的地址
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == '0') {
+                            checkLoginStatus();
+                        } else {
+                            $('#quickLoginModal_info').html('<span class="imp">'+data.message+'</span>');
+                            $('#quickLoginModal_codeImg').attr('src','/usercore/api/member/verify?'+new Date().getTime());
+                        }
+                    }
+                });
+            } else {
+
+            }
+        });
+        $('#quickLoginForm').find('.quick-login-close').click(function () {
+            $('#quickLoginModal').hide();
+            $('.login_mask').hide();
+        });
+        $('.login_mask').click(function(){
+            $('#quickLoginModal').hide();
+            $('.login_mask').hide();
+        });
+    }
+    //登陆按钮
+    function openLoginModal() {
+        $('#header_status_login').click(function () {
+            $('#quickLoginModal').show();
+            $('.login_mask').show();
+        });
+    }
+    //检测是否登陆
+    function checkLoginStatus() {
+        $.ajax({
+            url: '/usercore/api/member/getUserLoginInfo',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 0) {
+                    var data = data.data;
+                    $('#showName,#side_showName').text(data['_show_nick_name']).attr('href',data['_user_url']);
+                    $('#side_showLook').attr('src', data['_user_logo']);
+                    $('#header_status_login,#header_status_reg,#header-status-trns').hide();
+                    $('#header_status_hello').show();
+                    $('#quickLoginModal').hide();
+                    $('.login_mask').hide();
+                    if(data.type == 1){
+                        $('#header-status-personal').html('个人中心！&nbsp;&nbsp;|').attr('href',data['_user_url']);
+                    }else{
+                        $('#header-status-personal').html('管理后台！&nbsp;&nbsp;|').attr('href',data['_user_url']);
+                    }
+                }
+            }
+        });
+    }
+</script>
+<!--footer end-->

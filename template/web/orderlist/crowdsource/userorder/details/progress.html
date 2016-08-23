@@ -1,0 +1,23 @@
+<div class="order-top">
+    <ul>
+        <li class="<{if($data['order_info']['ext']['status'] >= 1)}>progress-cur<{else}><{/if}>">
+            <span class="step"></span>
+            提交订单
+        </li>
+        <li class="<{if($data['order_info']['ext']['status'] >= 2)}>progress-cur<{else}><{/if}>">
+            <span class="step"></span>
+            支付成功
+        </li>
+        <li class="<{if($data['order_info']['ext']['status'] >= 4)}>progress-cur<{else}><{/if}>">
+            <span class="step"></span>
+            开始翻译
+        </li>
+        <li class="<{if($data['order_info']['ext']['status'] >= 5)}>progress-cur<{else}><{/if}>">
+            <span class="step"></span>
+            译稿上传
+        </li>
+        <li class="<{if($data['order_info']['ext']['status'] == 20)}>progress-cur<{else}><{/if}>">
+            完成
+        </li>
+    </ul>
+</div>

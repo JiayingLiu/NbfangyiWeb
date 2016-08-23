@@ -1,0 +1,159 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-添加商品</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">商品管理</a>&gt;
+        <a href="javascript:void(0);">添加商品</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">添加商品</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <div class="label-content-edit">
+                <form id="product_form">
+                    <div class="form-group">
+                        <div class="col-xs-2"><span class="font-remind">*</span>服务类型：</div>
+                        <div class="col-xs-3 ">
+                            <select class="form-input js-type" name="type">
+                                <{foreach($data['param_data']['types'] as $k => $v)}>
+                                <option value="<{$k}>"><{$v}></option>
+                                <{/foreach}>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2"><span class="font-remind">*</span>自定义名称：</div>
+                        <div class="col-xs-3"><input class="form-input" type="text" id="title" name="title"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2"><span class="font-remind">*</span>选择语言：</div>
+                        <div class="col-xs-3">
+                            <select class="form-input js-language" name="language_id" id="language_id">
+                                <option value="">请选择</option>
+                                <{foreach($data['param_data']['languages'] as $k => $v)}>
+                                <option value="<{$k}>"><{$v}></option>
+                                <{/foreach}>
+                            </select>
+                        </div>
+                        <div class="col-xs-1 text-center">→</div>
+                        <div class="col-xs-3">
+                            <select class="form-input js-language" name="to_language_id" id="to_language_id">
+                                <option value="">请选择</option>
+                                <{foreach($data['param_data']['languages'] as $k => $v)}>
+                                <option value="<{$k}>"><{$v}></option>
+                                <{/foreach}>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2"><span class="font-remind">*</span>价格：</div>
+                        <div class="col-xs-3">
+                            <input class="form-input" type="text" name="price"/>
+                        </div>
+                        <div class="col-xs-1 text-center"><span class="font-remind">*</span>单位：</div>
+                        <div class="col-xs-3">
+                            <select class="form-input" name="price_type" id="change_price_type">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group font-remind">
+                        <i class="iconfont icon-remind"></i>
+                        提示：请您按翻译语言种类报价，平台目前有五种计费方式，其中笔译可以按字、按件、按页计费，口译可以按小时、天计费。
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2"><span class="font-remind">*</span>文件类型：</div>
+                        <div class="col-xs-10 font-remind">（以下标签只能选择一个）</div>
+                        <div id="tag_category_id" name="" class="js-price-b">
+                        </div>
+                        <div id="tag_category_id_k" name="" class="js-price-k" style="display: none">
+                        </div>
+                        <input type="hidden" name="category_id"><!--文件类型-->
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2"><span class="font-remind">*</span>领域：</div>
+                        <div class="col-xs-10 font-remind">（选择下列标签，最多设置三个标签）</div>
+                        <div id="tag_field_id" name="field_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2"><span class="font-remind">*</span>服务承诺：</div>
+                        <div class="col-xs-10 font-remind">（选择下列标签，至少选择一标签，最多设置六个标签）</div>
+                        <div id="tag_service_commitment" name="service_commitment">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2"><span class="font-remind">*</span>商品图片：</div>
+                        <div class="col-xs-4">
+                            <a href="javascript:;" class="btn btn-submit" id="random_img_btn">点击随机生成</a>
+                            <input type="hidden" name="logo" value="img/system/resume2.png">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <img src="<{$file_url}>img/system/resume2.png" id="random_img">
+                    </div>
+                    <div class="form-group">
+                        <span class="font-remind">*</span>商品描述:<br>
+
+                        <div class="row">
+                            <div class="col-xs-11">
+                                <textarea id="editor" class="form-textarea" name="description"
+                                          style="width:100%;height:400px;"></textarea>
+                            </div>
+                        </div>
+                        <script charset="utf-8" src="<{$js_url}>web/plugin/kindeditor/kindeditor-all.js"></script>
+                        <script charset="utf-8" src="<{$js_url}>web/plugin/kindeditor/lang/zh-CN.js"></script>
+                        <script>
+                            KindEditor.ready(function (K) {
+                                window.editor = K.create('#editor', {
+                                    uploadJson: '/index/common/uploadFile/textareaImg',
+                                    filePostName: 'file_name',
+                                    urlType: 'domain',
+                                    allowFlashUpload: false,
+                                    allowMediaUpload: false,
+                                    allowFileUpload: false,
+                                    formatUploadUrl: false,
+                                    wellFormatMode: false,
+                                    allowFileManager: false,
+                                    fillDescAfterUploadImage: true,
+                                    allowImageRemote: true,
+                                    items: [
+                                        'undo', 'redo', '|', 'preview', 'print', 'template', 'cut', 'copy', 'paste',
+                                        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                                        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                                        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', '/',
+                                        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                                        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+                                        'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                                        'anchor', 'link', 'unlink'
+                                    ],
+                                    afterUpload: function (url) {
+                                        console.info(url)
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </form>
+                <div class="row text-center">
+                    <a href="/shop/index/product/productList" class="btn btn-cancel">取消</a>
+                    <a href="javascript:;" class="btn btn-submit" id="save">提交</a>
+                </div>
+            </div>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script>
+    var units = '<{$data["units"]}>';
+</script>
+<script src="<{$js_url}>web/js/product/add_product.js"></script>
+<{layout:web/public/foot}>

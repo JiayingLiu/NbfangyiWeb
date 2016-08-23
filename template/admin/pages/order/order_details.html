@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/admin/order/list/browse" class="btn btn-default"><i class="fa fa-reply"></i></a>
+            订单详情
+        </div>
+        <div class="panel-body">
+            <form class="form">
+                <div class="row">
+                    <label class="col-sm-2 control-label">订单号</label>
+
+                    <div class="col-sm-10"><{$data["order_info"]["order"]["order_num"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">订单状态</label>
+
+                    <div class="col-sm-10"><{$data['order_status_list'][$data['order_info']['ext']['status']]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">买家姓名</label>
+
+                    <div class="col-sm-10"><{$data['order_info']['ext']['ext_data']['add_order_user_info']['_show_nick_name']}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">买家电话</label>
+
+                    <div class="col-sm-10"><{$data['order_info']['ext']['ext_data']['add_order_user_info']['_user_phone']}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">下单时间</label>
+
+                    <div class="col-sm-10"><{$data['order_info']['order']['create_time']}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">卖家电话</label>
+
+                    <div class="col-sm-10"><{$data["order_info"]["ext"]["ext_data"]["shop_order_user_info"]["phone"]}></div>
+                </div>
+                <!--type 1 written 2 in-->
+                <{if($data['order_info']['ext']['ext_data']['product_info']['type'] == 1)}>
+                <div class="row">
+                    <label class="col-sm-2 control-label">交稿时间</label>
+                    <div class="col-sm-10"><{$data['order_info']['ext']['estimate_start']}>至<{$data['order_info']['ext']['estimate_end']}></div>
+                </div>
+                <{else}>
+                <div class="row">
+                    <label class="col-sm-2 control-label">服务时间</label>
+                    <div class="col-sm-10"><{$data['order_info']['ext']['estimate_start']}>至<{$data['order_info']['ext']['estimate_end']}></div>
+                </div>
+                <{/if}>
+
+                <div class="row">
+                    <label class="col-sm-2 control-label">设计领域</label>
+
+                    <div class="col-sm-10"><{$data['product_info']['field_name']}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">服务类型</label>
+
+                    <div class="col-sm-10"><{$data['product_info']['type_str']}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">服务承诺</label>
+
+                    <div class="col-sm-10"><{$data['product_info']['service_commitment_name']}></div>
+                </div>
+
+
+
+                <{if(empty($data['order_info']['ext']['ext_data']['doc_translate_format']))}>
+                <{else}>
+                <div class="row">
+                    <label class="col-sm-2 control-label">回稿格式</label>
+
+                    <div class="col-sm-10"><{$data['order_info']['ext']['ext_data']['doc_translate_format_str']}></div>
+                </div>
+                <{/if}>
+
+                <div class="row">
+                    <label class="col-sm-2 control-label">订单金额</label>
+
+                    <div class="col-sm-10"><{$data['order_info']['order']['total_price']}></div>
+                </div>
+                <div class="row" style="padding: 0 15px;">
+                    <div class="col-xs-1">
+                        &nbsp;&nbsp;备注：
+                    </div>
+                </div>
+                <div class="row" style="padding: 0 15px;">
+                    <{if(empty($data['order_info']['ext']['desc']))}>
+                    <textarea class="form-control" readonly>卖家没有填写备注内容</textarea>
+                    <{else}>
+                    <textarea class="form-control" readonly><{$data['order_info']['ext']['desc']}></textarea>
+                    <{/if}>
+                </div>
+            </form>
+        </div>
+        <div class="panel-body"  style="padding: 0 15px 25px;">
+            <!--type 1 written 2 in-->
+            <{if($data['order_info']['ext']['ext_data']['product_info']['type'] == 1)}>
+            <!--trans_type 2 fast 4 file-->
+            <{if($data['order_info']['ext']['file_type'] == 2)}>
+            <{layout:admin/pages/order/details/online}><!--online-->
+            <{else}>
+            <{layout:admin/pages/order/details/file}><!--file-->
+            <{/if}>
+            <{else}>
+            <{layout:admin/pages/order/details/interpret}><!--interpret-->
+            <{/if}>
+        </div>
+    </div>
+</div>
+
+<script>
+    var URL = {
+        TOASSIGN: '/admin/cooporder/order/assignOrder',
+        UNASSIGN: '/admin/cooporder/order/userCancelOrder',
+        PASS: '/admin/cooporder/order/doneOrder',
+        UNPASS: '/admin/cooporder/order/orderCheckFail'
+    };
+    $(function () {
+        queryPhoneNum();
+        toAssign();
+        cancelAssign();
+        completeOrder();
+        cantpassOrder();
+    });
+    //模糊查询手机号
+    function queryPhoneNum() {
+        $('#query_translator').on('keyup', function () {
+            var val = $.trim($(this).val()), $list = $('#translator_list');
+            $list.find('tr').show();
+            $td = $list.find('.js-telephone');
+            val ? $.each($td, function () {
+                var $this = $(this);
+                $this.text().match(val) || $this.closest('tr').hide();
+            }) : $list.find('tr').show();
+        })
+    }
+    //取消指派
+    function cancelAssign() {
+        $('#openCancelAssign').click(function () {
+            CommonUtils.confirm('是否撤销指派？', function () {
+                $.ajax({
+                    url: URL.UNASSIGN,
+                    data: {
+                        'telephone': '<{$data["orderInfo"]["order"]["to_user_name"]}>',
+                        tuid: '<{$data["orderInfo"]["order"]["tuid"]}>',
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+    //指派
+    function toAssign() {
+        $('#translator_list').on('click', '.js-assign', function () {
+            var $this = $(this);
+            CommonUtils.confirm('谨慎操作指派，是否进行指派？', function () {
+                $.ajax({
+                    url: URL.TOASSIGN,
+                    data: {
+                        id: $this.attr('data-id'),
+                        tuid: $this.attr('data-uid'),
+                        telephone: $this.attr('data-tel'),
+                        tname: $this.attr('data-tname'),
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+    //审核不通过
+    function cantpassOrder() {
+        $('#cantpassOrder').on('click', null, function () {
+            CommonUtils.confirm('是否确定此译稿不通过审核？', function () {
+                $.ajax({
+                    url: URL.UNPASS,
+                    data: {
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+
+    //审核通过
+    function completeOrder() {
+        $('#completeOrder').on('click', null, function () {
+            CommonUtils.confirm('是否确定此译稿通过审核？', function () {
+                $.ajax({
+                    url: URL.PASS,
+                    data: {
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+</script>
+</body>
+</html>

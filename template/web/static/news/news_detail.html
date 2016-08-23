@@ -1,0 +1,64 @@
+<{layout:web/public/head}>
+<title><{$data['article']['title']}>-N邦翻译</title>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/help/news.css">
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<{layout:web/public/nav}>
+<div class="wrap">
+    <div class="news-main">
+        <div class="news-menu">
+            <div class="news-nav">
+                <!--1 is notice 2 is news -->
+                <{if($data['article']['category_id'] == 1)}>
+                <a href="/index/index/news/index?type=2" data-id="2">新闻</a>
+                <a href="/index/index/news/index?type=1" class="focus" data-id="1">公告</a>
+                <{else}>
+                <a href="/index/index/news/index?type=2" class="focus" data-id="2">新闻</a>
+                <a href="/index/index/news/index?type=1" data-id="1">公告</a>
+                <{/if}>
+            </div>
+            <ul class="news-box">
+                <{if($data['news']['1']> 0)}>
+                <{foreach($data['news']['0'] as $k => $v)}>
+                <li>
+                    <a href="/index/index/news/detail?id=<{$v['id']}>" class="pull-left link"><{$v['title']}></a>
+                </li>
+                <{/foreach}>
+                <{else}>
+                <li class="text-center">没有更新新闻公告！</li>
+                <{/if}>
+            </ul>
+            <div class="news-ext">
+                <p class="title">联系我们</p>
+
+                <p class="info">如果您在平台遇到问题或者对我们有任何建议，请及时与我们联系</p>
+
+                <p class="hotline">服务咨询热线</p>
+
+
+                <p class="phone-num">
+                    <img class="img-phone" src="<{$css_url}>web/css/image/news/phone.jpg">
+                    <span>4006-808-525</span>
+                </p>
+
+                <p class="title">官方微信</p>
+
+                <p class="info">N邦翻译为公司和个人译者提供一个宣传自己的平台</p>
+                <img class="img-weixin" src="<{$css_url}>web/css/image/public/weixin.jpg" height="100" width="100">
+            </div>
+        </div>
+        <div class="news-text">
+            <div class="news-article-title"><{if($data['article']['category_id'] == 1)}>公告<{else}>新闻<{/if}>详情</div>
+            <div class="news-text-title"><h1><{$data['article']['title']}></h1></div>
+            <div class="news-text-time">时间：<{$data['article']['create_time']}>&nbsp;&nbsp;&nbsp;&nbsp;
+                浏览次数：<{$data['article']['view']}></div>
+            <div class="news-text-reset"><{echo htmlspecialchars_decode($data['article']['content']);}></div>
+        </div>
+    </div>
+</div>
+<script>
+    require(['jquery', 'base'], function ($, base) {
+        base.init();
+    });
+</script>
+<{layout:web/public/foot}>

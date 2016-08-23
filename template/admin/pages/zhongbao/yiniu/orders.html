@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">订单管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="name">订单号</label>
+                    <input type="text" class="form-control" id="name" placeholder="请输入订单号" name="order_num"
+                           value="<{$data['search_param']['order_num']}>">
+                </div>
+                <div class="form-group">
+                    <label for="name">状态</label>
+                    <select class="form-control" name="status">
+                        <{if($data['search_param']['status']==1)}>
+                        <option value="">请选择状态</option>
+                        <option value="1" selected>待付款</option>
+                        <option value="2">已支付</option>
+                        <option value="20">已完成</option>
+                        <option value="30">已取消</option>
+                        <{elseif($data['search_param']['status']==2)}>
+                        <option value="">请选择状态</option>
+                        <option value="1">待付款</option>
+                        <option value="2" selected>已支付</option>
+                        <option value="20">已完成</option>
+                        <option value="30">已取消</option>
+                        <{elseif($data['search_param']['status']==20)}>
+                        <option value="">请选择状态</option>
+                        <option value="1">待付款</option>
+                        <option value="2">已支付</option>
+                        <option value="20" selected>已完成</option>
+                        <option value="30">已取消</option>
+                        <{elseif($data['search_param']['status']==30)}>
+                        <option value="">请选择状态</option>
+                        <option value="1">待付款</option>
+                        <option value="2">已支付</option>
+                        <option value="20">已完成</option>
+                        <option value="30" selected>已取消</option>
+                        <{else}>
+                        <option value="">请选择状态</option>
+                        <option value="1">待付款</option>
+                        <option value="2">已支付</option>
+                        <option value="20">已完成</option>
+                        <option value="30">已取消</option>
+                        <{/if}>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered" id="userList">
+                <tr>
+                    <th>订单号</th>
+                    <th>翻译类型</th>
+                    <th>订单金额</th>
+                    <th>状态</th>
+                    <th>下单时间</th>
+                    <th>操作</th>
+                </tr>
+                <{foreach($data["data"] as $k => $v)}>
+                <tr>
+                    <td><{$v["order_num"]}></td>
+                    <td><{$v["title"]}></td>
+                    <td><{$v["total_price"]}></td>
+                    <td>
+                        <{if($v["status"] == 1)}>
+                        <span>待付款</span>
+                        <{elseif ($v['ext']["status"] == 2)}>
+                        <span class="label label-success">已支付</span>
+                        <{elseif ($v['ext']["status"] == 3)}>
+                        <span class="label label-info">指派中</span>
+                        <{elseif ($v['ext']["status"] == 4)}>
+                        <span class="label label-info">译者开始翻译</span>
+                        <{elseif ($v['ext']["status"] == 5)}>
+                        <span class="label label-success">译者完成翻译</span>
+                        <{elseif ($v['ext']["status"] == 10)}>
+                        <span class="label label-info">平台翻译审核</span>
+                        <{elseif ($v['ext']["status"] == 11)}>
+                        <span class="label label-danger">审核未通过</span>
+                        <{elseif ($v['ext']["status"] == 20)}>
+                        <span class="label label-success">订单完成</span>
+                        <{elseif ($v['ext']["status"] == 30)}>
+                        <span class="label label-default">取消订单</span>
+                        <{else}>
+                        <{/if}>
+                    </td>
+                    <td><{$v["create_time"]}></td>
+                    <td>
+                        <a href="/admin/cooporder/order/orderInfo?order_num=<{$v['order_num']}>"
+                           class="btn btn-primary btn-sm">查看详情</a>
+                        <{if ($v['ext']["status"] == 2)}>
+                        <a href="/admin/cooporder/order/orderInfo?order_num=<{$v['order_num']}>"
+                           class="btn btn-success btn-sm">指派</a>
+                        <{else}>
+                        <{/if}>
+                    </td>
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    var URL = {
+        SEARCH: '/admin/cooporder/order/orderList'
+    };
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["totalCount"]}>',
+            limit: '<{$data["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+    });
+    //查询
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.SEARCH;
+        });
+    }
+</script>
+</body>
+</html>

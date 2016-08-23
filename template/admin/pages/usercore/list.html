@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">平台管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="searchForm_uid">uid</label>
+                    <input type="text" class="form-control" id="searchForm_uid" placeholder="请输入uid" name="uid"
+                           value="<{$data['search_param']['uid']}>">
+                </div>
+                <div class="form-group">
+                    <label for="searchForm_uid">真实姓名</label>
+                    <input type="text" class="form-control" id="searchForm_real_name" placeholder="请输入真实姓名" name="real_name"
+                           value="<{$data['search_param']['real_name']}>">
+                </div>
+                <div class="form-group">
+                    <label for="searchForm_telephone">手机号</label>
+                    <input type="text" class="form-control" id="searchForm_telephone" placeholder="请输入手机号" name="phone"
+                           value="<{$data['search_param']['phone']}>">
+                </div>
+
+                <div class="form-group">
+                    <label for="">用户类型</label>
+                    <select class="form-control" id="type" name="type" value="">
+                        <option value="0" selected="">请选择</option>
+                        <{foreach($data["type_list"] as $k => $v)}>
+                        <option value="<{$k}>"
+                        <{if ($k == $data['search_param']['type'] )}>selected<{/if}> ><{$v}></option>
+                        <{/foreach}>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="">状态</label>
+                    <select class="form-control" id="status" name="status" value="">
+                        <option value="0" selected="">请选择</option>
+                        <{foreach($data["status_list"] as $k => $v)}>
+                        <option value="<{$k}>"
+                        <{if ($k == $data['search_param']['status'] )}>selected<{/if}> ><{$v}></option>
+                        <{/foreach}>
+                    </select>
+                </div>
+
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+           <hr>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal"
+                        onclick="reset();">新建
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered" id="userList">
+                <tr>
+                    <td>uid</td>
+                    <td>类型</td>
+                    <th>手机号</th>
+                    <th>真实姓名</th>
+                    <th>注册来源</th>
+                    <th>状态</th>
+                    <th>web上次登录时间</th>
+                    <th>app上次登录时间</th>
+                    <th>注册时间</th>
+                    <th>操作</th>
+                </tr>
+                <{foreach($data["list"] as $k => $v)}>
+                <tr>
+                    <td><{$v["uid"]}></td>
+                    <td><{$data["type_list"][$v['type']]}></td>
+                    <td><{$v["phone"]}></td>
+                    <td><{$v["real_name"]}></td>
+                    <td><{$data["from_type_list"][$v['from_type']]}></td>
+                    <td><{$data["status_list"][$v['status']]}></td>
+                    <td><{$v["login_time"]}></td>
+                    <td><{$v["app_login_time"]}></td>
+                    <td><{$v["create_time"]}></td>
+                    <!--10 lock 20 normal -->
+                    <td>
+                        <{if($v["status"] == 10)}>
+                        <button  class="btn btn-success btn-sm js-unlock" data-uid="<{$v['uid']}>"
+                           data-phone="<{$v['phone']}>">解锁用户</button>
+                        <{else}>
+                        <button  class="btn btn-danger btn-sm js-lock" data-uid="<{$v['uid']}>"
+                           data-phone="<{$v['phone']}>">锁定用户</button>
+                        <{/if}>
+                        <button  class="btn btn-default btn-sm js-change" data-type="<{$v['type']}>"
+                           data-phone="<{$v['phone']}>" data-toggle="modal"
+                           data-target="#identityModal">变更身份</button>
+                    </td>
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!--新建窗口-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="">新建</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label>请选择身份</label>
+                        <select type="text" class="form-control" name="userType">
+                            <{foreach($data['type_list'] as $k => $v)}>
+                            <option value="<{$k}>"><{$v}></option>
+                            <{/foreach}>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="account">手机号码</label>
+                        <input type="text" class="form-control" id="account" name="account" placeholder="请填写手机号码">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_password">登陆密码</label>
+                        <input type="password" class="form-control" id="add_password" name="password" placeholder="请填写登陆密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="repeatPasswd">登陆密码</label>
+                        <input type="password" class="form-control" id="repeatPasswd" name="repeatPasswd" placeholder="请重复登陆密码">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改身份-->
+<div class="modal fade" id="identityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">变更身份</h4>
+            </div>
+            <div class="modal-body">
+                <form id="pwdForm">
+                    <div class="form-group">
+                        请谨慎变更身份操作。
+                    </div>
+                    <div class="form-group">
+                        <label for="indentity">请选择身份</label>
+                        <select type="text" class="form-control" name="indentity" id="indentity">
+                            <{foreach($data['type_list'] as $k => $v)}>
+                            <option value="<{$k}>"><{$v}></option>
+                            <{/foreach}>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="updateIndentity">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var URL = {
+        SEARCH: '/admin/usercore/list/browse',
+    };
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["total_count"]}>',
+            limit: '<{$data["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+    });
+    //新建清除表单
+    function reset(){
+        document.getElementById('addForm').reset();
+    }
+    //保存事件
+    $('#save').click(function(){
+        $.ajax({
+            url:'/admin/usercore/list/addRegInfo',
+            type:'POST',
+            data:$('#addForm').serialize(),
+            dataType:'json',
+            success:function(data){
+                if (data.status == 0) {
+                    CommonUtils.tips(data.message, 2000, true);
+                } else {
+                    CommonUtils.tips(data.message, 2000, false);
+                }
+            }
+        });
+    });
+    //点击事件
+    $('#userList').on('click', '.btn', function () {
+        var $this = $(this),
+                uid = $this.attr('data-uid'),
+                phone = $this.attr('data-phone'),
+                type = $this.attr('data-type');
+        if ($this.hasClass('js-lock')) {
+            CommonUtils.confirm('确定要锁定此用户吗？', function () {
+                $.ajax({
+                    url: '/admin/usercore/list/lockUser',
+                    data: {
+                        uid: uid,
+                        phone: phone
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            }, null);
+        } else if ($this.hasClass('js-unlock')) {
+            CommonUtils.confirm('确定要解锁此用户吗？', function () {
+                $.ajax({
+                    url: '/admin/usercore/list/unlockUser',
+                    data: {
+                        uid: uid,
+                        phone: phone
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            }, null);
+        } else {
+            $('#indentity').val(type).attr('data-phone',phone);
+        }
+    });
+    //变更身份
+    $('#updateIndentity').click(function () {
+        CommonUtils.confirm('确定要变更此用户吗？', function () {
+            $.ajax({
+                url: '/admin/usercore/list/modifyUserType',
+                data: {
+                    phone: $('#indentity').attr('data-phone'),
+                    userType: $('#indentity').val()
+                },
+                type: 'POST',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        }, null);
+    });
+
+    //查询
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.SEARCH;
+        });
+    }
+</script>
+</body>
+</html>

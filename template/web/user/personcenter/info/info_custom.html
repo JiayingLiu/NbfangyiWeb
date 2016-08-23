@@ -1,0 +1,98 @@
+<form id="custom_form">
+    <input type="hidden" name="shop_id" value="<{$data['shopInfo']['shopInfo']['id']}>">
+
+    <!--自定义介绍-->
+    <div class="label-title">
+        <span class="label-title-text">自定义介绍</span>
+        <span class="label-title-circle"></span>
+        <span class="label-title-line"></span>
+    </div>
+    <div class="label-content">
+        <!--show-->
+        <div class="label-content-show">
+            <div class="label-content-show-left">
+                <div class="row font-remind">
+                    <i class="iconfont icon-remind"></i>自定义介绍是开通店铺必填项，信息填写不全店铺将无法通过审核，请务必将您的资料填写完整。
+                </div>
+                <div class="row font-remind">
+                     1、自定义介绍将用于展示在商铺的主页上，请您认真填写。<br>
+                     2、如果您是用粘贴复制的方式进行信息的填写，需要注意的是，请保证粘贴的文字是文本格式。
+                </div>
+                <div class="form-group" id="ue_content">
+                    <{if(empty($data['shopInfo']['shopInfo']['detail_id']))}>
+                    <span>未填写</span>
+                    <{else}>
+                    <{echo htmlspecialchars_decode($data['shopInfo']['shopInfo']['detail_content']);}>
+                    <{/if}>
+                </div>
+            </div>
+            <div class="label-content-show-right">
+                <div class="label-content-show-edit">
+                    <a href="javascript:;" class="js-pc-btn" data-ele="edit" data-index="5">
+                        <i class="iconfont icon-edit"></i>
+                        编辑
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--show end-->
+        <!--edit-->
+        <div class="label-content-edit" style="display: none;">
+            <div class="row font-remind">
+                <i class="iconfont icon-remind"></i>自定义介绍是开通店铺必填项，信息填写不全店铺将无法通过审核，请务必将您的资料填写完整。
+            </div>
+            <div class="row font-remind">
+                 1、自定义介绍将用于展示在商铺的主页上，请您认真填写。<br>
+                 2、如果您是用粘贴复制的方式进行信息的填写，需要注意的是，请保证粘贴的文字是文本格式。
+            </div>
+            <div class="row">
+                <div class="col-xs-11">
+                    <span class="font-remind">*</span>自定义介绍：
+                </div>
+                <div class="col-xs-11">
+                    <textarea id="editor" style="width:100%;height:400px;"><{echo htmlspecialchars_decode($data['shopInfo']['shopInfo']['detail_content']);}></textarea>
+                </div>
+            </div>
+            <script charset="utf-8" src="<{$js_url}>web/plugin/kindeditor/kindeditor-all.js"></script>
+            <script charset="utf-8" src="<{$js_url}>web/plugin/kindeditor/lang/zh-CN.js"></script>
+            <script>
+                KindEditor.ready(function (K) {
+                    window.editor = K.create('#editor', {
+                        uploadJson: '/index/common/uploadFile/textareaImg',
+                        filePostName: 'file_name',
+                        urlType: 'domain',
+                        allowFlashUpload: false,
+                        allowMediaUpload: false,
+                        allowFileUpload: false,
+                        formatUploadUrl: false,
+                        wellFormatMode: false,
+                        allowFileManager: false,
+                        fillDescAfterUploadImage: true,
+                        allowImageRemote: true,
+                        items: [
+                            'undo', 'redo', '|', 'preview', 'print', 'template', 'cut', 'copy', 'paste',
+                            'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                            'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                            'superscript', 'clearhtml', 'quickformat', 'selectall', '|', '/',
+                            'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                            'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+                            'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                            'anchor', 'link', 'unlink'
+                        ],
+                        afterUpload: function (url) {
+                            console.info(url)
+                        }
+                    });
+                });
+            </script>
+            <div class="row text-center">
+                <a href="javascript:;" class="btn btn-cancel js-pc-btn" data-ele="cancel">取消</a>
+                <a href="javascript:;" class="btn btn-submit" id="submit_custom">提交</a>
+            </div>
+        </div>
+        <!--edit end-->
+    </div>
+    <input type="hidden" name="detail_content" value="<{$data['shopInfo']['shopInfo']['detail_content']}>"
+           id="detail_content_hidden">
+    <input type="hidden" name="detail_id" value="<{$data['shopInfo']['shopInfo']['detail_id']}>">
+</form>

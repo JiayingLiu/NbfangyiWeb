@@ -1,0 +1,196 @@
+<!--店铺的头容器-->
+<div class="trs-head">
+    <div class="row">
+        <div class="col-xs-1">
+            <a href="javascript:;" class="trs-head-img">
+                <img src="<{$file_url}><{$data['shop']['logo']}>" width="93" height="93">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="row head-text-left">
+                        <a href="javascript:void(0);">商家：<{$data['shop']['title']}></a>
+                    </div>
+                    <div class="row head-text-left">
+                        服务：
+                        <{if(empty($data['shop']['good_at_name']))}>
+                        未设置
+                        <{else}>
+                        <{foreach($data['shop']['good_at_name'] as $k => $v)}>
+                        <{$v}>
+                        <{/foreach}>
+                        <{/if}>
+                    </div>
+                    <div class="row head-text-left">
+                        类型：
+                        <{if(empty($data['shop']['service_type_name']))}>
+                        未设置
+                        <{else}>
+                        <{foreach($data['shop']['service_type_name'] as $k => $v)}>
+                        <{$v}>
+                        <{/foreach}>
+                        <{/if}>
+                    </div>
+                    <div class="row head-text-left">
+                        领域：
+                        <{if(empty($data['shop']['field_name']))}>
+                        未设置
+                        <{else}>
+                        <{foreach($data['shop']['field_name'] as $k => $v)}>
+                        <{$v}>
+                        <{/foreach}>
+                        <{/if}>
+                    </div>
+                    <div class="row head-text-left">
+                        <i class="iconfont icon-address color-blue"></i>
+                        <{$data['shop']['city']}>
+                    </div>
+                </div>
+                <div class="col-xs-4 text-right">
+                    <div class="row">
+                        <{$data['shop']['type_name']}> 0条评价
+                    </div>
+                    <div class="row">
+                        提供服务<{$data['shop']['service_times']}>次
+                    </div>
+                    <div class="row">
+                        <ul class="trs-lable">
+                            <{if(empty($data['shop']['field_name']))}>
+                            <li>店铺标签未设置</li>
+                            <{else}>
+                            <{foreach($data['shop']['label_word_ids_name'] as $k => $v)}>
+                            <li><{$v}></li>
+                            <{/foreach}>
+                            <{/if}>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <{if($data['shop']['star_num'] == 0)}>
+                        <i class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i>
+                        <{elseif($data['shop']['star_num'] > 0 && $data['shop']['star_num'] < 1)}>
+                        <i class="iconfont icon-star-half"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i>
+                        <{elseif($data['shop']['star_num'] == 1)}>
+                        <i class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i>
+                        <{elseif($data['shop']['star_num'] > 1 && $data['shop']['star_num'] < 2)}>
+                        <i class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-half"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i>
+                        <{elseif($data['shop']['star_num'] == 2)}>
+                        <i class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i>
+                        <{elseif($data['shop']['star_num'] > 2 && $data['shop']['star_num'] < 3)}>
+                        <i class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-half"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i>
+                        <{elseif($data['shop']['star_num'] == 3)}>
+                        <i class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-empty"></i><i
+                            class="iconfont icon-star-empty"></i>
+                        <{elseif($data['shop']['star_num'] > 3 && $data['shop']['star_num'] < 4)}>
+                        <i class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-half"></i><i
+                            class="iconfont icon-star-empty"></i>
+                        <{elseif($data['shop']['star_num'] == 4)}>
+                        <i class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-empty"></i>
+                        <{elseif($data['shop']['star_num'] > 4 && $data['shop']['star_num'] < 5)}>
+                        <i class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-half"></i>
+                        <{elseif($data['shop']['star_num'] == 5)}>
+                        <i class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i><i
+                            class="iconfont icon-star-full"></i>
+                        <{else}>
+                        <{/if}>
+                        <{$data['shop']['star_num']}>分
+                    </div>
+                    <div class="row">
+                        <{if($data['shop']['type'] == 10)}>
+                        <div class="col-xs-4 col-head-4">
+                            <div class="aut-text">
+                                <{if($data['shop']['id_card_ceritfication'] == 1)}>
+                                <i class="icon-authentication icon-over-person"></i><span>身份认证</span>
+                                <{else}>
+                                <{/if}>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-head-4">
+                            <div class="aut-text">
+                                <{if($data['shop']['qualification'] == 1)}>
+                                <i class="icon-authentication icon-over-qualifications"></i><span>资质认证</span>
+                                <{else}>
+                                <{/if}>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-head-4">
+                            <div class="aut-text">
+                                <{if($data['shop']['education'] == 1)}>
+                                <i class="icon-authentication icon-over-education"></i><span>学历认证</span>
+                                <{else}>
+                                <{/if}>
+                            </div>
+                        </div>
+                        <{else}>
+                        <div class="col-xs-4 col-head-4">
+                            <div class="aut-text">
+                                <{if($data['shop']['language'] == 1)}>
+                                <i class="icon-authentication icon-over-person"></i><span>语言证书</span>
+                                <{else}>
+                                <{/if}>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-head-4">
+                            <div class="aut-text">
+                                <{if($data['shop']['tax'] == 1)}>
+                                <i class="icon-authentication icon-over-tax"></i><span>税务认证</span>
+                                <{else}>
+                                <{/if}>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-head-4">
+                            <div class="aut-text">
+                                <{if($data['shop']['license'] == 1)}>
+                                <i class="icon-authentication icon-over-license"></i><span>营业执照</span>
+                                <{else}>
+                                <{/if}>
+                            </div>
+                        </div>
+                        <{/if}>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

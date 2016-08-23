@@ -1,0 +1,101 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-优惠券</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">资金管理</a>&gt;
+        <a href="javascript:void(0);">优惠券</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">优惠券</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <!--show-->
+            <div class="label-content-show" id="">
+                <div class="coupon-add">
+                    <div class="font-remind coupon-add-btn">
+                        <i class="iconfont icon-remind"></i>
+                        了解优惠券的《<a href="#" class="link font-imp">使用规则</a>》
+                        <a href="javascript:void(0);" class="link font-imp pull-right" id="show_add_coupon">优惠券兑换，点这里</a>
+                    </div>
+                    <div class="coupon-form" id="add_form_wrap">
+                        <form id="add_form">
+                            <div class="form-group">
+                                <div class="col-xs-1">优惠券编码</div>
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-input" placeholder="请输入您的优惠券编码" name="coupon_num">
+                                </div>
+                                <div class="col-xs-3 text-center">
+                                    <a href="javascript:void(0);" class="btn btn-submit" id="add_coupon">添加优惠券</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="coupon-nav" id="coupon_type">
+                    <!--10 正常 20 已使用 30过期-->
+                    <{foreach($data['param_data']['typeNames'] as $k => $v)}>
+                    <{if($data['param_data']['status'] == $k)}>
+                    <a href="javascript:void(0);" class="coupon-t-slt" data-id="<{$k}>"><{$v}></a>
+                    <{else}>
+                    <a href="javascript:void(0);" class="" data-id="<{$k}>"><{$v}></a>
+                    <{/if}>
+                    <{/foreach}>
+                </div>
+                <div class="coupon-list-wrap">
+                    <{if($data['conpons']['data'][1]['total_count']>0)}>
+                    <ul class="coupon-list">
+                        <{foreach($data['conpons']['data'][0] as $k=> $v)}>
+                        <!--10 正常 20 已使用 30过期-->
+                        <{if($v['status'] == 10)}>
+                        <li class="coupon-i coupon-use">
+                            <{elseif($v['status'] == 20)}>
+                        <li class="coupon-i coupon-used">
+                            <{elseif($v['status'] == 30)}>
+                        <li class="coupon-i coupon-over">
+                            <{else}>
+                            <{/if}>
+                            <span class="price-symbol">¥</span>
+                            <span class="price-money"><{$v['money']}></span>
+                            <span class="scope"><{$v['plat_coupon_name']}></span>
+                            <span class="use-limit">编码：<{$v['coupon_num']}></span>
+                            <span class="time-range">截至有效期：<{$v['end_time']}></span>
+                            <{if($v['status'] == 10)}>
+                            <{elseif($v['status'] == 20)}>
+                            <span class="coupon-info">已使用</span>
+                            <{elseif($v['status'] == 30)}>
+                            <span class="coupon-info">已过期</span>
+                            <{else}>
+                            <{/if}>
+                        </li>
+                        <{/foreach}>
+                    </ul>
+                    <{else}>
+                    <div class="row text-center">没有查询到优惠券信息！</div>
+                    <{/if}>
+                    <div class="pagination-wrap">
+                        <ul id="pagination" class="pagination"></ul>
+                    </div>
+                    <script>var page_config = {
+                        offset: '<{$data["param_data"]["offset"]}>',
+                        total: "<{$data['conpons']['data'][1]['total_count']}>",
+                        limit: '<{$data["param_data"]["limit"]}>'
+                    };
+                    </script>
+                    <script src="<{$css_url}>web/js/coupon/coupon.js"></script>
+                </div>
+            </div>
+            <!--show end-->
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<{layout:web/public/foot}>

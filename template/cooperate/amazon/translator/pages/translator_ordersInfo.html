@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="description" content="N邦翻译是最大的O2O翻译电商平台，是亚马逊唯一官方合作的语言服务平台，N邦翻译的核心是为跨境电商提供快速、高质量的翻译服务，帮助跨境电商企业解决语言翻译难题！">
+    <meta name="keywords" content="N邦翻译,翻译O2O,翻译电商平台,翻译网站,亚马逊,跨境电商,对外贸易交易平台、外贸网站" />
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8d9b837ff56daf73730660e4d86fc338";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <title>N邦译牛 助力跨境电商</title>
+    <link rel="shortcut icon" href="<{$css_url}>/cooperate/amazon/customer/css/img/unbounded.ico" type="image/x-icon" />
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/header.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/translator/css/personal.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/translator/css/translator_ordersInfo.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+</head>
+<body>
+<!--header-->
+<{layout:cooperate/amazon/customer/public/header}>
+<!--header end-->
+<div class="content">
+    <!--personal-->
+    <div class="personal">
+        <!--personal-->
+        <{layout:cooperate/amazon/translator/public/personal}>
+        <!--personal end -->
+        <div class="active-region">
+            <div class="order-pay">
+                <div class="order-details">
+                    <p class="details-title">订单信息</p>
+
+                    <div class="detail-content">
+                        <p>订单号：<{$data["orderInfo"]["order"]["order_num"]}></p>
+
+                        <p>商品类型：<{$data["orderInfo"]["order"]["title"]}></p>
+
+                        <p>下单人：N邦翻译众包平台</p>
+
+                        <p>字数：<{$data["orderInfo"]["ext"]["font_count"]}>字</p>
+
+                        <p>支付译者金额：<{$data["orderInfo"]["to_user_price"]}>元</p>
+
+                        <p>下单时间：<{$data["orderInfo"]["order"]["create_time"]}></p>
+
+                        <p>预计交稿时间：<{$data["orderInfo"]["ext"]["complete_time"]}></p>
+
+                        <p>备注：<{$data["orderInfo"]["ext"]["desc"]}></p>
+
+                        <p>订单进度：
+                            <span class="imp">
+                                <{if ($data["orderInfo"]["ext"]["status"] == 3)}>
+                                等待接单
+                                <{elseif ($data["orderInfo"]["ext"]["status"] == 4)}>
+                                翻译中
+                                 <{elseif ($data["orderInfo"]["ext"]["status"] == 5)}>
+                                译文审核中
+                                 <{elseif ($data["orderInfo"]["ext"]["status"] == 10)}>
+                                译文审核中
+                                <{elseif ($data["orderInfo"]["ext"]["status"] == 11)}>
+                                审核未通过
+                                <{elseif ($data["orderInfo"]["ext"]["status"] == 20)}>
+                                订单完成
+                                 <{elseif ($data["orderInfo"]["ext"]["status"] == 30)}>
+                                订单取消
+                                <{else}>
+                                <{/if}>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <{if($data["orderInfo"]["ext"]["file_type"] == 2 )}>
+                <div class="file-row">
+                    <table class="myorders-table">
+                        <thead>
+                        <tr>
+                            <th>文本源文件</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><textarea class="review-content"
+                                          readonly><{$data["orderInfo"]["ext"]["font"]}></textarea></td>
+                        </tr>
+                        <{if ($data["orderInfo"]["ext"]["status"] >= 4)}>
+                        <tr>
+                            <td>翻译译稿</td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="review-content" id="translateFileInput"
+                                          placeholder="请输入您的译文"><{$data["orderInfo"]["ext"]["order_content"]}></textarea>
+                            </td>
+                        </tr>
+                        <{else}>
+                        <{/if}>
+                        </tbody>
+                    </table>
+                </div>
+                <{else}>
+                <div class="file-row">
+                    <table class="myorders-table">
+                        <thead>
+                        <tr>
+                            <th colspan="3">源文件信息</th>
+                        </tr>
+                        <tr>
+                            <th>文件名</th>
+                            <th>下载</th>
+                            <th>下单时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th><{$data["orderInfo"]["file_info"]["file_title"]}></th>
+                            <th>
+                                <a href="/order/api/order/downloadFile?file_path=<{$data['orderInfo']['ext']['file_path']}>"
+                                   target="_blank" class="link">点击下载</a></th>
+                            <th><{$data["orderInfo"]["order"]["create_time"]}></th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <{if ($data["orderInfo"]["ext"]["status"] >= 4)}>
+                    <div class="upload-btns" id="upload_btns">
+                        <div id="upload_con">添加文件</div>
+                        <div id="upload_progress"></div>
+                        <input type="file" id="upload" name="order_file"
+                               accept="text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                     application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+                               class="js_selectType" data-type="file">
+                        <span id="upload_Limit">支持格式：txt,docx,xls,xlsx</span>
+                        <input id="upload_url" type="hidden" name="file_url"
+                               value="<{$data['orderInfo']['ext']['order_file']}>">
+                        <table class="myorders-table">
+                            <thead>
+                            <tr>
+                                <th colspan="3">译稿信息</th>
+                            </tr>
+                            <tr>
+                                <th>文件名</th>
+                                <th>下载</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th id="upload_callback_name"><{$data['orderInfo']['file_info']['order_file_title']}>
+                                </th>
+                                <th id="upload_callback_url">
+                                    <{if($data['orderInfo']['ext']['order_file'] != '')}>
+                                    <a href="/order/api/order/downloadFile?file_path=<{$data['orderInfo']['ext']['order_file']}>"
+                                       target="_blank" class="link">
+                                        点击下载
+                                    </a>
+                                    <{else}>
+                                    <{/if}>
+                                </th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <{else}>
+                    <{/if}>
+                </div>
+                <{/if}>
+                <div id="translator_order">
+                    <{if ($data["orderInfo"]["ext"]["status"] == 3)}>
+                    <a href="javascript:;" class="btn btn_orders">接单</a>
+                    <a href="javascript:;" class="btn btn_cancelorders">拒绝接单</a>
+                    <{elseif ($data["orderInfo"]["ext"]["status"] == 4 || $data["orderInfo"]["ext"]["status"] == 11)}>
+                   <!-- <a href="javascript:;" class="btn btn_orders_save">保存译稿</a>-->
+                    <a href="javascript:;" class="btn btn_orders_submit">申请审核</a>
+                    <{else}>
+                    <{/if}>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--personal end -->
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<!--model 不可修改-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">N邦译牛</span><span class="model-close">X</span></div>
+    <div class="model-content"></div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<script src="<{$js_url}>/cooperate/amazon/translator/js/common.js"></script>
+<script>
+    $(function () {
+        //绑定事件
+        bindEvents();
+        //上传文件
+        upload();
+    });
+    //绑定事件
+    function bindEvents() {
+        $('#translator_order').on('click', '.btn', function () {
+            var $this = $(this);
+            //是否接单
+            if ($this.hasClass('btn_orders')) {
+                CommonUtils.model({
+                    html: '是否接单',
+                    type: 'model',
+                    btnOkEventHandler: getOrders
+                })
+            } else if ($this.hasClass('btn_cancelorders')) { //是否拒绝接单
+                CommonUtils.model({
+                    html: '确定拒绝接单',
+                    type: 'model',
+                    btnOkEventHandler: cancelOrders
+                });
+            } else if ($this.hasClass('btn_orders_submit')) {
+                CommonUtils.model({
+                    html: '是否申请平台对译稿进行审核，请谨慎操作！',
+                    type: 'model',
+                    btnOkEventHandler: submitTranslationFile
+                });
+            } else {
+                CommonUtils.model({
+                    html: '是否保存修改',
+                    type: 'model',
+                    btnOkEventHandler: saveTranslationFile
+                });
+            }
+        });
+    }
+    //接单
+    var getOrders = function () {
+                $.ajax({
+                    url: '/user/cooperate/translatorUser/translatorAgreedOrder',
+                    type: 'post',
+                    data: {
+                        tid:'<{$data["orderInfo"]["order"]["tid"]}>',
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == '0') {
+                            //页面聚焦
+                            $('#translateFileInput').focus();
+                        }
+                        CommonUtils.model({
+                            html: data.message,
+                            type: 'tip'
+                        })
+                        window.setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                })
+            },
+    //拒绝接单
+            cancelOrders = function () {
+                $.ajax({
+                    url: '/user/cooperate/translatorUser/translatorCancelOrder',
+                    type: 'post',
+                    data: {
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        CommonUtils.model({
+                            html: data.message,
+                            type: 'tip'
+                        })
+                        window.setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                })
+            },
+    //提交译稿
+            submitTranslationFile = function () {
+                var contont = $('#translateFileInput').val();
+                ($.trim(contont) || $('#upload_url').val()) ? $.ajax({
+                    url: '/user/cooperate/translatorUser/uploadOrder',
+                    type: 'post',
+                    data: {
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>',
+                        type: '<{$data["orderInfo"]["ext"]["file_type"]}>',
+                        content: ($('#upload_url').val() || contont)
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == '0') {
+                            $.ajax({
+                                url: '/user/cooperate/translatorUser/confirmUploadOrder',
+                                type: 'post',
+                                data: {
+                                    order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                                },
+                                dataType: 'json',
+                                success: function (data) {
+                                    CommonUtils.model({
+                                        html: '申请成功',
+                                        type: 'tip'
+                                    })
+                                    window.setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                }
+                            });
+                        } else {
+                            CommonUtils.model({
+                                html: data.message,
+                                type: 'tip'
+                            })
+                        }
+                    }
+                }) : CommonUtils.model({
+                    html: '内容不能为空',
+                    type: 'tip'
+                })
+            },
+    //保存修改
+            saveTranslationFile = function () {
+                var contont = $('#translateFileInput').val();
+                ($.trim(contont) || $('#upload_url').val()) ? $.ajax({
+                    url: '/user/cooperate/translatorUser/uploadOrder',
+                    type: 'post',
+                    data: {
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>',
+                        type: '<{$data["orderInfo"]["ext"]["file_type"]}>',
+                        content: ($('#upload_url').val() || contont)
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        CommonUtils.model({
+                            html: data.message,
+                            type: 'tip'
+                        })
+                        window.setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                }) : CommonUtils.model({
+                    html: '内容不能为空',
+                    type: 'tip'
+                })
+            }
+    //文件上传
+    function upload() {
+        //配置参数
+        var config = {
+            //上传地址
+            url: '/order/api/order/uploadFile',
+            //文件大小104857600 10M
+            limitSize: 104857600,
+            //上传的类型 h5判断
+            limitType: 'text\/plain,application\/vnd.openxmlformats-officedocument.wordprocessingml.document,application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application\/vnd.ms-excel',
+            //上传的类型 ie8 ie9
+            limitSuffix: 'txt,docx,xls,xlsx',
+            //h5进度回调函数
+            progressUploadHandler: function (event) {
+                var pecent = ((event.loaded / event.total) * 100 + '').split('.')[0] + '%';
+                $('#upload_progress').css({'width': pecent});
+                $('#upload_con').html('文件上传中  ' + pecent);
+            },
+            //h5上传之前回调函数 如果要上传 必须返回true
+            beforeUploadHandler: function () {
+                return true;
+            },
+            //h5上传发送之前回调函数
+            beforeSendHandler: function () {
+                $('#upload_progress').css({'width': 0});
+                $('#upload').hide();
+                $('#upload_Limit').hide();
+            },
+            //h5完成时的回调函数
+            completeUploadHandler: function (data) {
+                var data = data.data;
+                $('#upload').show();
+                $('#upload_Limit').show();
+                $('#upload_con').html('上传完成');
+                $('#upload_callback_name').html(data.file_name);
+                $('#upload_callback_url').html('<a class="link" href="/order/api/order/downloadFile?file_path=' + data.file_url + '" target="_blank">下载</a>');
+                $('#upload_url').val(data.file_url);
+            },
+            //h5错误时的回调函数
+            errorUploadHandler: function (e) {
+            },
+            //ie8 9开始上传回调函数 如果要上传 必须返回true
+            beforeIframeUploadHandler: function () {
+                var time = 0;
+                $('#upload_con').html('文件上传中...');
+                this.timer = window.setInterval(function () {
+                    time % 4 == 0 && $('#upload_con').html('文件上传中');
+                    time % 4 == 1 && $('#upload_con').html('文件上传中.');
+                    time % 4 == 2 && $('#upload_con').html('文件上传中..');
+                    time % 4 == 3 && $('#upload_con').html('文件上传中...');
+                    time++;
+                }, 1000);
+                $('#upload').hide();
+                $('#upload_Limit').hide();
+                return true;
+            },
+            //ie8 9 完成上传回调函数
+            completeIframeUploadHandler: function (data) {
+                window.clearInterval(this.timer);
+                $('#upload').show();
+                $('#upload_Limit').show();
+                $('#upload_con').html('上传完成');
+                $('#upload_callback_name').html(data.file_name);
+                $('#upload_callback_url').html('<a class="link" href="/order/api/order/downloadFile?file_path=' + data.file_url + '" target="_blank">下载</a>');
+                $('#upload_url').val(data.data.file_url);
+            }
+        };
+        CommonUtils.upload(config);
+    }
+</script>
+</body>
+</html>

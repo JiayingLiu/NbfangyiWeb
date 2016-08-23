@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">报告列表</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="dealStartTime">开始时间</label>
+                    <input id="dealStartTime" class="form-control"  name="start_time" type="text"
+                           onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'dealEndTime\')}'})"
+                           value="<{$data['param_data']['start_time']}>"/>
+                </div>
+                <div class="form-group">
+                    <label for="dealEndTime">结束时间</label>
+                    <input id="dealEndTime" class="form-control"  name="end_time" type="text"
+                           onFocus="WdatePicker({minDate:'#F{$dp.$D(\'dealStartTime\')}',maxDate:'2020-10-01'})"
+                           value="<{$data['param_data']['end_time']}>"/>
+                </div>
+                <div class="form-group">
+                    <label for="dealEndTime">报告类型</label>
+                    <select name="date_type">
+                    <option value="0">请选择报告类型</option>
+                    <{if($data['param_data']['date_type'] ==1)}>
+                    <option value="1" selected="selected">按日期</option>
+                    <option value="2">按月</option>
+                    <{elseif($data['param_data']['date_type'] ==2)}>
+                    <option value="1" >按日期</option>
+                    <option value="2" selected="selected">按月</option> 
+                    <{else}>
+                    <option value="1" >按日期</option>
+                    <option value="2" >按月</option>                     
+                    <{/if}>                   
+                    </select>
+                </div>                
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+                <button type="button" class="btn btn-default" id="download">下载报告</button>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <tr>
+                    <th>日期</th>
+                    <th>普通用户</th>
+                    <th>个译</th>
+                    <th>公司</th>
+                    <th>支付宝</th>
+                    <th>微信</th>
+                    <th>银联</th>
+                    <th>余额支付</th>
+                    <th>使用优惠券</th>
+                    <th>平台支出</th>
+                    <th>平台余额</th>
+                    
+                </tr>
+                <{foreach($data["reports"][0] as $k => $v)}>
+                <tr>
+                    <td><{$v['report_date']}></td>
+                    <td><{$v['content']['user_reg_count']}>人</td>
+                    <td><{$v['content']['trans_reg_count']}>人</td>
+                    <td><{$v['content']['company_reg_count']}>人</td> 
+                  	<td><{$v['content']['alipay_amount']}>元</td>
+                  	<td><{$v['content']['weixin_amount']}>元</td>
+                  	<td><{$v['content']['unionpay_amount']}>元</td> 
+                  	<td><{$v['content']['balance_amount']}>元</td> 
+                  	<td><{$v['content']['coupon_amount']}>元</td>
+                  	<td><{$v['content']['platform_rollout_amount']}>元</td> 
+                  	<td><{$v['content']['platform_balance']}>元</td>
+                    
+                    
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    var url = '/admin/report/report/getList';
+    $(function () {
+        search();
+        setQueryPayType();
+        download();
+        CommonUtils.pagination({
+            offset: '<{$data['param_data']["offset"]}>',
+            total: '<{$data['reports'][1]}>',
+            limit: '<{$data['param_data']["limit"]}>',
+            length: 11,
+            url: url + '?' + $('#searchForm').serialize()
+        });
+        payTypeClick();
+    });
+    //数据回显
+    function setQueryPayType() {
+        var type = '<{$data["cond"]["str_pay_type"]}>',
+                arr = type.split(',');
+        $.each(arr, function (i,v) {
+            $('#searchForm_payType').find('.js-pay-type[value="'+v+'"]').prop('checked','checked');
+        })
+    }
+    function search() {
+        $('#search').click(function () {
+            window.location.href = url + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = url;
+        });
+    }
+    function download() {
+        $('#download').click(function () {
+            window.location.href = '/admin/report/report/download'
+        });
+    }
+</script>
+</body>
+</html>

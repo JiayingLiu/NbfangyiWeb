@@ -1,0 +1,16 @@
+<div style="padding: 10px 20px;">
+    <div class="form-group">*退款原因：</div>
+    <div class="form-group" id="refund_checkbox">
+        <{foreach($data['refund_list'] as $k =>$v)}>
+        <label><input type="checkbox" value="<{$k}>"><{$v}></label>
+        <{/foreach}>
+    </div>
+    <div class="form-group">
+        <textarea class="form-textarea" id="refund_textarea" onkeyup="fontCountLimit(this);"></textarea>
+        <br><span class="pull-right js-font-num">0/100</span>
+    </div>
+    <div class="form-group text-right">
+        <a href="javascript:void(0);" class="btn btn-submit"
+           onclick="submitRefundData('<{$data['order_info']['order']['order_num']}>');">提交</a>
+    </div>
+</div>

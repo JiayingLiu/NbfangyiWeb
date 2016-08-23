@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="description" content="N邦翻译是最大的O2O翻译电商平台，是亚马逊唯一官方合作的语言服务平台，N邦翻译的核心是为跨境电商提供快速、高质量的翻译服务，帮助跨境电商企业解决语言翻译难题！">
+    <meta name="keywords" content="N邦翻译,翻译O2O,翻译电商平台,翻译网站,亚马逊,跨境电商,对外贸易交易平台、外贸网站"/>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8d9b837ff56daf73730660e4d86fc338";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <title>N邦译牛 助力跨境电商</title>
+    <link rel="shortcut icon" href="<{$css_url}>/cooperate/amazon/customer/css/img/unbounded.ico" type="image/x-icon"/>
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/style/reg.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+</head>
+<body>
+<!--header-->
+<div class="header">
+    <div class="header-main">
+        <div class=" float-left">
+            <a href="javascript:;" class="header-serv-logo"></a>
+            <a href="javascript:;" class="header-serv-line"></a>
+            <a href="javascript:;" class="header-logo">
+            </a>
+
+            <h3 class="header-logo-text">
+                <a href="http://www.nbangfanyi.com" target="_blank" class="link imp">N邦翻译官网</a>
+            </h3>
+        </div>
+        <div class="header-status float-right">
+            <h2 class="header-status-phone">4006-808-525</h2>
+            <a href="javascript:;" class="header-status-login link" id="header_status_login">登录</a>
+        </div>
+    </div>
+</div>
+<!--header end-->
+<div class="content">
+    <!--reg-->
+    <div class="reg">
+        <div class="reg-img">
+        </div>
+        <div class="reg-area">
+            <form class="reg-form">
+                <p class="reg-form-title">用户注册</p>
+
+                <div class="reg-form-user">
+                    <label for="username" class="form-user-img"></label>
+                    <input type="text" id="username" name="username" class="reg-input"
+                           placeholder="请输入手机号，仅支持大陆地区手机号码">
+                    <input type="hidden" name="fr" value="<{$data['fr']}>" id="fr">
+                </div>
+
+                <div class="reg-form-code-con">
+                    <div class="reg-form-code">
+                        <label for="phoneCode" class="form-code-img"></label>
+                        <input type="text" id="phoneCode" name="code" class="reg-input-sm" placeholder="请输入验证码">
+                    </div>
+                    <a href="javascript:;" class="btn" id="getCode">短信验证码</a>
+                </div>
+                <div class="reg-form-pwd">
+                    <label for="pwd" class="form-pwd-img"></label>
+                    <input type="password" id="pwd" name="password" class="reg-input" placeholder="请输入密码">
+                </div>
+                <div class="reg-form-pwd">
+                    <label for="pwd" class="form-pwd-img"></label>
+                    <input type="password" id="cpwd" name="cpassword" class="reg-input" placeholder="请再次确定密码">
+                </div>
+                <p class="reg-form-info text-right"><span class="imp" id="check_reg_info"></span></p>
+
+                <p class="reg-form-info">
+                    <lable for="check">
+                        <input type="checkbox" id="check" checked>我已经阅读并同意《<a href="/user/index/help/index?flag=2"
+                                                                              target="_blank"
+                                                                              class="link">服务协议</a>》
+                    </lable>
+                </p>
+                <div class="btns">
+                    <a href="javascript:;" class="btn reg-btn" id="reg_user">立即注册</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--reg end-->
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<!--model-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">N邦译牛</span><span class="model-close">X</span></div>
+    <div class="model-content">
+    </div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<!--model end-->
+<script src="<{$js_url}>/cooperate/amazon/translator/js/common.js"></script>
+<script>
+    var CONST_URL = {
+        //CHECKPHONE: '/user/index/register/ajaxCheckTelephone',
+        GETSMS: '/usercore/api/member/regSendSms',
+        ADDUSER: '/usercore/api/member/reg'
+    };
+    $(function () {
+        //checkUsername();
+        getSms();
+        toReg();
+    });
+    //获取手机的验证码
+    function getSms() {
+        var $username = $('#username'), val;
+        $('#getCode').on('click', null, function () {
+            val = $username.val(), $this = $(this);
+            if (CommonUtils.validate('telephone', val)) {
+                if ($('#check_reg_info').text() == '手机已被注册') {
+                    $('#check_reg_info').text('手机已被注册');
+                } else {
+                    var html = '输入图片的验证码：<input type="text" id="verify_code" style="height: 30px;width: 120px;line-height: 30px;border: 1px solid #dfdfdf;">&nbsp;&nbsp;&nbsp;&nbsp;' +
+                            '<a href="javascript:void(0);"><img height="50" style="margin-top: 4px;" src="/usercore/api/member/verify?' + new Date().getTime() + '" onclick="this.src=\'/usercore/api/member/verify?\'+ new Date().getTime();"></a>'
+                    CommonUtils.model({
+                        html: html,
+                        type: 'model',
+                        btnOkEventHandler: function () {
+                            $.ajax({
+                                url: CONST_URL.GETSMS,
+                                type: 'post',
+                                data: {
+                                    telephone: val,
+                                    verifyCode: $('#verify_code').val()
+                                },
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.status == '0') {
+                                        $('#getCode').off();
+                                        var const_time = 59;
+                                        var timer = window.setInterval(function () {
+                                            $this.text('短信验证码(' + const_time + ')');
+                                            const_time--;
+                                            if (const_time == -1) {
+                                                window.clearInterval(timer);
+                                                $this.text('短信验证码');
+                                                getSms();
+                                            }
+                                        }, 1000);
+                                    }
+                                    checkRegInfo(data.message);
+                                }
+                            });
+                        }
+                    });
+                }
+            } else {
+                checkRegInfo('请填写手机号或手机号格式不正确');
+            }
+        })
+    }
+    //电话号码重复的检测
+    /* function checkUsername() {
+     var $username = $('#username'), val;
+     $username.on('blur', function () {
+     val = $username.val();
+     if (CommonUtils.validate('telephone', val)) {
+     $.ajax({
+     url: CONST_URL.CHECKPHONE,
+     type: 'post',
+     data: {
+     tel: val
+     },
+     dataType: 'json',
+     success: function (data) {
+     if (data.status != '0') {
+     checkRegInfo(data.message);
+     } else {
+     checkRegInfo('');
+     }
+     }
+     })
+     } else {
+     $.trim(val) && checkRegInfo('手机号码的格式不正确');
+     }
+     });
+     }*/
+
+    //注册信息的检测提示
+    function checkRegInfo(msg) {
+        var $info = $('#check_reg_info');
+        $info.html(msg);
+    }
+
+    //注册
+    function toReg() {
+        $('#reg_user').click(function () {
+            $('#check_reg_info').html('');
+            var username = $('#username').val(),
+                    phoneCode = $('#phoneCode').val(),
+                    pwd = $.trim($('#pwd').val()),
+                    cpwd = $.trim($('#cpwd').val()),
+                    check = $('#check:checked').length;
+            if (!CommonUtils.validate('telephone', username)) {
+                checkRegInfo('请填写手机号或手机号格式不正确');
+                return
+            }
+            if ($.trim(phoneCode).length != 6 || !CommonUtils.validate('require', phoneCode)) {
+                checkRegInfo('手机验证码为空或长度不合法');
+                return
+            }
+            if (!CommonUtils.validate('password', pwd)) {
+                checkRegInfo('密码为8到16位字母数字组合');
+                return
+            }
+            if (!CommonUtils.validate('password', cpwd)) {
+                checkRegInfo('确认密码为8到16位字母数字组合');
+                return
+            }
+            if (cpwd !== pwd) {
+                checkRegInfo('两次输入的密码不统一');
+                return
+            }
+            if (!check) {
+                checkRegInfo('请先阅读并同意服务协议');
+                return
+            }
+            $.ajax({
+                url: CONST_URL.ADDUSER,
+                type: 'post',
+                data: {
+                    userType: '1',
+                    accountType: '1',
+                    account: username,
+                    password: pwd,
+                    repeatPasswd: cpwd,
+                    regFromType: '2',
+                    code: phoneCode
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == '0') {
+                        window.setTimeout(function () {
+                            window.location.href = '/order/cooporder/order/buyProduct';
+                        }, 1000);
+                    }
+                    CommonUtils.model('show', {
+                        html: data.message,
+                        type: 'tip'
+                    })
+                }
+            })
+        });
+    }
+</script>
+</body>
+</html>

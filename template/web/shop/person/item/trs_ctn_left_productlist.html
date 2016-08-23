@@ -1,0 +1,67 @@
+<div class="trs-left-title">
+    <span>商品列表</span>
+</div>
+<div class="trs-content">
+    <{if($data['products'][1] > 0)}>
+    <ul class="trs-list">
+        <{foreach($data['products'][0] as $k=>$v)}>
+        <li>
+            <a href="/shop/index/index/productDetail?id=<{$v['id']}>">
+                <img src="<{$file_url}><{$v['logo_s']}>" width="185" height="118">
+                <!--product title 0 蓝色 1 橘色 2 绿色-->
+                <{if($k%3 == 0)}>
+                <p class="pdt-item-title title-bg-blue"><{if(empty($v['title']))}>未知<{else}><{$v['title']}><{/if}></p>
+                <{elseif($k%3 == 1)}>
+                <p class="pdt-item-title title-bg-org"><{if(empty($v['title']))}>未知<{else}><{$v['title']}><{/if}></p>
+                <{else}>
+                <p class="pdt-item-title title-bg-agreen"><{if(empty($v['title']))}>未知<{else}><{$v['title']}><{/if}></p>
+                <{/if}>
+                <p>
+                    <span class="big-size"><{$v['price']}></span>元/<{$v['price_type_text']}>
+                    <span class="pull-right put-city">
+                        <i class="iconfont icon-address color-blue"></i>
+                        <{if(empty($v['city']))}>未知<{else}><{$v['city']}><{/if}>
+                    </span>
+                </p>
+
+                <p class="font-clor-blue">
+                    <span class="pull-left">
+                        <{if ($v['type'] == 1)}>
+                        <{$v['language']}>-><{$v['to_language']}>
+                        <{else}>
+                        <{$v['language']}><-><{$v['to_language']}>
+                        <{/if}>
+                    </span>
+                    <span class="pull-right"><{$v['type_name']}></span>
+                </p>
+
+                <!--1 written 2 kouyi-->
+                <{if($v['type'] == 1)}>
+                <p>文件类型：<{$v['category_name']}></p>
+                <{else}>
+                <p>服务类型：<{$v['category_name']}></p>
+                <{/if}>
+                <p>适用领域：
+                    <{if(empty($v['field_name']))}>
+                    未知
+                    <{else}>
+                    <{$v['field_name']}>
+                    <{/if}>
+                </p>
+            </a>
+        </li>
+        <{/foreach}>
+    </ul>
+    <div class="pagination-wrap">
+        <ul id="pagination" class="pagination"></ul>
+    </div>
+    <script>var page_config = {
+        offset: '<{$data["param_data"]["offset"]}>',
+        total: '<{$data["products"][1]}>',
+        limit: '<{$data["param_data"]["limit"]}>'
+    };
+    </script>
+    <{else}>
+    <div class="row text-center">商家暂未添加商品！</div>
+    <{/if}>
+</div>

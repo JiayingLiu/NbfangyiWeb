@@ -1,0 +1,99 @@
+<div class="label-title">
+    <span class="label-title-text">基本资料</span>
+    <span class="label-title-circle"></span>
+    <span class="label-title-line"></span>
+</div>
+<div class="label-content">
+    <div class="label-content-show">
+        <div class="label-content-show-left">
+            <div class="row font-remind">
+                <i class="iconfont icon-remind"></i>基本资料是开通店铺必填项，信息填写不全店铺将无法通过审核，请务必将您的资料填写完整。
+            </div>
+            <div class="row">
+                <span class="col-xs-2">真实姓名：</span>
+                <{if(empty($data["baseInfo"]["real_name"]))}>
+                <span class="col-xs-4">未设置</span>
+                <{else}>
+                <span class="col-xs-4"><{$data["baseInfo"]["real_name"]}></span>
+                <{/if}>
+            </div>
+            <div class="row">
+                <span class="col-xs-2">法人身份证号：</span>
+                <{if(empty($data["baseInfo"]["id_card_num"]))}>
+                <span class="col-xs-4">未设置</span>
+                <{else}>
+                <span class="col-xs-4"><{$data["baseInfo"]["id_card_num"]}></span>
+                <{/if}>
+            </div>
+            <div class="row">
+                <span class="col-xs-2">法人身份证图片：</span>
+                <{if($data['baseInfo']['id_card_image'][1] > 0 )}>
+                <{foreach($data['baseInfo']['id_card_image'][0] as $k =>$v)}>
+                <a rel="group" title="身份证图片-<{$k}>" href="<{$file_url}><{$v['url_b']}>" class="js-image">
+                    <img src="<{$file_url}><{$v['url_s']}>" width="200" alt="">
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <{/foreach}>
+                <{else}>
+                <span>未设置</span>
+                <{/if}>
+            </div>
+        </div>
+        <div class="label-content-show-right">
+            <div class="label-content-show-edit">
+                <a href="javascript:;" class="js-pc-btn" data-ele="edit" data-index="2">
+                    <i class="iconfont icon-edit"></i>
+                    编辑
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="label-content-edit" style="display: none;">
+        <form id="basic_form" class="form">
+            <input type="hidden" name="shop_id" value="<{$data['baseInfo']['shop_id']}>">
+            <input type="hidden" name="basic_info_id" value="<{$data['baseInfo']['id']}>">
+            <div class="row font-remind">
+                <i class="iconfont icon-remind"></i>基本资料是开通店铺必填项，信息填写不全店铺将无法通过审核，请务必将您的资料填写完整。
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2"><span class="font-remind">*</span>真实姓名：</div>
+                <div class="col-xs-4">
+                    <input type="text" class="form-input" id="realName" name="real_name" placeholder="输入真实姓名"
+                           value="<{$data['baseInfo']['real_name']}>">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2"><span class="font-remind">*</span>法人身份证号：</div>
+                <div class="col-xs-4">
+                    <input type="text" class="form-input" id="identity"
+                           name="id_card_num" placeholder="输入身份证号"
+                           value="<{$data['baseInfo']['id_card_num']}>"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2"><span class="font-remind">*</span>法人身份证照片：</div>
+            </div>
+            <div class="form-group font-remind">
+                <div class="col-xs-7">
+                    <i class="iconfont icon-remind"></i>
+                    提醒<br>1、须上传身份证正面、反面共两张图片，确保证件文字清晰可见<br>
+                    2、我们会对您上传的证件严格审核，并给予隐私保护
+                </div>
+                <div class="col-xs-5">
+                    <div class="form-group font-remind">示例：</div>
+                    <div class="form-group font-remind">
+                        <div class="col-xs-6"><img src="<{$css_url}>file/img/personcenter/zheng.jpg" width="170"></div>
+                        <div class="col-xs-6"><img src="<{$css_url}>file/img/personcenter/fan.jpg" width="170"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="file" name="id_card_image" id="upload_image"
+                       data-init="<{$data['baseInfo']['id_card_image_str']}>">
+            </div>
+        </form>
+        <div class="row text-center">
+            <a href="javascript:void(0);" class="btn btn-cancel js-pc-btn" data-ele="cancel">取消</a>
+            <a href="javascript:void(0);" class="btn btn-submit" id="submit_basic">提交</a>
+        </div>
+    </div>
+</div>

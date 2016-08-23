@@ -1,0 +1,54 @@
+<div class="home-side">
+    <div class="news-nav" id="news_nav">
+        <a href="/index/index/news/index?type=1&id=<{$v['source_id']}>" class="news-nav-selected" data-id="1">公告</a>
+        <a href="/index/index/news/index?type=2&id=<{$v['source_id']}>" data-id="2">新闻</a>
+    </div>
+    <div class="news-con">
+        <ul id="home_notice">
+            <{foreach($data['notice'][0] as $k => $v)}>
+            <{if($k<4)}>
+            <li>
+                <a href="<{$v['url']}>" target="_blank"><{$v['title']}></a>
+            </li>
+            <{else}>
+            <{/if}>
+            <{/foreach}>
+        </ul>
+        <ul id="home_news" style="display: none;">
+            <{foreach($data['news'][0] as $k => $v)}>
+            <{if($k<4)}>
+            <li>
+                <a href="<{$v['url']}>" target="_blank"><{$v['title']}></a>
+            </li>
+            <{else}>
+            <{/if}>
+            <{/foreach}>
+        </ul>
+    </div>
+    <div class="crowd-sourcing">
+        <a href="http://fast.nbangfanyi.com">
+            <div class="cs-logo"></div>
+            <div class="cs-enter">
+                <a href="http://fast.nbangfanyi.com" class="link">
+                    用户进入
+                </a>
+            </div>
+        </a>
+    </div>
+    <div class="side-login" id="side_login">
+        <div>
+            <img class="sl-img" src="<{$css_url}>web/css/image/index/head-img.png" width="57" height="56">
+            <span class="sl-name">hi~</span>
+            <span class="sl-hello">欢迎来到N邦翻译</span>
+        </div>
+
+        <div class="sl-btn">
+            <a href="/user/oauth/user/login">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/user/oauth/user/regShow">注册</a>
+        </div>
+    </div>
+    <div class="side-code">
+        <img class="sc-img" src="<{$css_url}>file/img/web/org.png" width="80" height="80">
+        <span class="sc-title">&nbsp;<i class="iconfont icon-mobile"></i>&nbsp;手机APP下载</span>
+        <span class="sc-text">手机下单，轻松便捷<br>海量选择，一搜即得</span>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">更新网站地图</div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addSitemap">更新网站地图
+                </button>
+            </div>   
+            <div class="btn-group" role="group">
+            <a href="<{$file_url}>/<{$data['file']}>" class="btn btn-success">最新网站地图模板</a>
+            </div>                       
+            <!-- /.modal -->
+            <!-- 生成模态弹出窗 -->
+            <div class="modal" id="addSitemap">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">更新网站地图</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>文件地址:</p>
+                            <input type="text" id="shop_file" name="file" style="width: 400px;">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="addSitemapBtn" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <div id="result"></div>                     
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+	
+		$('#addSitemapBtn').on('click', null, function(){
+                        $.ajax({
+                            type: 'post',
+                            dataType: 'json',
+                            url: '/admin/index/sitemap/addSitemap',
+                            data: {
+								'file': $('#shop_file').val()
+							},
+                            success: function (data) {
+                                if(data.status == 0 ){
+                                	CommonUtils.tips('更新成功',2000,true);
+                                }else{
+                                    CommonUtils.tips(data.message,2000,false);
+                                }
+                            }
+                        });			
+		});
+    });
+
+</script>
+</body>
+</html>

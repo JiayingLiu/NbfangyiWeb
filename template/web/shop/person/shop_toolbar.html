@@ -1,0 +1,90 @@
+<div class="pub-toolbar">
+    <ul>
+        <li>
+            <div class="tool-item js-im">
+                <i class="iconfont icon-custservice"></i>
+
+                <div class="pub-toolbar-call">
+                    <i class="iconfont icon-telephone"></i>4006-808-525
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="tool-item js-collect" id="pub_collect" data-id="<{$data['shop']['data']['id']}>" data-type="1">
+                <!--1 shop-->
+                <i class="iconfont icon-collect"></i>
+            </div>
+        </li>
+        <li>
+            <div class="tool-item js-code">
+                <i class="iconfont icon-weixin"></i>
+
+                <div class="pub-toolbar-code">
+                    <img src="<{$css_url}>web/css/image/public/weixin.jpg" height="100" width="100">
+
+                    <p class="">扫一扫，关注我们</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="tool-item js-share" id="js_shop_share">
+                <i class="iconfont icon-share"></i>
+
+                <div class="pub-toolbar-share">
+                    <!--<div class="bdsharebuttonbox" data-tag="share">
+                        <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+                        <a class="bds_tsina" data-cmd="tsina"></a>
+                        <a class="bds_weixin" data-cmd="weixin"></a>
+                        <a class="bds_sqq" data-cmd="sqq"></a>
+                    </div>-->
+                    <!-- JiaThis Button BEGIN -->
+                    <div class="jiathis_style">
+                        <a class="jiathis_button_qzone"></a>
+                        <a class="jiathis_button_tsina"></a>
+                        <a class="jiathis_button_cqq"></a>
+                        <a class="jiathis_button_weixin"></a>
+                    </div>
+                    <script>
+                        var jiathis_config = {
+                            url: location.href,
+                            title: '111<{$data["shop"]["data"]["real_name"]}>',
+                            summary: 'demo111',
+                            pic: '<{$file_url}><{$data["shop"]["data"]["logo"]}>',
+                            evt: {
+                                "share": function(data){
+                                }
+                            }
+                        };
+                    </script>
+                    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+                </div>
+            </div>
+        </li>
+        <!-- JiaThis Button END -->
+        <!--    <script>
+                //share
+                window._bd_share_config = {
+                    common: {
+                        bdText: '<{$data["shop"]["data"]["real_name"]}>',
+                        bdDesc: '',
+                        bdUrl: location.href,
+                        bdPic: '<{$file_url}><{$data["shop"]["data"]["logo"]}>'
+                    },
+                    share: [{
+                        "bdSize": 16
+                    }],
+                }
+                with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+
+            </script>-->
+        <li>
+            <a class="tool-item js-point" href="/index/static/translate/index">
+                <i class="iconfont icon-hand-point"></i>
+
+                <div class="pub-toolbar-point">
+                    进入<br>译点通
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>

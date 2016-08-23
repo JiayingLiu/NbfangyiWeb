@@ -1,0 +1,191 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-资质认证</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">个人中心</a>&gt;
+        <a href="javascript:void(0);">资质认证</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">资质认证</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <!--show-->
+            <div class="label-content-show" id="aptitude_show_content">
+                <div class="label-content-show-left">
+                    <div class="row">
+                        <{if($data['param_data']['certifications']['license']['status']==20)}>
+                        <div class="col-xs-4">
+                            <i class="iconfont icon-full-mark font-color-orange"></i>
+                            营业执照
+                        </div>
+                        <div class="col-xs-2">
+                            已认证
+                        </div>
+                        <{else}>
+                        <div class="col-xs-4">
+                            <i class="iconfont icon-full-mark"></i>
+                            营业执照
+                        </div>
+                        <div class="col-xs-2">
+                            尚未认证
+                        </div>
+                        <{/if}>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <{if($data["param_data"]["certifications"]["license"]["file_path"][1]>0)}>
+                            <{foreach($data["param_data"]["certifications"]["license"]["file_path"][0] as $k => $v)}>
+                            <a rel="group" title="营业执照-<{$k}>" href="<{$file_url}><{$v[url_b]}>" class="js-image">
+                                <img src="<{$file_url}><{$v[url_s]}>" width="200" alt="">
+                            </a>
+                            <{/foreach}>
+                            <{else}>
+                            <span>未上传</span>
+                            <{/if}>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <{if($data['param_data']['certifications']['tax']['status']==20)}>
+                        <div class="col-xs-4">
+                            <i class="iconfont icon-full-mark font-color-orange"></i>
+                            税务登记证
+                        </div>
+                        <div class="col-xs-2">
+                            已认证
+                        </div>
+                        <{else}>
+                        <div class="col-xs-4">
+                            <i class="iconfont icon-full-mark"></i>
+                            税务登记证
+                        </div>
+                        <div class="col-xs-2">
+                            尚未认证
+                        </div>
+                        <{/if}>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <{if($data["param_data"]["certifications"]["tax"]["file_path"][1]>0)}>
+                            <{foreach($data["param_data"]["certifications"]["tax"]["file_path"][0] as $k => $v)}>
+                            <a rel="group" title="税务登记证-<{$k}>" href="<{$file_url}><{$v[url_b]}>" class="js-image">
+                                <img src="<{$file_url}><{$v[url_s]}>" width="200" alt="">
+                            </a>
+                            <{/foreach}>
+                            <{else}>
+                            <span>未上传</span>
+                            <{/if}>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <{if($data['param_data']['certifications']['qualification']['status']==20)}>
+                        <div class="col-xs-4">
+                            <i class="iconfont icon-full-mark font-color-orange"></i>
+                            翻译资质证书
+                        </div>
+                        <div class="col-xs-2">
+                            已认证
+                        </div>
+                        <{else}>
+                        <div class="col-xs-4">
+                            <i class="iconfont icon-full-mark "></i>
+                            翻译资质证书
+                        </div>
+                        <div class="col-xs-2">
+                            尚未认证
+                        </div>
+                        <{/if}>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <{if($data["param_data"]["certifications"]["qualification"]["file_path"][1]>0)}>
+                            <{foreach($data["param_data"]["certifications"]["qualification"]["file_path"][0] as $k =>
+                            $v)}>
+                            <a rel="group" title="翻译资质证书-<{$k}>" href="<{$file_url}><{$v[url_b]}>" class="js-image">
+                                <img src="<{$file_url}><{$v[url_s]}>" width="200" alt="">
+                            </a>
+                            <{/foreach}>
+                            <{else}>
+                            <span>未上传</span>
+                            <{/if}>
+                        </div>
+                    </div>
+                </div>
+                <div class="label-content-show-right">
+                    <div class="label-content-show-edit">
+                        <a href="javascript:;" id="aptitude_edit">
+                            <i class="iconfont icon-edit"></i>
+                            编辑
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--show end-->
+            <!--edit-->
+            <div class="label-content-edit" style="display: none;" id="aptitude_edit_content">
+                <form id="aptitude_form">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="iconfont icon-full-mark"></i>
+                            营业执照
+                        </div>
+                    </div>
+                    <div class="row font-remind">
+                        <i class="iconfont icon-remind"></i>提示：请提交您公司的营业执照证明；如果是三证合一的证件，只需提交一个即可
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <input type="file" class="form-input" name="license" id="upload_education"
+                                   data-init="<{$data['param_data']['certifications']['license']['file_path_str']}>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="iconfont icon-full-mark"></i>
+                            税务登记证
+                        </div>
+                    </div>
+                    <div class="row font-remind">
+                        <i class="iconfont icon-remind"></i>提示：请提交您公司的税务登记证明；如果是三证合一的证件，只需提交一个即可
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <input  type="file" name="tax" id="upload_language"
+                                    data-init="<{$data['param_data']['certifications']['tax']['file_path_str']}>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="iconfont icon-full-mark"></i>
+                            翻译资质证书
+                        </div>
+                    </div>
+                    <div class="row font-remind">
+                        <i class="iconfont icon-remind"></i>提示：请提交您公司的翻译资质或专业能力的证明，如译者等级证书，职称证书等。
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <input  type="file" name="qualification" id="upload_qualification"
+                                    data-init="<{$data['param_data']['certifications']['qualification']['file_path_str']}>">
+                        </div>
+                    </div>
+                </form>
+                <div class="row text-center">
+                    <a href="javascript:;" class="btn btn-cancel" id="aptitude_cancel">取消</a>
+                    <a href="javascript:;" class="btn btn-submit" id="aptitude_submit">提交</a>
+                </div>
+            </div>
+            <!--edit end-->
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/aptitude/aptitude.js"></script>
+<{layout:web/public/foot}>

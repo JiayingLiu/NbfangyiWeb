@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">App发布管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="add_title">类型</label>
+                    <select class="form-control" name="type">
+                        <{foreach($data['type'] as $k => $v)}>
+                        <{if($k == $data["param_data"]["type"])}>
+                        <option value="<{$k}>" selected ><{$v}></option>
+                        <{else}>
+                        <option value="<{$k}>"><{$v}></option>
+                        <{/if}>
+                        <{/foreach}>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+            <hr>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal"
+                        onclick="reset();">新建
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered" id="userList">
+                <tr>
+                    <th>名称</th>
+                    <th>类型</th>
+                    <th>版本号</th>
+                    <th>版本名称</th>
+                    <th>版本描述</th>
+                    <th>创建时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                <{foreach($data["appList"]["0"] as $k => $v)}>
+                <tr>
+                    <td><{$v["title"]}></td>
+                    <td>
+                        <{if($v["type"] == 1)}>
+                        <span class="label label-success"><{$data["type"][$v["type"]]}></span>
+                        <{else}>
+                        <span class="label label-primary"><{$data["type"][$v["type"]]}></span>
+                        <{/if}>
+                    </td>
+                    <td><{$v["version_code"]}></td>
+                    <td><{$v["version"]}></td>
+                    <td><{$v["desc"]}></td>
+                    <td><{$v["create_time"]}></td>
+                    <td>
+                        <{if($v['status'] == 10)}>
+                        <span class="label label-success"><{$data['status'][$v['status']]}></span>
+                        <{elseif($v['status'] == 20)}>
+                        <span class="label label-warning"><{$data['status'][$v['status']]}></span>
+                        <{else}>
+                        <span class="label label-danger"><{$data['status'][$v['status']]}></span>
+                        <{/if}>
+                    </td>
+                    <td>
+                        <a tabindex="0" class="btn btn-warning btn-sm js-qr" role="button" data-toggle="popover"
+                           data-trigger="focus" data-placement="left" title="扫描验证码"
+                           data-content="<img src='/admin/mobile/down/qrcodeDown?url=<{$file_url}>/<{$v['down_url']}>'
+                            height='205' width='205'>">二维码</a>
+                        <{if(($v['status'] == 10)OR($v['status'] == 20))}>
+                        <button type="button" class="btn btn-primary btn-sm js-edit" data-toggle="modal"
+                                data-target="#updateModal"
+                                data-id="<{$v['id']}>" data-type="<{$v['type']}>" data-title="<{$v['title']}>"
+                                data-versionCode="<{$v['version_code']}>" data-version="<{$v['version']}>"
+                                data-desc="<{$v['desc']}>" data-url="<{$v['down_url']}>">编辑
+                        </button>
+                        <{else}>
+                        <{/if}>
+                        <{if($v['status'] == 20)}>
+                        <button class="btn btn-primary btn-sm js-toggle-line" data-id="<{$v['id']}>" data-status="10">
+                            上线
+                        </button>
+                        <{elseif($v['status'] == 10)}>
+                        <button class="btn btn-danger btn-sm js-toggle-line" data-id="<{$v['id']}>" data-status="21">
+                            下线
+                        </button>
+                        <a href="<{$file_url}>/<{$v['down_url']}>" class="btn btn-default btn-sm">下载</a>
+                        <{/if}>
+                    </td>
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!--新建窗口-->
+<div class="modal fade" id="addModal" role="dialog" aria-labelledby="addModal_title">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addModal_title">新建</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="add_type">类型</label>
+                        <select class="form-control" name="type" id="add_type">
+                            <{foreach( $data['type'] as $k => $v)}>
+                            <option value="<{$k}>"><{$v}></option>
+                            <{/foreach}>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_title">名称</label>
+                        <input type="text" class="form-control" id="add_title" name="title"
+                               placeholder="请填写名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_version_code">版本号</label>
+                        <input type="text" class="form-control" id="add_version_code" name="version_code"
+                               placeholder="请填写版本号">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_version">版本名称</label>
+                        <input type="text" class="form-control" id="add_version" name="version"
+                               placeholder="请填写版本名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="file">apk包上传</label>
+                        <input type="hidden" name="down_url">
+                        <input type="file" class="form-control" id="file">
+                    </div>
+                    <div class="form-group">
+                        <label for="add_desc">版本描述</label>
+                        <textarea class="form-control" name="desc" id="add_desc"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑窗口-->
+<div class="modal fade" id="updateModal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm">
+                    <div class="form-group">
+                        <input type="hidden" name="id" id="update_id">
+                        <label for="update_type">类型</label>
+                        <select class="form-control" name="type" id="update_type">
+                            <{foreach( $data['type'] as $k => $v)}>
+                            <option value="<{$k}>"><{$v}></option>
+                            <{/foreach}>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="update_title">名称</label>
+                        <input type="text" class="form-control" id="update_title" name="title"
+                               placeholder="请填写名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="update_version_code">版本号</label>
+                        <input type="text" class="form-control" id="update_version_code" name="version_code"
+                               placeholder="请填写版本号">
+                    </div>
+                    <div class="form-group">
+                        <label for="update_version">版本名称</label>
+                        <input type="text" class="form-control" id="update_version" name="version"
+                               placeholder="请填写版本名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="file">apk包上传</label>
+                        <input type="hidden" name="down_url" id="upload_down_url">
+                        <input type="file" class="form-control" id="update_file">
+                    </div>
+                    <div class="form-group">
+                        <label for="update_desc">版本描述</label>
+                        <textarea class="form-control" name="desc" id="update_desc"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="update">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var URL = {
+        SEARCH: '/admin/mobile/down/index',
+        UPLOAD: '/admin/common/uploadFile/file',
+        SAVE: '/admin/mobile/down/addApp',
+        EDIT: '/admin/mobile/down/updateAppInfo'
+    };
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["param_data"]["offset"]}>',
+            total: '<{$data["appList"]["1"]}>',
+            limit: '<{$data["param_data"]["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        save();
+        editModal();
+        upload();
+        toggleLine();
+        $('.js-qr').popover({html: '1'});
+    });
+
+    //上传
+    function upload() {
+        CommonUtils.upload({
+            id: 'file',//绑定上传事件的dom id,
+            url: URL.UPLOAD,//文件上传的地址，
+            fileName: 'file_name',//后台拿取问件时的key值
+            limitSize: 102400,//上传文件的大小
+            limitType: '.apk application/vnd.android.package-archive',//上传文件的MIME类型
+            limitSuffix: '',//上传文件的后缀名称
+            extData: null,//上传文件同时附加的参数
+            beforeUploadHandler: function () {
+                return true;
+            }
+            ,//上传文件之前回调函数
+            progressUploadHandler: null,//进度回调函数h5有效
+            beforeSendHandler: null,//文件发送之前回调函数
+            completeUploadHandler: function (data) {
+                if (data.status == 0) {
+                    $('#file').prev('input').val(data.data.url);
+                }
+            }
+            ,//完成上传时回调函数
+            errorUploadHandler: null//失败时候的回调函数
+        });
+        CommonUtils.upload({
+            id: 'update_file',//绑定上传事件的dom id,
+            url: URL.UPLOAD,//文件上传的地址，
+            fileName: 'file_name',//后台拿取问件时的key值
+            limitSize: 102400,//上传文件的大小
+            limitType: '.apk application/vnd.android.package-archive',//上传文件的MIME类型
+            beforeUploadHandler: function () {
+                return true;
+            }
+            ,//上传文件之前回调函数
+            completeUploadHandler: function (data) {
+                if (data.status == 0) {
+                    $('#file').prev('input').val(data.data.url);
+                }
+            }
+        });
+    }
+
+    //上下线
+    function toggleLine() {
+        $('#userList').on('click', '.js-toggle-line', function () {
+            var $this = $(this);
+            CommonUtils.confirm('确定进行此操作吗？', function () {
+                $.ajax({
+                    url: URL.EDIT,
+                    data: {
+                        id: $this.attr('data-id'),
+                        status: $this.attr('data-status')
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+
+
+    //编辑
+    function editModal() {
+        $('#userList').on('click', '.js-edit', function () {
+            var $this = $(this);
+            $('#update_id').val($this.attr('data-id'));
+            $('#update_type').val($this.attr('data-type'));
+            $('#update_title').val($this.attr('data-title'));
+            $('#update_version_code').val($this.attr('data-versionCode'));
+            $('#update_version').val($this.attr('data-version'));
+            $('#upload_down_url').val($this.attr('data-url'));
+            $('#update_desc').val($this.attr('data-desc'));
+        });
+        $('#update').on('click', null, function () {
+            $.ajax({
+                url: URL.EDIT,
+                data: $('#updateForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            })
+        });
+    }
+    //初始化表单
+    function reset() {
+        document.getElementById('addForm').reset();
+    }
+    //保存
+    function save() {
+        $('#save').click(function () {
+            $.ajax({
+                url: URL.SAVE,
+                data: $('#addForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //查询
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.SEARCH;
+        });
+    }
+</script>
+</body>
+</html>

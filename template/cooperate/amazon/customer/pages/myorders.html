@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="description" content="N邦翻译是最大的O2O翻译电商平台，是亚马逊唯一官方合作的语言服务平台，N邦翻译的核心是为跨境电商提供快速、高质量的翻译服务，帮助跨境电商企业解决语言翻译难题！">
+    <meta name="keywords" content="N邦翻译,翻译O2O,翻译电商平台,翻译网站,亚马逊,跨境电商,对外贸易交易平台、外贸网站" />
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8d9b837ff56daf73730660e4d86fc338";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <title>N邦译牛 助力跨境电商</title>
+    <link rel="shortcut icon" href="<{$css_url}>/cooperate/amazon/customer/css/img/unbounded.ico" type="image/x-icon" />
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/header.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/personal.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/page.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/style/myorders.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+</head>
+<body>
+<!--header-->
+<{layout:cooperate/amazon/customer/public/header}>
+<!--header end-->
+<div class="content">
+    <div class="personal">
+        <!--personal-->
+        <{layout:cooperate/amazon/customer/public/personal}>
+        <!--personal end -->
+        <div class="active-region">
+            <div class="myorders">
+                <div class="myorders-top">
+                    <span class="float-left">我的订单</span>
+                </div>
+                <div class="myorders-con">
+                    <div class="myorders-query" id="myorders_query_btns">
+                        <a href="javascript:;" data-id="" data-url="/user/cooperate/user/myOrderList">全部</a>
+                        <a href="javascript:;" data-id="1" data-url="/user/cooperate/user/myOrderList?status=1">待付款</a>
+                        <a href="javascript:;" data-id="2" data-url="/user/cooperate/user/myOrderList?status=2">已支付</a>
+                        <a href="javascript:;" data-id="20"
+                           data-url="/user/cooperate/user/myOrderList?status=20">已完成</a>
+                        <a href="javascript:;" data-id="30"
+                           data-url="/user/cooperate/user/myOrderList?status=30">已取消</a>
+                    </div>
+                    <table class="myorders-table">
+                        <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>翻译类型</th>
+                            <th>订单金额</th>
+                            <th>实际金额</th>
+                            <th>状态</th>
+                            <th>下单时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="orders_tableList">
+                        <{if ( $orderList["totalCount"] > 0)}>
+                        <{foreach($orderList["data"] as $k => $v)}>
+                        <tr>
+                            <td><{$v["order_num"]}></td>
+                            <td><{$v["title"]}></td>
+                            <td><{$v["total_price"]}></td>
+                            <td><{$v["actually_price"]}></td>
+                            <td>
+                                <{if($v["ext"]["status"] == 1)}>
+                                待付款
+                                <{elseif ($v["ext"]["status"] == 2)}>
+                                已付款
+                                <{elseif ($v["ext"]["status"] >= 3 && $v["status"] <= 11)}>
+                                翻译进行中
+                                <{elseif ($v["ext"]["status"] == 20)}>
+                                订单完成
+                                <{elseif ($v["ext"]["status"] == 30)}>
+                                取消订单
+                                <{else}>
+                                <{/if}>
+                            </td>
+                            <td><{$v["create_time"]}></td>
+                            <td>
+                                <a href="/user/cooperate/user/orderInfo?order_num=<{$v['order_num']}>"
+                                   class="myorders-table-btn">查看详情</a><br>
+                                <{if($v["status"] == 1)}>
+                                <a href="javascript:;" class="myorders-table-btn" data-id="<{$v['order_num']}>">立即支付</a>
+                                <{else}>
+                                <{/if}>
+                            </td>
+                        </tr>
+                        <{/foreach}>
+                        <{else}>
+                        <tr>
+                            <td colspan="7">
+                                <div class="orderlist-nodata">
+                                    <p>目前没有订单信息哦，快来<a href="/order/cooporder/order/buyProduct" class="link imp">下单</a>吧！
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <{/if}>
+                        </tbody>
+                    </table>
+                    <div class="pagination-con">
+                        <div id="pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<script src="<{$js_url}>/cooperate/amazon/translator/js/common.js"></script>
+<script>
+    $(function () {
+        //状态选择栏的定位
+        statusSelectPo();
+        //分页
+        var config = {
+            offset: '<{$orderList["offset"]}>',
+            limit: '<{$orderList["limit"]}>',
+            total: '<{$orderList["totalCount"]}>',
+            url: '/user/cooperate/user/myOrderList?status=' + $('#myorders_query_btns').find('.myorders-query-selected').attr('data-id')
+        };
+        CommonUtils.pagination(config);
+        //立即支付
+        toPay();
+    });
+    //立即支付
+    function toPay() {
+        $('#orders_tableList').on('click', '.myorders-table-btn', function () {
+            $('<form>', {
+                action: '/pay/index/pay/index',
+                method: 'POST'
+            }).css('display', 'none').append('<input type="hidden" name="order_num" value="' + $(this).attr('data-id') + '">').appendTo($('body')).submit();
+        });
+    }
+    //状态选择栏的定位
+    function statusSelectPo() {
+        var $po = $('#myorders_query_btns'), nav = window.sessionStorage.myorder_nav;
+        nav || $po.find('a[data-id=""]').addClass('myorders-query-selected');
+        $po.find('a[data-id="' + nav + '"]').addClass('myorders-query-selected');
+        $('#myorders_query_btns').on('click', 'a', function () {
+            var $this = $(this),
+                    url = $this.attr('data-url'),
+                    data_id = $this.attr('data-id');
+            window.sessionStorage.myorder_nav = data_id;
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

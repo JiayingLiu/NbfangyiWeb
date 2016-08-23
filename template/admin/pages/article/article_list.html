@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">文章管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="cate_id">类型:</label>
+                    <select name="cate_id" class="form-control">
+					<option value="0" >全部</option>
+					<{foreach($data['param_data']['cates'] as $k=>$v)}>
+					<{if($k==$data['param_data']['cate_id'])}>
+					<option value="<{$k}>" selected><{$v}></option>
+					<{else}>
+					<option value="<{$k}>" ><{$v}></option>
+					<{/if}>
+					<{/foreach}>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+            <hr>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" id="addArticle">添加
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <div class="table-box">
+                <div class="tableDiv" >
+                <table class="table table-bordered" id="list">
+                <tr>
+                    <th >类别</th>
+                    <th >标题</th>
+                    <th >描述</th>
+                    <th >添加时间</th>
+					<th >操作</th>
+                </tr>
+                <{foreach($data['articles'][0] as $k => $vo)}>
+                <tr>
+                    <td><{$vo['category_name']}></td>
+                    <td><{$vo['title']}></td>
+                    <td><?php echo htmlspecialchars_decode($vo['description'])?></td>
+                    <td><{$vo['create_time']}></td>
+					<td>
+					<button type="button" data-toggle="modal" data-target="#setModal" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-success js-set"
+                                data-id="<{$vo['id']}>">删除</button>|<a  href="/admin/article/article/updateArticle?id=<{$vo['id']}>"
+                           style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary"
+                           data-id="<{$vo['id']}>">修改</a>
+</td>
+                    
+                </tr>
+                <{/foreach}>
+            </table>
+            </div>
+            </div>
+            <!-- /.modal -->
+            <!-- 生成模态弹出窗 -->
+            <div class="modal" id="setModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否删除？</p>
+                            <input type="hidden" name="" id="set_reason_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="deleteDict" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    var url = '/admin/article/article/getList';
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["param_data"]["offset"]}>',
+            total: '<{$data["articles"][1]}>',
+            limit: '<{$data["param_data"]["limit"]}>',
+            length: 11,
+            url: url + '?' + $('#searchForm').serialize()
+        });
+        //添加
+        $('#addArticle').on('click', null, function () {
+            window.location.href = '/admin/article/article/addArticle';
+        });
+        //生成
+        $('#list').on('click', '.js-set', function () {
+            $('#set_reason_id').val($(this).attr('data-id'));
+        });
+		
+		$('#deleteDict').on('click', null, function(){
+                        $.ajax({
+                            type: 'post',
+                            dataType: 'json',
+                            url: '/admin/article/article/delete',
+                            data: {
+								'id': $('#set_reason_id').val()
+							},
+                            success: function (data) {
+                                if(data.status == 0 ){
+                                    CommonUtils.tips(data.message,2000,true);
+                                    (setTimeout(function(){
+                                        window.location.href = '/admin/article/article/getList'
+                                    },2000));
+                                }else{
+                                    CommonUtils.tips(data.message,2000,false);
+                                }
+                            }
+                        });			
+		})
+    });
+    function search() {
+        $('#search').click(function () {
+            window.location.href = url + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

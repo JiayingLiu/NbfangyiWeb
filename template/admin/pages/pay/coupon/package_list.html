@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">优惠券礼包管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="name">名称:</label>
+                    <input type="text" class="form-control" id="name" placeholder="优惠券名称" name="name" value="<{$data["param_data"]["name"]}>">
+                </div>
+                <div class="form-group">
+                    <label for="send_type">状态:</label>
+                    <select name="status" class="form-control">
+					<{if($data['param_data']['status']==1)}>
+
+                        <option value="0" >全部</option>
+                        <option value="1" selected>未生成</option>
+                        <option value="2" >已生成</option>
+					<{elseif($data['param_data']['status']==2)}>
+					    <option value="0" >全部</option>
+                        <option value="1" >未生成</option>
+                        <option value="2" selected>已生成</option>
+					<{else}> 
+					    <option value="0" selected>全部</option>
+                        <option value="1" >未生成</option>
+                        <option value="2" >已生成</option>
+					<{/if}>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+            <hr>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" id="addCoupon">添加
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <div class="table-box" style="overflow-x: scroll;">
+                <div class="tableDiv" >
+                <table class="table table-bordered" id="list">
+                <tr>
+                    <th >名称</th>
+                    <th >状态</th>
+                    <th >关联优惠券名称</th>
+                    <th >添加时间</th>
+                    <th >最后操作人</th>
+					<th >操作</th>
+                </tr>
+                <{foreach($data['0'] as $k => $vo)}>
+                <tr>
+                    <td><{$vo['name']}></td>
+                    <td><{$vo['status_text']}></td>
+                    <td><{$vo['coupon_name']}></td>
+                    <td><{$vo['create_time']}></td>
+					<td><{$vo['last_uname']}></td>
+					<td>
+					<{if($vo['status'] == 1)}>
+					<button type="button" data-toggle="modal" data-target="#setModal" role="button"  style="margin-bottom: 5px; display: inline-block;" class="btn btn-xs btn-success js-set"
+                                data-id="<{$vo['id']}>">生成</button>|<{/if}><a  href="/admin/pay/coupon/getPackageDetailList?package_id=<{$vo['id']}>"
+                           style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary"
+                           data-id="<{$vo['id']}>">查看</a>
+</td>
+                    
+                </tr>
+                <{/foreach}>
+            </table>
+            </div>
+            </div>
+            <!-- /.modal -->
+            <!-- 生成模态弹出窗 -->
+            <div class="modal" id="setModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否生成生成优惠券？</p>
+                            <input type="hidden" name="" id="set_reason_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="couponSet" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    var url = '/admin/pay/coupon/getPackageList';
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["param_data"]["offset"]}>',
+            total: '<{$data["1"]}>',
+            limit: '<{$data["param_data"]["limit"]}>',
+            length: 11,
+            url: url + '?' + $('#searchForm').serialize()
+        });
+        //添加
+        $('#addCoupon').on('click', null, function () {
+            window.location.href = '/admin/pay/coupon/addCouponPackage';
+        });
+        //生成
+        $('#list').on('click', '.js-set', function () {
+            $('#set_reason_id').val($(this).attr('data-id'));
+        });
+        $('#couponSet').on('click',null, function () {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '/admin/pay/coupon/createCouponPackageDetail',
+                data: {
+                    'id': $('#set_reason_id').val()
+                },
+                success: function (data) {
+                    if(data.status == 0 ){
+                        CommonUtils.tips(data.message,2000,true);
+                    }else{
+                        CommonUtils.tips(data.message,2000,false);
+                    }
+                }
+            });
+        });
+    });
+    function search() {
+        $('#search').click(function () {
+            window.location.href = url + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

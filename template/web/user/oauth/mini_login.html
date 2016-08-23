@@ -1,0 +1,79 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/public/public.css">
+<title></title>
+</head>
+<body class="login-label-body">
+<div class="login-label">
+    <form id="login_form">
+        <div class="row-login">
+            <div class="col-xs-6 text-left">
+                <h3>账户登录</h3>
+            </div>
+            <div class="col-xs-6 text-right">
+                <a href="javascript:void(0);" class="text-stress" id="to_reg">
+                    <i class="iconfont icon-right-arrow"></i>
+                    免费注册
+                </a>
+            </div>
+        </div>
+        <div class="row-login">
+            <p class="login-tip" id="login_tip" style="display: none">
+                <span><i class="iconfont icon-tip"></i></span>
+                <strong></strong>
+            </p>
+        </div>
+        <div class="row-login login-input-bg">
+            <div class="col-xs-1 text-center"><i class="iconfont icon-user"></i></div>
+            <div class="col-xs-10">
+                <input type="text" placeholder="请输入手机号" name="account" class="form-input js-input">
+            </div>
+            <div class="col-xs-1 close"><i class="iconfont icon-close"></i></div>
+        </div>
+        <div class="row-login login-input-bg">
+            <div class="col-xs-1 text-center"><i class="iconfont icon-lock"></i></div>
+            <div class="col-xs-10">
+                <input type="password" placeholder="请输入密码" name="password" class="form-input js-input">
+            </div>
+            <div class="col-xs-1 close"><i class="iconfont icon-close"></i></div>
+        </div>
+        <div class="row-login">
+            <div class="col-xs-6 login-input-bg">
+                <div class="col-xs-2 text-center">
+                    <i class="iconfont icon-lock"></i>
+                </div>
+                <div class="col-xs-8">
+                    <input type="text" class="form-input js-input" placeholder="请输入验证码"
+                           name="verifyCode">
+                </div>
+                <div class="col-xs-2 close"><i class="iconfont icon-close"></i></div>
+            </div>
+            <div class="col-xs-6 text-right">
+                <a href="javascript:void(0);">
+                    <img src="/usercore/api/member/verify" width="113" height="35"
+                         onclick="this.src='/usercore/api/member/verify?'+new Date().getTime()" id="verifyImg">
+                </a>
+            </div>
+        </div>
+    </form>
+    <div class="row-login">
+        <div class="col-xs-6 text-left">第三方登录</div>
+        <div class="col-xs-6 text-right"><a href="javascript:void(0);" class="text-stress"  id="to_password">找回密码?</a>
+        </div>
+    </div>
+    <div class="row-login">
+        <ul class="third-login" id="third_login">
+            <li><a href="javascript:void(0);" data-href="<{$data['open_oauth_url']['weixin']}>"><img
+                    src="<{$css_url}>web/css/image/user/weixin.png"></a></li>
+            <li><a href="javascript:void(0);" data-href="<{$data['open_oauth_url']['qq']}>"><img
+                    src="<{$css_url}>web/css/image/user/qq.png"></a></li>
+            <li><a href="javascript:void(0);" data-href="<{$data['open_oauth_url']['weibo']}>"><img
+                    src="<{$css_url}>web/css/image/user/weibo.png"></a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <a href="javascript:void(0);" class="login-btn" id="login">登录</a>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/user/oauth/login.js"></script>
+</body>
+</html>

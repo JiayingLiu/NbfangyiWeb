@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="description" content="N邦翻译是最大的O2O翻译电商平台，是亚马逊唯一官方合作的语言服务平台，N邦翻译的核心是为跨境电商提供快速、高质量的翻译服务，帮助跨境电商企业解决语言翻译难题！">
+    <meta name="keywords" content="N邦翻译,翻译O2O,翻译电商平台,翻译网站,亚马逊,跨境电商,对外贸易交易平台、外贸网站" />
+    <script>
+        var _hmt = _hmt || [];
+                (function() {
+                    var hm = document.createElement("script");
+                    hm.src = "//hm.baidu.com/hm.js?8d9b837ff56daf73730660e4d86fc338";
+                    var s = document.getElementsByTagName("script")[0];
+                            s.parentNode.insertBefore(hm, s);
+                })();
+    </script>
+    <title>N邦译牛 助力跨境电商</title>
+    <link rel="shortcut icon" href="<{$css_url}>/cooperate/amazon/customer/css/img/unbounded.ico" type="image/x-icon" />
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/header.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/personal.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/style/userinfo.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+</head>
+<body>
+<!--header-->
+<{layout:cooperate/amazon/customer/public/header}>
+<!--header end-->
+<div class="content">
+    <!--personal-->
+    <div class="personal">
+        <!--personal-->
+        <{layout:cooperate/amazon/customer/public/personal}>
+        <!--personal end -->
+        <div class="active-region">
+            <div class="userinfo">
+                <p class="userinfo-title">基本信息</p>
+
+                <form id="userinfo_form">
+                    <div class="userinfo-form-row">
+                        <span>手机号　　　：</span>
+                        <input type="text" class="userinfo-input-noborder" readonly value="<{$telephone}>">
+                        <!--
+                                                <a href="changephone.html" class="link">修改</a>
+                        -->
+                    </div>
+                    <div class="userinfo-form-row">
+                        <span>公司名称　　：</span>
+                        <input type="text" name="company_name" class="userinfo-input" value="<{$company_name}>"
+                               id="company_name">
+                    </div>
+                    <div class="userinfo-form-row">
+                        <span>企业法人姓名：</span>
+                        <input type="text" name="real_name" class="userinfo-input" value="<{$real_name}>"
+                               id="real_name">
+                    </div>
+                    <div class="userinfo-form-row">
+                        <span>法人身份证号：</span>
+                        <input type="text" name="id_card" class="userinfo-input" value="<{$id_card}>" id="id_card">
+                    </div>
+                    <div class="userinfo-form-row">
+                        <span>企业邮箱　　：</span>
+                        <input type="text" name="email" class="userinfo-input" value="<{$email}>" id="email">
+                    </div>
+                    <div class="userinfo-form-look">
+                        <{if($userphoto != '')}>
+                        <img src="<{$userphoto}>" height="106" width="106">
+                        <{else}>
+                        <img src="<{$css_url}>/cooperate/amazon/customer/css/img/man.jpg" height="106" width="106">
+                        <{/if}>
+                        <p class="userinfo-form-look-tip">点击更换公司logo</p>
+                    </div>
+                    <div class="userinfo-form-submit">
+                        <a href="javascript:;" id="submit_userinfo">保存修改</a>
+                    </div>
+                </form>
+                <form action="/user/api/user/modifyUserPhoto" method="post" name="userInfo_look_form"
+                      enctype="multipart/form-data">
+                    <input type="file" id="upload_user_file" accept="image/jpeg,image/png" name="userphoto">
+                    <input type="submit" id="upload_user_look" value="提交">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--personal end -->
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<!--model-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">N邦译牛</span><span class="model-close">X</span></div>
+    <div class="model-content">
+    </div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<script src="<{$js_url}>/cooperate/amazon/translator/js/common.js"></script>
+<script>
+    $(function () {
+        //保存
+        updataUserInfo();
+    });
+    //保存
+    function updataUserInfo() {
+        $('#submit_userinfo').click(function () {
+            var company_name = $.trim($('#company_name').val()),
+                    real_name = $.trim($('#real_name').val()),
+                    id_card = $.trim($('#id_card').val()),
+                    email = $.trim($('#email').val());
+            if (!company_name) {
+                CommonUtils.model({
+                    html: '公司名称不合法',
+                    type: 'tip'
+                });
+                return;
+            }
+            if (!real_name) {
+                CommonUtils.model({
+                    html: '企业法人姓名不合法',
+                    type: 'tip'
+                });
+                return;
+            }
+            if (!CommonUtils.validate('card', id_card)) {
+                CommonUtils.model({
+                    html: '法人身份证号码不合法',
+                    type: 'tip'
+                });
+                return;
+            }
+            if (!CommonUtils.validate('email', email)) {
+                CommonUtils.model({
+                    html: '企业邮箱不合法',
+                    type: 'tip'
+                });
+                return;
+            }
+            $.ajax({
+                url: '/user/api/user/modifyUserInfo',
+                type: 'post',
+                dataType: 'json',
+                data: $('#userinfo_form').serialize(),
+                success: function (data) {
+                    if (data.status == '0') {
+                        window.setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                    CommonUtils.model({
+                        html: data.message,
+                        type: 'tip'
+                    });
+                }
+            })
+        })
+    }
+</script>
+</body>
+</html>

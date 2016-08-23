@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>N邦翻译官方管理后台-订单列表</title>
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/header.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/personal.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/page.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/admin/css/admin_orderList.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+</head>
+<body>
+<!--header-->
+<{layout:cooperate/amazon/customer/public/header}>
+<!--header end-->
+<div class="content">
+    <div class="personal">
+        <!--personal-->
+        <{layout:cooperate/amazon/admin/public/personal}>
+        <!--personal end -->
+        <div class="active-region">
+            <div class="myorders">
+                <div class="myorders-top">
+                    <span class="float-left">后台订单管理列表</span>
+                </div>
+                <div class="myorders-con">
+                    <div class="myorders-query" id="myorders_query_btns">
+                        <a href="javascript:;" data-id="" data-url="/admin/cooporder/order/orderList">全部</a>
+                        <a href="javascript:;" data-id="1" data-url="/admin/cooporder/order/orderList?status=1">待付款</a>
+                        <a href="javascript:;" data-id="2" data-url="/admin/cooporder/order/orderList?status=2">已支付</a>
+                        <a href="javascript:;" data-id="20"
+                           data-url="/admin/cooporder/order/orderList?status=20">已完成</a>
+                        <a href="javascript:;" data-id="30"
+                           data-url="/admin/cooporder/order/orderList?status=30">已取消</a>
+                    </div>
+                    <div class="deal-query">
+                        订单号：<input type="text" placeholder="请输入交易号" id="orderId">&nbsp;&nbsp;
+                        状态：<select id="orderStatus">
+                        <option value="">请选择状态</option>
+                        <option value="1">待付款</option>
+                        <option value="2">已支付</option>
+                        <option value="20">已完成</option>
+                        <option value="30">已取消</option>
+                    </select>&nbsp;&nbsp;
+                        <a href="javascript:;" id="deal_query">搜索</a>
+                    </div>
+                    <table class="myorders-table">
+                        <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>翻译类型</th>
+                            <th>订单金额</th>
+                            <th>状态</th>
+                            <th>下单时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <{if ( $orderList["totalCount"] > 0)}>
+                        <{foreach($orderList["data"] as $k => $v)}>
+                        <tr>
+                            <td><{$v["order_num"]}></td>
+                            <td><{$v["title"]}></td>
+                            <td><{$v["total_price"]}></td>
+                            <td>
+                                <{if($v["status"] == 1)}>
+                                待付款
+                                <{elseif ($v['ext']["status"] == 2)}>
+                                已支付
+                                <{elseif ($v['ext']["status"] == 3)}>
+                                指派中
+                                <{elseif ($v['ext']["status"] == 4)}>
+                                译者开始翻译
+                                <{elseif ($v['ext']["status"] == 5)}>
+                                译者完成翻译
+                                <{elseif ($v['ext']["status"] == 10)}>
+                                平台翻译审核
+                                <{elseif ($v['ext']["status"] == 11)}>
+                                审核未通过
+                                <{elseif ($v['ext']["status"] == 20)}>
+                                订单完成
+                                <{elseif ($v['ext']["status"] == 30)}>
+                                取消订单
+                                <{else}>
+                                <{/if}>
+                            </td>
+                            <td><{$v["create_time"]}></td>
+                            <td>
+                                <a href="/admin/cooporder/order/orderInfo?order_num=<{$v['order_num']}>"
+                                   class="myorders-table-btn">查看详情</a>
+                                <{if ($v['ext']["status"] == 2)}>
+                                <a href="/admin/cooporder/order/orderInfo?order_num=<{$v['order_num']}>"
+                                   class="myorders-table-btn">指派</a>
+                                <{else}>
+                                <{/if}>
+                            </td>
+                        </tr>
+                        <{/foreach}>
+                        <{else}>
+                        <tr>
+                            <td colspan="6">
+                                <div class="orderlist-nodata">
+                                    <p>目前没有订单信息！</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <{/if}>
+                        </tbody>
+                    </table>
+                    <div class="pagination-con">
+                        <div id="pagination"></div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<!--model-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">N邦译牛</span><span class="model-close">X</span></div>
+    <div class="model-content">
+    </div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<script src="<{$js_url}>/cooperate/amazon/translator/js/common.js"></script>
+<script>
+    $(function () {
+        //状态选择栏的定位
+        statusSelectPo();
+        //分页
+        var config = {
+            offset: '<{$orderList["offset"]}>',
+            limit: '<{$orderList["limit"]}>',
+            total: '<{$orderList["totalCount"]}>',
+            url: '/admin/cooporder/order/orderList?status=' + $('#myorders_query_btns').find('.myorders-query-selected').attr('data-id')
+        };
+        CommonUtils.pagination(config);
+
+        //查询
+        $('#deal_query').click(function () {
+            var id = $('#orderId').val(),
+                    status = $('#orderStatus').val();
+            window.location.href = '/admin/cooporder/order/orderList?status=' + status + '&order_num=' + id;
+        });
+    });
+    //状态选择栏的定位
+    function statusSelectPo() {
+        var $po = $('#myorders_query_btns'), nav = window.sessionStorage.adminorder_nav;
+        nav || $po.find('a[data-id=""]').addClass('myorders-query-selected');
+        $po.find('a[data-id="' + nav + '"]').addClass('myorders-query-selected');
+        $('#myorders_query_btns').on('click', 'a', function () {
+            var $this = $(this),
+                    url = $this.attr('data-url'),
+                    data_id = $this.attr('data-id');
+            window.sessionStorage.adminorder_nav = data_id;
+            window.location.href = url;
+        });
+    }
+</script>
+</body>
+</html>

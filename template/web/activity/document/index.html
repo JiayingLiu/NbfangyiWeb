@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<head lang="zh-CN">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="keywords" content="证件翻译,驾照翻译,签证翻译,成绩单翻译,流水单翻译,营业执照翻译,毕业证翻译,出生证翻译,病例翻译"/>
+    <meta name="description" content="【找翻译,上N邦】集合各国优质译者,一站式满足您的翻译需求,和译者直接沟通,没有中间商差价,平台担保交易,放心,靠谱,性价比高-N邦翻译平台 公司 机构 中心"/>
+    <link rel="dns-prefetch" href="//hm.baidu.com/">
+    <script>
+        BASE_CSS_URL = '<{$css_url}>';
+        BASE_JS_URL = '<{$js_url}>web/';
+        BASE_FILE_URL = '<{$file_url}>';
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8d9b837ff56daf73730660e4d86fc338";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <script src="<{$js_url}>web/require.js"></script>
+    <title>证件翻译【找好翻译,上N邦】</title>
+    <link href="<{$css_url}>web/css/style/activity/document/style.css" rel="stylesheet">
+    <{layout:web/public/top}>
+    <{layout:web/public/search}>
+    <div class="doc-block">
+        <div class="doc-nav">
+            <ul>
+                <li>签证翻译</li>
+                <li>|</li>
+                <li>公证翻译</li>
+                <li>|</li>
+                <li>证件翻译</li>
+            </ul>
+        </div>
+        <div class="doc-type">
+            <ul>
+                <li>
+                    <img src="<{$css_url}>web/css/image/activity/document/doc-left.png" width="111" height="110">
+
+                    <h3>通行各大使馆</h3>
+
+                    <p>签证处/公正处/教育部/留学中心</p>
+                </li>
+                <li>
+                    <img src="<{$css_url}>web/css/image/activity/document/doc-middle.png" width="111" height="110">
+
+                    <h3>正规翻译章</h3>
+
+                    <p>合法翻译资质，盖双语翻译章</p>
+                </li>
+                <li>
+                    <img src="<{$css_url}>web/css/image/activity/document/doc-right.png" width="111" height="110">
+
+                    <h3>正规公司资质齐全</h3>
+
+                    <p>企业资信良好</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="doc-main">
+        <div class="doc-price">
+            <img src="<{$css_url}>web/css/image/activity/document/doc-price.png" width="938" height="56">
+        </div>
+        <div class="doc-title">
+            服务报价
+        </div>
+        <div class="doc-table">
+            <div class="t-title">
+                <ul>
+                    <li>证书名称</li>
+                    <li>价格（英日韩）</li>
+                    <li>价格（德法意西）</li>
+                    <li>备注</li>
+                </ul>
+            </div>
+            <div class="t-body">
+                <div class="t-body-text">
+                    <br><br><br><br><br>
+                    <p style="margin-top: 14px;">
+                        <span>身份证</span>
+                        <span>毕业证/学位证</span>
+                    </p>
+
+                    <p>
+                        <span>港澳台通行证</span>
+                        <span>签证</span>
+                    </p>
+
+                    <p>
+                        <span>护照</span>
+                        <span>驾照</span>
+                    </p>
+
+                    <p>
+                        <span>户口本</span>
+                        <span>结婚证</span>
+                    </p>
+
+                    <p>
+                        <span>离婚证</span>
+                        <span>出生证明</span>
+                    </p>
+
+                    <p>
+                        <span>死亡证明</span>
+                        <span>其他各类规范证件</span>
+                    </p>
+
+                </div>
+                <div class="t-body-text">
+                    <ul class="price-english price-others">
+                        <{foreach($data['type_1_yrh'] as $k => $v)}>
+                        <{if($k < 8)}>
+                        <li>
+                            <span class="item-left"><{$v['source_text']['language']}>-><{$v['source_text']['to_language']}><strong
+                                    class="font-red "><{$v['source_text']['price']}>元/<{$v['source_text']['price_type_text']}></strong></span>
+                            <span class="item-right"><a
+                                    href="/order/order/buy/buyProduct?product_id=<{$v['source_text']['id']}>"
+                                    target="_blank" class="btn">立即下单</a></span>
+                        </li>
+                        <{/if}>
+                        <{/foreach}>
+                    </ul>
+                </div>
+                <div class="t-body-text t-body-text-big">
+                    <ul class="price-english price-others">
+                        <{foreach($data['type_1_dfyx'] as $k => $v)}>
+                        <{if($k < 8)}>
+                        <li>
+                            <span class="item-left"><{$v['source_text']['language']}>-><{$v['source_text']['to_language']}><strong
+                                    class="font-red "><{$v['source_text']['price']}>元/<{$v['source_text']['price_type_text']}></strong></span>
+                            <span class="item-right"><a
+                                    href="/order/order/buy/buyProduct?product_id=<{$v['source_text']['id']}>"
+                                    target="_blank" class="btn">立即下单</a></span>
+                        </li>
+                        <{/if}>
+                        <{/foreach}>
+                    </ul>
+                </div>
+                <div class="t-body-text t-body-text-small">
+                    <p><br><br><br><br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、终身免费修改<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、个性化需求联系：4006-808-525<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、全国包邮（1-3天）
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="doc-table">
+            <div class="t-title doc-bg-red">
+                <ul>
+                    <li>证书名称</li>
+                    <li>价格（英日韩）</li>
+                    <li>价格（德法意西）</li>
+                    <li>备注</li>
+                </ul>
+            </div>
+            <div class="t-body">
+                <div class="t-body-text">
+                    <br><br><br><br><br><br><br><br>
+
+                    <p>
+                        <span>成绩单</span>
+                        <span>病例</span>
+                    </p>
+
+                    <p>
+                        <span>存款证明</span>
+                        <span>诊断证明</span>
+                    </p>
+
+                    <p>
+                        <span>健康证明</span>
+                        <span>其他非规范证件</span>
+                    </p>
+
+                </div>
+                <div class="t-body-text">
+                    <ul class="price-english price-others">
+                        <{foreach($data['type_2_yrh'] as $k => $v)}>
+                        <{if($k < 8)}>
+                        <li>
+                            <span class="item-left"><{$v['source_text']['language']}>-><{$v['source_text']['to_language']}><strong
+                                    class="font-red "><{$v['source_text']['price']}>元/<{$v['source_text']['price_type_text']}></strong></span>
+                            <span class="item-right"><a
+                                    href="/order/order/buy/buyProduct?product_id=<{$v['source_text']['id']}>"
+                                    target="_blank" class="btn">立即下单</a></span>
+                        </li>
+                        <{/if}>
+                        <{/foreach}>
+                    </ul>
+                </div>
+                <div class="t-body-text t-body-text-big">
+                    <ul class="price-english price-others">
+                        <{foreach($data['type_2_dfyx'] as $k => $v)}>
+                        <{if($k < 8)}>
+                        <li>
+                            <span class="item-left"><{$v['source_text']['language']}>-><{$v['source_text']['to_language']}><strong
+                                    class="font-red "><{$v['source_text']['price']}>元/<{$v['source_text']['price_type_text']}></strong></span>
+                            <span class="item-right"><a
+                                    href="/order/order/buy/buyProduct?product_id=<{$v['source_text']['id']}>"
+                                    target="_blank" class="btn">立即下单</a></span>
+                        </li>
+                        <{/if}>
+                        <{/foreach}>
+                    </ul>
+                </div>
+                <div class="t-body-text t-body-text-small">
+                    <p><br><br><br><br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、终身免费修改<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、个性化需求联系：4006-808-525<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、全国包邮（1-3天）
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="doc-title">
+            资质
+        </div>
+        <div class="doc-qualifications">
+            <img src="<{$css_url}>web/css/image/activity/document/doc-qualifications.png">
+        </div>
+        <div class="doc-title">
+            合作商
+        </div>
+        <div class="doc-cooperation">
+            <img src="<{$css_url}>web/css/image/activity/document/doc-cooperation.png" width="1170" height="auto">
+        </div>
+    </div>
+    <script type="text/javascript">
+        require(['jquery', 'base'], function ($, base) {
+            base.init();
+        });
+    </script>
+    <{layout:web/public/foot}>

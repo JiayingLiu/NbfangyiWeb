@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/admin/shop/shop/getBackendShopList?status=<{$data['param_data']['status']}>&offset=<{$data['param_data']['offset']}>&name=<{$data['param_data']['name']}>&telephone=<{$data['param_data']['telephone']}>" class="btn btn-default"><i class="fa fa-reply"></i></a>
+            商铺基本信息
+        </div>
+        <div class="panel-body">
+            <form class="form">
+                <div class="row">
+                
+                    <label class="col-sm-2 control-label">logo</label>
+
+                    <div class="col-sm-10"><img src='<{$file_url}><{$data["shopDetail"]["logo"]}>'></div>
+                </div>            
+                <div class="row">
+                
+                    <label class="col-sm-2 control-label">一句话简介</label>
+
+                    <div class="col-sm-10"><{$data["shopDetail"]["slogan"]}></div>
+                </div>
+                <div class="row">
+                
+                    <label class="col-sm-2 control-label">译龄或公司成立时间</label>
+
+                    <div class="col-sm-10"><{$data["shopDetail"]["shop_date"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">地址</label>
+
+                    <div class="col-sm-10"><{$data["shopDetail"]["city"]}>&nbsp;<{$data["shopDetail"]["address"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">简历</label>
+
+                    <div class="col-sm-10"><a href='<{$file_url}><{$data["shopDetail"]["resume"]}>' target="_blank"><{$data["shopDetail"]["resume"]}></a></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">个人标签</label>
+
+                    <div class="col-sm-10"><{$data["shopDetail"]["tag_name"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">服务类型</label>
+
+                    <div class="col-sm-10"><{$data["shopDetail"]["service_type_name"]}></div>
+                </div>          
+                <div class="row">
+                    <label class="col-sm-2 control-label">翻译语言</label>
+
+                    <div class="col-sm-10"><{$data["shopDetail"]["good_at_title"]}></div>
+                </div>   
+                <div class="row">
+                    <label class="col-sm-2 control-label">翻译领域</label>
+
+                    <div class="col-sm-10"><{$data["shopDetail"]["field_name"]}></div>
+                </div> 
+                <div class="row">
+                    <label class="col-sm-2 control-label">服务时间</label>
+
+                    <div class="col-sm-10">周一到周五<{$data["shopDetail"]["work_time1"]}></div>
+                    <div class="col-sm-10">周六到周日<{$data["shopDetail"]["work_time2"]}></div>
+                </div>     
+                <div class="row">
+                    <label class="col-sm-2 control-label">详情</label>
+
+                    <div class="col-sm-10"><?php echo htmlspecialchars_decode($data["shopDetail"]['content'])?></div>
+                </div>  
+                <div class="row">
+                    <label class="col-sm-2 control-label">状态</label>
+
+                    <div class="col-sm-10"><{$data["shopDetail"]["status_name"]}></div>
+                </div>                                
+                <div class="row">
+                    <label class="col-sm-2 control-label">原因</label>
+
+                    <div class="col-sm-20"><textarea id="reason" cols=100><{$data["shopDetail"]['reason']}></textarea></div>                
+                 </div>                                                     
+                                                               
+            </form>
+            <{if($data["shopDetail"]["status"] != 3)}>
+			<div class="text-center">
+                <button type="button" class="btn btn-default" id="completeOrder">审核通过</button>
+                <button type="button" class="btn btn-default" id="cantpassOrder">审核不通过</button>
+
+            </div>
+            <{/if}>
+        </div>
+    </div>
+</div>
+
+<script>
+    var URL = {
+        PASS: '/admin/shop/shop/auditShopDetailPass',
+        UNPASS: '/admin/shop/shop/auditShopDetailFail'
+    };
+    $(function () {
+        completeOrder();
+        cantpassOrder();
+    });
+    //审核不通过
+    function cantpassOrder() {
+        $('#cantpassOrder').on('click', null, function () {
+        	var reason = $('#reason').val();
+            CommonUtils.confirm('是否确定此商铺不通过审核？', function () {
+                $.ajax({
+                    url: URL.UNPASS,
+                    data: {
+                        shop_id: '<{$data["shopDetail"]["id"]}>',
+                        reason:reason
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+
+    //审核通过
+    function completeOrder() {
+        $('#completeOrder').on('click', null, function () {
+            CommonUtils.confirm('是否确定此商铺通过审核？', function () {
+                $.ajax({
+                    url: URL.PASS,
+                    data: {
+                    	shop_id: '<{$data["shopDetail"]["id"]}>'
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+</script>
+</body>
+</html>

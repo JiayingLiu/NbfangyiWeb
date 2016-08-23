@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="<{$css_url}>client/webview/css/normalize.css" rel="stylesheet">
+    <link rel="stylesheet" href="<{$css_url}>client/webview/css/pro_detail.css">
+    <title>商品详情</title>
+</head>
+<body>
+<header>
+    <div class="header-left">
+        <div class="head-img pro-head"><img src="<{$file_url}><{$data['product']['logo']}>" width="100%"
+                                            height="100%"></div>
+
+        <div class="header-price">￥<{$data['product']['price']}>元/<{if($data['product']['type'] ==
+            1)}>千字<{else}><{if($data['product']['price_type'] == 1)}>天<{else}>小时<{/if}><{/if}>
+        </div>
+    </div>
+    <div class="header-right">
+        <p class="shop-title"><{$data['product']['title']}></p>
+
+        <p><{$data['product']['language']}><{if($data['product']['type'] ==
+            1)}>-><{else}><-><{/if}><{$data['product']['to_language']}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$data['product']['type_name']}></p>
+
+        <p class="separate"><span>适用领域：<{if(empty($data['product']['field_name']))}>未添加<{else}><{$data['product']['field_name']}><{/if}></span></p>
+
+        <p>
+            <span><{if($data['product']['type'] == 1)}>文件类型<{else}>服务类型<{/if}>：<{$data['product']['category_name']}></span>
+        </p>
+        <ul>
+            <{foreach($data['product']['service_commitment_name_arr'] as $k => $v)}>
+            <li><{$v}></li>
+            <{/foreach}>
+        </ul>
+        <a href="javascript:void(0);" class="js-more">更多</a>
+    </div>
+</header>
+<section>
+    <div class="authentication-box">
+        <div class="box-left" id="js_look">
+            <a class="js-id" href="javascript:void(0);" data-id="<{$data['shop']['id']}>">
+                <div class="trs-head"><span><img
+                        src="<{$file_url}><{$data['shop']['logo_s']}>"
+                        width="100%"
+                        height="auto"></span></div>
+                <div class="trs-introduce">
+                    <p><{$data['shop']['real_name']}></p>
+
+                    <div class="amount-box">
+                        <p><i class="icon-address"></i> &nbsp;&nbsp;&nbsp;&nbsp;<{if(empty($data['shop']['city']))}>未知<{else}><{$data['shop']['city']}><{/if}>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="box-right">
+            <div class="praise">
+                <p>
+                    评价:<{$data['shop']['star_num']}>分
+                    <{if($data['shop']['star_num'] == 0)}>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <{elseif($data['shop']['star_num'] > 0 && $data['shop']['star_num'] < 1)}>
+                    <span><i class="half-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <{elseif($data['shop']['star_num'] == 1)}>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <{elseif($data['shop']['star_num'] > 1 && $data['shop']['star_num'] < 2)}>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="half-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <{elseif($data['shop']['star_num'] == 2)}>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <{elseif($data['shop']['star_num'] > 2 && $data['shop']['star_num'] < 3)}>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="half-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <{elseif($data['shop']['star_num'] == 3)}>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <{elseif($data['shop']['star_num'] > 3 && $data['shop']['star_num'] < 4)}>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="half-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <{elseif($data['shop']['star_num'] == 4)}>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="empty-start"></i></span>
+                    <{elseif($data['shop']['star_num'] > 4 && $data['shop']['star_num'] < 5)}>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="half-start"></i></span>
+                    <{elseif($data['shop']['star_num'] == 5)}>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <span><i class="full-start"></i></span>
+                    <{else}>
+                    <{/if}>
+                </p>
+
+                <div class="praise-start">
+                    服务:<span><{$data['shop']['service_times']}>次</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<nav id="js-nav" class="pro-nav">
+    <a href="javascript:void(0);" class="js-btn js-detil selected-state" data-nav="detail">服务详情</a>
+    <a href="javascript:void(0);" class="js-btn" data-nav="eval">店铺评价</a>
+</nav>
+<section>
+    <div class="service-detail">
+        <h3><{if($data['shop']['type'] == 11)}>[公司简介]<{else}>[译者简介]<{/if}></h3>
+
+        <p><{echo htmlspecialchars_decode($data['shop']['detail']);}></p>
+
+        <h3>[服务语言]</h3>
+
+        <p>
+            <{foreach($data['shop']['good_at_name'] as $k => $v)}>
+            <{$v}>
+            <{/foreach}>
+        </p>
+
+        <h3>[适用领域]</h3>
+
+        <p>
+            <{foreach($data['shop']['field_name'] as $k => $v)}>
+            <{$v}>
+            <{/foreach}>
+        </p>
+
+        <h3>[服务承诺]</h3>
+        <ul class="service-label" id="service_label">
+            <{foreach($data['product']['service_commitment_name_arr'] as $k => $v)}>
+            <li><{$v}></li>
+            <{/foreach}>
+        </ul>
+        <h3>[相关商品]</h3>
+
+        <div class="product-list" id="related_pro">
+            <ul>
+                <{foreach($data['relatedProducts'] as $k => $v)}>
+                <li>
+                    <div class="list-left">
+                            <div class="list-img"><a class="href-block js-buy" href="/client/shop/index/productDetail?id=<{$v['id']}>" data-id="<{$v['id']}>"><img
+                                    src="<{$file_url}><{$v['logo_s']}>"
+                                    width="100%"
+                                    height="auto"> </a></div>
+                        <div class="pro-price"><span>￥<{$v['price']}></span>元/<{$v['price_type_text']}></div>
+                        </div>
+                    <div class="list-right">
+                        <a class="href-block js-buy" href="/client/shop/index/productDetail?id=<{$v['id']}>" data-id="<{$v['id']}>">
+                            <h3><{$v['title']}><span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-address"></i>&nbsp;&nbsp;&nbsp;&nbsp;<{$v['city']}></span></h3>
+
+                            <p><{$v['type_name']}>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <{$v['language']}><{if($v['type'] == 1)}>-><{else}><-><{/if}><{$v['to_language']}></p>
+
+                            <p class="separate">
+                                适用领域：<{if(empty($v['field_name']))}>未添加<{else}><{$v['field_name']}><{/if}></p>
+
+                            <p><{if($v['type'] ==
+                                1)}>文件类型<{else}>服务类型<{/if}>：<{if(empty($v['category_name']))}>未添加<{else}><{$v['category_name']}><{/if}></p>
+                            <ul class="shop-label">
+                                <{foreach($v['service_commitment_name'] as $k1 => $v1)}>
+                                <li><{$v1}></li>
+                                <{/foreach}>
+                            </ul>
+                            <{if($v['shop_is_recommend'] == 1)}>
+                            <div class="label-remd"></div>
+                            <{/if}>
+                        </a>
+                    </div>
+                </li>
+                <{/foreach}>
+            </ul>
+        </div>
+    </div>
+    <div style="display: none" class="service-evaluate">
+        <ul id="eval_list">
+        </ul>
+        <p id="get_more"
+           style="line-height: 2.5rem;text-align: center;background-color: #FAFAFA;color: #666;font-size: 0.75rem;"
+           class="js-more-eval">点击加载更多</p>
+    </div>
+</section>
+<script type="text/javascript" src="<{$css_url}>client/webview/js/zepto.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //容错机制，向下兼容,並且兼容ios端
+        if (window.JsInteraction && window.JsInteraction.loadMerchantInfo) {
+            var lis = document.getElementById('service_label').getElementsByTagName('li'),
+                    lis_len = lis.length,
+                    service_label_str = [];
+            for (var i = 0; i < lis_len; i++) {
+                service_label_str.push(lis[i].innerHTML);
+            }
+            JsInteraction.loadMerchantInfo(JSON.stringify({
+                id: '<{$data["shop"]["id"]}>',
+                name: '<{$data["shop"]["title"]}>',
+                year: '<{$data["shop"]["shop_date"]}>',
+                phone: '<{$data["shop"]["user_phone"]}>',
+                type: '<{$data["shop"]["type_name"]}>',
+                look: '<{$data["shop"]["logo_s"]}>',
+                im:'<{$data["shop"]["uid"]}>',
+                shopAddr: '<{$data["shop"]["city"]}>',
+                shopType:'<{$data["shop"]["type"]}>',
+                strTags: service_label_str.join(' ')
+            }));
+        }
+        //点击商家头像
+        $('#js_look').on('click', '.js-id', function () {
+            JsInteraction.showMerchantDetail($(this).attr('data-id'));
+        });
+        var init_flag = 1;
+        $('#related_pro').on('tap', '.js-contact', function () {
+            var obj = {
+                id: $(this).attr('data-id'),
+                name: $(this).attr('data-uname'),
+                year: $(this).attr('data-year'),
+                phone: $(this).attr('data-phone'),
+                type: $(this).attr('data-utype'),
+                look: $(this).attr('data-look'),
+                im:$(this).attr('data-im'),
+                shopType:$(this).attr('data-stype')
+            }
+            JsInteraction.contactMerchant(JSON.stringify(obj));
+        });
+        $('#related_pro').on('click', '.js-buy', function () {
+            JsInteraction.buyProduct($(this).attr('data-id'));
+        });
+        var $nav = $('#js-nav');
+        //点击事件
+        $nav.on('tap', '.js-btn', function () {
+            var $this = $(this),
+                    type = $this.attr('data-nav');
+            if (type == 'detail') {
+                $nav.find('.selected-state').removeClass('selected-state');
+                $this.addClass('selected-state');
+                $('.service-detail').show();
+                $('.service-evaluate').hide();
+            } else if (type == 'eval') {
+                $nav.find('.selected-state').removeClass('selected-state');
+                $this.addClass('selected-state');
+                $('.service-detail').hide();
+                $('.service-evaluate').show();
+                initEval();
+            } else {
+            }
+        });
+        //更多按钮
+        $('.js-more').on('tap', function () {
+            $nav.find('.selected-state').removeClass('selected-state');
+            $nav.find('.js-detil').addClass('selected-state');
+            $('.service-detail').show();
+            $('.service-evaluate').hide();
+        });
+
+        var initEval = function () {
+            var eval = {
+                offset: 0,
+                'shop_id': '<{$data["shop"]["id"]}>',
+                'product_id': '<{$data["product"]["id"]}>',
+                init: function () {
+                    var that = this;
+                    init_flag && that.requestEval(function (data) {
+                        if (data.status == 0) {
+                            that.setParams(data.data['request_param']);
+                            var html = that.createHtml(data.data['list']);
+                            that.appendList(true, html);
+                            that.requestMore();
+                        } else {
+                            alert('数据请求失败,' + data.message);
+                        }
+                    });
+                },
+                setParams: function (params) {
+                    var that = this;
+                    that.limit = params['limit'];
+                    that.product_id = params['product_id'];
+                    that.offset = params['offset'];
+                    that.s = params['s'];
+                    that.shop_id = params['shop_id'];
+                    that.type = params['type'];
+                },
+                getParams: function (key) {
+                    if (this.hasOwnProperty(key)) {
+                        return this[key];
+                    } else {
+                        return false;
+                    }
+                },
+                appendList: function (flag, html) {
+                    //true为重新加载
+                    if (flag) {
+                        $('#eval_list').empty().append(html);
+                    } else {
+                        $('#eval_list').append(html);
+                    }
+                },
+                requestEval: function (callback) {
+                    var that = this,
+                            $this_click = $('#get_more');
+
+                    $this_click.text('加载中');
+                    $.ajax({
+                        url: '/client/shop/shopComment/browse?offset=' + that.offset + '&shop_id=' + that['shop_id'] + '&type=0',
+                        type: 'get',
+                        dataType: 'json',
+                        success: function (data) {
+                            callback.call(this, data);
+                            init_flag = 0;
+                            if (data.data.list.length) {
+                                $this_click.text('点击加载更多');
+                            } else {
+                                $this_click.text('没有查询到数据');
+                            }
+                        }
+                    });
+                },
+                createHtml: function (list) {
+                    var html = [],
+                            len = list.length;
+                    if (len) {
+                        while (len--) {
+                            html.push('<li><div class="evaluate-head"><img src="' + list[len]["user_logo_s"] + '" width="100%"></div>');
+                            html.push('<div class="evaluate-content"><div class="evaluate-title"><span class="pull-left">' + list[len]["tname"] + '</span>');
+                            html.push('<span class="pull-right text-right">' + list[len]["create_time"] + '</span></div><p>' + list[len]["comment_content"] + '</p></div></li>');
+                        }
+                    }
+                    return html.join('');
+                },
+                requestMore: function () {
+                    var that = this;
+                    $('#get_more').on('tap', function () {
+                        that.offset += 10;
+                        that.requestEval(function (data) {
+                            if (data.status == 0) {
+                                that.setParams(data.data['request_param']);
+                                var html = that.createHtml(data.data['list']);
+                                that.appendList(false, html);
+                            } else {
+                                alert('数据请求失败,' + data.message);
+                            }
+                        });
+                    });
+                }
+            };
+            return eval.init();
+        };
+    });
+</script>
+</body>
+</html>

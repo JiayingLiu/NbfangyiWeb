@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/admin/cooporder/order/orderList" class="btn btn-default"><i class="fa fa-reply"></i></a>
+            订单详情
+        </div>
+        <div class="panel-body">
+            <form class="form">
+                <div class="row">
+                    <label class="col-sm-2 control-label">订单号</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["order"]["order_num"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">商品类型</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["order"]["title"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">下单人</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["order"]["user_name"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">字数</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["ext"]["font_count"]}>字</div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">订单金额</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["order"]["total_price"]}>元</div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">实际支付金额</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["order"]["price"]}>元</div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">优惠免付金额</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["order"]["favourable_money"]}>元</div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">支付译者金额</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["order"]["proportion"]}>元</div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">下单时间</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["order"]["create_time"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">预计交稿时间</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["ext"]["complete_time"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">译稿完成时间</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["ext"]["update_time"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">指派给</label>
+
+                    <div class="col-sm-10"><{$data["orderInfo"]["order"]["to_user_name"]}></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">订单状态</label>
+
+                    <div class="col-sm-10">
+                        <{if($data["orderInfo"]["ext"]["status"] == 1)}>
+                        待付款
+                        <{elseif ($data["orderInfo"]["ext"]["status"] == 2)}>
+                        已支付
+                        <{elseif ($data["orderInfo"]["ext"]["status"] == 3)}>
+                        指派中
+                        <{elseif ($data["orderInfo"]["ext"]["status"] == 4)}>
+                        译者开始翻译
+                        <{elseif ($data["orderInfo"]["ext"]["status"] == 5)}>
+                        译者完成翻译
+                        <{elseif ($data["orderInfo"]["ext"]["status"] == 10)}>
+                        平台翻译审核
+                        <{elseif ($data["orderInfo"]["ext"]["status"] == 11)}>
+                        审核未通过
+                        <{elseif ($data["orderInfo"]["ext"]["status"] == 20)}>
+                        订单完成
+                        <{elseif ($data["orderInfo"]["ext"]["status"] == 30)}>
+                        取消订单
+                        <{else}>
+                        <{/if}>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label">备注</label>
+
+                    <div class="col-sm-10">
+                        <textarea class="form-control" readonly><{$data["orderInfo"]["ext"]["desc"]}></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">源文件信息</div>
+        <div class="panel-body">
+            <form class="form">
+                <{if($data["orderInfo"]["ext"]["file_type"] == 2)}>
+                <div class="row">
+                    <label class="col-sm-2 control-label">文本源文件</label>
+
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="5"
+                                  readonly><{$data["orderInfo"]["ext"]["font"]}></textarea>
+                    </div>
+                </div>
+                <{if ($data["orderInfo"]["ext"]["status"] >= 4)}>
+                <div class="row">
+                    <label class="col-sm-2 control-label">翻译译稿</label>
+
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="5"
+                                  readonly><{$data["orderInfo"]["ext"]["order_content"]}></textarea>
+                    </div>
+                </div>
+                <{else}>
+                <{/if}>
+                <{else}>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th colspan="3">源文件信息</th>
+                    </tr>
+                    <tr>
+                        <th>文件名</th>
+                        <th>下载</th>
+                        <th>下单时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><{$data["orderInfo"]["file_info"]["file_title"]}></td>
+                        <td>
+                            <a href="/order/api/order/downloadFile?file_path=<{$data['orderInfo']['ext']['file_path']}>"
+                               target="_blank" class="link">点击下载</a></td>
+                        <td><{$data["orderInfo"]["order"]["create_time"]}></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <{if ($data["orderInfo"]["ext"]["status"] >= 4)}>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th colspan="3">译稿信息</th>
+                    </tr>
+                    <tr>
+                        <th>文件名</th>
+                        <th>下载</th>
+                        <th>译稿完成时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><{$data['orderInfo']['file_info']['order_file_title']}></td>
+                        <td>
+                            <a href="/order/api/order/downloadFile?file_path=<{$data['orderInfo']['ext']['order_file']}>"
+                               target="_blank" class="link">点击下载</a></td>
+                        <td><{$data["orderInfo"]["ext"]["update_time"]}></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <{else}>
+                <{/if}>
+                <{/if}>
+            </form>
+            <hr>
+            <div class="text-center">
+                <{if ($data["orderInfo"]["ext"]["status"] == 2)}>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#assignModal">指派</button>
+                <{elseif ($data["orderInfo"]["ext"]["status"] == 3)}>
+                <button type="button" class="btn btn-default" id="openCancelAssign">撤销指派</button>
+                <{elseif ($data["orderInfo"]["ext"]["status"] == 5)}>
+                <button type="button" class="btn btn-default" id="completeOrder">审核通过</button>
+                <button type="button" class="btn btn-default" id="cantpassOrder">审核不通过</button>
+                <{else}>
+                <{/if}>
+            </div>
+        </div>
+    </div>
+</div>
+<!--指派窗口-->
+<div class="modal fade bs-example-modal-lg" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">指派</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="query_translator">手机号</label>
+                        <input type="text" class="form-control" id="query_translator" placeholder="请输入手机号">
+                    </div>
+                </form>
+                <h3 class="text-center">入驻译者列表</h3>
+
+                <div style="height:350px;overflow: scroll;">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>用户uid</th>
+                            <th>用户名</th>
+                            <th>手机号</th>
+                            <th>价格（元/字）</th>
+                            <th>擅长</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="translator_list">
+                        <{foreach($data["translatorUserList"]["data"] as $k => $v)}>
+                        <tr>
+                            <td><{$v["tuid"]}></td>
+                            <td><{$v["realname"]}></td>
+                            <td class="js-telephone"><{$v["telephone"]}></td>
+                            <td><{$v["proportion"]}></td>
+                            <td data-id="<{$v['language']}>"><{$v["language_title"]}></td>
+                            <td>
+                                <a href="javascript:;"
+                                   class="btn btn-primary btn-xs js-assign" data-id="<{$v['id']}>"
+                                   data-uid="<{$v['tuid']}>"
+                                   data-tel="<{$v['telephone']}>" data-tname="<{$v['realname']}>">指派</a>
+                            </td>
+                        </tr>
+                        <{/foreach}>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                 <button type="button" class="btn btn-primary" id="save">保存</button>
+             </div>-->
+        </div>
+    </div>
+</div>
+
+<script>
+    var URL = {
+        TOASSIGN: '/admin/cooporder/order/assignOrder',
+        UNASSIGN: '/admin/cooporder/order/userCancelOrder',
+        PASS: '/admin/cooporder/order/doneOrder',
+        UNPASS: '/admin/cooporder/order/orderCheckFail'
+    };
+    $(function () {
+        queryPhoneNum();
+        toAssign();
+        cancelAssign();
+        completeOrder();
+        cantpassOrder();
+    });
+    //模糊查询手机号
+    function queryPhoneNum() {
+        $('#query_translator').on('keyup', function () {
+            var val = $.trim($(this).val()), $list = $('#translator_list');
+            $list.find('tr').show();
+            $td = $list.find('.js-telephone');
+            val ? $.each($td, function () {
+                var $this = $(this);
+                $this.text().match(val) || $this.closest('tr').hide();
+            }) : $list.find('tr').show();
+        })
+    }
+    //取消指派
+    function cancelAssign() {
+        $('#openCancelAssign').click(function () {
+            CommonUtils.confirm('是否撤销指派？', function () {
+                $.ajax({
+                    url: URL.UNASSIGN,
+                    data: {
+                        'telephone': '<{$data["orderInfo"]["order"]["to_user_name"]}>',
+                        tuid: '<{$data["orderInfo"]["order"]["tuid"]}>',
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+    //指派
+    function toAssign() {
+        $('#translator_list').on('click', '.js-assign', function () {
+            var $this = $(this);
+            CommonUtils.confirm('谨慎操作指派，是否进行指派？', function () {
+                $.ajax({
+                    url: URL.TOASSIGN,
+                    data: {
+                        id: $this.attr('data-id'),
+                        tuid: $this.attr('data-uid'),
+                        telephone: $this.attr('data-tel'),
+                        tname: $this.attr('data-tname'),
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+    //审核不通过
+    function cantpassOrder() {
+        $('#cantpassOrder').on('click', null, function () {
+            CommonUtils.confirm('是否确定此译稿不通过审核？', function () {
+                $.ajax({
+                    url: URL.UNPASS,
+                    data: {
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+
+    //审核通过
+    function completeOrder() {
+        $('#completeOrder').on('click', null, function () {
+            CommonUtils.confirm('是否确定此译稿通过审核？', function () {
+                $.ajax({
+                    url: URL.PASS,
+                    data: {
+                        order_num: '<{$data["orderInfo"]["order"]["order_num"]}>'
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                })
+            }, null);
+        });
+    }
+</script>
+</body>
+</html>

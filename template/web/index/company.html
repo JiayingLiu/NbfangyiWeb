@@ -1,0 +1,14 @@
+<div class="home-company">
+    <dl>
+        <dt></dt>
+        <{foreach($data['translation_companies'][0] as $k => $v)}>
+        <dd>
+            <a href="<{$v['url']}>">
+                <img src="<{$v['img_url']}>" height="60" width="60" alt="<{$v['title']}>">
+
+                <p><{$v['title']}></p>
+            </a>
+        </dd>
+        <{/foreach}>
+    </dl>
+</div>

@@ -1,0 +1,72 @@
+<ul class="home-menu">
+    <li>
+        <dl class="menu-item">
+            <dt><a href="javascript:void(0)">语言</a></dt>
+            <{foreach($data['hot_languages'][0] as $k => $v)}>
+            <dd><a href="<{$v['url']}>" class="link"><{$v['source']['name']}></a></dd>
+            <{/foreach}>
+        </dl>
+        <div class="menu-more">
+            <a href="javascript:void(0)" class="menu-more-title"><span>语言</span></a>
+            <{foreach($data['all_langages'] as $k => $v)}>
+            <a href="<{$v['url']}>" class="menu-more-text link"><span><{$v['source']['name']}></span></a>
+            <{/foreach}>
+        </div>
+    </li>
+    <li>
+        <dl class="menu-item">
+            <dt><a href="javascript:void(0)">文件</a></dt>
+            <{foreach($data['hot_translation_categories'][0] as $k => $v)}>
+            <dd><a href="<{$v['url']}>" class="link"><{$v['source']['name']}></a></dd>
+            <{/foreach}>
+        </dl>
+        <div class="menu-more">
+            <a href="javascript:void(0)" class="menu-more-title"><span>文件</span></a>
+            <{foreach($data['all_translation_categories'] as $k => $v)}>
+            <a href="<{$v['url']}>" class="menu-more-text link"><span><{$v['source']['name']}></span></a>
+            <{/foreach}>
+        </div>
+    </li>
+    <li>
+        <dl class="menu-item">
+            <dt><a href="javascript:void(0)">领域</a></dt>
+            <{foreach($data['hot_fields'][0] as $k => $v)}>
+            <dd><a href="<{$v['url']}>" class="link"><{$v['source']['name']}></a></dd>
+            <{/foreach}>
+        </dl>
+        <div class="menu-more">
+            <a href="javascript:void(0)" class="menu-more-title"><span>领域</span></a>
+            <{foreach($data['all_fields'] as $k => $v)}>
+            <a href="<{$v['url']}>" class="menu-more-text link"><span><{$v['source']['name']}></span></a>
+            <{/foreach}>
+        </div>
+    </li>
+    <li>
+        <dl class="menu-item">
+            <dt><a href="javascript:void(0)">专业口译</a></dt>
+            <{foreach($data['hot_interpret_categoryies'][0] as $k => $v)}>
+            <dd><a href="<{$v['url']}>" class="link"><{$v['source']['name']}></a></dd>
+            <{/foreach}>
+        </dl>
+        <div class="menu-more">
+            <a href="javascript:void(0)" class="menu-more-title"><span>专业口译</span></a>
+            <{foreach($data['all_interpret_categoryies'] as $k => $v)}>
+            <a href="<{$v['url']}>" class="menu-more-text link"><span><{$v['source']['name']}></span></a>
+            <{/foreach}>
+        </div>
+    </li>
+    <li>
+        <dl class="menu-item">
+            <dt><a href="javascript:void(0)">热门推荐</a></dt>
+            <{foreach($data['hot_recommend'][0] as $k => $v)}>
+            <dd><a href="<{$v['url']}>" class="link"><{$v['source']['name']}></a></dd>
+            <{/foreach}>
+        </dl>
+        <div class="menu-more">
+            <a href="javascript:void(0)" class="menu-more-title"><span>热门推荐</span></a>
+            <{foreach($data['all_tags'] as $k => $v)}>
+            <a href="<{$v['url']}>" class="menu-more-text link"><span><{$v['source']['name']}></span></a>
+            <{/foreach}>
+        </div>
+    </li>
+</ul>

@@ -1,0 +1,78 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/user/personcenter/person.css">
+<title>N邦翻译 找好翻译，上N邦-绑定银行卡</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="main-body">
+    <div class="footmark">
+        <a href="/">首页</a>&gt;
+        <a href="javascript:void(0);">资金管理</a>&gt;
+        <a href="javascript:void(0);">绑定银行卡</a>
+    </div>
+    <{layout:web/public/person}>
+    <div class="main-label">
+        <div class="label-title">
+            <span class="label-title-text">绑定银行卡</span>
+            <span class="label-title-circle"></span>
+            <span class="label-title-line"></span>
+        </div>
+        <div class="label-content">
+            <!--show-->
+            <div class="label-content-show" id="">
+                <div class="font-remind">
+                    <i class="iconfont icon-remind"></i>
+                    绑定银行卡时需要验证，请务必确认绑定银行卡账户名和平台真实姓名一致，提现需要核实提现用户身份
+                </div>
+                <div class="row">
+                    <form id="add_bc_form" class="add-bc-form">
+                        <input type="hidden" name="mobile" value="<{$data['mobile']}>">
+                        <input type="hidden" name="code" value="<{$data['code']}>">
+                        <div class="form-group">
+                            <div class="col-xs-2 text-right">银行卡号：</div>
+                            <{$data['card_num']}>
+                            <input type="hidden" name="card_num" value="<{$data['card_num']}>">
+                            <div class="col-xs-5">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 text-right">真实姓名：</div>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-input" placeholder="请输入真实姓名" name="real_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 text-right">身份证号：</div>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-input" placeholder="请输入身份证号" name="id_card_num">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 text-right">开户银行：</div>
+                            <div class="col-xs-5">
+                                <select name="bank_name" class="form-input">
+                                    <option value="">请选择</option>
+                                    <{foreach($data['banks'] as $k => $v)}>
+                                    <option value="<{$k}>"><{$v}></option>
+                                    <{/foreach}>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 text-right">开户支行：</div>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-input" placeholder="请输入开户支行" name="bank_address">
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <a href="javascript:void(0);" class="btn btn-submit" id="submit_bank">绑定</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--show end-->
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/bankroll/bc_bind.js"></script>
+<{layout:web/public/foot}>

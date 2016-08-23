@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">平台管理</div>
+        <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+                <div class="form-group">
+                    <label for="searchForm_telephone">手机号</label>
+                    <input type="text" class="form-control" id="searchForm_telephone" placeholder="请输入手机号" name="phone"
+                           value="<{$data['search_param']['phone']}>">
+                </div>
+
+                <button type="button" class="btn btn-default" id="search"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+            </form>
+           <hr>
+            <div class="btn-group" role="group">
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <table class="table table-bordered" id="userList">
+                <tr>
+                    <td>uid</td>
+                    <td>类型</td>
+                    <th>手机号</th>
+                    <th>真实姓名</th>
+                    <th>注册来源</th>
+                    <th>状态</th>
+                    <th>web上次登录时间</th>
+                    <th>app上次登录时间</th>
+                    <th>注册时间</th>
+                    <th>操作</th>
+                </tr>
+                <{foreach($data["list"] as $k => $v)}>
+                <tr>
+                    <td><{$v["uid"]}></td>
+                    <td><{$data["type_list"][$v['type']]}></td>
+                    <td><{$v["phone"]}></td>
+                    <td><{$v["real_name"]}></td>
+                    <td><{$data["from_type_list"][$v['from_type']]}></td>
+                    <td><{$data["status_list"][$v['status']]}></td>
+                    <td><{$v["login_time"]}></td>
+                    <td><{$v["app_login_time"]}></td>
+                    <td><{$v["create_time"]}></td>
+                    <!--10 lock 20 normal -->
+                    <td>
+                        <button  class="btn btn-danger btn-sm js-unlock" data-uid="<{$v['uid']}>"
+                           data-phone="<{$v['phone']}>">模拟该用户登录</button>
+						   &nbsp;&nbsp;
+						   <a href='/' target='_blank'>去体验</a>
+                    </td>
+                </tr>
+                <{/foreach}>
+            </table>
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script>
+    var URL = {
+        SEARCH: '/admin/usercore/super/browse',
+    };
+    $(function () {
+        search();
+        CommonUtils.pagination({
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["total_count"]}>',
+            limit: '<{$data["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+    });
+    //新建清除表单
+    function reset(){
+        document.getElementById('addForm').reset();
+    }
+    //保存事件
+    $('#save').click(function(){
+        $.ajax({
+            url:'/admin/usercore/list/addRegInfo',
+            type:'POST',
+            data:$('#addForm').serialize(),
+            dataType:'json',
+            success:function(data){
+                if (data.status == 0) {
+                    CommonUtils.tips(data.message, 2000, true);
+                } else {
+                    CommonUtils.tips(data.message, 2000, false);
+                }
+            }
+        });
+    });
+    //点击事件
+    $('#userList').on('click', '.btn', function () {
+        var $this = $(this),
+                uid = $this.attr('data-uid'),
+                phone = $this.attr('data-phone'),
+                type = $this.attr('data-type');
+        if ($this.hasClass('js-lock')) {
+
+        } else if ($this.hasClass('js-unlock')) {
+            CommonUtils.confirm('严重警告，请合理是使用该功能，后台将记录您的所有操作。', function () {
+                $.ajax({
+                    url: '/admin/usercore/super/simulationUserLogin',
+                    data: {
+                        uid: uid,
+                        phone: phone
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.status == 0) {
+                            CommonUtils.tips(data.message, 2000, true);
+                        } else {
+                            CommonUtils.tips(data.message, 2000, false);
+                        }
+                    }
+                });
+            }, null);
+        } else {
+            $('#indentity').val(type).attr('data-phone',phone);
+        }
+    });
+
+    //查询
+    function search() {
+        $('#search').click(function () {
+            window.location.href = URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        $('#reset').click(function () {
+            window.location.href = URL.SEARCH;
+        });
+    }
+</script>
+</body>
+</html>

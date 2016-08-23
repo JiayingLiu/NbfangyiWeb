@@ -1,0 +1,36 @@
+<div class="trs-right-title">
+        <span>服务时间</span>
+        <a href="javascript:;"class="pull-right pro-icon-content js-im-trigger" data-chat-id="robinlee"
+           data-chat-name="在线客服" data-chat-logo="<{$css_url}>web/plugin/im/image/custom_ser.jpg">
+            <i class="iconfont icon-contact"></i>
+            在线客服</a>
+    </div>
+<div class="trs-right-content">
+    <div class="row">
+        周一至周五 <{if(empty($data['shop']['work_time'][0]))}>9:00<{else}><{$data['shop']['work_time'][0]}><{/if}>-<{if(empty($data['shop']['work_time'][1]))}>18:00<{else}><{$data['shop']['work_time'][1]}><{/if}>
+    </div>
+    <div class="row">
+        周六至周日 <{if(empty($data['shop']['work_time'][2]))}>9:00<{else}><{$data['shop']['work_time'][2]}><{/if}>-<{if(empty($data['shop']['work_time'][3]))}>18:00<{else}><{$data['shop']['work_time'][3]}><{/if}>
+    </div>
+    </div>
+<div class="fast-adm">
+        <a href="/index/static/translate/index" target="_blank">
+            <img src="<{$css_url}>file/img/search/fast-adm.png">
+        </a>
+    </div>
+<div class="problem-title">
+        <h3>常见问题</h3>
+    </div>
+<div class="problem-list">
+        <ol type="1">
+            <li><a href="/index/index/help/detail?id=21" target="_blank">网站条款</a></li>
+            <li><a href="/index/index/help/detail?id=31" target="_blank">商户入驻协议</a></li>
+            <li><a href="/index/index/help/detail?id=20" target="_blank">关于N邦</a></li>
+            <li><a href="/index/index/help/detail?id=22" target="_blank">消费保障</a></li>
+            <li><a href="/index/index/help/detail?id=25" target="_blank">视频拍摄</a></li>
+            <li><a href="/index/index/help/detail?id=27" target="_blank">支付及提现</a></li>
+            <li><a href="/index/index/help/detail?id=32" target="_blank">问题反馈</a></li>
+            <li><a href="/index/index/help/detail?id=19" target="_blank">官方微信</a></li>
+            <li><a href="/index/index/help/detail?id=19" target="_blank">联系我们</a></li>
+        </ol>
+    </div>

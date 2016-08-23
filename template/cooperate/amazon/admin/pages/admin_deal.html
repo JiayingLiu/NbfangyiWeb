@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>N邦翻译官方管理后台-交易明细</title>
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/normalize.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/common.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/header.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/footer.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/personal.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/model.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/customer/css/common/page.css" rel="stylesheet">
+    <link href="<{$css_url}>/cooperate/amazon/admin/css/admin_deal.css" rel="stylesheet">
+    <script src="<{$js_url}>/cooperate/amazon/customer/js/jquery.min.js"></script>
+    <script src="<{$js_url}>/cooperate/amazon/common/plugin/My97DatePicker/WdatePicker.js"></script>
+</head>
+<body>
+<!--header-->
+<{layout:cooperate/amazon/customer/public/header}>
+<!--header end-->
+<div class="content">
+    <div class="personal">
+        <!--personal-->
+        <{layout:cooperate/amazon/admin/public/personal}>
+        <!--personal end -->
+        <div class="active-region">
+            <div class="myorders">
+                <div class="myorders-top">
+                    <span class="float-left">后台订单管理列表</span>
+                </div>
+                <div class="myorders-con">
+                    <div class="deal-query">
+                        <div class="container">
+                            订单号　：<input type="text" placeholder="请输入订单号999" id="orderId"
+                                        value="<{$data['cond']['order_num']}>">&nbsp;&nbsp;
+                            账户名　：<input type="text" placeholder="请输入账户名" id="accountName"
+                                        value="<{$data['cond']['tel']}>">&nbsp;&nbsp;
+                            <{foreach($pay_type as $k => $v)}>
+                            <label><input type="checkbox" class="js-pay-type" value="<{$k}>"><{$v}></label>
+                            <{/foreach}>
+                        </div>
+                        <div class="container">
+                            交易时间：<input id="dealStartTime" class="Wdate" type="text"
+                                        onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'dealEndTime\')}'})"
+                                        value="<{$data['cond']['start_time']}>"/>—
+                            <input id="dealEndTime" class="Wdate" type="text"
+                                   onFocus="WdatePicker({minDate:'#F{$dp.$D(\'dealStartTime\')}',maxDate:'2020-10-01'})"
+                                   value="<{$data['cond']['end_time']}>"/>
+                            <a href="javascript:;" id="deal_query">搜索</a>
+                        </div>
+                    </div>
+                    <table class="myorders-table">
+                        <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>下单人</th>
+                            <th>商品名称</th>
+                            <th>支付方式</th>
+                            <th>交易金额</th>
+                            <th>账户名</th>
+                            <th>期初余额</th>
+                            <th>期末余额</th>
+                            <th>交易时间</th>
+                            <th>交易状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <{if ( $data["totalCount"] > 0)}>
+                        <{foreach($data["details"] as $k => $v)}>
+                        <tr>
+                            <td><{$v['order_num']}></td>
+                            <td><{$v['order_user_name']}></td>
+                            <td><{$v['title']}></td>
+                            <td><{$pay_type[$v['pay_type']]}></td>
+                            <{if($v['flag'] == '1')}>
+                            <td style="color: green;">+<{$v['amount']}></td>
+                            <{else}>
+                            <td style="color: red;">-<{$v['amount']}></td>
+                            <{/if}>
+                            <td><{$v['telephone']}></td>
+                            <td><{$v['initial_balance']}></td>
+                            <td><{$v['balance']}></td>
+                            <td><{$v['create_time']}></td>
+                            <td>成功</td>
+                        </tr>
+                        <{/foreach}>
+                        <{else}>
+                        <tr>
+                            <td colspan="10">
+                                <div class="orderlist-nodata">
+                                    <p>目前没有订单信息！</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <{/if}>
+                        </tbody>
+                    </table>
+                    <div class="pagination-con">
+                        <div id="pagination"></div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+<{layout:cooperate/amazon/customer/public/footer}>
+<!--footer end-->
+<!--model-->
+<div id="model" class="model">
+    <div class="model-header">
+        <span class="model-title">N邦译牛</span><span class="model-close">X</span></div>
+    <div class="model-content">
+    </div>
+    <div class="model-footer">
+        <a href="javascript:;" class="model-btn model-ok">确定</a>
+        <a href="javascript:;" class="model-btn model-cancel">取消</a>
+    </div>
+</div>
+<div id="mask" class="mask"></div>
+<!--model end-->
+<script src="<{$js_url}>/cooperate/amazon/translator/js/common.js"></script>
+<script>
+    $(function () {
+        //数据回显
+        setQueryPayType();
+
+        //分页
+        var config = {
+            offset: '<{$data["offset"]}>',
+            limit: '<{$data["limit"]}>',
+            total: '<{$data["totalCount"]}>',
+            url: '/admin/pay/finance/index?' + queryData()
+        };
+        CommonUtils.pagination(config);
+
+        //查询
+        $('#deal_query').click(function () {
+            window.location.href = '/admin/pay/finance/index?' + queryData()
+        });
+    });
+    //数据回显
+    function setQueryPayType() {
+        var type = '<{$data["cond"]["str_pay_type"]}>',
+                arr = type.split(',');
+        $.each(arr, function (i,v) {
+            $('.js-pay-type[value="'+v+'"]').prop('checked','checked');
+        })
+    }
+    //查询方法
+    function queryData() {
+        var order_num = $('#orderId').val(),
+                telephone = $('#accountName').val(),
+                dealStartTime = $('#dealStartTime').val(),
+                dealEndTime = $('#dealEndTime').val(),
+                arr = [],
+                arrStr;
+        $.each($('.js-pay-type:checked'), function () {
+            var $this = $(this);
+            arr.push('&pay_type[]=' + $this.val());
+        })
+        arrStr = arr.join('');
+        return 'order_num=' + order_num + '&tel=' + telephone + '&start_time=' + dealStartTime +
+                '&end_time=' + dealEndTime + arrStr;
+    }
+</script>
+</body>
+</html>

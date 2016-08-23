@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<{$css_url}>/admin/plugins/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="<{$css_url}>/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<{$css_url}>/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<{$css_url}>/admin/js/common.js"></script>
+    <script src="<{$js_url}>/admin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <title></title>
+</head>
+<body style="background-color: #ecf0f5;">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading"><{$data['type_name']}></div>
+        <div class="panel-body">
+            
+            <hr>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success" id="add">新建
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!--   <div class="panel-heading">表格数据</div>-->
+        <div class="panel-body">
+            <div class="table-box" >
+                <div class="tableDiv" >
+                <table class="table table-bordered" id="list">
+                <tr>
+                	<th hidden></th>
+                	<th hidden></th>
+                    <th >产品</th>
+                    <th >图片</th>
+                    <th >地址</th>
+                    <th >排序</th>
+                    <th >状态</th>
+					<th >时间</th>
+					<th >操作</th>
+                </tr>
+                <{foreach($data['lists'][0] as $k => $vo)}>
+                <tr>
+                	<td hidden><{$vo['id']}></td>
+                	<td hidden><{$vo['source_id']}></td>
+                    <td><{$vo['source_text']}></td>
+                    <td><{$vo['img_url']}></td>
+                    <td><a href="<{$vo['url']}>" target="_blank"><{$vo['url']}></a></td>
+					<td><{$vo['sort']}></td>
+					<td><{$vo['status_text']}></td>
+					<td><{$vo['create_time']}></td>
+					<td>
+					<button type="button" data-toggle="modal" data-target="#setModal" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-success js-set"
+                                data-id="<{$vo['id']}>">删除</button>
+                                <{if ($vo['status'] ==1)}>
+                                <button type="button" data-toggle="modal" data-target="#disable" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary js-set"
+                                data-id="<{$vo['id']}>">禁用</button>
+                                <{else}>
+                                <button type="button" data-toggle="modal" data-target="#disable" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary js-set"
+                                data-id="<{$vo['id']}>">启用</button>
+                                <{/if}>
+                                <button type="button" data-toggle="modal" data-target="#updateModal" role="button"  style="margin-top: 8px; display: inline-block;" class="btn btn-xs btn-primary js-edit"
+                                data-id="<{$vo['id']}>">编辑</button>
+
+</td>
+                    
+                </tr>
+                <{/foreach}>
+            </table>
+            </div>
+            </div>
+            <!-- /.modal -->
+            <!-- 生成模态弹出窗 -->
+            <div class="modal" id="setModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否删除？</p>
+                            <input type="hidden" name="" id="delete_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="deleteItem" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+             <!-- /.modal -->
+            <!-- 生成模态弹出窗 -->
+            <div class="modal" id="disable">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否执行此操作？</p>
+                            <input type="hidden" name="" id="disable_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="disableItem" data-dismiss="modal">确定
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->           
+            <nav class="text-center">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!--新建窗口-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addModal_title">新建</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="addForm_telephone">语言/类别</label>
+                        <select name="source_id">
+                        <{foreach ($data['categories'] as $k=>$v)}>
+                        <option value="<{$k}>"><{$v}></option>
+                        <{/foreach}>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="addForm_realname">访问地址</label>
+                        <input type="text" class="form-control" id="addForm_realname" name="url" >
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="addForm_price">排序</label>
+                        <input type="text" class="form-control" id="addForm_price" name="sort" placeholder="值越大越靠前" value="<{$data['sort']}>">
+                    </div>
+                    <input type="hidden" name="type" value="<{$data['param_data']['type']}>">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑窗口-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm">
+                <input type="hidden" id="id" name="id">
+                <input type="hidden" id="source_id" name="source_id">
+                    <div class="form-group">
+                    
+                        <label for="addForm_telephone">产品</label>
+                        <label id="product_info"></label>
+                    </div>
+                    <div class="form-group">
+                        <label for="addForm_realname">图片地址</label>
+                        <input type="text" class="form-control" id="update_img_url" name="img_url" >
+                        
+                    </div>                    
+                    <div class="form-group">
+                        <label for="addForm_realname">访问地址</label>
+                        <input type="text" class="form-control" id="update_url" name="url" >
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="addForm_price">排序</label>
+                        <input type="text" class="form-control" id="update_sort" name="sort" placeholder="值越大越靠前" value="<{$data['sort']}>">
+                    </div>
+                    <input type="hidden" name="type" value="<{$data['param_data']['type']}>">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="update">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var URL = {
+        SAVE: '/admin/activity/activity/submit',
+        DELETE: '/admin/activity/activity/delete',
+        DISABLE: '/admin/activity/activity/updateStatus',
+        SEARCH:'/admin/activity/activity/getProductList?type=<{$data['type']}>',
+    };
+    $(function () {
+
+        CommonUtils.pagination({
+            offset: '<{$data["offset"]}>',
+            total: '<{$data["totalCount"]}>',
+            limit: '<{$data["limit"]}>',
+            length: 11,
+            url: URL.SEARCH + '?' + $('#searchForm').serialize()
+        });
+        save();
+        deleteItem();
+        disableItem();
+        editModal();
+    });
+    $('#list').on('click', '.js-set', function () {
+        $('#delete_id').val($(this).attr('data-id'));
+        $('#disable_id').val($(this).attr('data-id'));
+    });
+    //保存
+    function save() {
+        $('#save').click(function () {
+            $.ajax({
+                url: URL.SAVE,
+                data: $('#addForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //删除
+    function deleteItem() {
+        $('#deleteItem').click(function () {
+        	id = $('#delete_id').val();
+
+            $.ajax({
+                url: URL.DELETE+'?id='+id,
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //禁用
+    function disableItem() {
+        $('#disableItem').click(function () {
+        	id = $('#disable_id').val();
+
+            $.ajax({
+                url: URL.DISABLE+'?id='+id,
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            });
+        });
+    }
+    //编辑
+    function editModal() {
+        $('#list').on('click', '.js-edit', function () {
+        	
+            var $this = $(this),
+                    $tr = $this.closest('tr');
+            
+            $('#id').val($tr.find('td').eq(0).text());
+            $('#source_id').val($tr.find('td').eq(1).text());
+            $('#product_info').html($tr.find('td').eq(2).text());
+            $('#update_img_url').val($tr.find('td').eq(3).text());
+            $('#update_url').val($tr.find('td').eq(4).text());
+            $('#update_sort').val($tr.find('td').eq(5).text());
+            
+        });
+        $('#update').on('click', null, function () {
+            $.ajax({
+                url: URL.SAVE,
+                data: $('#updateForm').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        CommonUtils.tips(data.message, 2000, true);
+                    } else {
+                        CommonUtils.tips(data.message, 2000, false);
+                    }
+                }
+            })
+        });
+        $('#add').on('click', null, function () {
+            window.location.href = '/admin/activity/activity/addProduct?type='+<{$data['type']}>;
+        });        
+    }
+</script>
+</body>
+</html>

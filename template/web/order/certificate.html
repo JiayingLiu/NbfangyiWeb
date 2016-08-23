@@ -1,0 +1,147 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/order/order.css">
+<title>N邦翻译 找好翻译，上N邦-证件翻译下单</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<div class="order-main">
+    <div class="order-top">
+        <ul>
+            <li class="col-xs-4 progress-cur">
+                <span class="step"></span>
+                填写订单信息
+            </li>
+            <li class="col-xs-4">
+                <span class="step"></span>
+                确认订单信息
+            </li>
+            <li class="col-xs-4">提交订单</li>
+        </ul>
+    </div>
+    <div class="order-main-contect">
+        <div class="row">
+            <div class="col-xs-2">
+                商品名称：
+            </div>
+            <div class="col-xs-10">
+                <{$data['productInfo']['title']}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                语言：
+            </div>
+            <div class="col-xs-10">
+                <{$data['productInfo']['language']}>--><{$data['productInfo']['to_language']}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                服务类型：
+            </div>
+            <div class="col-xs-10">
+                <{$data['productInfo']['type_name']}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                涉及领域：
+            </div>
+            <div class="col-xs-2">
+                <{$data['productInfo']['field_name']}>
+            </div>
+        </div>
+        <form id="data_form">
+            <input type="hidden" name="translate_content_type" value="4"><!--文件翻译-->
+            <input type="hidden" name="type_name" id="type_name" value="<{$data['productInfo']['type_name']}>">
+            <input type="hidden" name="field_name" id="field_name" value="<{$data['productInfo']['field_name']}>">
+            <input type="hidden" name="product_id" id="product_id" value="<{$data['productInfo']['id']}>">
+            <input type="hidden" name="title" id="title" value="<{$data['productInfo']['title']}>">
+            <input type="hidden" name="language" id="language" value="<{$data['productInfo']['language']}>">
+            <input type="hidden" name="to_language" id="to_language" value="<{$data['productInfo']['to_language']}>">
+            <input type="hidden" name="logo" id="logo" value="<{$data['productInfo']['logo']}>">
+            <input type="hidden" name="shop_id" id="shop_id" value="<{$data['productInfo']['shop_id']}>">
+            <input type="hidden" name="file_or_str" id="file_or_str">
+            <input type="hidden" name="file_name" id="file_name">
+            <div class="col-xs-12 input-tip">
+                <i class="iconfont icon-remind"></i>
+                友情提示 1.证件翻译有两种计费方式，按件计费和按页计费；
+                2.如有多个文件需打包上传，平台根据填写数量计算总价，请如实填写，避免后续的沟通耽误您的安排；
+                3.支持的文件类型有txt,doc,docx,xls,xlsx,pdf,zip,pptx,ppt,gif,jpg,jpeg,png，文件大小不大于50M；
+            </div>
+            <div class="form-group" id="translation_file">
+                <div class="col-xs-12">
+                    <input type="file" id="upload" name="">
+                </div>
+            </div>
+            <div class="form-group data-review" id="data_review">
+                <div class="col-xs-1">
+                    <span>&nbsp;<{$data['productInfo']['price_type_text']}>数：</span>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-input" placeholder="填写你计算的<{$data['productInfo']['price_type_text']}>数" name="total_font_count">
+                </div>
+                <div class="col-xs-1">
+                    <span>&nbsp;单价：</span>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-input" readonly placeholder="价格" value="<{$data['productInfo']['price']}>" name="price">
+                </div>
+                <div class="col-xs-2 text-right">
+                    <span>总价：￥</span>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-input" readonly placeholder="计算总价" name="order_price">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">
+                    <span>预约交稿时间：</span>
+                </div>
+                <div class="col-xs-3">
+                    <input class="form-input" type="text" id="estimate_start" name="estimate_start"
+                           onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',maxDate:'#F{$dp.$D(\'estimate_end\')}',minDate:'%y-%M-%d'});">
+                </div>
+                <div class="col-xs-1 text-center">至</div>
+                <div class="col-xs-3">
+                    <input class="form-input" type="text" id="estimate_end" name="estimate_end"
+                           onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',minDate:'#F{$dp.$D(\'estimate_start\')||\'%y-%M-%d\'}'});">
+                </div>
+                <div class="col-xs-2">
+                    <a href="javascript:void(0);" class="im-openbtn js-im-trigger"
+                       data-chat-id="<{$data['shopInfo']['uid']}>"
+                       data-chat-name="<{$data['shopInfo']['title']}>"
+                       data-chat-logo="<{$file_url}><{$data['shopInfo']['logo']}>">
+                        <i class="iconfont icon-contact"></i>
+                        联系卖家
+                    </a>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2">
+                    选择回稿格式：
+                </div>
+                <{foreach($data['docFormatList'] as $k => $v)}>
+                <div class="col-xs-2">
+                    <label>
+                        <input class="order-input" type="radio" name="doc_format" value="<{$k}>"><{$v}>
+                    </label>
+                </div>
+                <{/foreach}>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <span>备注：</span>
+                </div>
+                <div class="col-xs-12">
+                    <textarea name="desc" placeholder="备注可以使译者更好的了解您的翻译需求！" class="form-textarea"></textarea>
+                </div>
+            </div>
+        </form>
+        <div class="row text-center">
+            <a href="javascript:void(0);" class="order-btn btn-success" id="place_order">下一步</a>
+        </div>
+        <{layout:web/public/ad}>
+    </div>
+</div>
+<script src="<{$css_url}>web/js/order/certificate.js"></script>
+<{layout:web/public/foot}>

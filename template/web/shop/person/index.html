@@ -1,0 +1,106 @@
+<{layout:web/public/head}>
+<link rel="stylesheet" href="<{$css_url}>web/css/style/shop/shop.css">
+<title><{$data['shop']['data']['title']}>翻译-店铺首页【找好翻译,上N邦】</title>
+<{layout:web/public/top}>
+<{layout:web/public/search}>
+<{layout:web/shop/person/item/trs_head}>
+<div class="trs-nav">
+    <ul>
+        <li><a href="/shop/?id=<{$data['shop']['data']['id']}>" class="trs-nav-li-hover">店铺首页</a></li>
+        <li><a href="/shop/index/index/productList?shop_id=<{$data['shop']['data']['id']}>">商品列表</a></li>
+        <li>
+            <a href="/shop/index/index/detail?shop_id=<{$data['shop']['data']['id']}>">
+                <{if($data['shop']['data']['type']== 10)}>
+                译者详情
+                <{else}>
+                公司详情
+                <{/if}>
+            </a>
+        </li>
+        <li><a href="/shop/index/index/evaluate?shop_id=<{$data['shop']['data']['id']}>">服务评价</a></li>
+        <li><a href="/shop/index/index/media?shop_id=<{$data['shop']['data']['id']}>">风采展示</a></li>
+    </ul>
+</div>
+<{layout:web/shop/person/item/trs_banner}>
+<div class="trs-text">
+    <div class="trs-left">
+        <div class="trs-left-title">
+            <span>
+                商品列表
+                <a class="pull-right hover-mover"
+                   href="/shop/index/index/productList?shop_id=<{$data['shop']['data']['id']}>">查看更多</a>
+            </span>
+        </div>
+        <div class="trs-content">
+            <{if($data['products'][1] > 0)}>
+            <ul class="trs-list">
+                <{foreach($data['products'][0] as $k=>$v)}>
+                <{if($k < 8)}>
+                <li>
+                    <a href="/shop/index/index/productDetail?id=<{$v['id']}>">
+                        <img src="<{$file_url}><{$v['logo_s']}>" width="185" height="118">
+                        <!--product title 0 蓝色 1 橘色 2 绿色-->
+                        <{if($k%3 == 0)}>
+                        <p class="pdt-item-title title-bg-blue">
+                            <{if(empty($v['title']))}>未知<{else}><{$v['title']}><{/if}></p>
+                        <{elseif($k%3 == 1)}>
+                        <p class="pdt-item-title title-bg-org">
+                            <{if(empty($v['title']))}>未知<{else}><{$v['title']}><{/if}></p>
+                        <{else}>
+                        <p class="pdt-item-title title-bg-agreen">
+                            <{if(empty($v['title']))}>未知<{else}><{$v['title']}><{/if}></p>
+                        <{/if}>
+                        <p>
+                            <span class="big-size"><{$v['price']}></span>元/<{$v['price_type_text']}>
+                    <span class="pull-right put-city">
+                        <i class="iconfont icon-address color-blue"></i>
+                        <{if(empty($v['city']))}>未知<{else}><{$v['city']}><{/if}>
+                    </span>
+                        </p>
+
+                        <p class="font-clor-blue">
+                    <span class="pull-left">
+                        <{if ($v['type'] == 1)}>
+                        <{$v['language']}>-><{$v['to_language']}>
+                        <{else}>
+                        <{$v['language']}><-><{$v['to_language']}>
+                        <{/if}>
+                    </span>
+                            <span class="pull-right"><{$v['type_name']}></span>
+                        </p>
+
+                        <!--1 written 2 kouyi-->
+                        <{if($v['type'] == 1)}>
+                        <p>文件类型：<{$v['category_name']}></p>
+                        <{else}>
+                        <p>服务类型：<{$v['category_name']}></p>
+                        <{/if}>
+                        <p>适用领域：
+                            <{if(empty($v['field_name']))}>
+                            未知
+                            <{else}>
+                            <{$v['field_name']}>
+                            <{/if}>
+                        </p>
+                    </a>
+                </li>
+                <{/if}>
+                <{/foreach}>
+            </ul>
+            <{else}>
+            <div class="row text-center">商家暂未添加商品！</div>
+            <{/if}>
+        </div>
+        <{layout:web/shop/person/item/trs_ctn_left_shopdetails}>
+        <{layout:web/shop/person/item/trs_ctn_left_media}>
+        <{layout:web/evaluate/shop_evaluate}>
+    </div>
+    <div class="trs-right">
+        <{layout:web/shop/person/item/trs_ctn_right_all}>
+    </div>
+</div>
+<script src="<{$js_url}>web/js/shop/person/index.js"></script>
+<{layout:web/activity/index/appointment}>
+<{layout:web/shop/person/shop_toolbar}>
+<{layout:web/index/sale}>
+<{layout:web/public/foot}>

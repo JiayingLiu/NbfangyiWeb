@@ -1,0 +1,65 @@
+<!--右边内容公司介绍-->
+<div class="trs-right-title">
+    <span>公司简介</span>
+</div>
+<div class="trs-right-content">
+    <{echo htmlspecialchars_decode($data['shop']['data']['detail']);}>
+</div>
+<div class="trs-right-title">
+    <span>店铺认证</span>
+</div>
+<div class="trs-right-content">
+    <div class="row">
+        <{if($data['shop']['data']['type'] == 10)}>
+        <div class="col-product-6">
+            <div class="aut-text">
+                <{if($data['shop']['data']['id_card_ceritfication'] == 1)}>
+                <i class="icon-authentication icon-over-person"></i><span>身份认证</span>
+                <{else}>
+                <{/if}>
+            </div>
+        </div>
+        <div class="col-product-6">
+            <div class="aut-text">
+                <{if($data['shop']['data']['qualification'] == 1)}>
+                <i class="icon-authentication icon-over-qualifications"></i><span>资质认证</span>
+                <{else}>
+                <{/if}>
+            </div>
+        </div>
+        <div class="col-product-6">
+            <div class="aut-text">
+                <{if($data['shop']['data']['education'] == 1)}>
+                <i class="icon-authentication icon-over-education"></i><span>学历认证</span>
+                <{else}>
+                <{/if}>
+            </div>
+        </div>
+        <{else}>
+        <div class="col-product-6">
+            <div class="aut-text">
+                <{if($data['shop']['data']['language'] == 1)}>
+                <i class="icon-authentication icon-over-person"></i><span>语言证书</span>
+                <{else}>
+                <{/if}>
+            </div>
+        </div>
+        <div class="col-product-6">
+            <div class="aut-text">
+                <{if($data['shop']['data']['tax'] == 1)}>
+                <i class="icon-authentication icon-over-tax"></i><span>税务认证</span>
+                <{else}>
+                <{/if}>
+            </div>
+        </div>
+        <div class="col-product-6">
+            <div class="aut-text">
+                <{if($data['shop']['data']['license'] == 1)}>
+                <i class="icon-authentication icon-over-license"></i><span>营业执照</span>
+                <{else}>
+                <{/if}>
+            </div>
+        </div>
+        <{/if}>
+    </div>
+</div>

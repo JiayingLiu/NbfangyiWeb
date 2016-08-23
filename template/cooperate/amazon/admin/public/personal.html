@@ -1,0 +1,48 @@
+<div class="sidebar">
+    <div class="sidebar-menu">
+        <div class="sidebar-look">
+            <div class="look-mask"></div>
+            <img src="<{$css_url}>/cooperate/amazon/customer/css/img/man.jpg" onerror="this.src='<{$css_url}>/cooperate/amazon/customer/css/img/man.jpg'" height="106" width="106" id="side_showLook">
+        </div>
+        <p class="sidebar-phone" id="side_showName"></p>
+<!--
+        <a href="javascript:;" class="place-order" data-model="model">预留按钮</a>
+-->
+        <ul class="sidebar-tree" id="person_menu">
+            <li class="sidebar-trunk">
+                <ul class="sidebar-leaves tree-open">
+                    <li class="sidebar-leaf">
+                        <a data-url="/admin/cooporder/order/orderList" data-id="0" href="javascript:;">订单管理</a>
+                    </li>
+                    <li class="sidebar-leaf">
+                        <a data-url="/admin/cooporder/translatorUser/index" data-id="1" href="javascript:;">译者列表</a>
+                    </li>
+                    <li class="sidebar-leaf">
+                        <a data-url="/admin/pay/finance/index" data-id="2" href="javascript:;">交易明细</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    $(function () {
+        handleTreeClick();
+    })
+    //树的点击事件
+    function handleTreeClick() {
+        var $menu = $('#person_menu'), nav = window.sessionStorage.nav;
+        nav = nav ? nav : '0';
+        $menu.find('.sidebar-leaf').each(function () {
+            var $this = $(this), $a = $this.find('a');
+            $.trim($a.attr('data-id')) == nav && $this.addClass('tree-selected');
+        });
+        $menu.on('click', '.sidebar-leaf', function () {
+            var $this = $(this), $select = $this.find('a');
+            if ($this.hasClass('sidebar-leaf')) {
+                window.sessionStorage.nav = $select.attr('data-id');
+                window.location.href = $select.attr('data-url');
+            }
+        })
+    }
+</script>
